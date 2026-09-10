@@ -1,0 +1,949 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+
+  --purple: #7438c8;
+  --pink: #ef4c93;
+  --blue: #27aee4;
+  --yellow: #ffc928;
+  --green: #69c95a;
+
+  --ink: #27305f;
+  --cream: #fffaf4;
+
+  --shadow:
+    0 14px 35px rgba(63, 42, 104, 0.15);
+}
+
+
+html,
+body {
+
+  margin: 0;
+
+  min-height: 100%;
+
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7eaff,
+      #e9f8ff
+    );
+
+  color: var(--ink);
+}
+
+
+body {
+
+  min-height: 100vh;
+
+}
+
+
+button {
+
+  font: inherit;
+
+}
+
+
+/* صفحات */
+
+.screen {
+
+  display: none;
+
+  min-height: 100vh;
+
+  padding: 18px;
+
+}
+
+
+.screen.active {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+/* صفحه شروع */
+
+.cover-card,
+.finish-card {
+
+  width: min(720px, 100%);
+
+  background:
+    rgba(255, 250, 244, 0.96);
+
+  border:
+    4px solid #f0b6dc;
+
+  border-radius: 34px;
+
+  padding: 28px;
+
+  text-align: center;
+
+  box-shadow: var(--shadow);
+
+  position: relative;
+
+  overflow: hidden;
+
+}
+
+
+.sparkles {
+
+  font-size: 34px;
+
+  color: var(--pink);
+
+  letter-spacing: 18px;
+
+  margin-bottom: 8px;
+
+}
+
+
+.teacher-photo {
+
+  width: min(300px, 70vw);
+
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border:
+    9px solid white;
+
+  box-shadow:
+    0 8px 24px
+    rgba(90, 53, 125, 0.2);
+
+}
+
+
+.cover-title {
+
+  font-size:
+    clamp(34px, 8vw, 58px);
+
+  font-weight: 900;
+
+  color: var(--pink);
+
+  margin-top: 18px;
+
+}
+
+
+.cover-subtitle {
+
+  display: inline-block;
+
+  margin: 10px 0;
+
+  padding: 9px 22px;
+
+  border-radius: 30px;
+
+  background: #eee0ff;
+
+  color: var(--purple);
+
+  font-weight: 800;
+
+  font-size:
+    clamp(17px, 4vw, 24px);
+
+}
+
+
+.cover-text {
+
+  font-size:
+    clamp(17px, 4vw, 22px);
+
+  line-height: 2;
+
+  margin:
+    12px auto 22px;
+
+  max-width: 590px;
+
+}
+
+
+/* دکمه‌ها */
+
+.primary-btn,
+.secondary-btn {
+
+  border: 0;
+
+  border-radius: 20px;
+
+  padding: 14px 28px;
+
+  cursor: pointer;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 7px 0 rgba(0, 0, 0, 0.08);
+
+  transition: 0.15s;
+
+  touch-action: manipulation;
+
+}
+
+
+.primary-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ef4c93,
+      #7438c8
+    );
+
+  color: white;
+
+}
+
+
+.secondary-btn {
+
+  background: white;
+
+  border:
+    2px solid #d7c3f4;
+
+  color: var(--purple);
+
+}
+
+
+.primary-btn:active,
+.secondary-btn:active {
+
+  transform: translateY(3px);
+
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.08);
+
+}
+
+
+.credit {
+
+  margin-top: 20px;
+
+  font-weight: 800;
+
+  color: #6a5a86;
+
+}
+
+
+/* صفحه بازی */
+
+#game {
+
+  align-items: stretch;
+
+  justify-content: flex-start;
+
+  flex-direction: column;
+
+  max-width: 1100px;
+
+  margin: auto;
+
+  width: 100%;
+
+  position: relative;
+
+}
+
+
+.game-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  align-items: center;
+
+  background:
+    rgba(255, 255, 255, 0.85);
+
+  border:
+    3px solid #e0cdf8;
+
+  border-radius: 24px;
+
+  padding: 14px 18px;
+
+}
+
+
+.game-title {
+
+  font-size:
+    clamp(22px, 4vw, 34px);
+
+  font-weight: 900;
+
+  color: var(--purple);
+
+}
+
+
+.instruction {
+
+  font-size:
+    clamp(14px, 2.8vw, 18px);
+
+  margin-top: 5px;
+
+}
+
+
+.stats {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  white-space: nowrap;
+
+  font-weight: 900;
+
+  color: #5d477e;
+
+  text-align: left;
+
+}
+
+
+/* نوار پیشرفت */
+
+.progress {
+
+  height: 12px;
+
+  background: #e7dcf5;
+
+  border-radius: 99px;
+
+  overflow: hidden;
+
+  margin: 12px 2px;
+
+}
+
+
+#progressBar {
+
+  height: 100%;
+
+  width: 12.5%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--pink),
+      var(--purple)
+    );
+
+  border-radius: 99px;
+
+  transition: 0.35s;
+
+}
+
+
+/* کارت سؤال */
+
+.question-card {
+
+  background:
+    rgba(255, 255, 255, 0.95);
+
+  border:
+    3px solid #e5d8f4;
+
+  border-radius: 28px;
+
+  padding: 18px;
+
+  box-shadow: var(--shadow);
+
+  flex: 1;
+
+}
+
+
+.sample-badge {
+
+  display: inline-block;
+
+  background: #fff1bd;
+
+  color: #805b00;
+
+  border-radius: 20px;
+
+  padding: 7px 13px;
+
+  font-weight: 900;
+
+  margin-bottom: 8px;
+
+}
+
+
+.question-text {
+
+  font-size:
+    clamp(18px, 3.5vw, 25px);
+
+  font-weight: 900;
+
+  text-align: center;
+
+  margin:
+    4px 0 18px;
+
+}
+
+
+/* ردیف الگو */
+
+.pattern-row {
+
+  display: flex;
+
+  direction: rtl;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  min-height: 120px;
+
+}
+
+
+.slot {
+
+  width:
+    clamp(58px, 10vw, 92px);
+
+  height:
+    clamp(58px, 10vw, 92px);
+
+  border:
+    3px dashed #cfc1e8;
+
+  border-radius: 18px;
+
+  background: #fbf9ff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  position: relative;
+
+}
+
+
+/* شکل‌ها */
+
+.shape {
+
+  width: 68%;
+
+  height: 68%;
+
+  display: block;
+
+}
+
+
+.shape.circle {
+
+  border-radius: 50%;
+
+}
+
+
+.shape.square {
+
+  border-radius: 13%;
+
+}
+
+
+.shape.triangle {
+
+  width: 0;
+
+  height: 0;
+
+  border-left:
+    34px solid transparent;
+
+  border-right:
+    34px solid transparent;
+
+  border-bottom:
+    62px solid currentColor;
+
+}
+
+
+.shape.star {
+
+  font-size:
+    clamp(42px, 7vw, 64px);
+
+  line-height: 1;
+
+}
+
+
+.shape.heart {
+
+  font-size:
+    clamp(42px, 7vw, 64px);
+
+  line-height: 1;
+
+}
+
+
+.red {
+  background: #ef4b57;
+}
+
+
+.blue {
+  background: #37a8e8;
+}
+
+
+.yellow {
+  background: #ffc33c;
+}
+
+
+.green {
+  background: #62c95b;
+}
+
+
+.purple {
+  background: #8d5bd3;
+}
+
+
+.pink {
+  background: #ef5d9f;
+}
+
+
+.shape.triangle.red {
+  color: #ef4b57;
+  background: none;
+}
+
+
+.shape.triangle.blue {
+  color: #37a8e8;
+  background: none;
+}
+
+
+.shape.triangle.yellow {
+  color: #ffc33c;
+  background: none;
+}
+
+
+.shape.triangle.green {
+  color: #62c95b;
+  background: none;
+}
+
+
+.shape.triangle.purple {
+  color: #8d5bd3;
+  background: none;
+}
+
+
+/* علامت سؤال */
+
+.slot.missing {
+
+  border-style: dashed;
+
+  border-color: var(--pink);
+
+  background: #fff7fb;
+
+  color: var(--pink);
+
+  font-size: 35px;
+
+  font-weight: 900;
+
+}
+
+
+/* جابه‌جایی شکل‌ها */
+
+.drag-row {
+
+  display: flex;
+
+  direction: rtl;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+  min-height: 130px;
+
+}
+
+
+.draggable {
+
+  cursor: grab;
+
+  user-select: none;
+
+  touch-action: none;
+
+  box-shadow:
+    0 5px 12px
+    rgba(50, 40, 90, 0.12);
+
+}
+
+
+.draggable.dragging {
+
+  opacity: 0.45;
+
+  transform: scale(0.96);
+
+}
+
+
+/* گزینه‌ها */
+
+.choices {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin:
+    20px auto 5px;
+
+}
+
+
+.choice {
+
+  min-width: 82px;
+
+  height: 72px;
+
+  padding:
+    8px 18px;
+
+  border:
+    3px solid #e2d5f4;
+
+  border-radius: 18px;
+
+  background: white;
+
+  cursor: pointer;
+
+  font-weight: 900;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  touch-action: manipulation;
+
+}
+
+
+.choice.selected {
+
+  border-color: var(--pink);
+
+  background: #fff0f7;
+
+  transform: translateY(-2px);
+
+}
+
+
+/* بازخورد */
+
+.feedback {
+
+  text-align: center;
+
+  min-height: 38px;
+
+  font-size: 18px;
+
+  font-weight: 900;
+
+  padding-top: 8px;
+
+}
+
+
+.feedback.ok {
+
+  color: #258a38;
+
+}
+
+
+.feedback.no {
+
+  color: #c43658;
+
+}
+
+
+/* دکمه پایین */
+
+.bottom-actions {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  padding: 14px;
+
+}
+
+
+/* امضا */
+
+.small-signature {
+
+  width:
+    min(180px, 32vw);
+
+  height: auto;
+
+  object-fit: contain;
+
+  align-self: center;
+
+  opacity: 0.9;
+
+  margin:
+    0 auto 3px;
+
+}
+
+
+/* مخفی */
+
+.hidden {
+
+  display: none !important;
+
+}
+
+
+/* پایان */
+
+.finish-emoji {
+
+  font-size: 52px;
+
+}
+
+
+.finish-card h1 {
+
+  font-size: 50px;
+
+  color: var(--pink);
+
+  margin: 8px;
+
+}
+
+
+.final-score {
+
+  font-size: 28px;
+
+  font-weight: 900;
+
+  color: var(--purple);
+
+  margin: 18px;
+
+}
+
+
+/* موبایل */
+
+@media (max-width: 600px) {
+
+  .screen {
+
+    padding: 10px;
+
+  }
+
+  .cover-card,
+  .finish-card {
+
+    padding: 18px;
+
+    border-radius: 26px;
+
+  }
+
+  .game-header {
+
+    padding: 10px 12px;
+
+  }
+
+  .stats {
+
+    font-size: 13px;
+
+  }
+
+  .question-card {
+
+    padding: 12px;
+
+  }
+
+  .slot {
+
+    border-width: 2px;
+
+  }
+
+  .pattern-row,
+  .drag-row {
+
+    gap: 6px;
+
+  }
+
+  .primary-btn,
+  .secondary-btn {
+
+    padding:
+      12px 20px;
+
+  }
+
+}
+/* متن اصلی صفحه شروع */
+
+.main-question {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 900;
+  line-height: 1.9;
+  color: #49317a;
+  margin: 20px auto 10px;
+}
+
+
+/* شکل کوچک تزئینی */
+
+.little-shapes {
+  font-size: clamp(28px, 6vw, 42px);
+  letter-spacing: 7px;
+  margin: 8px 0 22px;
+}
+
+
+/* عنوان صفحه شروع */
+
+.cover-title {
+  font-size: clamp(32px, 8vw, 52px);
+  font-weight: 900;
+  color: #7438c8;
+  margin-top: 18px;
+}
+
+
+/* زیرعنوان */
+
+.cover-subtitle {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  background: #f4e5ff;
+  color: #7438c8;
+  font-weight: 800;
+  font-size: clamp(17px, 4vw, 23px);
+}
