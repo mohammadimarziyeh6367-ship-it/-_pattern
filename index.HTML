@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7438c8">
+
+  <title>الگوی منظم | ریاضی پایه اول</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main id="app">
+
+    <!-- =========================
+         صفحه شروع
+    ========================== -->
+
+    <section id="cover" class="screen active">
+
+      <div class="cover-card">
+
+        <!-- عکس معلم -->
+        <img
+          class="teacher-photo"
+          src="teacher.jpg"
+          alt="عکس"
+        >
+
+        <div class="cover-title">
+          🌸 الگوی منظم 🌸
+        </div>
+
+        <div class="cover-subtitle">
+          ریاضی پایه اول دبستان
+        </div>
+
+        <div class="main-question">
+          الگو را پیدا کن
+          <br>
+          و سپس الگو را ادامه بده.
+        </div>
+
+        <div class="little-shapes">
+          🔵 🟡 🔵 🟡
+        </div>
+
+        <button
+          id="startBtn"
+          class="primary-btn">
+          شروع بازی 🎮
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         صفحه بازی
+    ========================== -->
+
+    <section id="game" class="screen">
+
+      <header class="game-header">
+
+        <div class="header-right">
+
+          <div class="game-title">
+            الگوی منظم
+          </div>
+
+          <div
+            id="instruction"
+            class="instruction">
+          </div>
+
+        </div>
+
+        <div class="stats">
+
+          <span id="levelLabel">
+            مرحله ۱
+          </span>
+
+          <span id="scoreLabel">
+            امتیاز: ۰
+          </span>
+
+        </div>
+
+      </header>
+
+
+      <!-- نوار پیشرفت -->
+
+      <div class="progress">
+
+        <div id="progressBar"></div>
+
+      </div>
+
+
+      <!-- کارت سؤال -->
+
+      <section class="question-card">
+
+        <div
+          id="sampleBadge"
+          class="sample-badge hidden">
+          نمونهٔ حل‌شده
+        </div>
+
+
+        <div
+          id="questionText"
+          class="question-text">
+        </div>
+
+
+        <!-- محل نمایش الگو -->
+
+        <div id="patternArea"></div>
+
+
+        <!-- گزینه‌ها -->
+
+        <div
+          id="choices"
+          class="choices">
+        </div>
+
+
+        <!-- پیام درست یا غلط -->
+
+        <div
+          id="feedback"
+          class="feedback"
+          aria-live="polite">
+        </div>
+
+      </section>
+
+
+      <!-- دکمه‌ها -->
+
+      <div class="bottom-actions">
+
+        <button
+          id="checkBtn"
+          class="primary-btn hidden">
+          بررسی پاسخ ✓
+        </button>
+
+
+        <button
+          id="nextBtn"
+          class="secondary-btn hidden">
+          مرحله بعد ←
+        </button>
+
+      </div>
+
+
+      <!-- امضای کوچک در پایین صفحه بازی -->
+
+      <img
+        class="small-signature"
+        src="signature.png"
+        alt="امضا">
+
+    </section>
+
+
+    <!-- =========================
+         صفحه پایان
+    ========================== -->
+
+    <section id="finish" class="screen">
+
+      <div class="finish-card">
+
+        <div class="finish-emoji">
+          🌟🎉🌸
+        </div>
+
+        <h1>
+          آفرین!
+        </h1>
+
+        <p>
+          الگوها را با دقت پیدا کردی.
+        </p>
+
+        <div
+          id="finalScore"
+          class="final-score">
+        </div>
+
+        <button
+          id="restartBtn"
+          class="primary-btn">
+          دوباره بازی می‌کنم
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
