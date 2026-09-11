@@ -33,62 +33,312 @@ const shapes = {
 
 const levels = [
 
-  /* مرحله نمونه */
+  /* ==================================
+     نمونه
+     ================================== */
 
   {
     type: "sample",
 
     text:
-      "به الگو دقت کن. شکل بعدی را پیدا کن.",
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
 
     pattern: [
-
       ["circle", "blue"],
-      ["heart", "pink"],
-
+      ["circle", "yellow"],
       ["circle", "blue"],
-      ["heart", "pink"],
-
+      ["circle", "yellow"],
       ["circle", "blue"],
-      ["heart", "pink"]
-
+      ["circle", "yellow"]
     ]
   },
 
 
-  /* مرحله ۱ */
+  /* ==================================
+     مرحله ۱
+     الگوی ساده دو شکلی
+     ================================== */
 
   {
     type: "missing",
 
     text:
-      "کدام شکل باید جای علامت سؤال قرار بگیرد؟",
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
 
     pattern: [
-
-      ["circle", "red"],
-      ["triangle", "yellow"],
-
-      null,
-
-      ["triangle", "yellow"],
-      ["circle", "red"],
-      ["triangle", "yellow"]
-
+      ["circle", "blue"],
+      ["circle", "yellow"],
+      ["circle", "blue"],
+      ["circle", "yellow"],
+      ["circle", "blue"],
+      null
     ],
 
     options: [
+      ["circle", "blue"],
+      ["circle", "yellow"]
+    ],
 
-      ["circle", "red"],
-      ["triangle", "yellow"]
+    answer: 1
+  },
 
+
+  /* ==================================
+     مرحله ۲
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["square", "green"],
+      ["triangle", "purple"],
+      ["square", "green"],
+      ["triangle", "purple"],
+      ["square", "green"],
+      null
+    ],
+
+    options: [
+      ["triangle", "purple"],
+      ["square", "green"]
     ],
 
     answer: 0
   },
 
 
-  /* مرحله ۲ */
+  /* ==================================
+     مرحله ۳
+     دو شکل با شکل‌های متفاوت
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["heart", "pink"],
+      ["star", "yellow"],
+      ["heart", "pink"],
+      ["star", "yellow"],
+      ["heart", "pink"],
+      null
+    ],
+
+    options: [
+      ["heart", "pink"],
+      ["star", "yellow"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۴
+     الگوی AAB
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["circle", "blue"],
+      ["circle", "blue"],
+      ["square", "yellow"],
+
+      ["circle", "blue"],
+      ["circle", "blue"],
+      ["square", "yellow"],
+
+      ["circle", "blue"],
+      null
+    ],
+
+    options: [
+      ["square", "yellow"],
+      ["circle", "blue"],
+      ["triangle", "green"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۵
+     الگوی ABB
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["triangle", "purple"],
+      ["circle", "yellow"],
+      ["circle", "yellow"],
+
+      ["triangle", "purple"],
+      ["circle", "yellow"],
+      ["circle", "yellow"],
+
+      ["triangle", "purple"],
+      null
+    ],
+
+    options: [
+      ["triangle", "purple"],
+      ["circle", "yellow"],
+      ["square", "green"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۶
+     الگوی ABC
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["circle", "red"],
+      ["square", "green"],
+      ["triangle", "yellow"],
+
+      ["circle", "red"],
+      ["square", "green"],
+      ["triangle", "yellow"],
+
+      ["circle", "red"],
+      ["square", "green"],
+      null
+    ],
+
+    options: [
+      ["circle", "red"],
+      ["triangle", "yellow"],
+      ["square", "green"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۷
+     جای خالی در وسط الگو
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و شکل گمشده را پیدا کن.",
+
+    pattern: [
+      ["circle", "blue"],
+      ["star", "yellow"],
+      ["circle", "blue"],
+      null,
+      ["circle", "blue"],
+      ["star", "yellow"]
+    ],
+
+    options: [
+      ["circle", "blue"],
+      ["star", "yellow"],
+      ["heart", "pink"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۸
+     الگوی AAB با جای خالی
+     ================================== */
+
+  {
+    type: "missing",
+
+    text:
+      "الگو را پیدا کن و سپس الگو را ادامه بده.",
+
+    pattern: [
+      ["heart", "pink"],
+      ["heart", "pink"],
+      ["circle", "blue"],
+
+      ["heart", "pink"],
+      ["heart", "pink"],
+      ["circle", "blue"],
+
+      ["heart", "pink"],
+      ["heart", "pink"],
+      null
+    ],
+
+    options: [
+      ["heart", "pink"],
+      ["circle", "blue"],
+      ["star", "yellow"]
+    ],
+
+    answer: 1
+  },
+
+
+  /* ==================================
+     مرحله ۹
+     جابه‌جایی چهار شکل
+     ================================== */
+
+  {
+    type: "reorder",
+
+    text:
+      "شکل‌ها را جابه‌جا کن تا الگوی منظم درست شود.",
+
+    pieces: [
+      ["circle", "blue"],
+      ["triangle", "yellow"],
+      ["circle", "blue"],
+      ["triangle", "yellow"]
+    ],
+
+    target: [
+      ["circle", "blue"],
+      ["triangle", "yellow"],
+      ["circle", "blue"],
+      ["triangle", "yellow"]
+    ]
+  },
+
+
+  /* ==================================
+     مرحله ۱۰
+     جابه‌جایی الگوی سه‌تایی
+     ================================== */
 
   {
     type: "reorder",
@@ -97,233 +347,96 @@ const levels = [
       "شکل‌ها را جابه‌جا کن تا الگو منظم شود.",
 
     pieces: [
+      ["circle", "red"],
+      ["triangle", "green"],
+      ["square", "yellow"],
 
-      ["circle", "blue"],
-      ["triangle", "yellow"],
-
-      ["circle", "blue"],
-      ["triangle", "yellow"],
-
-      ["triangle", "yellow"],
-      ["circle", "blue"]
-
+      ["square", "yellow"],
+      ["circle", "red"],
+      ["triangle", "green"]
     ],
 
     target: [
+      ["circle", "red"],
+      ["triangle", "green"],
+      ["square", "yellow"],
 
-      ["circle", "blue"],
-      ["triangle", "yellow"],
-
-      ["circle", "blue"],
-      ["triangle", "yellow"],
-
-      ["circle", "blue"],
-      ["triangle", "yellow"]
-
+      ["circle", "red"],
+      ["triangle", "green"],
+      ["square", "yellow"]
     ]
   },
 
 
-  /* مرحله ۳ */
+  /* ==================================
+     مرحله ۱۱
+     حذف شکل اضافه
+     ================================== */
 
   {
-    type: "missing",
+    type: "remove",
 
     text:
-      "الگو را پیدا کن و شکل گمشده را انتخاب کن.",
+      "کدام شکل را حذف کنیم تا الگو منظم شود؟",
 
     pattern: [
+      ["circle", "blue"],
+      ["triangle", "yellow"],
+      ["circle", "blue"],
+      ["triangle", "yellow"],
 
-      ["star", "yellow"],
-      ["star", "purple"],
-      ["heart", "pink"],
-
-      ["star", "yellow"],
-      null,
-
-      ["heart", "pink"]
-
+      ["circle", "blue"],
+      ["star", "pink"],
+      ["triangle", "yellow"]
     ],
 
     options: [
-
-      ["star", "purple"],
-      ["heart", "pink"],
-      ["star", "yellow"]
-
+      ["star", "pink"],
+      ["circle", "blue"],
+      ["triangle", "yellow"]
     ],
 
     answer: 0
   },
 
 
-  /* مرحله ۴ */
-
-  {
-    type: "reorder",
-
-    text:
-      "این بار الگو سه‌شکلی است؛ شکل‌ها را مرتب کن.",
-
-    pieces: [
-
-      ["square", "green"],
-      ["circle", "pink"],
-      ["triangle", "blue"],
-
-      ["circle", "pink"],
-      ["triangle", "blue"],
-      ["square", "green"],
-
-      ["triangle", "blue"],
-      ["square", "green"],
-      ["circle", "pink"]
-
-    ],
-
-    target: [
-
-      ["square", "green"],
-      ["circle", "pink"],
-      ["triangle", "blue"],
-
-      ["square", "green"],
-      ["circle", "pink"],
-      ["triangle", "blue"],
-
-      ["square", "green"],
-      ["circle", "pink"],
-      ["triangle", "blue"]
-
-    ]
-  },
-
-
-  /* مرحله حذف */
-
-  {
-    type: "remove",
-
-    text:
-      "کدام شکل باید حذف شود تا الگو منظم شود؟",
-
-    pattern: [
-
-      ["heart", "pink"],
-      ["heart", "pink"],
-      ["circle", "blue"],
-
-      ["heart", "pink"],
-      ["heart", "pink"],
-
-      ["star", "yellow"],
-
-      ["heart", "pink"],
-      ["heart", "pink"],
-      ["circle", "blue"]
-
-    ],
-
-    options: [
-
-      ["circle", "blue"],
-      ["star", "yellow"]
-
-    ],
-
-    answer: 1
-  },
-
-
-  /* مرحله سخت */
-
-  {
-    type: "reorder",
-
-    text:
-      "الگو را با دقت بیشتری دنبال کن و همهٔ شکل‌ها را مرتب کن.",
-
-    pieces: [
-
-      ["circle", "purple"],
-      ["square", "yellow"],
-      ["square", "yellow"],
-
-      ["circle", "purple"],
-      ["triangle", "green"],
-      ["square", "yellow"],
-
-      ["circle", "purple"],
-      ["triangle", "green"],
-      ["square", "yellow"],
-      ["triangle", "green"]
-
-    ],
-
-    target: [
-
-      ["circle", "purple"],
-      ["square", "yellow"],
-      ["triangle", "green"],
-
-      ["circle", "purple"],
-      ["square", "yellow"],
-      ["triangle", "green"],
-
-      ["circle", "purple"],
-      ["square", "yellow"],
-      ["triangle", "green"]
-
-    ]
-  },
-
-
-  /* آخرین مرحله */
+  /* ==================================
+     مرحله ۱۲
+     چالش پایانی
+     ================================== */
 
   {
     type: "missing",
 
     text:
-      "مرحلهٔ سخت‌تر! الگوی سه‌شکلی را کامل کن.",
+      "الگوی منظم را پیدا کن و آن را کامل کن.",
 
     pattern: [
-
-      ["circle", "red"],
-      ["circle", "red"],
+      ["circle", "purple"],
+      ["circle", "purple"],
       ["triangle", "green"],
 
       ["star", "yellow"],
-      ["circle", "red"],
-      null,
+      ["circle", "purple"],
+      ["circle", "purple"],
 
+      ["triangle", "green"],
       ["star", "yellow"],
-      ["circle", "red"],
-      ["circle", "red"]
+      ["circle", "purple"],
 
+      null
     ],
 
     options: [
-
-      ["circle", "red"],
+      ["circle", "purple"],
       ["triangle", "green"],
       ["star", "yellow"]
-
     ],
 
     answer: 1
   }
 
 ];
-
-
-let level = 0;
-
-let score = 0;
-
-let selected = null;
-
-let currentPieces = [];
-
 
 /* تغییر صفحه */
 
