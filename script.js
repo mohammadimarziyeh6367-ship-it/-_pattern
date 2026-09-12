@@ -1,9 +1,14 @@
-const $ = id => document.getElementById(id);
+/* =========================================================
+   ابزار اصلی
+========================================================= */
+
+const $ = id =>
+  document.getElementById(id);
 
 
-/* ==========================================
-   شکل‌های بازی
-========================================== */
+/* =========================================================
+   شکل‌ها
+========================================================= */
 
 const shapes = {
 
@@ -25,17 +30,13 @@ const shapes = {
 };
 
 
-/* ==========================================
+/* =========================================================
    مراحل بازی
-   از ساده به دشوار
-========================================== */
+========================================================= */
 
 const levels = [
 
-  /* -----------------------------------------
-     نمونه
-  ----------------------------------------- */
-
+  /* ۱ */
   {
     type: "sample",
 
@@ -43,21 +44,20 @@ const levels = [
       "به الگو با دقت نگاه کن.",
 
     pattern: [
+
       ["circle", "blue"],
       ["circle", "yellow"],
       ["circle", "blue"],
       ["circle", "yellow"],
       ["circle", "blue"],
       ["circle", "yellow"]
+
     ]
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۱
-     انتخاب شکل
-  ----------------------------------------- */
-
+  /* ۲ */
   {
     type: "missing",
 
@@ -65,29 +65,30 @@ const levels = [
       "الگو را پیدا کن و شکل مناسب را در جای خالی قرار بده.",
 
     pattern: [
+
       ["circle", "blue"],
       ["circle", "yellow"],
       ["circle", "blue"],
       ["circle", "yellow"],
       ["circle", "blue"],
       null
+
     ],
 
     options: [
+
       ["circle", "blue"],
       ["circle", "yellow"],
       ["square", "green"]
+
     ],
 
     answer: 1
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۲
-     انتخاب شکل
-  ----------------------------------------- */
-
+  /* ۳ */
   {
     type: "missing",
 
@@ -95,36 +96,38 @@ const levels = [
       "الگو را پیدا کن و جای خالی را کامل کن.",
 
     pattern: [
+
       ["square", "green"],
       ["triangle", "purple"],
       ["square", "green"],
       ["triangle", "purple"],
       ["square", "green"],
       null
+
     ],
 
     options: [
+
       ["square", "green"],
       ["triangle", "purple"],
       ["circle", "red"]
+
     ],
 
     answer: 1
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۳
-     الگوی سه‌تایی
-  ----------------------------------------- */
-
+  /* ۴ */
   {
     type: "missing",
 
     text:
-      "الگو را پیدا کن و شکل گمشده را انتخاب کن.",
+      "الگوی سه‌تایی را پیدا کن و شکل گمشده را قرار بده.",
 
     pattern: [
+
       ["circle", "red"],
       ["square", "green"],
       ["triangle", "yellow"],
@@ -136,23 +139,23 @@ const levels = [
       ["circle", "red"],
       ["square", "green"],
       null
+
     ],
 
     options: [
+
       ["circle", "red"],
       ["triangle", "yellow"],
       ["square", "green"]
+
     ],
 
     answer: 1
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۴
-     AAB
-  ----------------------------------------- */
-
+  /* ۵ */
   {
     type: "missing",
 
@@ -160,6 +163,7 @@ const levels = [
       "الگوی منظم را پیدا کن و جای خالی را کامل کن.",
 
     pattern: [
+
       ["circle", "blue"],
       ["circle", "blue"],
       ["star", "yellow"],
@@ -171,23 +175,23 @@ const levels = [
       ["circle", "blue"],
       ["circle", "blue"],
       null
+
     ],
 
     options: [
+
       ["circle", "blue"],
       ["star", "yellow"],
       ["heart", "pink"]
+
     ],
 
     answer: 1
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۵
-     جای خالی وسط
-  ----------------------------------------- */
-
+  /* ۶ */
   {
     type: "missing",
 
@@ -195,33 +199,30 @@ const levels = [
       "به دو طرف جای خالی نگاه کن و شکل مناسب را پیدا کن.",
 
     pattern: [
+
       ["heart", "pink"],
       ["star", "yellow"],
       ["heart", "pink"],
       null,
       ["heart", "pink"],
       ["star", "yellow"]
+
     ],
 
     options: [
+
       ["heart", "pink"],
       ["star", "yellow"],
       ["circle", "blue"]
+
     ],
 
     answer: 1
+
   },
 
 
-  /* =========================================
-     بخش دوم:
-     جابه‌جایی شکل‌ها
-  ========================================== */
-
-  /* -----------------------------------------
-     مرحله ۶
-  ----------------------------------------- */
-
+  /* ۷ */
   {
     type: "reorder",
 
@@ -229,59 +230,59 @@ const levels = [
       "شکل‌ها را جابه‌جا کن تا الگوی منظم ساخته شود.",
 
     pieces: [
+
       ["triangle", "yellow"],
       ["circle", "blue"],
       ["triangle", "yellow"],
       ["circle", "blue"]
+
     ],
 
     target: [
+
       ["circle", "blue"],
       ["triangle", "yellow"],
       ["circle", "blue"],
       ["triangle", "yellow"]
+
     ]
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۷
-     الگوی سه‌تایی
-  ----------------------------------------- */
-
+  /* ۸ */
   {
     type: "reorder",
 
     text:
-      "شکل‌ها را جابه‌جا کن تا الگوی منظم ساخته شود.",
+      "شکل‌ها را جابه‌جا کن تا الگوی سه‌تایی ساخته شود.",
 
     pieces: [
+
       ["square", "yellow"],
       ["circle", "red"],
       ["triangle", "green"],
-
       ["triangle", "green"],
       ["square", "yellow"],
       ["circle", "red"]
+
     ],
 
     target: [
+
       ["circle", "red"],
       ["square", "yellow"],
       ["triangle", "green"],
-
       ["circle", "red"],
       ["square", "yellow"],
       ["triangle", "green"]
+
     ]
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۸
-     جابه‌جایی الگوی AAB
-  ----------------------------------------- */
-
+  /* ۹ */
   {
     type: "reorder",
 
@@ -289,62 +290,55 @@ const levels = [
       "شکل‌ها را جابه‌جا کن تا الگو منظم شود.",
 
     pieces: [
+
       ["star", "yellow"],
       ["circle", "blue"],
       ["circle", "blue"],
-
       ["circle", "blue"],
       ["star", "yellow"],
       ["circle", "blue"]
+
     ],
 
     target: [
+
       ["circle", "blue"],
       ["circle", "blue"],
       ["star", "yellow"],
-
       ["circle", "blue"],
       ["circle", "blue"],
       ["star", "yellow"]
+
     ]
+
   },
 
 
-  /* =========================================
-     بخش سوم:
-     حذف شکل
-  ========================================== */
-
-  /* -----------------------------------------
-     مرحله ۹
-  ----------------------------------------- */
-
+  /* ۱۰ */
   {
     type: "remove",
 
     text:
-      "کدام شکل را حذف کنیم تا الگو منظم شود؟",
+      "کدام شکل اضافی است؟ آن را انتخاب کن.",
 
     pattern: [
-      ["circle", "blue"],
-      ["triangle", "yellow"],
-      ["circle", "blue"],
-      ["triangle", "yellow"],
 
+      ["circle", "blue"],
+      ["triangle", "yellow"],
+      ["circle", "blue"],
+      ["triangle", "yellow"],
       ["circle", "blue"],
       ["star", "pink"],
       ["triangle", "yellow"]
+
     ],
 
     removeIndex: 5
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۱۰
-     حذف شکل اضافی در الگوی سه‌تایی
-  ----------------------------------------- */
-
+  /* ۱۱ */
   {
     type: "remove",
 
@@ -352,65 +346,63 @@ const levels = [
       "کدام شکل اضافی است؟ آن را انتخاب کن تا الگو منظم شود.",
 
     pattern: [
+
       ["circle", "red"],
       ["square", "green"],
       ["triangle", "yellow"],
-
       ["circle", "red"],
       ["heart", "pink"],
       ["square", "green"],
       ["triangle", "yellow"]
+
     ],
 
     removeIndex: 4
+
   },
 
 
-  /* =========================================
-     بخش چهارم:
-     انتخاب شکل و قرار دادن در جای خالی
-  ========================================== */
-
-  /* -----------------------------------------
-     مرحله ۱۱
-  ----------------------------------------- */
-
+  /* ۱۲ */
   {
     type: "place",
 
     text:
-      "از شکل‌های پایین یکی را انتخاب کن و در جای خالی بگذار.",
+      "شکل مناسب را بکش و در هر جای خالی قرار بده.",
 
     pattern: [
+
       ["circle", "blue"],
       ["square", "yellow"],
       null,
+
       ["circle", "blue"],
       ["square", "yellow"],
       null
+
     ],
 
     options: [
+
       ["circle", "blue"],
       ["square", "yellow"],
       ["triangle", "green"]
+
     ],
 
     answers: [0, 0]
+
   },
 
 
-  /* -----------------------------------------
-     مرحله ۱۲
-  ----------------------------------------- */
-
+  /* ۱۳ */
   {
     type: "place",
 
     text:
-      "شکل‌های مناسب را از پایین انتخاب کن و الگو را کامل کن.",
+      "الگوی سه‌تایی را پیدا کن و جای خالی‌ها را کامل کن.",
 
     pattern: [
+
       ["heart", "pink"],
       ["star", "yellow"],
       ["circle", "blue"],
@@ -420,71 +412,294 @@ const levels = [
       ["star", "yellow"],
       ["circle", "blue"],
       null
+
     ],
 
     options: [
+
       ["heart", "pink"],
       ["star", "yellow"],
       ["circle", "blue"]
+
     ],
 
     answers: [0, 0]
-  },
 
-
-  /* -----------------------------------------
-     مرحله ۱۳
-     چالش نهایی
-  ----------------------------------------- */
-
-  {
-    type: "place",
-
-    text:
-      "الگوی منظم را پیدا کن و همهٔ جای خالی‌ها را کامل کن.",
-
-    pattern: [
-      ["circle", "purple"],
-      ["circle", "purple"],
-      ["triangle", "green"],
-      null,
-
-      ["circle", "purple"],
-      ["circle", "purple"],
-      ["triangle", "green"],
-      null
-    ],
-
-    options: [
-      ["circle", "purple"],
-      ["triangle", "green"],
-      ["star", "yellow"]
-    ],
-
-    answers: [2, 2]
   }
 
 ];
 
 
-/* ==========================================
-   متغیرهای بازی
-========================================== */
+/* =========================================================
+   وضعیت
+========================================================= */
 
 let level = 0;
 
 let score = 0;
 
-let selected = null;
+let audioContext = null;
 
-let currentPieces = [];
+let studentName = "";
 
-let placedAnswers = {};
+let activeDrag = null;
 
 
-/* ==========================================
-   تغییر صفحه
-========================================== */
+let stageStates =
+  levels.map(() => ({
+
+    answered: false,
+
+    correct: false,
+
+    placed: {},
+
+    pieces: null,
+
+    scoreAdded: false
+
+  }));
+
+
+/* =========================================================
+   صدا
+========================================================= */
+
+function initAudio() {
+
+  if (!audioContext) {
+
+    const AudioCtx =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    if (!AudioCtx) {
+      return;
+    }
+
+    audioContext =
+      new AudioCtx();
+
+  }
+
+  if (
+    audioContext.state ===
+    "suspended"
+  ) {
+
+    audioContext
+      .resume()
+      .catch(() => {});
+
+  }
+
+}
+
+
+function tone(
+  frequency,
+  duration,
+  type = "sine",
+  volume = .07,
+  delay = 0
+) {
+
+  if (!audioContext) {
+    return;
+  }
+
+  try {
+
+    const oscillator =
+      audioContext.createOscillator();
+
+    const gain =
+      audioContext.createGain();
+
+    oscillator.type =
+      type;
+
+    const now =
+      audioContext.currentTime;
+
+    oscillator.frequency
+      .setValueAtTime(
+        frequency,
+        now + delay
+      );
+
+    gain.gain.setValueAtTime(
+      .0001,
+      now + delay
+    );
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        volume,
+        now + delay + .01
+      );
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        .0001,
+        now + delay + duration
+      );
+
+    oscillator.connect(gain);
+
+    gain.connect(
+      audioContext.destination
+    );
+
+    oscillator.start(
+      now + delay
+    );
+
+    oscillator.stop(
+      now + delay + duration + .03
+    );
+
+  } catch (_) {}
+
+}
+
+
+function playMoveSound() {
+
+  initAudio();
+
+  tone(
+    520,
+    .07,
+    "sine",
+    .045
+  );
+
+}
+
+
+function playCorrectSound() {
+
+  initAudio();
+
+  tone(
+    660,
+    .10,
+    "sine",
+    .07
+  );
+
+  tone(
+    880,
+    .14,
+    "sine",
+    .065,
+    .09
+  );
+
+  tone(
+    1040,
+    .18,
+    "sine",
+    .055,
+    .19
+  );
+
+}
+
+
+function playWrongSound() {
+
+  initAudio();
+
+  tone(
+    180,
+    .12,
+    "triangle",
+    .08
+  );
+
+  tone(
+    130,
+    .18,
+    "triangle",
+    .065,
+    .11
+  );
+
+}
+
+
+function playSuccessFinish() {
+
+  initAudio();
+
+  tone(
+    523,
+    .10,
+    "sine",
+    .06
+  );
+
+  tone(
+    659,
+    .10,
+    "sine",
+    .06,
+    .10
+  );
+
+  tone(
+    784,
+    .10,
+    "sine",
+    .06,
+    .20
+  );
+
+  tone(
+    1047,
+    .22,
+    "sine",
+    .07,
+    .30
+  );
+
+}
+
+
+/* =========================================================
+   ابزارها
+========================================================= */
+
+function samePiece(a, b) {
+
+  return !!a &&
+         !!b &&
+         a[0] === b[0] &&
+         a[1] === b[1];
+
+}
+
+
+function shapeHTML(piece) {
+
+  if (!piece) {
+    return "";
+  }
+
+  const type =
+    piece[0];
+
+  const color =
+    piece[1];
+
+  return shapes[type]
+    ? shapes[type](color)
+    : "";
+
+}
+
 
 function showScreen(id) {
 
@@ -492,711 +707,444 @@ function showScreen(id) {
     .querySelectorAll(".screen")
     .forEach(screen => {
 
-      screen.classList.remove("active");
+      screen.classList.remove(
+        "active"
+      );
 
     });
 
-  $(id).classList.add("active");
+  $(id).classList.add(
+    "active"
+  );
+
 }
 
 
-/* ==========================================
-   ساخت شکل
-========================================== */
+/* =========================================================
+   شروع بازی
+========================================================= */
 
-function makeShape(item) {
+function startGame() {
 
-  if (!item) {
+  initAudio();
 
-    return `
-      <span class="slot missing">
-        ؟
-      </span>
-    `;
+  const input =
+    $("studentName");
+
+  const name =
+    input.value.trim();
+
+  if (!name) {
+
+    input.focus();
+
+    input.style.borderColor =
+      "#ef6262";
+
+    input.placeholder =
+      "اول نامت را بنویس 🌸";
+
+    return;
 
   }
 
-  return shapes[item[0]](item[1]);
+  input.style.borderColor =
+    "#55c875";
+
+  studentName =
+    name;
+
+  level = 0;
+
+  score = 0;
+
+  stageStates =
+    levels.map(() => ({
+
+      answered: false,
+
+      correct: false,
+
+      placed: {},
+
+      pieces: null,
+
+      scoreAdded: false
+
+    }));
+
+  showScreen("game");
+
+  renderLevel();
+
 }
 
 
-/* ==========================================
-   ساخت خانه الگو
-========================================== */
+/* =========================================================
+   رندر مرحله
+========================================================= */
 
-function slotHTML(item, index, draggable = false) {
+function renderLevel() {
 
-  if (!item) {
-
-    return `
-      <div
-        class="slot missing"
-        data-index="${index}">
-        ؟
-      </div>
-    `;
-
-  }
-
-  return `
-    <div
-      class="slot ${draggable ? "draggable" : ""}"
-      data-index="${index}">
-
-      ${makeShape(item)}
-
-    </div>
-  `;
-}
-
-
-/* ==========================================
-   نمایش مرحله
-========================================== */
-
-function render() {
-
-  selected = null;
-
-  currentPieces = [];
-
-  placedAnswers = {};
-
-  const L = levels[level];
-
+  const data =
+    levels[level];
 
   $("levelLabel").textContent =
     `مرحله ${level + 1} از ${levels.length}`;
 
-
   $("scoreLabel").textContent =
     `امتیاز: ${score}`;
-
 
   $("progressBar").style.width =
     `${((level + 1) / levels.length) * 100}%`;
 
+  $("questionText").textContent =
+    data.text;
 
-  $("feedback").textContent = "";
+  $("feedback").textContent =
+    "";
 
   $("feedback").className =
     "feedback";
 
-
-  $("checkBtn").classList.add("hidden");
-
-  $("nextBtn").classList.add("hidden");
-
-  $("choices").innerHTML = "";
-
-  $("choicesTitle").classList.add("hidden");
-
-
-  /* نوع سؤال */
-
-  const badges = {
-
-    sample: "نمونهٔ آموزشی",
-
-    missing: "جای خالی",
-
-    reorder: "جابه‌جایی شکل‌ها",
-
-    remove: "حذف شکل اضافی",
-
-    place: "انتخاب و قرار دادن"
-
-  };
-
-
-  $("typeBadge").textContent =
-    badges[L.type] || "الگوی منظم";
-
-
-  $("questionText").textContent =
-    L.text;
-
-
-  $("instruction").textContent =
-    L.type === "reorder"
-      ? "با لمس و کشیدن، شکل‌ها را جابه‌جا کن."
-      : L.type === "remove"
-        ? "شکل اضافی را پیدا کن."
-        : L.type === "place"
-          ? "ابتدا جای خالی را لمس کن، سپس شکل مناسب را از پایین انتخاب کن."
-          : "با دقت به تکرار شکل‌ها نگاه کن.";
-
-
-  /* ==========================================
-     نمونه
-  ========================================== */
-
-  if (L.type === "sample") {
-
-    $("patternArea").innerHTML = `
-
-      <div class="pattern-row">
-
-        ${L.pattern
-          .map((item, index) =>
-            slotHTML(item, index))
-          .join("")}
-
-      </div>
-
-    `;
-
-
-    $("feedback").className =
-      "feedback ok";
-
-
-    $("feedback").textContent =
-      "در این نمونه، شکل‌ها به ترتیب تکرار می‌شوند. حالا نوبت توست! 🌸";
-
-
-    $("nextBtn").textContent =
-      "شروع مرحله‌ها ←";
-
-
-    $("nextBtn").classList.remove("hidden");
-
-    return;
-  }
-
-
-  /* ==========================================
-     سؤال جای خالی
-  ========================================== */
-
-  if (L.type === "missing") {
-
-    $("patternArea").innerHTML = `
-
-      <div class="pattern-row">
-
-        ${L.pattern
-          .map((item, index) =>
-            slotHTML(item, index))
-          .join("")}
-
-      </div>
-
-    `;
-
-
-    $("choicesTitle").classList.remove("hidden");
-
-
-    createChoices(L.options);
-
-  }
-
-
-  /* ==========================================
-     جابه‌جایی
-  ========================================== */
-
-  if (L.type === "reorder") {
-
-    currentPieces =
-      L.pieces.map((item, index) => ({
-        item,
-        id: index
-      }));
-
-
-    renderPieces();
-
-  }
-
-
-  /* ==========================================
-     حذف
-  ========================================== */
-
-  if (L.type === "remove") {
-
-    renderRemove(L);
-
-  }
-
-
-  /* ==========================================
-     انتخاب و قرار دادن
-  ========================================== */
-
-  if (L.type === "place") {
-
-    renderPlace(L);
-
-  }
-
-}
-
-
-/* ==========================================
-   گزینه‌ها
-========================================== */
-
-function createChoices(options) {
-
-  options.forEach((item, index) => {
-
-    const button =
-      document.createElement("button");
-
-
-    button.className =
-      "choice";
-
-
-    button.innerHTML =
-      makeShape(item);
-
-
-    button.onclick = () => {
-
-      document
-        .querySelectorAll(".choice")
-        .forEach(c =>
-          c.classList.remove("selected")
-        );
-
-
-      button.classList.add("selected");
-
-
-      selected = index;
-
-
-      $("checkBtn")
-        .classList
-        .remove("hidden");
-
-    };
-
-
-    $("choices")
-      .appendChild(button);
-
-  });
-
-}
-
-
-/* ==========================================
-   جابه‌جایی شکل‌ها
-========================================== */
-
-function renderPieces() {
-
-  $("patternArea").innerHTML = `
-
-    <div
-      id="dragRow"
-      class="drag-row">
-
-      ${currentPieces
-        .map((piece, index) => `
-
-          <div
-            class="slot draggable"
-            data-pos="${index}">
-
-            ${makeShape(piece.item)}
-
-          </div>
-
-        `)
-        .join("")}
-
-    </div>
-
-  `;
-
-
-  const row =
-    $("dragRow");
-
-
-  let from = null;
-
-
-  row
-    .querySelectorAll(".draggable")
-    .forEach(element => {
-
-      element.addEventListener(
-        "pointerdown",
-        event => {
-
-          from =
-            Number(
-              element.dataset.pos
-            );
-
-
-          element.classList.add("dragging");
-
-
-          element.setPointerCapture(
-            event.pointerId
-          );
-
-        }
-      );
-
-
-      element.addEventListener(
-        "pointerup",
-        event => {
-
-          element.classList.remove("dragging");
-
-
-          if (from === null)
-            return;
-
-
-          const elements =
-            [
-              ...row.querySelectorAll(
-                ".draggable"
-              )
-            ];
-
-
-          let best = null;
-
-          let bestDistance =
-            Infinity;
-
-
-          elements.forEach(target => {
-
-            if (target === element)
-              return;
-
-
-            const rect =
-              target.getBoundingClientRect();
-
-
-            const center =
-              rect.left +
-              rect.width / 2;
-
-
-            const distance =
-              Math.abs(
-                event.clientX - center
-              );
-
-
-            if (
-              distance <
-              bestDistance
-            ) {
-
-              bestDistance =
-                distance;
-
-              best =
-                Number(
-                  target.dataset.pos
-                );
-
-            }
-
-          });
-
-
-          if (
-            best !== null &&
-            best !== from
-          ) {
-
-            const temp =
-              currentPieces[from];
-
-
-            currentPieces[from] =
-              currentPieces[best];
-
-
-            currentPieces[best] =
-              temp;
-
-
-            renderPieces();
-
-          }
-
-
-          from = null;
-
-
-          $("checkBtn")
-            .classList
-            .remove("hidden");
-
-        }
-      );
-
-    });
-
-}
-
-
-/* ==========================================
-   سؤال حذف شکل
-========================================== */
-
-function renderRemove(L) {
-
-  $("patternArea").innerHTML = `
-
-    <div class="pattern-row">
-
-      ${L.pattern
-        .map((item, index) => `
-
-          <button
-            class="choice remove-choice"
-            data-index="${index}">
-
-            ${makeShape(item)}
-
-          </button>
-
-        `)
-        .join("")}
-
-    </div>
-
-  `;
-
-
-  document
-    .querySelectorAll(".remove-choice")
-    .forEach(button => {
-
-      button.onclick = () => {
-
-        document
-          .querySelectorAll(".remove-choice")
-          .forEach(b =>
-            b.classList.remove("selected")
-          );
-
-
-        button.classList.add("selected");
-
-
-        selected =
-          Number(
-            button.dataset.index
-          );
-
-
-        $("checkBtn")
-          .classList
-          .remove("hidden");
-
-      };
-
-    });
-
-}
-
-
-/* ==========================================
-   سؤال انتخاب و قرار دادن
-========================================== */
-
-function renderPlace(L) {
-
-  $("patternArea").innerHTML = `
-
-    <div
-      id="placeRow"
-      class="pattern-row">
-
-      ${L.pattern
-        .map((item, index) => `
-
-          <button
-            class="slot place-slot ${item ? "" : "missing"}"
-            data-index="${index}">
-
-            ${
-              item
-                ? makeShape(item)
-                : "؟"
-            }
-
-          </button>
-
-        `)
-        .join("")}
-
-    </div>
-
-  `;
-
+  $("patternArea").innerHTML =
+    "";
+
+  $("choices").innerHTML =
+    "";
 
   $("choicesTitle")
-    .classList
-    .remove("hidden");
+    .classList.add("hidden");
+
+  updateNavigation();
 
 
-  createPlaceChoices(L);
+  if (
+    data.type === "sample"
+  ) {
 
+    renderSample(data);
 
-  document
-    .querySelectorAll(".place-slot")
-    .forEach(slot => {
+  } else if (
+    data.type === "missing"
+  ) {
 
-      slot.onclick = () => {
+    renderMissing(data);
 
-        if (!L.pattern[
-          Number(slot.dataset.index)
-        ]) {
+  } else if (
+    data.type === "reorder"
+  ) {
 
-          document
-            .querySelectorAll(".place-slot")
-            .forEach(s =>
-              s.classList.remove("selected")
-            );
+    renderReorder(data);
 
+  } else if (
+    data.type === "remove"
+  ) {
 
-          slot.classList.add("selected");
+    renderRemove(data);
 
+  } else if (
+    data.type === "place"
+  ) {
 
-          selected =
-            Number(
-              slot.dataset.index
-            );
+    renderPlace(data);
 
-        }
-
-      };
-
-    });
+  }
 
 }
 
 
-/* ==========================================
-   گزینه‌های سؤال قرار دادن
-========================================== */
+/* =========================================================
+   نمونه
+========================================================= */
 
-function createPlaceChoices(L) {
+function renderSample(data) {
 
-  L.options.forEach((item, index) => {
+  $("typeBadge").textContent =
+    "نمونه";
 
-    const button =
-      document.createElement("button");
+  $("instruction").textContent =
+    "به تکرار شکل‌ها دقت کن.";
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "pattern-row";
+
+  data.pattern.forEach(
+    piece => {
+
+      const slot =
+        document.createElement("div");
+
+      slot.className =
+        "slot";
+
+      slot.innerHTML =
+        shapeHTML(piece);
+
+      row.appendChild(
+        slot
+      );
+
+    }
+  );
+
+  $("patternArea")
+    .appendChild(row);
 
 
-    button.className =
-      "choice";
+  const button =
+    document.createElement("button");
+
+  button.className =
+    "primary-btn";
+
+  button.textContent =
+    "مرحله بعد ➜";
+
+  button.style.marginTop =
+    "10px";
+
+  button.onclick =
+    nextLevel;
+
+  $("choices")
+    .appendChild(button);
+
+}
 
 
-    button.innerHTML =
-      makeShape(item);
+/* =========================================================
+   ساخت الگو
+========================================================= */
 
+function buildPatternRow(
+  pattern,
+  missingIndexes = []
+) {
 
-    button.onclick = () => {
+  const row =
+    document.createElement("div");
 
-      const target =
-        document.querySelector(
-          ".place-slot.selected"
+  row.className =
+    "pattern-row";
+
+  pattern.forEach(
+    (piece, index) => {
+
+      const slot =
+        document.createElement("div");
+
+      slot.className =
+        "slot";
+
+      slot.dataset.index =
+        index;
+
+      if (
+        missingIndexes.includes(index)
+      ) {
+
+        slot.classList.add(
+          "missing",
+          "drop-target"
         );
 
+        slot.textContent =
+          "?";
 
-      if (!target) {
+      } else {
 
-        $("feedback").className =
-          "feedback no";
+        slot.innerHTML =
+          shapeHTML(piece);
 
-        $("feedback").textContent =
-          "اول جای خالی را لمس کن، بعد شکل مناسب را انتخاب کن. 🌷";
+      }
+
+      row.appendChild(
+        slot
+      );
+
+    }
+  );
+
+  return row;
+
+}
+
+
+/* =========================================================
+   مرحله جای خالی
+========================================================= */
+
+function renderMissing(data) {
+
+  $("typeBadge").textContent =
+    "جای خالی";
+
+  $("instruction").textContent =
+    "شکل مناسب را بکش و در جای خالی قرار بده.";
+
+  const missingIndex =
+    data.pattern.findIndex(
+      item => item === null
+    );
+
+  const row =
+    buildPatternRow(
+      data.pattern,
+      [missingIndex]
+    );
+
+  $("patternArea")
+    .appendChild(row);
+
+  $("choicesTitle")
+    .classList.remove("hidden");
+
+  renderChoices(
+    data.options,
+    missingIndex,
+    false
+  );
+
+  restoreMissingState(
+    data,
+    missingIndex
+  );
+
+}
+
+
+/* =========================================================
+   گزینه‌ها
+========================================================= */
+
+function renderChoices(
+  options,
+  targetIndex,
+  multi
+) {
+
+  $("choices").innerHTML =
+    "";
+
+  options.forEach(
+    (piece, optionIndex) => {
+
+      const choice =
+        document.createElement("div");
+
+      choice.className =
+        "choice draggable";
+
+      choice.dataset.optionIndex =
+        optionIndex;
+
+      choice.innerHTML =
+        shapeHTML(piece);
+
+      attachDrag(
+        choice,
+        piece,
+        targetIndex,
+        optionIndex,
+        multi
+      );
+
+      $("choices")
+        .appendChild(choice);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   Drag
+========================================================= */
+
+function attachDrag(
+  element,
+  piece,
+  targetIndex,
+  optionIndex,
+  multi
+) {
+
+  element.addEventListener(
+    "pointerdown",
+    event => {
+
+      event.preventDefault();
+
+      initAudio();
+
+      activeDrag = {
+
+        element,
+
+        piece,
+
+        targetIndex,
+
+        optionIndex,
+
+        multi
+
+      };
+
+      element.classList.add(
+        "dragging"
+      );
+
+      playMoveSound();
+
+    }
+  );
+
+
+  element.addEventListener(
+    "pointermove",
+    event => {
+
+      if (
+        !activeDrag ||
+        activeDrag.element !== element
+      ) {
 
         return;
 
       }
 
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
 
-      const targetIndex =
-        Number(target.dataset.index);
+      document
+        .querySelectorAll(
+          ".drop-target"
+        )
+        .forEach(slot =>
+          slot.classList.remove(
+            "over"
+          )
+        );
 
+      const slot =
+        target?.closest(
+          ".drop-target"
+        );
 
-      placedAnswers[targetIndex] =
-        index;
+      if (slot) {
 
-
-      target.innerHTML =
-        makeShape(item);
-
-
-      target.classList.remove("missing");
-
-      target.classList.remove("selected");
-
-
-      checkPlaceComplete(L);
-
-    };
-
-
-    $("choices")
-      .appendChild(button);
-
-  });
-
-}
-
-
-/* ==========================================
-   بررسی سؤال قرار دادن
-========================================== */
-
-function checkPlaceComplete(L) {
-
-  const missingIndexes =
-    L.pattern
-      .map((item, index) =>
-        item ? null : index
-      )
-      .filter(index =>
-        index !== null
-      );
-
-
-  const allPlaced =
-    missingIndexes.every(index =>
-      placedAnswers[index] !== undefined
-    );
-
-
-  if (!allPlaced)
-    return;
-
-
-  let correct = true;
-
-
-  missingIndexes.forEach(
-    (patternIndex, answerIndex) => {
-
-      if (
-        placedAnswers[patternIndex] !==
-        L.answers[answerIndex]
-      ) {
-
-        correct = false;
+        slot.classList.add(
+          "over"
+        );
 
       }
 
@@ -1204,121 +1152,274 @@ function checkPlaceComplete(L) {
   );
 
 
-  $("checkBtn")
-    .classList
-    .remove("hidden");
+  element.addEventListener(
+    "pointerup",
+    event => {
+
+      if (
+        !activeDrag ||
+        activeDrag.element !== element
+      ) {
+
+        return;
+
+      }
+
+      event.preventDefault();
+
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+
+      const slot =
+        target?.closest(
+          ".drop-target"
+        );
+
+      element.classList.remove(
+        "dragging"
+      );
+
+      document
+        .querySelectorAll(
+          ".drop-target"
+        )
+        .forEach(slot =>
+          slot.classList.remove(
+            "over"
+          )
+        );
+
+      const drag =
+        activeDrag;
+
+      activeDrag =
+        null;
+
+      if (slot) {
+
+        handleDrop(
+          drag,
+          slot
+        );
+
+      }
+
+    }
+  );
 
 
-  if (correct) {
+  element.addEventListener(
+    "pointercancel",
+    () => {
 
-    success();
+      element.classList.remove(
+        "dragging"
+      );
 
-  } else {
+      activeDrag =
+        null;
 
-    $("feedback").className =
-      "feedback no";
-
-    $("feedback").textContent =
-      "هنوز یک شکل درست انتخاب نشده است. دوباره الگو را نگاه کن. 🌷";
-
-  }
+    }
+  );
 
 }
 
 
-/* ==========================================
-   بررسی پاسخ
-========================================== */
+/* =========================================================
+   پاسخ Drag
+========================================================= */
 
-function check() {
+function handleDrop(
+  drag,
+  slot
+) {
 
-  const L =
+  const data =
     levels[level];
 
 
-  /* -----------------------------------------
-     جای خالی
-  ----------------------------------------- */
+  /* جای خالی */
 
-  if (L.type === "missing") {
+  if (
+    data.type === "missing"
+  ) {
 
-    if (selected === null)
-      return;
+    const correct =
+      drag.optionIndex ===
+      data.answer;
 
+    if (correct) {
 
-    if (selected === L.answer) {
+      slot.innerHTML =
+        shapeHTML(
+          drag.piece
+        );
 
-      success();
+      slot.classList.remove(
+        "missing"
+      );
+
+      slot.classList.add(
+        "correct",
+        "success-animation"
+      );
+
+      stageStates[level]
+        .answered = true;
+
+      stageStates[level]
+        .correct = true;
+
+      if (
+        !stageStates[level]
+          .scoreAdded
+      ) {
+
+        score++;
+
+        stageStates[level]
+          .scoreAdded = true;
+
+        updateScore();
+
+      }
+
+      showFeedback(
+        "ok",
+        "آفرین! پاسخ درست است 🌟"
+      );
+
+      playCorrectSound();
 
     } else {
 
-      fail(
-        "دوباره به تکرار شکل‌ها نگاه کن. 🌷"
+      wrongSlot(
+        slot,
+        "پاسخ نادرست است؛ دوباره تلاش کن."
       );
 
     }
 
     return;
+
   }
 
 
-  /* -----------------------------------------
-     حذف
-  ----------------------------------------- */
+  /* چند جای خالی */
 
-  if (L.type === "remove") {
+  if (
+    data.type === "place"
+  ) {
 
-    if (selected === null)
-      return;
-
-
-    if (selected === L.removeIndex) {
-
-      success();
-
-    } else {
-
-      fail(
-        "به بخش‌های تکرارشونده الگو دقت کن. این شکل اضافی نیست."
+    const patternIndex =
+      Number(
+        slot.dataset.index
       );
 
-    }
+    const missingIndexes =
+      data.pattern
+        .map(
+          (piece,index) =>
+            piece === null
+              ? index
+              : -1
+        )
+        .filter(
+          index => index !== -1
+        );
 
-    return;
-  }
-
-
-  /* -----------------------------------------
-     جابه‌جایی
-  ----------------------------------------- */
-
-  if (L.type === "reorder") {
-
-    const got =
-      currentPieces.map(
-        piece =>
-          `${piece.item[0]}-${piece.item[1]}`
+    const answerPosition =
+      missingIndexes.indexOf(
+        patternIndex
       );
-
-
-    const wanted =
-      L.target.map(
-        item =>
-          `${item[0]}-${item[1]}`
-      );
-
 
     if (
-      JSON.stringify(got) ===
-      JSON.stringify(wanted)
+      answerPosition < 0
+    ) {
+      return;
+    }
+
+    const correctOption =
+      data.answers[
+        answerPosition
+      ];
+
+    if (
+      drag.optionIndex ===
+      correctOption
     ) {
 
-      success();
+      slot.innerHTML =
+        shapeHTML(
+          drag.piece
+        );
+
+      slot.classList.remove(
+        "missing"
+      );
+
+      slot.classList.add(
+        "correct",
+        "success-animation"
+      );
+
+      stageStates[level]
+        .placed[patternIndex] =
+        true;
+
+      playCorrectSound();
+
+      const complete =
+        missingIndexes.every(
+          index =>
+            stageStates[level]
+              .placed[index]
+        );
+
+      if (complete) {
+
+        stageStates[level]
+          .answered = true;
+
+        stageStates[level]
+          .correct = true;
+
+        if (
+          !stageStates[level]
+            .scoreAdded
+        ) {
+
+          score++;
+
+          stageStates[level]
+            .scoreAdded = true;
+
+          updateScore();
+
+        }
+
+        showFeedback(
+          "ok",
+          "آفرین! همهٔ جای خالی‌ها درست کامل شدند 🌟"
+        );
+
+      } else {
+
+        showFeedback(
+          "ok",
+          "آفرین! این شکل درست بود 👏"
+        );
+
+      }
 
     } else {
 
-      fail(
-        "یک بار دیگر شکل‌ها را جابه‌جا کن تا بخش‌های الگو مثل هم تکرار شوند."
+      wrongSlot(
+        slot,
+        "این شکل درست نیست؛ دوباره نگاه کن."
       );
 
     }
@@ -1328,126 +1429,862 @@ function check() {
 }
 
 
-/* ==========================================
-   پاسخ درست
-========================================== */
+/* =========================================================
+   پاسخ اشتباه
+========================================================= */
 
-function success() {
+function wrongSlot(
+  slot,
+  message
+) {
 
-  score += 10;
+  slot.classList.add(
+    "wrong"
+  );
 
+  showFeedback(
+    "no",
+    message
+  );
+
+  playWrongSound();
+
+  setTimeout(
+    () => {
+
+      slot.classList.remove(
+        "wrong"
+      );
+
+    },
+    400
+  );
+
+}
+
+
+/* =========================================================
+   بازگردانی جای خالی
+========================================================= */
+
+function restoreMissingState(
+  data,
+  index
+) {
+
+  if (
+    !stageStates[level]
+      .answered
+  ) {
+
+    return;
+
+  }
+
+  const slot =
+    document.querySelector(
+      `.drop-target[data-index="${index}"]`
+    );
+
+  if (!slot) {
+    return;
+  }
+
+  slot.innerHTML =
+    shapeHTML(
+      data.options[
+        data.answer
+      ]
+    );
+
+  slot.classList.remove(
+    "missing"
+  );
+
+  slot.classList.add(
+    "correct"
+  );
+
+  showFeedback(
+    "ok",
+    "این مرحله را درست حل کرده‌ای 🌟"
+  );
+
+}
+
+
+/* =========================================================
+   جابه‌جایی
+========================================================= */
+
+function renderReorder(data) {
+
+  $("typeBadge").textContent =
+    "جابه‌جایی";
+
+  $("instruction").textContent =
+    "هر شکل را بکش و روی جای شکل دیگر قرار بده.";
+
+  const state =
+    stageStates[level];
+
+  if (!state.pieces) {
+
+    state.pieces =
+      data.pieces.map(
+        piece => [...piece]
+      );
+
+  }
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "pattern-row";
+
+  state.pieces.forEach(
+    (piece,index) => {
+
+      const slot =
+        document.createElement("div");
+
+      slot.className =
+        "slot drop-target";
+
+      slot.dataset.index =
+        index;
+
+      slot.innerHTML =
+        shapeHTML(piece);
+
+      row.appendChild(
+        slot
+      );
+
+    }
+  );
+
+  $("patternArea")
+    .appendChild(row);
+
+
+  row
+    .querySelectorAll(".slot")
+    .forEach(
+      (slot,index) =>
+        attachReorderDrag(
+          slot,
+          index
+        )
+    );
+
+
+  if (
+    state.correct
+  ) {
+
+    showFeedback(
+      "ok",
+      "آفرین! الگو درست ساخته شده است 🌟"
+    );
+
+  }
+
+}
+
+
+function attachReorderDrag(
+  slot,
+  index
+) {
+
+  slot.addEventListener(
+    "pointerdown",
+    event => {
+
+      event.preventDefault();
+
+      initAudio();
+
+      activeDrag = {
+
+        element: slot,
+
+        reorder: true,
+
+        index
+
+      };
+
+      slot.classList.add(
+        "dragging"
+      );
+
+      playMoveSound();
+
+    }
+  );
+
+
+  slot.addEventListener(
+    "pointermove",
+    event => {
+
+      if (
+        !activeDrag ||
+        !activeDrag.reorder ||
+        activeDrag.element !== slot
+      ) {
+
+        return;
+
+      }
+
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+
+      document
+        .querySelectorAll(
+          ".drop-target"
+        )
+        .forEach(
+          item =>
+            item.classList.remove(
+              "over"
+            )
+        );
+
+      const destination =
+        target?.closest(
+          ".drop-target"
+        );
+
+      if (
+        destination &&
+        destination !== slot
+      ) {
+
+        destination.classList.add(
+          "over"
+        );
+
+      }
+
+    }
+  );
+
+
+  slot.addEventListener(
+    "pointerup",
+    event => {
+
+      if (
+        !activeDrag ||
+        !activeDrag.reorder ||
+        activeDrag.element !== slot
+      ) {
+
+        return;
+
+      }
+
+      event.preventDefault();
+
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+
+      const destination =
+        target?.closest(
+          ".drop-target"
+        );
+
+      const from =
+        activeDrag.index;
+
+      slot.classList.remove(
+        "dragging"
+      );
+
+      document
+        .querySelectorAll(
+          ".drop-target"
+        )
+        .forEach(
+          item =>
+            item.classList.remove(
+              "over"
+            )
+        );
+
+      activeDrag =
+        null;
+
+      if (
+        !destination ||
+        destination === slot
+      ) {
+
+        return;
+
+      }
+
+      const to =
+        Number(
+          destination.dataset.index
+        );
+
+      const state =
+        stageStates[level];
+
+      [
+        state.pieces[from],
+        state.pieces[to]
+      ] =
+      [
+        state.pieces[to],
+        state.pieces[from]
+      ];
+
+      playMoveSound();
+
+      renderLevel();
+
+      checkReorder();
+
+    }
+  );
+
+}
+
+
+function checkReorder() {
+
+  const data =
+    levels[level];
+
+  const state =
+    stageStates[level];
+
+  const correct =
+    data.target.every(
+      (piece,index) =>
+        samePiece(
+          piece,
+          state.pieces[index]
+        )
+    );
+
+  if (correct) {
+
+    state.answered =
+      true;
+
+    state.correct =
+      true;
+
+    if (
+      !state.scoreAdded
+    ) {
+
+      score++;
+
+      state.scoreAdded =
+        true;
+
+      updateScore();
+
+    }
+
+    showFeedback(
+      "ok",
+      "آفرین! الگو را درست ساختی 🌟"
+    );
+
+    playCorrectSound();
+
+  } else {
+
+    state.correct =
+      false;
+
+    showFeedback(
+      "no",
+      "هنوز الگو کامل نشده است؛ دوباره تلاش کن."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   حذف شکل اضافی
+========================================================= */
+
+function renderRemove(data) {
+
+  $("typeBadge").textContent =
+    "شکل اضافی";
+
+  $("instruction").textContent =
+    "شکل اضافی را لمس کن.";
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "pattern-row";
+
+  data.pattern.forEach(
+    (piece,index) => {
+
+      const slot =
+        document.createElement("div");
+
+      slot.className =
+        "slot";
+
+      slot.innerHTML =
+        shapeHTML(piece);
+
+      slot.addEventListener(
+        "click",
+        () => {
+
+          initAudio();
+
+          if (
+            index ===
+            data.removeIndex
+          ) {
+
+            slot.classList.add(
+              "correct",
+              "success-animation"
+            );
+
+            if (
+              !stageStates[level]
+                .scoreAdded
+            ) {
+
+              score++;
+
+              stageStates[level]
+                .scoreAdded = true;
+
+              updateScore();
+
+            }
+
+            stageStates[level]
+              .answered = true;
+
+            stageStates[level]
+              .correct = true;
+
+            showFeedback(
+              "ok",
+              "آفرین! شکل اضافی را پیدا کردی 🌟"
+            );
+
+            playCorrectSound();
+
+          } else {
+
+            wrongSlot(
+              slot,
+              "این شکل اضافی نیست؛ دوباره نگاه کن."
+            );
+
+          }
+
+        }
+      );
+
+      row.appendChild(
+        slot
+      );
+
+    }
+  );
+
+  $("patternArea")
+    .appendChild(row);
+
+
+  if (
+    stageStates[level]
+      .correct
+  ) {
+
+    row.children[
+      data.removeIndex
+    ].classList.add(
+      "correct"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   چند جای خالی
+========================================================= */
+
+function renderPlace(data) {
+
+  $("typeBadge").textContent =
+    "جای خالی";
+
+  $("instruction").textContent =
+    "شکل‌های مناسب را بکش و در جای خالی‌ها قرار بده.";
+
+  const missingIndexes =
+    data.pattern
+      .map(
+        (piece,index) =>
+          piece === null
+            ? index
+            : -1
+      )
+      .filter(
+        index => index !== -1
+      );
+
+  const row =
+    buildPatternRow(
+      data.pattern,
+      missingIndexes
+    );
+
+  $("patternArea")
+    .appendChild(row);
+
+  $("choicesTitle")
+    .classList.remove("hidden");
+
+  renderChoices(
+    data.options,
+    null,
+    true
+  );
+
+
+  missingIndexes.forEach(
+    index => {
+
+      if (
+        stageStates[level]
+          .placed[index]
+      ) {
+
+        const answerPosition =
+          missingIndexes.indexOf(
+            index
+          );
+
+        const optionIndex =
+          data.answers[
+            answerPosition
+          ];
+
+        const slot =
+          document.querySelector(
+            `.drop-target[data-index="${index}"]`
+          );
+
+        if (slot) {
+
+          slot.innerHTML =
+            shapeHTML(
+              data.options[
+                optionIndex
+              ]
+            );
+
+          slot.classList.remove(
+            "missing"
+          );
+
+          slot.classList.add(
+            "correct"
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+
+  if (
+    stageStates[level]
+      .correct
+  ) {
+
+    showFeedback(
+      "ok",
+      "این مرحله را درست حل کرده‌ای 🌟"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   پیام
+========================================================= */
+
+function showFeedback(
+  type,
+  message
+) {
+
+  const feedback =
+    $("feedback");
+
+  feedback.textContent =
+    message;
+
+  feedback.className =
+    `feedback ${type}`;
+
+}
+
+
+/* =========================================================
+   امتیاز
+========================================================= */
+
+function updateScore() {
 
   $("scoreLabel").textContent =
     `امتیاز: ${score}`;
 
-
-  $("feedback").className =
-    "feedback ok";
+}
 
 
-  $("feedback").textContent =
-    "آفرین! الگو را درست پیدا کردی. ⭐";
+/* =========================================================
+   کنترل‌ها
+========================================================= */
 
+function updateNavigation() {
 
-  $("checkBtn")
-    .classList
-    .add("hidden");
+  $("prevBtn").disabled =
+    level <= 0;
 
-
-  $("nextBtn")
-    .classList
-    .remove("hidden");
-
-
-  $("nextBtn").textContent =
-    level === levels.length - 1
-      ? "پایان بازی 🎉"
-      : "مرحله بعد ←";
+  $("nextBtn").disabled =
+    level >= levels.length - 1;
 
 }
 
 
-/* ==========================================
-   پاسخ اشتباه
-========================================== */
+function previousLevel() {
 
-function fail(message) {
-
-  $("feedback").className =
-    "feedback no";
-
-
-  $("feedback").textContent =
-    "💡 " + message;
-
-}
-
-
-/* ==========================================
-   شروع بازی
-========================================== */
-
-$("startBtn").onclick = () => {
-
-  level = 0;
-
-  score = 0;
-
-  showScreen("game");
-
-  render();
-
-};
-
-
-/* ==========================================
-   بررسی
-========================================== */
-
-$("checkBtn").onclick =
-  check;
-
-
-/* ==========================================
-   مرحله بعد
-========================================== */
-
-$("nextBtn").onclick = () => {
+  initAudio();
 
   if (
-    level ===
-    levels.length - 1
+    level <= 0
   ) {
 
-    $("finalScore").textContent =
-      `امتیاز تو: ${score} از ${levels.length * 10}`;
-
-
-    showScreen("finish");
-
-  } else {
-
-    level++;
-
-    render();
+    return;
 
   }
 
-};
+  level--;
+
+  renderLevel();
+
+}
 
 
-/* ==========================================
-   شروع دوباره
-========================================== */
+function nextLevel() {
 
-$("restartBtn").onclick = () => {
+  initAudio();
+
+  if (
+    level <
+    levels.length - 1
+  ) {
+
+    level++;
+
+    renderLevel();
+
+  } else {
+
+    finishGame();
+
+  }
+
+}
+
+
+function exitGame() {
+
+  initAudio();
+
+  showScreen(
+    "cover"
+  );
+
+}
+
+
+function finishGame() {
+
+  $("finalScore").textContent =
+    `${studentName} عزیز، امتیاز تو: ${score} از ${levels.length}`;
+
+  $("finishMessage").textContent =
+    `آفرین ${studentName} جان! تو الگوها را با دقت پیدا کردی.`;
+
+  showScreen(
+    "finish"
+  );
+
+  playSuccessFinish();
+
+}
+
+
+function restartGame() {
+
+  initAudio();
 
   level = 0;
 
   score = 0;
 
-  showScreen("game");
+  stageStates =
+    levels.map(() => ({
 
-  render();
+      answered: false,
 
-};
+      correct: false,
+
+      placed: {},
+
+      pieces: null,
+
+      scoreAdded: false
+
+    }));
+
+  showScreen(
+    "game"
+  );
+
+  renderLevel();
+
+}
+
+
+/* =========================================================
+   رویدادها
+========================================================= */
+
+$("startBtn")
+  .addEventListener(
+    "click",
+    startGame
+  );
+
+
+$("prevBtn")
+  .addEventListener(
+    "click",
+    previousLevel
+  );
+
+
+$("nextBtn")
+  .addEventListener(
+    "click",
+    nextLevel
+  );
+
+
+$("exitBtn")
+  .addEventListener(
+    "click",
+    exitGame
+  );
+
+
+$("restartBtn")
+  .addEventListener(
+    "click",
+    restartGame
+  );
+
+
+/* Enter برای شروع */
+
+$("studentName")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        startGame();
+
+      }
+
+    }
+  );
+
+
+/* فعال‌سازی صدا */
+
+document.addEventListener(
+  "pointerdown",
+  () => {
+
+    initAudio();
+
+  },
+  {
+    once: true,
+    passive: true
+  }
+);
+
+
+/* جلوگیری از منوی نگه‌داشتن */
+
+document.addEventListener(
+  "contextmenu",
+  event => {
+
+    if (
+      event.target.closest(
+        ".choice, .slot, .draggable"
+      )
+    ) {
+
+      event.preventDefault();
+
+    }
+
+  }
+);
+
+
+/* شروع اولیه */
+
+updateNavigation();
