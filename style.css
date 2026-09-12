@@ -91,11 +91,8 @@ button {
 }
 
 .cover-card {
-
   width: min(720px, 100%);
-
   background: rgba(255,255,255,.96);
-
   border-radius: 34px;
 
   padding:
@@ -104,41 +101,30 @@ button {
     30px;
 
   text-align: center;
-
   box-shadow: var(--shadow);
-
   border: 3px solid rgba(116,56,200,.1);
 }
 
 .cover-top {
-
   display: flex;
-
   justify-content: center;
   align-items: center;
-
   gap: 12px;
 
   color: var(--purple);
-
   font-weight: 900;
-
   font-size: clamp(15px, 3vw, 22px);
 
   margin-bottom: 14px;
 }
 
-
 .teacher-photo {
-
   display: block;
 
   width: min(270px, 72vw);
-
   max-height: 310px;
 
   object-fit: contain;
-
   margin: 0 auto 16px;
 
   border-radius: 22px;
@@ -147,9 +133,7 @@ button {
     0 8px 25px rgba(0,0,0,.12);
 }
 
-
 .cover-card h1 {
-
   margin: 8px 0;
 
   color: var(--purple);
@@ -160,39 +144,29 @@ button {
   font-weight: 900;
 }
 
-
 .subtitle {
-
   font-size:
     clamp(17px, 3.5vw, 24px);
 
   font-weight: 700;
-
   margin-bottom: 18px;
 }
 
-
 .cover-pattern {
-
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   gap: 14px;
-
   margin: 15px 0 20px;
 }
 
-
 .mini-circle {
-
   width: 30px;
   height: 30px;
 
   border-radius: 50%;
-
   display: block;
 }
 
@@ -204,14 +178,11 @@ button {
   background: var(--yellow);
 }
 
-
 .cover-text {
-
   font-size:
     clamp(17px, 3.5vw, 24px);
 
   line-height: 2;
-
   font-weight: 700;
 
   margin: 10px 0 22px;
@@ -224,7 +195,6 @@ button {
 
 .primary-btn,
 .secondary-btn {
-
   min-height: 58px;
 
   padding:
@@ -244,9 +214,7 @@ button {
 }
 
 .primary-btn {
-
   background: var(--purple);
-
   color: white;
 
   box-shadow:
@@ -255,9 +223,7 @@ button {
 }
 
 .secondary-btn {
-
   background: #fff;
-
   color: var(--purple);
 
   border: 3px solid var(--purple);
@@ -268,7 +234,6 @@ button {
 
 .primary-btn:active,
 .secondary-btn:active {
-
   transform:
     translateY(4px);
 
@@ -282,20 +247,16 @@ button {
 ========================= */
 
 #game {
-
   width: 100%;
   max-width: 1100px;
 
   margin: 0 auto;
 }
 
-
 .game-header {
-
   display: flex;
 
   justify-content: space-between;
-
   align-items: center;
 
   gap: 15px;
@@ -313,9 +274,7 @@ button {
   margin-bottom: 12px;
 }
 
-
 .game-title {
-
   color: var(--purple);
 
   font-size:
@@ -324,13 +283,10 @@ button {
   font-weight: 900;
 }
 
-
 .stats {
-
   display: flex;
 
   flex-direction: column;
-
   align-items: center;
 
   gap: 5px;
@@ -347,25 +303,19 @@ button {
 ========================= */
 
 .progress {
-
   height: 13px;
-
   width: 100%;
 
   background: #e8dcf8;
 
   border-radius: 20px;
-
   overflow: hidden;
 
   margin-bottom: 16px;
 }
 
-
 #progressBar {
-
   width: 0%;
-
   height: 100%;
 
   background:
@@ -386,7 +336,6 @@ button {
 ========================= */
 
 .question-card {
-
   width: 100%;
 
   background: rgba(255,255,255,.98);
@@ -405,13 +354,10 @@ button {
   flex: 1;
 }
 
-
 .type-badge {
-
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
   padding:
@@ -419,21 +365,17 @@ button {
     15px;
 
   background: var(--purple-light);
-
   color: var(--purple);
 
   border-radius: 999px;
 
   font-size: 15px;
-
   font-weight: 900;
 
   margin-bottom: 12px;
 }
 
-
 .question-text {
-
   font-size:
     clamp(20px, 4vw, 30px);
 
@@ -444,9 +386,7 @@ button {
   margin-bottom: 6px;
 }
 
-
 .instruction {
-
   font-size:
     clamp(14px, 3vw, 19px);
 
@@ -460,36 +400,47 @@ button {
 
 /* =========================
    الگو
+   همه شکل‌ها فقط در یک سطر
 ========================= */
 
 .pattern-row {
-
   display: flex;
 
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
   justify-content: center;
-
   align-items: center;
 
-  gap: 10px;
+  gap: clamp(4px, 1vw, 10px);
 
   width: 100%;
+  max-width: 100%;
 
   margin:
     12px
     auto
     22px;
+
+  padding:
+    4px
+    2px;
+
+  overflow: hidden;
 }
 
 
-.slot {
+/* هر خانه متناسب با تعداد الگو کوچک می‌شود
+   تا همه در یک سطر جا بگیرند */
 
-  width:
-    clamp(62px, 11vw, 100px);
+.slot {
+  flex: 1 1 0;
+
+  min-width: 0;
+
+  width: auto;
 
   height:
-    clamp(62px, 11vw, 100px);
+    clamp(48px, 9vw, 92px);
 
   border-radius: 18px;
 
@@ -500,23 +451,23 @@ button {
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
-  flex-shrink: 0;
-
   position: relative;
+
+  flex-shrink: 1;
+
+  overflow: hidden;
 }
 
-
 .slot.missing {
-
   border:
     4px dashed var(--purple);
 
   color: var(--purple);
 
-  font-size: 36px;
+  font-size:
+    clamp(24px, 5vw, 36px);
 
   font-weight: 900;
 
@@ -529,14 +480,16 @@ button {
 ========================= */
 
 .shape {
-
   display: block;
 
   width:
-    clamp(35px, 7vw, 62px);
+    clamp(28px, 6vw, 62px);
 
   height:
-    clamp(35px, 7vw, 62px);
+    clamp(28px, 6vw, 62px);
+
+  max-width: 80%;
+  max-height: 80%;
 }
 
 
@@ -557,46 +510,47 @@ button {
 /* مثلث */
 
 .triangle {
-
   width: 0;
 
   height: 0;
 
   border-left:
-    clamp(22px, 4vw, 35px)
+    clamp(18px, 3.5vw, 35px)
     solid transparent;
 
   border-right:
-    clamp(22px, 4vw, 35px)
+    clamp(18px, 3.5vw, 35px)
     solid transparent;
 
   border-bottom:
-    clamp(42px, 7vw, 62px)
+    clamp(34px, 6vw, 62px)
     solid currentColor;
 
   background: transparent !important;
 }
 
 
-/* ستاره */
+/* ستاره و قلب */
 
 .star,
 .heart {
-
   background: transparent !important;
 
   width: auto;
-
   height: auto;
 
   font-size:
-    clamp(42px, 8vw, 70px);
+    clamp(34px, 7vw, 70px);
 
   line-height: 1;
+
+  max-width: 90%;
 }
 
 
-/* رنگ‌ها */
+/* =========================
+   رنگ‌ها
+========================= */
 
 .blue {
   background: #4b91ff;
@@ -634,7 +588,6 @@ button {
 ========================= */
 
 .choices-title {
-
   font-size:
     clamp(16px, 3vw, 20px);
 
@@ -646,13 +599,10 @@ button {
     10px;
 }
 
-
 .choices {
-
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   flex-wrap: wrap;
@@ -662,9 +612,7 @@ button {
   margin-bottom: 14px;
 }
 
-
 .choice {
-
   width:
     clamp(78px, 16vw, 120px);
 
@@ -680,7 +628,6 @@ button {
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   box-shadow:
@@ -691,16 +638,12 @@ button {
     border-color .15s ease;
 }
 
-
 .choice:active {
-
   transform:
     scale(.94);
 }
 
-
 .choice.selected {
-
   border-color: var(--purple);
 
   background: #f4edff;
@@ -718,11 +661,9 @@ button {
 ========================= */
 
 .drag-row {
-
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   flex-wrap: wrap;
@@ -735,13 +676,10 @@ button {
     22px;
 }
 
-
 .draggable {
-
   cursor: grab;
 
   touch-action: none;
-
   user-select: none;
 
   transition:
@@ -749,10 +687,8 @@ button {
     box-shadow .15s ease;
 }
 
-
 .draggable:active,
 .draggable.dragging {
-
   transform:
     scale(1.08)
     rotate(2deg);
@@ -771,13 +707,11 @@ button {
 ========================= */
 
 .feedback {
-
   min-height: 45px;
 
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
   font-size:
@@ -794,19 +728,13 @@ button {
     12px;
 }
 
-
 .feedback.ok {
-
   color: #168340;
-
   background: #eafff1;
 }
 
-
 .feedback.no {
-
   color: #b23a3a;
-
   background: #fff0f0;
 }
 
@@ -816,7 +744,6 @@ button {
 ========================= */
 
 .bottom-actions {
-
   display: flex;
 
   justify-content: center;
@@ -837,29 +764,40 @@ button {
 ========================= */
 
 .signature-box {
-
   width: 100%;
 
   display: flex;
 
   justify-content: center;
-
   align-items: center;
 
-  padding-top: 5px;
+  padding-top: 8px;
+  padding-bottom: 4px;
 }
 
 
+/*
+   امضا بزرگ‌تر و واضح‌تر شده.
+   mix-blend-mode باعث می‌شود اگر فایل امضا
+   زمینه سفید داشته باشد، روی زمینه سفید
+   ظاهر کادری کمتری داشته باشد.
+*/
+
 .small-signature {
-
   width:
-    min(190px, 42vw);
+    min(250px, 58vw);
 
-  max-height: 70px;
+  height: 78px;
 
   object-fit: contain;
 
-  opacity: .95;
+  opacity: 1;
+
+  display: block;
+
+  mix-blend-mode: multiply;
+
+  filter: contrast(1.12);
 }
 
 
@@ -868,15 +806,11 @@ button {
 ========================= */
 
 #finish {
-
   justify-content: center;
-
   align-items: center;
 }
 
-
 .finish-card {
-
   width: min(600px, 100%);
 
   background: white;
@@ -890,17 +824,12 @@ button {
   box-shadow: var(--shadow);
 }
 
-
 .finish-stars {
-
   font-size: 35px;
-
   margin-bottom: 10px;
 }
 
-
 .finish-card h1 {
-
   color: var(--purple);
 
   font-size: 48px;
@@ -908,9 +837,7 @@ button {
   margin: 8px;
 }
 
-
 .finish-card p {
-
   font-size: 21px;
 
   font-weight: 700;
@@ -918,9 +845,7 @@ button {
   line-height: 1.8;
 }
 
-
 .final-score {
-
   margin:
     20px
     0;
@@ -947,7 +872,11 @@ button {
   }
 
   .cover-card {
-    padding: 17px 13px 23px;
+    padding:
+      17px
+      13px
+      23px;
+
     border-radius: 25px;
   }
 
@@ -957,17 +886,63 @@ button {
   }
 
   .game-header {
-    padding: 11px 12px;
+    padding:
+      11px
+      12px;
+
     border-radius: 18px;
   }
 
   .question-card {
-    padding: 15px 9px 18px;
+    padding:
+      15px
+      9px
+      18px;
+
     border-radius: 22px;
   }
 
+  /* الگو همیشه یک سطر */
+
+  .pattern-row {
+    gap: 3px;
+
+    padding:
+      3px
+      1px;
+
+    margin:
+      10px
+      auto
+      18px;
+  }
+
   .slot {
+    height: 58px;
+
     border-radius: 14px;
+
+    border-width: 2px;
+  }
+
+  .slot.missing {
+    border-width: 3px;
+  }
+
+  .shape {
+    width: 34px;
+    height: 34px;
+  }
+
+  .triangle {
+    border-left-width: 17px;
+    border-right-width: 17px;
+    border-bottom-width: 32px;
+  }
+
+  .star,
+  .heart {
+    font-size: 38px;
   }
 
   .primary-btn,
@@ -975,8 +950,50 @@ button {
     width: min(95%, 420px);
   }
 
+  /* امضای بزرگ‌تر در موبایل */
+
   .small-signature {
-    width: 150px;
+    width: 230px;
+    height: 72px;
+  }
+}
+
+
+/* =========================
+   آیفون‌های کوچک
+========================= */
+
+@media (max-width: 390px) {
+
+  .pattern-row {
+    gap: 2px;
+  }
+
+  .slot {
+    height: 50px;
+
+    border-radius: 12px;
+  }
+
+  .shape {
+    width: 29px;
+    height: 29px;
+  }
+
+  .triangle {
+    border-left-width: 14px;
+    border-right-width: 14px;
+    border-bottom-width: 27px;
+  }
+
+  .star,
+  .heart {
+    font-size: 31px;
+  }
+
+  .small-signature {
+    width: 215px;
+    height: 68px;
   }
 }
 
@@ -999,7 +1016,18 @@ button {
     gap: 16px;
   }
 
+  .pattern-row {
+    flex-wrap: nowrap;
+  }
+
   .slot {
+    height: clamp(62px, 8vw, 92px);
+
     border-radius: 22px;
+  }
+
+  .small-signature {
+    width: 250px;
+    height: 78px;
   }
 }
