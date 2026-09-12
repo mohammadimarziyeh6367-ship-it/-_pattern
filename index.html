@@ -1,14 +1,27 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <meta name="theme-color" content="#7438c8">
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#7438c8"
+  >
 
   <title>الگوی منظم | ریاضی پایه اول</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
 
 <body>
@@ -16,18 +29,28 @@
 <main id="app">
 
   <!-- =========================
-       صفحه اول
+       صفحه شروع
   ========================== -->
 
-  <section id="cover" class="screen active">
+  <section
+    id="cover"
+    class="screen active"
+  >
 
     <div class="cover-card">
 
       <div class="cover-top">
+
         <span>🌈</span>
-        <span>ریاضی پایه اول</span>
+
+        <span>
+          ریاضی پایه اول
+        </span>
+
         <span>🌈</span>
+
       </div>
+
 
       <img
         class="teacher-photo"
@@ -35,26 +58,63 @@
         alt="آموزگار"
       >
 
-      <h1>الگوی منظم</h1>
+
+      <h1>
+        الگوی منظم
+      </h1>
+
 
       <div class="subtitle">
         بازی کشف و ساخت الگو
       </div>
 
+
       <div class="cover-pattern">
+
         <span class="mini-circle blue"></span>
+
         <span class="mini-circle yellow"></span>
+
         <span class="mini-circle blue"></span>
+
         <span class="mini-circle yellow"></span>
+
       </div>
 
+
       <p class="cover-text">
+
         شکل‌ها را با دقت نگاه کن،
         <br>
         الگو را پیدا کن و بازی کن!
+
       </p>
 
-      <button id="startBtn" class="primary-btn">
+
+      <!-- نام دانش آموز -->
+
+      <div class="student-name-box">
+
+        <label for="studentName">
+          نام زیبایت را وارد کن:
+        </label>
+
+        <input
+          id="studentName"
+          type="text"
+          inputmode="text"
+          autocomplete="off"
+          maxlength="30"
+          placeholder="نام دانش‌آموز"
+        >
+
+      </div>
+
+
+      <button
+        id="startBtn"
+        class="primary-btn"
+      >
         شروع بازی 🎮
       </button>
 
@@ -67,7 +127,10 @@
        صفحه بازی
   ========================== -->
 
-  <section id="game" class="screen">
+  <section
+    id="game"
+    class="screen"
+  >
 
     <header class="game-header">
 
@@ -78,7 +141,7 @@
       <div class="stats">
 
         <span id="levelLabel">
-          مرحله ۱
+          مرحله ۱ از ۱۳
         </span>
 
         <span id="scoreLabel">
@@ -91,83 +154,104 @@
 
 
     <div class="progress">
+
       <div id="progressBar"></div>
+
     </div>
 
 
     <section class="question-card">
 
-      <div id="typeBadge" class="type-badge">
-        الگو را پیدا کن
+      <div
+        id="typeBadge"
+        class="type-badge"
+      >
+        جای خالی
       </div>
+
 
       <div
         id="questionText"
-        class="question-text">
-      </div>
+        class="question-text"
+      ></div>
 
 
       <div
         id="instruction"
-        class="instruction">
-      </div>
+        class="instruction"
+      ></div>
 
 
-      <!-- الگو -->
+      <div
+        id="patternArea"
+      ></div>
 
-      <div id="patternArea"></div>
-
-
-      <!-- گزینه‌ها -->
 
       <div
         id="choicesTitle"
-        class="choices-title hidden">
-        شکل مناسب را انتخاب کن:
+        class="choices-title hidden"
+      >
+        شکل مناسب را بکش و در جای خالی قرار بده:
       </div>
+
 
       <div
         id="choices"
-        class="choices">
-      </div>
+        class="choices"
+      ></div>
 
-
-      <!-- پیام -->
 
       <div
         id="feedback"
         class="feedback"
-        aria-live="polite">
-      </div>
+        aria-live="polite"
+      ></div>
 
     </section>
 
 
-    <div class="bottom-actions">
+    <!-- کنترل‌ها -->
+
+    <nav
+      class="bottom-actions"
+      aria-label="کنترل مرحله"
+    >
 
       <button
-        id="checkBtn"
-        class="primary-btn hidden">
-        بررسی پاسخ ✓
+        id="exitBtn"
+        class="control-btn exit-btn"
+      >
+        خروج
       </button>
+
+
+      <button
+        id="prevBtn"
+        class="control-btn"
+      >
+        مرحله قبل
+      </button>
+
 
       <button
         id="nextBtn"
-        class="secondary-btn hidden">
-        مرحله بعد ←
+        class="control-btn"
+      >
+        مرحله بعد
       </button>
 
-    </div>
+    </nav>
 
 
-    <!-- امضا فقط در صفحه دوم -->
+    <!-- امضا -->
 
     <div class="signature-box">
 
       <img
         class="small-signature"
         src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-        alt="امضا">
+        alt="امضا"
+      >
 
     </div>
 
@@ -175,10 +259,13 @@
 
 
   <!-- =========================
-       صفحه پایان
+       پایان
   ========================== -->
 
-  <section id="finish" class="screen">
+  <section
+    id="finish"
+    class="screen"
+  >
 
     <div class="finish-card">
 
@@ -186,22 +273,27 @@
         🌟 🌸 🌟
       </div>
 
+
       <h1>
         آفرین!
       </h1>
 
-      <p>
+
+      <p id="finishMessage">
         تو الگوها را با دقت پیدا کردی.
       </p>
 
+
       <div
         id="finalScore"
-        class="final-score">
-      </div>
+        class="final-score"
+      ></div>
+
 
       <button
         id="restartBtn"
-        class="primary-btn">
+        class="primary-btn"
+      >
         دوباره بازی می‌کنم 🔄
       </button>
 
@@ -215,4 +307,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
