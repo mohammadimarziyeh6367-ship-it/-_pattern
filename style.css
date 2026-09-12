@@ -1,59 +1,71 @@
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
+
   --purple: #7438c8;
-  --purple-light: #f1e9ff;
-  --pink: #ff6fae;
+  --pink: #f36aa8;
   --yellow: #ffd84d;
-  --green: #55c875;
-  --blue: #4b91ff;
-  --red: #ff6262;
-  --text: #332449;
-  --white: #ffffff;
-  --shadow: 0 12px 35px rgba(68, 38, 100, .15);
+  --green: #58c878;
+  --blue: #4d9df6;
+  --red: #ef6262;
+
+  --dark: #392d47;
+  --light: #faf8ff;
+  --border: #e6d9f5;
+
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-}
 
-body {
+  margin: 0;
+
+  padding: 0;
+
+  width: 100%;
+
+  min-height: 100%;
+
   font-family:
     Tahoma,
     Arial,
     sans-serif;
 
   background:
-    radial-gradient(
-      circle at top right,
-      #f7edff,
-      transparent 35%
-    ),
     linear-gradient(
       135deg,
-      #fff8fc,
-      #f3edff
+      #f9f4ff,
+      #fff9fc
     );
 
-  color: var(--text);
+  color: var(--dark);
+
+}
+
+body {
+
+  min-height: 100vh;
+
   overflow-x: hidden;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+button,
+input {
+
+  font-family: inherit;
+
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
-  border: 0;
-}
 
-.hidden {
-  display: none !important;
+  border: 0;
+
 }
 
 
@@ -62,416 +74,683 @@ button {
 ========================= */
 
 .screen {
+
   display: none;
 
   min-height: 100vh;
-  min-height: 100dvh;
+
+  width: 100%;
 
   padding:
-    18px
-    18px
-    calc(24px + env(safe-area-inset-bottom));
+    18px;
 
-  position: relative;
 }
 
 .screen.active {
+
   display: flex;
+
   flex-direction: column;
+
 }
 
 
 /* =========================
-   صفحه اول
+   صفحه شروع
 ========================= */
 
 #cover {
-  justify-content: center;
+
   align-items: center;
+
+  justify-content: center;
+
 }
 
 .cover-card {
-  width: min(720px, 100%);
-  background: rgba(255,255,255,.96);
-  border-radius: 34px;
+
+  width:
+    min(650px, 100%);
 
   padding:
-    24px
-    22px
-    30px;
+    24px;
 
   text-align: center;
-  box-shadow: var(--shadow);
-  border: 3px solid rgba(116,56,200,.1);
+
+  background:
+    rgba(255,255,255,.96);
+
+  border:
+    2px solid var(--border);
+
+  border-radius:
+    30px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(74,38,105,.13);
+
 }
 
 .cover-top {
+
   display: flex;
-  justify-content: center;
+
   align-items: center;
-  gap: 12px;
 
-  color: var(--purple);
-  font-weight: 900;
-  font-size: clamp(15px, 3vw, 22px);
+  justify-content: center;
 
-  margin-bottom: 14px;
-}
+  gap: 15px;
 
-.teacher-photo {
-  display: block;
-
-  width: min(270px, 72vw);
-  max-height: 310px;
-
-  object-fit: contain;
-  margin: 0 auto 16px;
-
-  border-radius: 22px;
-
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.12);
-}
-
-.cover-card h1 {
-  margin: 8px 0;
-
-  color: var(--purple);
+  color:
+    var(--purple);
 
   font-size:
-    clamp(32px, 7vw, 54px);
+    clamp(18px,4vw,25px);
 
-  font-weight: 900;
+  font-weight:
+    900;
+
+  margin-bottom:
+    15px;
+
+}
+
+
+.teacher-photo {
+
+  display: block;
+
+  width:
+    clamp(105px,25vw,155px);
+
+  height:
+    clamp(105px,25vw,155px);
+
+  object-fit:
+    cover;
+
+  margin:
+    0 auto 12px;
+
+  border-radius:
+    50%;
+
+  border:
+    5px solid white;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.14);
+
+}
+
+
+.cover-card h1 {
+
+  margin:
+    8px 0;
+
+  color:
+    var(--purple);
+
+  font-size:
+    clamp(30px,7vw,48px);
+
 }
 
 .subtitle {
-  font-size:
-    clamp(17px, 3.5vw, 24px);
 
-  font-weight: 700;
-  margin-bottom: 18px;
+  color:
+    #765e8c;
+
+  font-size:
+    clamp(17px,4vw,23px);
+
+  font-weight:
+    700;
+
 }
 
+
 .cover-pattern {
+
   display: flex;
 
   justify-content: center;
-  align-items: center;
 
-  gap: 14px;
-  margin: 15px 0 20px;
+  gap: 12px;
+
+  margin:
+    18px 0;
+
 }
 
 .mini-circle {
-  width: 30px;
-  height: 30px;
+
+  width: 28px;
+
+  height: 28px;
 
   border-radius: 50%;
-  display: block;
+
 }
 
 .mini-circle.blue {
-  background: var(--blue);
+
+  background:
+    var(--blue);
+
 }
 
 .mini-circle.yellow {
-  background: var(--yellow);
+
+  background:
+    var(--yellow);
+
 }
 
+
 .cover-text {
+
   font-size:
-    clamp(17px, 3.5vw, 24px);
+    clamp(17px,4vw,22px);
 
-  line-height: 2;
-  font-weight: 700;
+  line-height:
+    1.9;
 
-  margin: 10px 0 22px;
+  font-weight:
+    700;
+
 }
 
 
 /* =========================
-   دکمه‌ها
+   نام دانش آموز
 ========================= */
 
-.primary-btn,
-.secondary-btn {
-  min-height: 58px;
+.student-name-box {
 
-  padding:
-    12px
-    28px;
+  width:
+    min(430px,100%);
 
-  border-radius: 18px;
+  margin:
+    14px auto 20px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  align-items:
+    center;
+
+  gap:
+    9px;
+
+}
+
+.student-name-box label {
+
+  color:
+    var(--purple);
 
   font-size:
-    clamp(17px, 3.5vw, 22px);
+    clamp(17px,3.5vw,22px);
 
-  font-weight: 900;
+  font-weight:
+    900;
+
+}
+
+.student-name-box input {
+
+  width:
+    100%;
+
+  min-height:
+    56px;
+
+  padding:
+    10px 18px;
+
+  border:
+    3px solid #e0d1f4;
+
+  border-radius:
+    17px;
+
+  background:
+    #faf8ff;
+
+  color:
+    var(--dark);
+
+  font-size:
+    clamp(17px,3.5vw,21px);
+
+  font-weight:
+    700;
+
+  text-align:
+    center;
+
+  outline:
+    none;
+
+  transition:
+    .2s ease;
+
+}
+
+.student-name-box input::placeholder {
+
+  color:
+    #a397ad;
+
+}
+
+.student-name-box input:focus {
+
+  border-color:
+    var(--purple);
+
+  background:
+    white;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(116,56,200,.12);
+
+}
+
+
+/* =========================
+   دکمه اصلی
+========================= */
+
+.primary-btn {
+
+  min-height:
+    55px;
+
+  padding:
+    10px 28px;
+
+  border-radius:
+    17px;
+
+  background:
+    var(--purple);
+
+  color:
+    white;
+
+  font-size:
+    clamp(17px,4vw,21px);
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+
+  box-shadow:
+    0 7px 18px
+    rgba(116,56,200,.25);
 
   transition:
     transform .15s ease,
     box-shadow .15s ease;
+
 }
 
-.primary-btn {
-  background: var(--purple);
-  color: white;
+.primary-btn:active {
 
-  box-shadow:
-    0 7px 0 #54269b,
-    0 12px 25px rgba(116,56,200,.2);
-}
-
-.secondary-btn {
-  background: #fff;
-  color: var(--purple);
-
-  border: 3px solid var(--purple);
-
-  box-shadow:
-    0 5px 0 rgba(116,56,200,.15);
-}
-
-.primary-btn:active,
-.secondary-btn:active {
   transform:
-    translateY(4px);
+    scale(.96);
 
-  box-shadow:
-    0 2px 0 rgba(0,0,0,.15);
 }
 
 
 /* =========================
-   صفحه بازی
+   هدر بازی
 ========================= */
 
-#game {
-  width: 100%;
-  max-width: 1100px;
-
-  margin: 0 auto;
-}
-
 .game-header {
-  display: flex;
 
-  justify-content: space-between;
-  align-items: center;
+  width:
+    min(1100px,100%);
 
-  gap: 15px;
+  margin:
+    0 auto;
 
-  background: white;
+  display:
+    flex;
 
-  border-radius: 22px;
+  justify-content:
+    space-between;
 
-  padding:
-    15px
-    18px;
+  align-items:
+    center;
 
-  box-shadow: var(--shadow);
+  gap:
+    10px;
 
-  margin-bottom: 12px;
 }
 
 .game-title {
-  color: var(--purple);
+
+  color:
+    var(--purple);
 
   font-size:
-    clamp(23px, 5vw, 34px);
+    clamp(20px,4vw,30px);
 
-  font-weight: 900;
+  font-weight:
+    900;
+
 }
 
 .stats {
-  display: flex;
 
-  flex-direction: column;
-  align-items: center;
+  display:
+    flex;
 
-  gap: 5px;
+  gap:
+    10px;
+
+  flex-wrap:
+    wrap;
+
+  justify-content:
+    flex-end;
+
+}
+
+.stats span {
+
+  background:
+    white;
+
+  border:
+    2px solid var(--border);
+
+  border-radius:
+    14px;
+
+  padding:
+    7px 12px;
 
   font-size:
-    clamp(14px, 3vw, 18px);
+    14px;
 
-  font-weight: 800;
+  font-weight:
+    800;
+
 }
 
 
-/* =========================
-   نوار پیشرفت
-========================= */
-
 .progress {
-  height: 13px;
-  width: 100%;
 
-  background: #e8dcf8;
+  width:
+    min(1100px,100%);
 
-  border-radius: 20px;
-  overflow: hidden;
+  height:
+    10px;
 
-  margin-bottom: 16px;
+  margin:
+    12px auto;
+
+  border-radius:
+    20px;
+
+  overflow:
+    hidden;
+
+  background:
+    #eadff6;
+
 }
 
 #progressBar {
-  width: 0%;
-  height: 100%;
+
+  height:
+    100%;
+
+  width:
+    7.69%;
 
   background:
-    linear-gradient(
-      90deg,
-      #7438c8,
-      #ff6fae
-    );
+    var(--purple);
 
-  border-radius: inherit;
+  transition:
+    width .3s ease;
 
-  transition: width .35s ease;
 }
 
 
 /* =========================
-   کارت سؤال
+   کارت سوال
 ========================= */
 
 .question-card {
-  width: 100%;
 
-  background: rgba(255,255,255,.98);
+  width:
+    min(1100px,100%);
 
-  border-radius: 28px;
+  margin:
+    0 auto;
+
+  flex:
+    1;
 
   padding:
-    20px
-    16px
-    22px;
+    clamp(15px,3vw,28px);
 
-  box-shadow: var(--shadow);
+  background:
+    rgba(255,255,255,.97);
 
-  text-align: center;
+  border:
+    2px solid var(--border);
 
-  flex: 1;
+  border-radius:
+    25px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(70,35,100,.09);
+
 }
 
 .type-badge {
-  display: inline-flex;
 
-  align-items: center;
-  justify-content: center;
+  display:
+    inline-block;
 
   padding:
-    7px
-    15px;
+    6px 14px;
 
-  background: var(--purple-light);
-  color: var(--purple);
+  border-radius:
+    20px;
 
-  border-radius: 999px;
+  background:
+    #f0e7fb;
 
-  font-size: 15px;
-  font-weight: 900;
+  color:
+    var(--purple);
 
-  margin-bottom: 12px;
+  font-weight:
+    900;
+
 }
 
 .question-text {
+
+  margin-top:
+    12px;
+
   font-size:
-    clamp(20px, 4vw, 30px);
+    clamp(19px,4vw,28px);
 
-  font-weight: 900;
+  font-weight:
+    900;
 
-  line-height: 1.8;
+  line-height:
+    1.6;
 
-  margin-bottom: 6px;
 }
 
 .instruction {
+
+  margin:
+    7px 0 15px;
+
   font-size:
-    clamp(14px, 3vw, 19px);
+    clamp(15px,3.5vw,20px);
 
-  color: #75677f;
+  color:
+    #725f80;
 
-  font-weight: 700;
+  font-weight:
+    700;
 
-  margin-bottom: 18px;
 }
 
 
 /* =========================
    الگو
-   همه شکل‌ها فقط در یک سطر
 ========================= */
 
 .pattern-row {
-  display: flex;
 
-  flex-wrap: nowrap;
+  width:
+    100%;
 
-  justify-content: center;
-  align-items: center;
+  display:
+    flex;
 
-  gap: clamp(4px, 1vw, 10px);
+  flex-wrap:
+    nowrap;
 
-  width: 100%;
-  max-width: 100%;
+  align-items:
+    center;
 
-  margin:
-    12px
-    auto
-    22px;
+  justify-content:
+    center;
+
+  gap:
+    clamp(5px,1.2vw,14px);
+
+  overflow:
+    hidden;
+
+  direction:
+    ltr;
 
   padding:
-    4px
-    2px;
+    10px 2px;
 
-  overflow: hidden;
 }
 
-
-/* هر خانه متناسب با تعداد الگو کوچک می‌شود
-   تا همه در یک سطر جا بگیرند */
-
 .slot {
-  flex: 1 1 0;
 
-  min-width: 0;
+  flex:
+    1 1 0;
 
-  width: auto;
+  min-width:
+    0;
 
-  height:
-    clamp(48px, 9vw, 92px);
+  max-width:
+    120px;
 
-  border-radius: 18px;
+  aspect-ratio:
+    1 / 1;
 
-  background: #faf8ff;
+  display:
+    flex;
 
-  border: 3px solid #e5d8f7;
+  align-items:
+    center;
 
-  display: flex;
+  justify-content:
+    center;
 
-  justify-content: center;
-  align-items: center;
+  border:
+    3px solid #eadff4;
 
-  position: relative;
+  border-radius:
+    18px;
 
-  flex-shrink: 1;
+  background:
+    #fff;
 
-  overflow: hidden;
+  position:
+    relative;
+
+  transition:
+    .18s ease;
+
+  touch-action:
+    none;
+
 }
 
 .slot.missing {
-  border:
-    4px dashed var(--purple);
 
-  color: var(--purple);
+  border:
+    3px dashed
+    var(--purple);
+
+  background:
+    #faf5ff;
+
+  color:
+    var(--purple);
 
   font-size:
-    clamp(24px, 5vw, 36px);
+    clamp(24px,5vw,38px);
 
-  font-weight: 900;
+  font-weight:
+    900;
 
-  background: #f7f0ff;
+}
+
+.slot.over {
+
+  transform:
+    scale(1.05);
+
+  border-color:
+    var(--purple);
+
+  background:
+    #f4edff;
+
+}
+
+.slot.correct {
+
+  border-color:
+    var(--green);
+
+  background:
+    #edfff2;
+
+}
+
+.slot.wrong {
+
+  border-color:
+    var(--red);
+
+  background:
+    #fff0f0;
+
+  animation:
+    shake .25s ease;
+
 }
 
 
@@ -480,106 +759,173 @@ button {
 ========================= */
 
 .shape {
-  display: block;
 
   width:
-    clamp(28px, 6vw, 62px);
+    min(58px,70%);
 
   height:
-    clamp(28px, 6vw, 62px);
+    min(58px,70%);
 
-  max-width: 80%;
-  max-height: 80%;
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
 }
-
-
-/* دایره */
 
 .circle {
-  border-radius: 50%;
+
+  border-radius:
+    50%;
+
 }
-
-
-/* مربع */
 
 .square {
-  border-radius: 12px;
+
+  border-radius:
+    12px;
+
 }
-
-
-/* مثلث */
 
 .triangle {
-  width: 0;
 
-  height: 0;
+  width:
+    0;
+
+  height:
+    0;
 
   border-left:
-    clamp(18px, 3.5vw, 35px)
-    solid transparent;
+    27px solid transparent;
 
   border-right:
-    clamp(18px, 3.5vw, 35px)
-    solid transparent;
+    27px solid transparent;
 
   border-bottom:
-    clamp(34px, 6vw, 62px)
-    solid currentColor;
+    52px solid;
 
-  background: transparent !important;
+  background:
+    transparent !important;
+
 }
-
-
-/* ستاره و قلب */
 
 .star,
 .heart {
-  background: transparent !important;
-
-  width: auto;
-  height: auto;
 
   font-size:
-    clamp(34px, 7vw, 70px);
+    clamp(38px,7vw,58px);
 
-  line-height: 1;
+  line-height:
+    1;
 
-  max-width: 90%;
 }
 
-
-/* =========================
-   رنگ‌ها
-========================= */
-
 .blue {
-  background: #4b91ff;
-  color: #4b91ff;
+
+  background:
+    var(--blue);
+
 }
 
 .yellow {
-  background: #ffd84d;
-  color: #d7a900;
+
+  background:
+    var(--yellow);
+
 }
 
 .green {
-  background: #55c875;
-  color: #55c875;
-}
 
-.purple {
-  background: #9b6ce8;
-  color: #9b6ce8;
+  background:
+    var(--green);
+
 }
 
 .red {
-  background: #ff6262;
-  color: #ff6262;
+
+  background:
+    var(--red);
+
+}
+
+.purple {
+
+  background:
+    var(--purple);
+
 }
 
 .pink {
-  background: #ff70ad;
-  color: #ff70ad;
+
+  background:
+    var(--pink);
+
+}
+
+.triangle.yellow {
+
+  background:
+    transparent;
+
+  border-bottom-color:
+    var(--yellow);
+
+}
+
+.triangle.green {
+
+  background:
+    transparent;
+
+  border-bottom-color:
+    var(--green);
+
+}
+
+.triangle.purple {
+
+  background:
+    transparent;
+
+  border-bottom-color:
+    var(--purple);
+
+}
+
+.triangle.red {
+
+  background:
+    transparent;
+
+  border-bottom-color:
+    var(--red);
+
+}
+
+.star.yellow,
+.heart.yellow {
+
+  color:
+    var(--yellow);
+
+  background:
+    transparent;
+
+}
+
+.star.pink,
+.heart.pink {
+
+  color:
+    var(--pink);
+
+  background:
+    transparent;
+
 }
 
 
@@ -588,174 +934,215 @@ button {
 ========================= */
 
 .choices-title {
+
+  margin-top:
+    15px;
+
+  text-align:
+    center;
+
+  color:
+    var(--purple);
+
+  font-weight:
+    900;
+
   font-size:
-    clamp(16px, 3vw, 20px);
+    clamp(15px,3.5vw,19px);
 
-  font-weight: 900;
-
-  margin:
-    5px
-    0
-    10px;
 }
 
 .choices {
-  display: flex;
 
-  justify-content: center;
-  align-items: center;
+  display:
+    flex;
 
-  flex-wrap: wrap;
+  justify-content:
+    center;
 
-  gap: 12px;
+  align-items:
+    center;
 
-  margin-bottom: 14px;
+  gap:
+    12px;
+
+  flex-wrap:
+    nowrap;
+
+  margin-top:
+    12px;
+
 }
 
 .choice {
+
   width:
-    clamp(78px, 16vw, 120px);
+    clamp(68px,15vw,105px);
 
-  height:
-    clamp(78px, 16vw, 120px);
+  aspect-ratio:
+    1;
 
-  border-radius: 20px;
+  display:
+    flex;
 
-  background: white;
+  align-items:
+    center;
 
-  border: 4px solid #e5d8f7;
+  justify-content:
+    center;
 
-  display: flex;
+  border:
+    3px solid #e4d6f2;
 
-  justify-content: center;
-  align-items: center;
+  border-radius:
+    17px;
 
-  box-shadow:
-    0 5px 14px rgba(0,0,0,.08);
+  background:
+    white;
 
-  transition:
-    transform .15s ease,
-    border-color .15s ease;
+  cursor:
+    grab;
+
+  touch-action:
+    none;
+
+  user-select:
+    none;
+
+  flex-shrink:
+    0;
+
 }
 
 .choice:active {
-  transform:
-    scale(.94);
+
+  cursor:
+    grabbing;
+
 }
 
-.choice.selected {
-  border-color: var(--purple);
-
-  background: #f4edff;
+.choice.dragging {
 
   transform:
-    translateY(-4px);
+    scale(1.08);
+
+  opacity:
+    .75;
 
   box-shadow:
-    0 8px 20px rgba(116,56,200,.22);
+    0 10px 25px
+    rgba(116,56,200,.22);
+
 }
 
 
 /* =========================
-   جابه‌جایی
-========================= */
-
-.drag-row {
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
-
-  margin:
-    18px
-    auto
-    22px;
-}
-
-.draggable {
-  cursor: grab;
-
-  touch-action: none;
-  user-select: none;
-
-  transition:
-    transform .15s ease,
-    box-shadow .15s ease;
-}
-
-.draggable:active,
-.draggable.dragging {
-  transform:
-    scale(1.08)
-    rotate(2deg);
-
-  box-shadow:
-    0 10px 22px rgba(116,56,200,.25);
-
-  cursor: grabbing;
-
-  z-index: 5;
-}
-
-
-/* =========================
-   پیام
+   بازخورد
 ========================= */
 
 .feedback {
-  min-height: 45px;
 
-  display: flex;
+  min-height:
+    38px;
 
-  justify-content: center;
-  align-items: center;
+  margin-top:
+    12px;
+
+  text-align:
+    center;
 
   font-size:
-    clamp(16px, 3vw, 21px);
+    clamp(16px,3.5vw,20px);
 
-  font-weight: 900;
+  font-weight:
+    900;
 
-  line-height: 1.7;
-
-  border-radius: 16px;
-
-  padding:
-    6px
-    12px;
 }
 
 .feedback.ok {
-  color: #168340;
-  background: #eafff1;
+
+  color:
+    #219653;
+
 }
 
 .feedback.no {
-  color: #b23a3a;
-  background: #fff0f0;
+
+  color:
+    #d84a4a;
+
 }
 
 
 /* =========================
-   پایین صفحه
+   کنترل‌ها
 ========================= */
 
 .bottom-actions {
-  display: flex;
 
-  justify-content: center;
+  width:
+    min(1100px,100%);
 
-  flex-wrap: wrap;
+  margin:
+    12px auto 0;
 
-  gap: 12px;
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  gap:
+    9px;
+
+}
+
+.control-btn {
+
+  min-height:
+    45px;
 
   padding:
-    16px
-    0
-    10px;
+    8px 16px;
+
+  border-radius:
+    14px;
+
+  background:
+    white;
+
+  border:
+    2px solid #dfd2eb;
+
+  color:
+    var(--purple);
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+
+}
+
+.control-btn:disabled {
+
+  opacity:
+    .4;
+
+  cursor:
+    default;
+
+}
+
+.exit-btn {
+
+  color:
+    #c94a4a;
+
+  border-color:
+    #efc7c7;
+
 }
 
 
@@ -764,40 +1151,59 @@ button {
 ========================= */
 
 .signature-box {
-  width: 100%;
 
-  display: flex;
+  width:
+    min(1100px,100%);
 
-  justify-content: center;
-  align-items: center;
+  margin:
+    5px auto 0;
 
-  padding-top: 8px;
-  padding-bottom: 4px;
+  display:
+    flex;
+
+  justify-content:
+    flex-end;
+
+  align-items:
+    center;
+
+  padding-right:
+    10px;
+
 }
 
-
-/*
-   امضا بزرگ‌تر و واضح‌تر شده.
-   mix-blend-mode باعث می‌شود اگر فایل امضا
-   زمینه سفید داشته باشد، روی زمینه سفید
-   ظاهر کادری کمتری داشته باشد.
-*/
-
 .small-signature {
+
+  display:
+    block;
+
   width:
-    min(250px, 58vw);
+    clamp(145px,28vw,235px);
 
-  height: 78px;
+  height:
+    auto;
 
-  object-fit: contain;
+  border:
+    none !important;
 
-  opacity: 1;
+  outline:
+    none !important;
 
-  display: block;
+  background:
+    transparent !important;
 
-  mix-blend-mode: multiply;
+  box-shadow:
+    none !important;
 
-  filter: contrast(1.12);
+  mix-blend-mode:
+    multiply;
+
+  filter:
+    drop-shadow(
+      0 2px 3px
+      rgba(0,0,0,.12)
+    );
+
 }
 
 
@@ -806,55 +1212,136 @@ button {
 ========================= */
 
 #finish {
-  justify-content: center;
-  align-items: center;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
 }
 
 .finish-card {
-  width: min(600px, 100%);
 
-  background: white;
+  width:
+    min(600px,100%);
 
-  border-radius: 32px;
+  padding:
+    35px 25px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  padding: 35px 22px;
+  background:
+    white;
 
-  box-shadow: var(--shadow);
-}
+  border:
+    2px solid var(--border);
 
-.finish-stars {
-  font-size: 35px;
-  margin-bottom: 10px;
+  border-radius:
+    28px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(70,35,100,.13);
+
 }
 
 .finish-card h1 {
-  color: var(--purple);
 
-  font-size: 48px;
+  color:
+    var(--purple);
 
-  margin: 8px;
+  font-size:
+    clamp(35px,8vw,55px);
+
 }
 
-.finish-card p {
-  font-size: 21px;
+.finish-stars {
 
-  font-weight: 700;
+  font-size:
+    35px;
 
-  line-height: 1.8;
 }
 
 .final-score {
+
   margin:
-    20px
-    0;
+    20px 0;
 
-  font-size: 26px;
+  color:
+    var(--purple);
 
-  color: var(--purple);
+  font-size:
+    25px;
 
-  font-weight: 900;
+  font-weight:
+    900;
+
+}
+
+
+/* =========================
+   مخفی
+========================= */
+
+.hidden {
+
+  display:
+    none !important;
+
+}
+
+
+/* =========================
+   انیمیشن
+========================= */
+
+.success-animation {
+
+  animation:
+    successPop .4s ease;
+
+}
+
+@keyframes successPop {
+
+  0% {
+    transform: scale(.8);
+  }
+
+  60% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+@keyframes shake {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  50% {
+    transform: translateX(6px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
 }
 
 
@@ -865,169 +1352,71 @@ button {
 @media (max-width: 600px) {
 
   .screen {
+
     padding:
-      10px
-      10px
-      calc(15px + env(safe-area-inset-bottom));
+      10px;
+
   }
 
   .cover-card {
-    padding:
-      17px
-      13px
-      23px;
 
-    border-radius: 25px;
+    padding:
+      17px;
+
+    border-radius:
+      24px;
+
   }
 
-  .teacher-photo {
-    width: min(235px, 68vw);
-    max-height: 260px;
-  }
+  .question-card {
 
-  .game-header {
     padding:
-      11px
       12px;
 
-    border-radius: 18px;
-  }
+    border-radius:
+      20px;
 
-  .question-card {
-    padding:
-      15px
-      9px
-      18px;
-
-    border-radius: 22px;
-  }
-
-  /* الگو همیشه یک سطر */
-
-  .pattern-row {
-    gap: 3px;
-
-    padding:
-      3px
-      1px;
-
-    margin:
-      10px
-      auto
-      18px;
   }
 
   .slot {
-    height: 58px;
 
-    border-radius: 14px;
+    border-width:
+      2px;
 
-    border-width: 2px;
+    border-radius:
+      12px;
+
   }
-
-  .slot.missing {
-    border-width: 3px;
-  }
-
-  .shape {
-    width: 34px;
-    height: 34px;
-  }
-
-  .triangle {
-    border-left-width: 17px;
-    border-right-width: 17px;
-    border-bottom-width: 32px;
-  }
-
-  .star,
-  .heart {
-    font-size: 38px;
-  }
-
-  .primary-btn,
-  .secondary-btn {
-    width: min(95%, 420px);
-  }
-
-  /* امضای بزرگ‌تر در موبایل */
-
-  .small-signature {
-    width: 230px;
-    height: 72px;
-  }
-}
-
-
-/* =========================
-   آیفون‌های کوچک
-========================= */
-
-@media (max-width: 390px) {
 
   .pattern-row {
-    gap: 2px;
+
+    gap:
+      4px;
+
   }
 
-  .slot {
-    height: 50px;
+  .bottom-actions {
 
-    border-radius: 12px;
+    gap:
+      5px;
+
   }
 
-  .shape {
-    width: 29px;
-    height: 29px;
-  }
+  .control-btn {
 
-  .triangle {
-    border-left-width: 14px;
-    border-right-width: 14px;
-    border-bottom-width: 27px;
-  }
-
-  .star,
-  .heart {
-    font-size: 31px;
-  }
-
-  .small-signature {
-    width: 215px;
-    height: 68px;
-  }
-}
-
-
-/* =========================
-   صفحه بزرگ / پروژکتور
-========================= */
-
-@media (min-width: 900px) {
-
-  .question-card {
     padding:
-      30px
-      25px
-      35px;
-  }
+      7px 9px;
 
-  .pattern-row,
-  .drag-row {
-    gap: 16px;
-  }
+    font-size:
+      13px;
 
-  .pattern-row {
-    flex-wrap: nowrap;
-  }
-
-  .slot {
-    height: clamp(62px, 8vw, 92px);
-
-    border-radius: 22px;
   }
 
   .small-signature {
-    width: 250px;
-    height: 78px;
+
+    width:
+      clamp(155px,40vw,205px);
+
   }
+
 }
