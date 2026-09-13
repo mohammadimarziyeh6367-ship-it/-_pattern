@@ -1149,63 +1149,26 @@ button {
 /* =========================
    امضا
 ========================= */
-
 .signature-box {
-
-  width:
-    min(1100px,100%);
-
-  margin:
-    5px auto 0;
-
-  display:
-    flex;
-
-  justify-content:
-    flex-end;
-
-  align-items:
-    center;
-
-  padding-right:
-    10px;
-
+  width: min(1100px, 100%);
+  margin: 4px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 0 4px;
 }
 
 .small-signature {
-
-  display:
-    block;
-
-  width:
-    clamp(145px,28vw,235px);
-
-  height:
-    auto;
-
-  border:
-    none !important;
-
-  outline:
-    none !important;
-
-  background:
-    transparent !important;
-
-  box-shadow:
-    none !important;
-
-  mix-blend-mode:
-    multiply;
-
-  filter:
-    drop-shadow(
-      0 2px 3px
-      rgba(0,0,0,.12)
-    );
-
+  display: block;
+  width: clamp(165px, 32vw, 250px);
+  height: auto;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.12));
 }
-
 
 /* =========================
    پایان
