@@ -177,27 +177,20 @@ const levels = [
   },
   /* 9 ـ ABC */
   {
-    type: "reorder",
-    badge: "چالش",
-    question: "حالا یکم سخت‌تر! 😉",
-    instruction: "الگوی درست را بساز.",
-    pieces: [
-      shapes.triangle,
-      shapes.circle,
-      shapes.square,
-      shapes.square,
-      shapes.triangle,
-      shapes.circle
-    ],
-    target: [
-      shapes.circle,
-      shapes.square,
-      shapes.triangle,
-      shapes.circle,
-      shapes.square,
-      shapes.triangle
-    ]
-  },
+  type: "reorder",
+  badge: "چالش",
+  question: "حالا یکم سخت‌تر! 😉",
+  instruction: "",
+  pieces: [
+    shapes.triangle,
+    shapes.circle,
+    shapes.square,
+    shapes.square,
+    shapes.triangle,
+    shapes.circle
+  ],
+  flexiblePattern: true
+},
   /* 10 ـ جای خالی سه‌تایی */
   {
     type: "missing",
