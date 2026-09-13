@@ -1148,29 +1148,3 @@ document.addEventListener(
 /* =========================================================
    پایان
    ========================================================= */
-
-یک تغییر کوچک هم در style.css لازم است تا امضایت واقعاً وسط پایین صفحه دیده شود. این قسمت فعلی .signature-box را با این جایگزین کن:
-
-.signature-box {
-  width: min(1100px, 100%);
-  margin: 4px auto 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2px 0 4px;
-}
-.small-signature {
-  display: block;
-  width: clamp(165px, 32vw, 250px);
-  height: auto;
-  border: none !important;
-  outline: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,.12));
-}
-
-و یک نکته مهم: فشفشه‌باران داخل همین script.js ساخته شده و هیچ فایل یا کتابخانه خارجی لازم ندارد. 🎉
-
-صورت سؤال‌ها هم عمداً کوتاه شده‌اند تا کودک از خودِ سؤال جواب را نفهمد؛ باید الگو را نگاه کند و فکر کند. 🧠🌸
