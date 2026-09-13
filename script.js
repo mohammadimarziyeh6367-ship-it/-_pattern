@@ -2,23 +2,45 @@
    بازی «الگوی منظم» | ریاضی پایه اول
    ========================================================= */
 const shapes = {
-  circle:  { type: "circle",  color: "blue",   label: "دایره آبی" },
-  square:  { type: "square",  color: "yellow", label: "مربع زرد" },
-  triangle:{ type: "triangle",color: "green",  label: "مثلث سبز" },
-  star:    { type: "star",    color: "yellow", label: "ستاره زرد" },
-  heart:   { type: "heart",   color: "pink",   label: "قلب صورتی" }
+  circle: {
+    type: "circle",
+    color: "blue",
+    label: "دایره آبی"
+  },
+  square: {
+    type: "square",
+    color: "yellow",
+    label: "مربع زرد"
+  },
+  triangle: {
+    type: "triangle",
+    color: "green",
+    label: "مثلث سبز"
+  },
+  star: {
+    type: "star",
+    color: "yellow",
+    label: "ستاره زرد"
+  },
+  heart: {
+    type: "heart",
+    color: "pink",
+    label: "قلب صورتی"
+  }
 };
 /* =========================================================
    مرحله‌ها
    از ساده به دشوار
    ========================================================= */
 const levels = [
-  /* 1 ـ نمونه */
+  /* ---------------------------------------------------------
+     1 ـ نمونه
+     --------------------------------------------------------- */
   {
     type: "sample",
     badge: "نمونه",
     question: "اول با هم یک نمونه ببینیم 🌸",
-    instruction: "به ترتیب شکل‌ها دقت کن.",
+    instruction: "",
     pattern: [
       shapes.circle,
       shapes.square,
@@ -28,7 +50,9 @@ const levels = [
       shapes.square
     ]
   },
-  /* 2 ـ الگوی دو شکلی */
+  /* ---------------------------------------------------------
+     2 ـ الگوی دو شکلی
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "جای خالی",
@@ -49,7 +73,9 @@ const levels = [
     ],
     answer: 1
   },
-  /* 3 */
+  /* ---------------------------------------------------------
+     3
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "جای خالی",
@@ -70,7 +96,9 @@ const levels = [
     ],
     answer: 1
   },
-  /* 4 */
+  /* ---------------------------------------------------------
+     4
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "جای خالی",
@@ -91,7 +119,9 @@ const levels = [
     ],
     answer: 1
   },
-  /* 5 ـ الگوی سه‌تایی */
+  /* ---------------------------------------------------------
+     5 ـ الگوی سه‌تایی
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "الگوی سه‌تایی",
@@ -112,7 +142,9 @@ const levels = [
     ],
     answer: 0
   },
-  /* 6 */
+  /* ---------------------------------------------------------
+     6
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "جای خالی",
@@ -133,12 +165,14 @@ const levels = [
     ],
     answer: 0
   },
-  /* 7 ـ مرتب کردن */
+  /* ---------------------------------------------------------
+     7 ـ مرتب کردن
+     --------------------------------------------------------- */
   {
     type: "reorder",
     badge: "مرتب‌سازی",
     question: "این شکل‌ها قاطی شده‌اند! 😄",
-    instruction: "آن‌ها را جابه‌جا کن.",
+    instruction: "",
     pieces: [
       shapes.circle,
       shapes.circle,
@@ -152,12 +186,14 @@ const levels = [
       shapes.star
     ]
   },
-  /* 8 ـ AAB */
+  /* ---------------------------------------------------------
+     8 ـ AAB
+     --------------------------------------------------------- */
   {
     type: "reorder",
     badge: "مرتب‌سازی",
     question: "می‌توانی نظمشان را پیدا کنی؟ 🧠",
-    instruction: "شکل‌ها را مرتب کن.",
+    instruction: "",
     pieces: [
       shapes.star,
       shapes.circle,
@@ -175,23 +211,31 @@ const levels = [
       shapes.star
     ]
   },
-  /* 9 ـ ABC */
+  /* ---------------------------------------------------------
+     9 ـ ABC
+     
+     در این مرحله جواب فقط یک ترتیب مشخص نیست.
+     هر ۶ ترتیب ممکن، اگر سه‌تایی و منظم تکرار شوند،
+     پاسخ درست هستند.
+     --------------------------------------------------------- */
   {
-  type: "reorder",
-  badge: "چالش",
-  question: "حالا یکم سخت‌تر! 😉",
-  instruction: "",
-  pieces: [
-    shapes.triangle,
-    shapes.circle,
-    shapes.square,
-    shapes.square,
-    shapes.triangle,
-    shapes.circle
-  ],
-  flexiblePattern: true
-},
-  /* 10 ـ جای خالی سه‌تایی */
+    type: "reorder",
+    badge: "چالش",
+    question: "حالا یکم سخت‌تر! 😉",
+    instruction: "",
+    pieces: [
+      shapes.triangle,
+      shapes.circle,
+      shapes.square,
+      shapes.square,
+      shapes.triangle,
+      shapes.circle
+    ],
+    flexiblePattern: true
+  },
+  /* ---------------------------------------------------------
+     10 ـ جای خالی سه‌تایی
+     --------------------------------------------------------- */
   {
     type: "missing",
     badge: "چالش",
@@ -212,12 +256,14 @@ const levels = [
     ],
     answer: 0
   },
-  /* 11 ـ شکل اضافه */
+  /* ---------------------------------------------------------
+     11 ـ شکل اضافه
+     --------------------------------------------------------- */
   {
     type: "remove",
     badge: "شکل اضافه",
     question: "یک شکل اضافه است! 🔍",
-    instruction: "شکل اضافه را پیدا کن.",
+    instruction: "",
     pattern: [
       shapes.circle,
       shapes.star,
@@ -229,12 +275,14 @@ const levels = [
     ],
     removeIndex: 5
   },
-  /* 12 ـ شکل اضافه در الگوی سه‌تایی */
+  /* ---------------------------------------------------------
+     12 ـ شکل اضافه در الگوی سه‌تایی
+     --------------------------------------------------------- */
   {
     type: "remove",
     badge: "چالش",
     question: "کدام شکل نظم را به‌هم زده؟ 🤔",
-    instruction: "شکل اضافه را بردار.",
+    instruction: "",
     pattern: [
       shapes.circle,
       shapes.square,
@@ -246,12 +294,14 @@ const levels = [
     ],
     removeIndex: 4
   },
-  /* 13 ـ دو جای خالی */
+  /* ---------------------------------------------------------
+     13 ـ دو جای خالی
+     --------------------------------------------------------- */
   {
     type: "place",
     badge: "مرحله نهایی",
     question: "دو شکل گم شده‌اند! 🌟",
-    instruction: "هر دو جای خالی را کامل کن.",
+    instruction: "",
     pattern: [
       shapes.heart,
       shapes.star,
@@ -283,39 +333,64 @@ let activeReorder = null;
 /* =========================================================
    عناصر صفحه
    ========================================================= */
-const cover = document.getElementById("cover");
-const game = document.getElementById("game");
-const finish = document.getElementById("finish");
-const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
-const studentNameInput = document.getElementById("studentName");
-const levelLabel = document.getElementById("levelLabel");
-const scoreLabel = document.getElementById("scoreLabel");
-const progressBar = document.getElementById("progressBar");
-const typeBadge = document.getElementById("typeBadge");
-const questionText = document.getElementById("questionText");
-const instruction = document.getElementById("instruction");
-const patternArea = document.getElementById("patternArea");
-const choices = document.getElementById("choices");
-const choicesTitle = document.getElementById("choicesTitle");
-const feedback = document.getElementById("feedback");
-const exitBtn = document.getElementById("exitBtn");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const finalScore = document.getElementById("finalScore");
-const finishMessage = document.getElementById("finishMessage");
+const cover =
+  document.getElementById("cover");
+const game =
+  document.getElementById("game");
+const finish =
+  document.getElementById("finish");
+const startBtn =
+  document.getElementById("startBtn");
+const restartBtn =
+  document.getElementById("restartBtn");
+const studentNameInput =
+  document.getElementById("studentName");
+const levelLabel =
+  document.getElementById("levelLabel");
+const scoreLabel =
+  document.getElementById("scoreLabel");
+const progressBar =
+  document.getElementById("progressBar");
+const typeBadge =
+  document.getElementById("typeBadge");
+const questionText =
+  document.getElementById("questionText");
+const instruction =
+  document.getElementById("instruction");
+const patternArea =
+  document.getElementById("patternArea");
+const choices =
+  document.getElementById("choices");
+const choicesTitle =
+  document.getElementById("choicesTitle");
+const feedback =
+  document.getElementById("feedback");
+const exitBtn =
+  document.getElementById("exitBtn");
+const prevBtn =
+  document.getElementById("prevBtn");
+const nextBtn =
+  document.getElementById("nextBtn");
+const finalScore =
+  document.getElementById("finalScore");
+const finishMessage =
+  document.getElementById("finishMessage");
 /* =========================================================
    ابزارهای عمومی
    ========================================================= */
 function samePiece(a, b) {
-  if (!a || !b) return false;
+  if (!a || !b) {
+    return false;
+  }
   return (
     a.type === b.type &&
     a.color === b.color
   );
 }
 function clonePiece(piece) {
-  if (!piece) return null;
+  if (!piece) {
+    return null;
+  }
   return {
     type: piece.type,
     color: piece.color,
@@ -326,17 +401,33 @@ function clonePiece(piece) {
    ساخت شکل
    ========================================================= */
 function shapeHTML(piece) {
-  if (!piece) return "";
+  if (!piece) {
+    return "";
+  }
   if (piece.type === "star") {
-    return `<div class="shape star ${piece.color}">★</div>`;
+    return `
+      <div class="shape star ${piece.color}">
+        ★
+      </div>
+    `;
   }
   if (piece.type === "heart") {
-    return `<div class="shape heart ${piece.color}">♥</div>`;
+    return `
+      <div class="shape heart ${piece.color}">
+        ♥
+      </div>
+    `;
   }
   if (piece.type === "triangle") {
-    return `<div class="shape triangle ${piece.color}"></div>`;
+    return `
+      <div class="shape triangle ${piece.color}">
+      </div>
+    `;
   }
-  return `<div class="shape ${piece.type} ${piece.color}"></div>`;
+  return `
+    <div class="shape ${piece.type} ${piece.color}">
+    </div>
+  `;
 }
 /* =========================================================
    نمایش صفحه
@@ -351,12 +442,15 @@ function showScreen(screen) {
    شروع بازی
    ========================================================= */
 function startGame() {
-  studentName = studentNameInput.value.trim();
+  studentName =
+    studentNameInput.value.trim();
   if (!studentName) {
     studentNameInput.focus();
-    studentNameInput.style.borderColor = "#ef6262";
+    studentNameInput.style.borderColor =
+      "#ef6262";
     setTimeout(() => {
-      studentNameInput.style.borderColor = "";
+      studentNameInput.style.borderColor =
+        "";
     }, 900);
     return;
   }
@@ -370,29 +464,49 @@ function startGame() {
 }
 /* =========================================================
    صدای افکت
-   فقط افکت ساده، بدون صدای خارجی
+   فقط افکت ساده
    ========================================================= */
 function getAudioContext() {
   if (!audioContext) {
     const AudioCtx =
       window.AudioContext ||
       window.webkitAudioContext;
-    if (!AudioCtx) return null;
-    audioContext = new AudioCtx();
+    if (!AudioCtx) {
+      return null;
+    }
+    audioContext =
+      new AudioCtx();
   }
-  if (audioContext.state === "suspended") {
+  if (
+    audioContext.state ===
+    "suspended"
+  ) {
     audioContext.resume();
   }
   return audioContext;
 }
-function playTone(frequency, duration, type = "sine", volume = 0.04) {
-  const ctx = getAudioContext();
-  if (!ctx) return;
-  const oscillator = ctx.createOscillator();
-  const gain = ctx.createGain();
+function playTone(
+  frequency,
+  duration,
+  type = "sine",
+  volume = 0.04
+) {
+  const ctx =
+    getAudioContext();
+  if (!ctx) {
+    return;
+  }
+  const oscillator =
+    ctx.createOscillator();
+  const gain =
+    ctx.createGain();
   oscillator.type = type;
-  oscillator.frequency.value = frequency;
-  gain.gain.setValueAtTime(volume, ctx.currentTime);
+  oscillator.frequency.value =
+    frequency;
+  gain.gain.setValueAtTime(
+    volume,
+    ctx.currentTime
+  );
   gain.gain.exponentialRampToValueAtTime(
     0.001,
     ctx.currentTime + duration
@@ -405,29 +519,58 @@ function playTone(frequency, duration, type = "sine", volume = 0.04) {
   );
 }
 function correctSound() {
-  playTone(660, .12, "sine", .05);
+  playTone(
+    660,
+    0.12,
+    "sine",
+    0.05
+  );
   setTimeout(() => {
-    playTone(880, .18, "sine", .05);
+    playTone(
+      880,
+      0.18,
+      "sine",
+      0.05
+    );
   }, 90);
   setTimeout(() => {
-    playTone(1100, .2, "sine", .04);
+    playTone(
+      1100,
+      0.2,
+      "sine",
+      0.04
+    );
   }, 180);
 }
 function wrongSound() {
-  playTone(220, .12, "triangle", .035);
+  playTone(
+    220,
+    0.12,
+    "triangle",
+    0.035
+  );
 }
 /* =========================================================
    فشفشه‌باران 🎉
    ========================================================= */
 function fireworks() {
-  const container = document.createElement("div");
-  container.className = "fireworks-layer";
-  container.style.position = "fixed";
-  container.style.inset = "0";
-  container.style.pointerEvents = "none";
-  container.style.zIndex = "9999";
-  container.style.overflow = "hidden";
-  document.body.appendChild(container);
+  const container =
+    document.createElement("div");
+  container.className =
+    "fireworks-layer";
+  container.style.position =
+    "fixed";
+  container.style.inset =
+    "0";
+  container.style.pointerEvents =
+    "none";
+  container.style.zIndex =
+    "9999";
+  container.style.overflow =
+    "hidden";
+  document.body.appendChild(
+    container
+  );
   const symbols = [
     "🎉",
     "🎊",
@@ -438,10 +581,17 @@ function fireworks() {
     "🌸"
   ];
   for (let i = 0; i < 34; i++) {
-    const item = document.createElement("div");
+    const item =
+      document.createElement("div");
     item.textContent =
-      symbols[Math.floor(Math.random() * symbols.length)];
-    item.style.position = "absolute";
+      symbols[
+        Math.floor(
+          Math.random() *
+          symbols.length
+        )
+      ];
+    item.style.position =
+      "absolute";
     item.style.left =
       Math.random() * 100 + "%";
     item.style.top =
@@ -458,8 +608,12 @@ function fireworks() {
       item.style.top =
         (70 + Math.random() * 35) + "%";
       item.style.transform =
-        `translateX(${(-80 + Math.random() * 160)}px)
-         rotate(${Math.random() * 720}deg)`;
+        `translateX(${
+          -80 + Math.random() * 160
+        }px)
+         rotate(${
+          Math.random() * 720
+        }deg)`;
       item.style.opacity = "0";
     });
   }
@@ -470,25 +624,34 @@ function fireworks() {
 /* =========================================================
    بازخورد
    ========================================================= */
-function showFeedback(message, good = true) {
-  feedback.textContent = message;
+function showFeedback(
+  message,
+  good = true
+) {
+  feedback.textContent =
+    message;
   feedback.className =
-    "feedback " + (good ? "ok" : "no");
+    "feedback " +
+    (good ? "ok" : "no");
   if (good) {
-    feedback.classList.add("success-animation");
+    feedback.classList.add(
+      "success-animation"
+    );
   }
 }
 /* =========================================================
    امتیاز
    ========================================================= */
 function updateScore() {
-  scoreLabel.textContent = `امتیاز: ${score}`;
+  scoreLabel.textContent =
+    `امتیاز: ${score}`;
 }
 /* =========================================================
    نمایش مرحله
    ========================================================= */
 function renderLevel() {
-  const current = levels[level];
+  const current =
+    levels[level];
   levelLabel.textContent =
     `مرحله ${level + 1} از ${levels.length}`;
   progressBar.style.width =
@@ -500,25 +663,40 @@ function renderLevel() {
   instruction.textContent =
     current.instruction || "";
   feedback.textContent = "";
-  feedback.className = "feedback";
+  feedback.className =
+    "feedback";
   patternArea.innerHTML = "";
   choices.innerHTML = "";
-  choicesTitle.classList.add("hidden");
-  prevBtn.disabled = level === 0;
-  nextBtn.disabled = false;
+  choicesTitle.classList.add(
+    "hidden"
+  );
+  prevBtn.disabled =
+    level === 0;
+  nextBtn.disabled =
+    false;
+  activeDrag = null;
+  activeReorder = null;
   if (current.type === "sample") {
     renderSample(current);
   }
-  else if (current.type === "missing") {
+  else if (
+    current.type === "missing"
+  ) {
     renderMissing(current);
   }
-  else if (current.type === "reorder") {
+  else if (
+    current.type === "reorder"
+  ) {
     renderReorder(current);
   }
-  else if (current.type === "remove") {
+  else if (
+    current.type === "remove"
+  ) {
     renderRemove(current);
   }
-  else if (current.type === "place") {
+  else if (
+    current.type === "place"
+  ) {
     renderPlace(current);
   }
   updateScore();
@@ -526,32 +704,49 @@ function renderLevel() {
 /* =========================================================
    ردیف الگو
    ========================================================= */
-function buildPatternRow(pattern, options = {}) {
-  const row = document.createElement("div");
-  row.className = "pattern-row";
-  pattern.forEach((piece, index) => {
-    const slot = document.createElement("div");
-    slot.className = "slot";
-    slot.dataset.index = index;
-    if (piece) {
-      slot.innerHTML = shapeHTML(piece);
+function buildPatternRow(
+  pattern
+) {
+  const row =
+    document.createElement("div");
+  row.className =
+    "pattern-row";
+  pattern.forEach(
+    (piece, index) => {
+      const slot =
+        document.createElement("div");
+      slot.className =
+        "slot";
+      slot.dataset.index =
+        index;
+      if (piece) {
+        slot.innerHTML =
+          shapeHTML(piece);
+      }
+      else {
+        slot.classList.add(
+          "missing"
+        );
+        slot.innerHTML = "?";
+      }
+      row.appendChild(slot);
     }
-    else {
-      slot.classList.add("missing");
-      slot.innerHTML = "?";
-    }
-    row.appendChild(slot);
-  });
+  );
   return row;
 }
 /* =========================================================
    نمونه
    ========================================================= */
 function renderSample(data) {
-  const row = buildPatternRow(data.pattern);
-  patternArea.appendChild(row);
+  const row =
+    buildPatternRow(
+      data.pattern
+    );
+  patternArea.appendChild(
+    row
+  );
   showFeedback(
-    "잘 했어! حالا خودت امتحان کن 🌸".replace("잘 했어! ", ""),
+    "حالا خودت امتحان کن 🌸",
     true
   );
 }
@@ -559,109 +754,204 @@ function renderSample(data) {
    جای خالی
    ========================================================= */
 function renderMissing(data) {
-  const row = buildPatternRow(data.pattern);
-  patternArea.appendChild(row);
-  choicesTitle.classList.remove("hidden");
+  const row =
+    buildPatternRow(
+      data.pattern
+    );
+  patternArea.appendChild(
+    row
+  );
+  choicesTitle.classList.remove(
+    "hidden"
+  );
   renderChoices(data);
-  attachMissingDrop(row, data);
+  attachMissingDrop(
+    row,
+    data
+  );
 }
 /* =========================================================
    گزینه‌ها
    ========================================================= */
 function renderChoices(data) {
   choices.innerHTML = "";
-  data.choices.forEach((piece, index) => {
-    const choice = document.createElement("div");
-    choice.className = "choice";
-    choice.dataset.index = index;
-    choice.innerHTML = shapeHTML(piece);
-    choice.setAttribute("draggable", "true");
-    choices.appendChild(choice);
-    attachDrag(choice, data);
-  });
+  data.choices.forEach(
+    (piece, index) => {
+      const choice =
+        document.createElement("div");
+      choice.className =
+        "choice";
+      choice.dataset.index =
+        index;
+      choice.innerHTML =
+        shapeHTML(piece);
+      choice.setAttribute(
+        "draggable",
+        "true"
+      );
+      choices.appendChild(
+        choice
+      );
+      attachDrag(
+        choice,
+        data
+      );
+    }
+  );
 }
 /* =========================================================
    Drag گزینه
    ========================================================= */
-function attachDrag(choice, data) {
-  choice.addEventListener("dragstart", event => {
-    activeDrag = {
-      index: Number(choice.dataset.index),
-      data
-    };
-    choice.classList.add("dragging");
-  });
-  choice.addEventListener("dragend", () => {
-    choice.classList.remove("dragging");
-  });
-  /* برای موبایل */
-  choice.addEventListener("pointerdown", event => {
-    activeDrag = {
-      index: Number(choice.dataset.index),
-      data
-    };
-    choice.classList.add("dragging");
-    choice.setPointerCapture(event.pointerId);
-  });
-  choice.addEventListener("pointerup", event => {
-    choice.classList.remove("dragging");
-    const target = document.elementFromPoint(
-      event.clientX,
-      event.clientY
-    );
-    const slot =
-      target?.closest(".slot.missing");
-    if (slot) {
-      handleDrop(
-        Number(slot.dataset.index),
+function attachDrag(
+  choice,
+  data
+) {
+  choice.addEventListener(
+    "dragstart",
+    event => {
+      activeDrag = {
+        index: Number(
+          choice.dataset.index
+        ),
         data
+      };
+      choice.classList.add(
+        "dragging"
       );
     }
-    activeDrag = null;
-  });
+  );
+  choice.addEventListener(
+    "dragend",
+    () => {
+      choice.classList.remove(
+        "dragging"
+      );
+    }
+  );
+  /* موبایل */
+  choice.addEventListener(
+    "pointerdown",
+    event => {
+      activeDrag = {
+        index: Number(
+          choice.dataset.index
+        ),
+        data
+      };
+      choice.classList.add(
+        "dragging"
+      );
+      choice.setPointerCapture(
+        event.pointerId
+      );
+    }
+  );
+  choice.addEventListener(
+    "pointerup",
+    event => {
+      choice.classList.remove(
+        "dragging"
+      );
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+      const slot =
+        target?.closest(
+          ".slot.missing"
+        );
+      if (slot) {
+        handleDrop(
+          Number(
+            slot.dataset.index
+          ),
+          data
+        );
+      }
+      activeDrag = null;
+    }
+  );
 }
 /* =========================================================
    محل جای خالی
    ========================================================= */
-function attachMissingDrop(row, data) {
-  row.querySelectorAll(".slot.missing")
-    .forEach(slot => {
-      slot.addEventListener("dragover", event => {
+function attachMissingDrop(
+  row,
+  data
+) {
+  row.querySelectorAll(
+    ".slot.missing"
+  ).forEach(slot => {
+    slot.addEventListener(
+      "dragover",
+      event => {
         event.preventDefault();
-        slot.classList.add("over");
-      });
-      slot.addEventListener("dragleave", () => {
-        slot.classList.remove("over");
-      });
-      slot.addEventListener("drop", event => {
+        slot.classList.add(
+          "over"
+        );
+      }
+    );
+    slot.addEventListener(
+      "dragleave",
+      () => {
+        slot.classList.remove(
+          "over"
+        );
+      }
+    );
+    slot.addEventListener(
+      "drop",
+      event => {
         event.preventDefault();
-        slot.classList.remove("over");
+        slot.classList.remove(
+          "over"
+        );
         handleDrop(
-          Number(slot.dataset.index),
+          Number(
+            slot.dataset.index
+          ),
           data
         );
-      });
-    });
+      }
+    );
+  });
 }
 /* =========================================================
    پاسخ جای خالی
    ========================================================= */
-function handleDrop(slotIndex, data) {
-  if (!activeDrag) return;
+function handleDrop(
+  slotIndex,
+  data
+) {
+  if (!activeDrag) {
+    return;
+  }
   const chosenIndex =
     activeDrag.index;
-  if (chosenIndex === data.answer) {
+  if (
+    chosenIndex ===
+    data.answer
+  ) {
     const correctPiece =
-      data.choices[data.answer];
+      data.choices[
+        data.answer
+      ];
     const slot =
       patternArea.querySelector(
         `.slot[data-index="${slotIndex}"]`
       );
     if (slot) {
-      slot.classList.remove("missing");
-      slot.classList.add("correct");
+      slot.classList.remove(
+        "missing"
+      );
+      slot.classList.add(
+        "correct"
+      );
       slot.innerHTML =
-        shapeHTML(correctPiece);
+        shapeHTML(
+          correctPiece
+        );
     }
     score += 10;
     updateScore();
@@ -672,7 +962,8 @@ function handleDrop(slotIndex, data) {
     correctSound();
     fireworks();
     disableChoices();
-  } else {
+  }
+  else {
     wrongSlot();
   }
   activeDrag = null;
@@ -682,11 +973,17 @@ function handleDrop(slotIndex, data) {
    ========================================================= */
 function wrongSlot() {
   const missing =
-    patternArea.querySelector(".slot.missing");
+    patternArea.querySelector(
+      ".slot.missing"
+    );
   if (missing) {
-    missing.classList.add("wrong");
+    missing.classList.add(
+      "wrong"
+    );
     setTimeout(() => {
-      missing.classList.remove("wrong");
+      missing.classList.remove(
+        "wrong"
+      );
     }, 350);
   }
   showFeedback(
@@ -699,93 +996,160 @@ function wrongSlot() {
    غیرفعال کردن گزینه‌ها
    ========================================================= */
 function disableChoices() {
-  choices.querySelectorAll(".choice")
+  choices
+    .querySelectorAll(
+      ".choice"
+    )
     .forEach(choice => {
-      choice.style.pointerEvents = "none";
-      choice.style.opacity = ".55";
+      choice.style.pointerEvents =
+        "none";
+      choice.style.opacity =
+        ".55";
     });
 }
 /* =========================================================
    مرتب‌سازی
    ========================================================= */
-function renderReorder(data) {
-  const stateKey = level;
+function renderReorder(
+  data
+) {
+  const stateKey =
+    level;
   if (!stageStates[stateKey]) {
     stageStates[stateKey] = {
-      pieces: data.pieces.map(clonePiece),
+      pieces:
+        data.pieces.map(
+          clonePiece
+        ),
       solved: false
     };
   }
   const state =
     stageStates[stateKey];
-  const row = document.createElement("div");
-  row.className = "pattern-row";
-  state.pieces.forEach((piece, index) => {
-    const slot = document.createElement("div");
-    slot.className = "slot reorder-slot";
-    slot.dataset.index = index;
-    slot.innerHTML =
-      shapeHTML(piece);
-    slot.draggable = true;
-    row.appendChild(slot);
-  });
-  patternArea.appendChild(row);
-  attachReorderDrag(row, data);
+  const row =
+    document.createElement("div");
+  row.className =
+    "pattern-row";
+  state.pieces.forEach(
+    (piece, index) => {
+      const slot =
+        document.createElement("div");
+      slot.className =
+        "slot reorder-slot";
+      slot.dataset.index =
+        index;
+      slot.innerHTML =
+        shapeHTML(piece);
+      slot.draggable =
+        true;
+      row.appendChild(
+        slot
+      );
+    }
+  );
+  patternArea.appendChild(
+    row
+  );
+  attachReorderDrag(
+    row,
+    data
+  );
 }
 /* =========================================================
    جابه‌جایی
    ========================================================= */
-function attachReorderDrag(row, data) {
-  row.querySelectorAll(".reorder-slot")
-    .forEach(slot => {
-      slot.addEventListener("dragstart", () => {
+function attachReorderDrag(
+  row,
+  data
+) {
+  row.querySelectorAll(
+    ".reorder-slot"
+  ).forEach(slot => {
+    /* کامپیوتر */
+    slot.addEventListener(
+      "dragstart",
+      () => {
         activeReorder =
-          Number(slot.dataset.index);
-        slot.classList.add("dragging");
-      });
-      slot.addEventListener("dragend", () => {
-        slot.classList.remove("dragging");
-        activeReorder = null;
-      });
-      slot.addEventListener("dragover", event => {
+          Number(
+            slot.dataset.index
+          );
+        slot.classList.add(
+          "dragging"
+        );
+      }
+    );
+    slot.addEventListener(
+      "dragend",
+      () => {
+        slot.classList.remove(
+          "dragging"
+        );
+        activeReorder =
+          null;
+      }
+    );
+    slot.addEventListener(
+      "dragover",
+      event => {
         event.preventDefault();
-      });
-      slot.addEventListener("drop", event => {
+      }
+    );
+    slot.addEventListener(
+      "drop",
+      event => {
         event.preventDefault();
         if (
           activeReorder === null ||
-          activeReorder === Number(slot.dataset.index)
+          activeReorder ===
+          Number(
+            slot.dataset.index
+          )
         ) {
           return;
         }
         swapReorder(
           activeReorder,
-          Number(slot.dataset.index),
+          Number(
+            slot.dataset.index
+          ),
           data
         );
-      });
-      /* موبایل */
-      slot.addEventListener("pointerdown", event => {
+      }
+    );
+    /* موبایل */
+    slot.addEventListener(
+      "pointerdown",
+      event => {
         activeReorder =
-          Number(slot.dataset.index);
+          Number(
+            slot.dataset.index
+          );
         slot.setPointerCapture(
           event.pointerId
         );
-      });
-      slot.addEventListener("pointerup", event => {
+      }
+    );
+    slot.addEventListener(
+      "pointerup",
+      event => {
         const target =
           document.elementFromPoint(
             event.clientX,
             event.clientY
           );
         const targetSlot =
-          target?.closest(".reorder-slot");
+          target?.closest(
+            ".reorder-slot"
+          );
         if (targetSlot) {
           const targetIndex =
-            Number(targetSlot.dataset.index);
+            Number(
+              targetSlot.dataset.index
+            );
           if (
             activeReorder !== null &&
-            activeReorder !== targetIndex
+            activeReorder !==
+            targetIndex
           ) {
             swapReorder(
               activeReorder,
@@ -794,14 +1158,20 @@ function attachReorderDrag(row, data) {
             );
           }
         }
-        activeReorder = null;
-      });
-    });
+        activeReorder =
+          null;
+      }
+    );
+  });
 }
 /* =========================================================
    تعویض دو شکل
    ========================================================= */
-function swapReorder(from, to, data) {
+function swapReorder(
+  from,
+  to,
+  data
+) {
   const state =
     stageStates[level];
   const temp =
@@ -817,96 +1187,205 @@ function swapReorder(from, to, data) {
    رندر مجدد بدون پاک کردن وضعیت
    ========================================================= */
 function renderLevelWithoutReset() {
-  const current = levels[level];
+  const current =
+    levels[level];
   patternArea.innerHTML = "";
-  if (current.type === "reorder") {
-    renderReorder(current);
+  if (
+    current.type ===
+    "reorder"
+  ) {
+    renderReorder(
+      current
+    );
   }
 }
 /* =========================================================
    بررسی مرتب‌سازی
    ========================================================= */
-function checkReorder(data) {
+function checkReorder(
+  data
+) {
   const state =
     stageStates[level];
-  const correct =
-    state.pieces.every(
-      (piece, index) =>
-        samePiece(piece, data.target[index])
-    );
-  if (!correct) return;
-  if (state.solved) return;
-  state.solved = true;
+  let correct =
+    false;
+  /* ---------------------------------------------------------
+     مرحله ۹:
+     هر ترتیب سه‌تایی منظم با سه شکل متفاوت درست است.
+     --------------------------------------------------------- */
+  if (
+    data.flexiblePattern
+  ) {
+    const pieces =
+      state.pieces;
+    if (
+      pieces.length === 6
+    ) {
+      const firstGroup =
+        pieces.slice(0, 3);
+      const secondGroup =
+        pieces.slice(3, 6);
+      /* سه شکل اول باید متفاوت باشند */
+      const uniqueShapes =
+        new Set(
+          firstGroup.map(
+            piece =>
+              `${piece.type}-${piece.color}`
+          )
+        );
+      const threeDifferent =
+        uniqueShapes.size === 3;
+      /* سه شکل دوم باید همان ترتیب
+         سه شکل اول را تکرار کنند */
+      const repeated =
+        samePiece(
+          firstGroup[0],
+          secondGroup[0]
+        ) &&
+        samePiece(
+          firstGroup[1],
+          secondGroup[1]
+        ) &&
+        samePiece(
+          firstGroup[2],
+          secondGroup[2]
+        );
+      correct =
+        threeDifferent &&
+        repeated;
+    }
+  }
+  /* ---------------------------------------------------------
+     سایر مرحله‌های مرتب‌سازی
+     --------------------------------------------------------- */
+  else {
+    correct =
+      Array.isArray(
+        data.target
+      ) &&
+      state.pieces.length ===
+        data.target.length &&
+      state.pieces.every(
+        (piece, index) =>
+          samePiece(
+            piece,
+            data.target[index]
+          )
+      );
+  }
+  if (!correct) {
+    return;
+  }
+  if (state.solved) {
+    return;
+  }
+  state.solved =
+    true;
   score += 10;
   updateScore();
   showFeedback(
-    "عالیه! الگو را درست ساختی 🎉",
+    "عالیه! یک الگوی منظم ساختی 🎉",
     true
   );
   correctSound();
   fireworks();
   patternArea
-    .querySelectorAll(".slot")
+    .querySelectorAll(
+      ".slot"
+    )
     .forEach(slot => {
-      slot.classList.add("correct");
+      slot.classList.add(
+        "correct"
+      );
     });
 }
 /* =========================================================
    حذف شکل اضافه
    ========================================================= */
-function renderRemove(data) {
-  const row = document.createElement("div");
-  row.className = "pattern-row";
-  data.pattern.forEach((piece, index) => {
-    const slot = document.createElement("div");
-    slot.className = "slot";
-    slot.dataset.index = index;
-    slot.innerHTML =
-      shapeHTML(piece);
-    slot.style.cursor = "pointer";
-    slot.addEventListener("click", () => {
-      if (stageStates[level]?.solved) {
-        return;
-      }
-      if (index === data.removeIndex) {
-        stageStates[level] = {
-          solved: true
-        };
-        slot.style.transform =
-          "scale(0)";
-        slot.style.opacity = "0";
-        setTimeout(() => {
-          slot.remove();
-        }, 250);
-        score += 10;
-        updateScore();
-        showFeedback(
-          "آفرین! شکل اضافه را پیدا کردی 🎉",
-          true
-        );
-        correctSound();
-        fireworks();
-      } else {
-        slot.classList.add("wrong");
-        setTimeout(() => {
-          slot.classList.remove("wrong");
-        }, 350);
-        showFeedback(
-          "نه، دوباره با دقت نگاه کن 👀",
-          false
-        );
-        wrongSound();
-      }
-    });
-    row.appendChild(slot);
-  });
-  patternArea.appendChild(row);
+function renderRemove(
+  data
+) {
+  const row =
+    document.createElement("div");
+  row.className =
+    "pattern-row";
+  data.pattern.forEach(
+    (piece, index) => {
+      const slot =
+        document.createElement("div");
+      slot.className =
+        "slot";
+      slot.dataset.index =
+        index;
+      slot.innerHTML =
+        shapeHTML(piece);
+      slot.style.cursor =
+        "pointer";
+      slot.addEventListener(
+        "click",
+        () => {
+          if (
+            stageStates[level]?.solved
+          ) {
+            return;
+          }
+          if (
+            index ===
+            data.removeIndex
+          ) {
+            stageStates[level] = {
+              solved: true
+            };
+            slot.style.transform =
+              "scale(0)";
+            slot.style.opacity =
+              "0";
+            setTimeout(() => {
+              slot.remove();
+            }, 250);
+            score += 10;
+            updateScore();
+            showFeedback(
+              "آفرین! شکل اضافه را پیدا کردی 🎉",
+              true
+            );
+            correctSound();
+            fireworks();
+          }
+          else {
+            slot.classList.add(
+              "wrong"
+            );
+            setTimeout(() => {
+              slot.classList.remove(
+                "wrong"
+              );
+            }, 350);
+            showFeedback(
+              "نه، دوباره با دقت نگاه کن 👀",
+              false
+            );
+            wrongSound();
+          }
+        }
+      );
+      row.appendChild(
+        slot
+      );
+    }
+  );
+  patternArea.appendChild(
+    row
+  );
 }
 /* =========================================================
    دو جای خالی
    ========================================================= */
-function renderPlace(data) {
-  const stateKey = level;
+function renderPlace(
+  data
+) {
+  const stateKey =
+    level;
   if (!stageStates[stateKey]) {
     stageStates[stateKey] = {
       answers: [],
@@ -915,116 +1394,205 @@ function renderPlace(data) {
   }
   const state =
     stageStates[stateKey];
-  const row = buildPatternRow(
-    data.pattern
+  const row =
+    buildPatternRow(
+      data.pattern
+    );
+  patternArea.appendChild(
+    row
   );
-  patternArea.appendChild(row);
-  choicesTitle.classList.remove("hidden");
+  choicesTitle.classList.remove(
+    "hidden"
+  );
   choices.innerHTML = "";
-  data.choices.forEach((piece, index) => {
-    const choice = document.createElement("div");
-    choice.className = "choice";
-    choice.dataset.index = index;
-    choice.innerHTML =
-      shapeHTML(piece);
-    choice.setAttribute(
-      "draggable",
-      "true"
-    );
-    choices.appendChild(choice);
-    attachPlaceChoice(
-      choice,
-      data
-    );
-  });
+  data.choices.forEach(
+    (piece, index) => {
+      const choice =
+        document.createElement("div");
+      choice.className =
+        "choice";
+      choice.dataset.index =
+        index;
+      choice.innerHTML =
+        shapeHTML(piece);
+      choice.setAttribute(
+        "draggable",
+        "true"
+      );
+      choices.appendChild(
+        choice
+      );
+      attachPlaceChoice(
+        choice,
+        data
+      );
+    }
+  );
 }
 /* =========================================================
    انتخاب برای دو جای خالی
    ========================================================= */
-function attachPlaceChoice(choice, data) {
-  choice.addEventListener("dragstart", () => {
-    activeDrag = {
-      index: Number(choice.dataset.index),
-      data
-    };
-    choice.classList.add("dragging");
-  });
-  choice.addEventListener("dragend", () => {
-    choice.classList.remove("dragging");
-  });
-  choice.addEventListener("pointerdown", event => {
-    activeDrag = {
-      index: Number(choice.dataset.index),
-      data
-    };
-    choice.classList.add("dragging");
-    choice.setPointerCapture(
-      event.pointerId
-    );
-  });
-  choice.addEventListener("pointerup", event => {
-    choice.classList.remove("dragging");
-    const target =
-      document.elementFromPoint(
-        event.clientX,
-        event.clientY
-      );
-    const slot =
-      target?.closest(".slot.missing");
-    if (slot) {
-      placeAnswer(
-        Number(slot.dataset.index),
+function attachPlaceChoice(
+  choice,
+  data
+) {
+  /* کامپیوتر */
+  choice.addEventListener(
+    "dragstart",
+    () => {
+      activeDrag = {
+        index: Number(
+          choice.dataset.index
+        ),
         data
+      };
+      choice.classList.add(
+        "dragging"
       );
     }
-    activeDrag = null;
-  });
+  );
+  choice.addEventListener(
+    "dragend",
+    () => {
+      choice.classList.remove(
+        "dragging"
+      );
+    }
+  );
+  /* موبایل */
+  choice.addEventListener(
+    "pointerdown",
+    event => {
+      activeDrag = {
+        index: Number(
+          choice.dataset.index
+        ),
+        data
+      };
+      choice.classList.add(
+        "dragging"
+      );
+      choice.setPointerCapture(
+        event.pointerId
+      );
+    }
+  );
+  choice.addEventListener(
+    "pointerup",
+    event => {
+      choice.classList.remove(
+        "dragging"
+      );
+      const target =
+        document.elementFromPoint(
+          event.clientX,
+          event.clientY
+        );
+      const slot =
+        target?.closest(
+          ".slot.missing"
+        );
+      if (slot) {
+        placeAnswer(
+          Number(
+            slot.dataset.index
+          ),
+          data
+        );
+      }
+      activeDrag =
+        null;
+    }
+  );
 }
 /* =========================================================
    دراپ برای دو جای خالی
    ========================================================= */
-function placeAnswer(slotIndex, data) {
-  if (!activeDrag) return;
+function placeAnswer(
+  slotIndex,
+  data
+) {
+  if (!activeDrag) {
+    return;
+  }
   const chosen =
     activeDrag.index;
   const state =
     stageStates[level];
   const missingIndexes =
     data.pattern
-      .map((piece, index) =>
-        piece === null ? index : -1
+      .map(
+        (piece, index) =>
+          piece === null
+            ? index
+            : -1
       )
-      .filter(index => index !== -1);
+      .filter(
+        index => index !== -1
+      );
   const placeNumber =
-    missingIndexes.indexOf(slotIndex);
-  if (placeNumber === -1) return;
+    missingIndexes.indexOf(
+      slotIndex
+    );
+  if (
+    placeNumber === -1
+  ) {
+    activeDrag = null;
+    return;
+  }
+  /* اگر این جای خالی قبلاً پر شده،
+     دوباره امتیاز نده */
+  if (
+    state.answers[
+      placeNumber
+    ] !== undefined
+  ) {
+    activeDrag = null;
+    return;
+  }
   const correct =
-    data.answers[placeNumber];
-  if (chosen === correct) {
-    state.answers[placeNumber] =
-      chosen;
+    data.answers[
+      placeNumber
+    ];
+  if (
+    chosen === correct
+  ) {
+    state.answers[
+      placeNumber
+    ] = chosen;
     const slot =
       patternArea.querySelector(
         `.slot[data-index="${slotIndex}"]`
       );
     if (slot) {
-      slot.classList.remove("missing");
-      slot.classList.add("correct");
+      slot.classList.remove(
+        "missing"
+      );
+      slot.classList.add(
+        "correct"
+      );
       slot.innerHTML =
-        shapeHTML(data.choices[chosen]);
+        shapeHTML(
+          data.choices[
+            chosen
+          ]
+        );
     }
     correctSound();
-    showFeedback(
-      "آفرین! یکی را درست پیدا کردی 🌟",
-      true
-    );
+    /* بررسی واقعی کامل شدن
+       هر دو جای خالی */
     const allCorrect =
       data.answers.every(
         (answer, index) =>
-          state.answers[index] === answer
+          state.answers[index] ===
+          answer
       );
-    if (allCorrect && !state.solved) {
-      state.solved = true;
+    if (
+      allCorrect &&
+      !state.solved
+    ) {
+      state.solved =
+        true;
       score += 20;
       updateScore();
       showFeedback(
@@ -1035,7 +1603,14 @@ function placeAnswer(slotIndex, data) {
       fireworks();
       disableChoices();
     }
-  } else {
+    else {
+      showFeedback(
+        "آفرین! یکی را درست پیدا کردی 🌟",
+        true
+      );
+    }
+  }
+  else {
     wrongSlot();
   }
   activeDrag = null;
@@ -1044,10 +1619,14 @@ function placeAnswer(slotIndex, data) {
    دکمه مرحله بعد
    ========================================================= */
 function goNext() {
-  if (level < levels.length - 1) {
+  if (
+    level <
+    levels.length - 1
+  ) {
     level++;
     renderLevel();
-  } else {
+  }
+  else {
     finishGame();
   }
 }
@@ -1064,16 +1643,27 @@ function goPrevious() {
    خروج
    ========================================================= */
 function exitGame() {
-  showScreen(cover);
-  feedback.textContent = "";
-  choices.innerHTML = "";
-  patternArea.innerHTML = "";
+  showScreen(
+    cover
+  );
+  feedback.textContent =
+    "";
+  choices.innerHTML =
+    "";
+  patternArea.innerHTML =
+    "";
+  activeDrag =
+    null;
+  activeReorder =
+    null;
 }
 /* =========================================================
    پایان بازی
    ========================================================= */
 function finishGame() {
-  showScreen(finish);
+  showScreen(
+    finish
+  );
   finalScore.textContent =
     `${studentName} عزیز، امتیازت شد: ${score} 🌟`;
   finishMessage.textContent =
@@ -1086,10 +1676,18 @@ function finishGame() {
 function restartGame() {
   level = 0;
   score = 0;
-  Object.keys(stageStates).forEach(key => {
+  Object.keys(
+    stageStates
+  ).forEach(key => {
     delete stageStates[key];
   });
-  showScreen(game);
+  activeDrag =
+    null;
+  activeReorder =
+    null;
+  showScreen(
+    game
+  );
   renderLevel();
 }
 /* =========================================================
@@ -1121,7 +1719,10 @@ nextBtn.addEventListener(
 studentNameInput.addEventListener(
   "keydown",
   event => {
-    if (event.key === "Enter") {
+    if (
+      event.key ===
+      "Enter"
+    ) {
       startGame();
     }
   }
@@ -1132,11 +1733,16 @@ studentNameInput.addEventListener(
 document.addEventListener(
   "touchmove",
   event => {
-    if (activeDrag || activeReorder !== null) {
+    if (
+      activeDrag ||
+      activeReorder !== null
+    ) {
       event.preventDefault();
     }
   },
-  { passive: false }
+  {
+    passive: false
+  }
 );
 /* =========================================================
    پایان
