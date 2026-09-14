@@ -1383,3 +1383,79 @@ button {
   }
 
 }
+/* =========================================================
+   الگوهای شطرنجی | ریاضی پایه اول
+========================================================= */
+
+.grid-pattern-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 8px 2px 14px;
+}
+
+.grid-pattern {
+  display: grid;
+  gap: clamp(4px, 1vw, 8px);
+  width: min(620px, 100%);
+  direction: ltr;
+}
+
+.grid-cell {
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  border: 3px solid #eadff4;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  touch-action: none;
+  transition: .18s ease;
+}
+
+.grid-cell.missing {
+  border: 3px dashed var(--purple);
+  background: #faf5ff;
+  color: var(--purple);
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 900;
+}
+
+.grid-cell.over {
+  transform: scale(1.06);
+  border-color: var(--purple);
+  background: #f3ebff;
+}
+
+.grid-cell.correct {
+  border-color: var(--green);
+  background: #edfff2;
+}
+
+.grid-cell.wrong {
+  border-color: var(--red);
+  background: #fff0f0;
+  animation: shake .25s ease;
+}
+
+.grid-cell .shape {
+  width: 70%;
+  height: 70%;
+}
+
+@media (max-width: 600px) {
+
+  .grid-pattern-wrap {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .grid-cell {
+    border-width: 2px;
+    border-radius: 9px;
+  }
+
+}
