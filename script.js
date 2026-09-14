@@ -537,6 +537,8 @@ function startGame() {
   });
   showScreen(game);
   renderLevel();
+
+}
 }
 /* =========================================================
    صدای افکت
@@ -775,6 +777,13 @@ function renderLevel() {
   ) {
     renderPlace(current);
   }
+   else if (data.type === "grid"
+           ) 
+   {
+
+  renderGrid(data);
+
+}
   updateScore();
 }
 /* =========================================================
