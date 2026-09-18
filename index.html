@@ -2,8 +2,14 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
   <title>الگوی منظم | ریاضی پایه اول</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,9 +17,13 @@
 
 <div class="app">
 
-  <!-- ================= صفحه شروع ================= -->
+  <!-- =====================================================
+       صفحه شروع
+  ====================================================== -->
+
   <section id="startScreen" class="screen start-screen">
 
+    <!-- عکس فقط در صفحه اول -->
     <div class="teacher-card">
       <img
         src="IMG_4332.jpeg"
@@ -23,22 +33,25 @@
     </div>
 
     <h1>الگوی منظم</h1>
+
     <h2>ریاضی پایه اول</h2>
 
     <div class="welcome-box">
+
       <p>بچه‌های گلم 🌸</p>
 
       <p>
         الگوخوانی خیلی مهم است.
         <br>
-        پس اول الگو را بخوانید، بعد ادامه‌ بدهید🥰
+        پس اول الگو را بخوانید، سپس الگوی پیدا شده را ادامه بدهید.
       </p>
+
     </div>
 
     <input
       id="studentName"
       type="text"
-      placeholder="نام زیبایت را وارد کن"
+      placeholder="🥰نام زیبایت را وارد کن"
       autocomplete="off"
     >
 
@@ -49,27 +62,48 @@
   </section>
 
 
-  <!-- ================= صفحه بازی ================= -->
-  <section id="gameScreen" class="screen game-screen hidden">
+  <!-- =====================================================
+       صفحه بازی
+  ====================================================== -->
 
+  <section
+    id="gameScreen"
+    class="screen game-screen hidden"
+  >
+
+    <!-- نوار بالا -->
     <div class="top-bar">
 
-      <button id="prevBtn" class="small-btn">
+      <button
+        id="prevBtn"
+        class="small-btn"
+      >
         ◀ قبلی
       </button>
 
       <div class="stage-info">
-        <span id="stageNumber">مرحله ۱</span>
-        <span id="scoreText">امتیاز: ۰</span>
+
+        <span id="stageNumber">
+          مرحله ۱
+        </span>
+
+        <span id="scoreText">
+          امتیاز: ۰
+        </span>
+
       </div>
 
-      <button id="nextBtn" class="small-btn">
+      <button
+        id="nextBtn"
+        class="small-btn"
+      >
         بعدی ▶
       </button>
 
     </div>
 
 
+    <!-- عنوان -->
     <div class="game-header">
 
       <h2 id="stageTitle">
@@ -78,51 +112,80 @@
 
       <p id="questionText"></p>
 
-      <p id="instructionText" class="instruction"></p>
+      <p
+        id="instructionText"
+        class="instruction"
+      ></p>
 
     </div>
 
 
-    <!-- جدول اصلی -->
-    <div id="mainArea" class="pattern-area">
+    <!-- الگوی اصلی -->
+    <div
+      id="mainArea"
+      class="pattern-area"
+    >
 
       <div class="area-title">
         الگوی اصلی
       </div>
 
-      <div id="mainGrid" class="pattern-grid"></div>
+      <div
+        id="mainGrid"
+        class="pattern-grid"
+      ></div>
 
     </div>
 
 
     <!-- پالت -->
-    <div id="paletteArea" class="palette-area">
+    <div
+      id="paletteArea"
+      class="palette-area"
+    >
 
       <div class="palette-title">
         رنگ را انتخاب کن
       </div>
 
-      <div id="palette" class="palette"></div>
+      <div
+        id="palette"
+        class="palette"
+      ></div>
 
     </div>
 
 
-    <!-- جدول سمت راست -->
-    <div id="repeatArea" class="pattern-area repeat-area">
+    <!-- الگوی سمت راست -->
+    <div
+      id="repeatArea"
+      class="pattern-area repeat-area"
+    >
 
       <div class="area-title">
-        یک بار الگوی تکرارشونده را اینجا رسم کن
+        الگوی پیدا شده را اینجا رسم کن
       </div>
 
-      <div id="repeatGrid" class="pattern-grid"></div>
+      <div
+        id="repeatGrid"
+        class="pattern-grid"
+      ></div>
 
     </div>
 
 
-    <div id="message" class="message"></div>
+    <!-- پیام -->
+    <div
+      id="message"
+      class="message"
+    ></div>
 
 
-    <button id="checkBtn" class="check-btn">
+    <!-- بررسی -->
+    <button
+      id="checkBtn"
+      class="check-btn"
+    >
       بررسی پاسخ ✓
     </button>
 
@@ -137,8 +200,14 @@
   </section>
 
 
-  <!-- ================= پایان ================= -->
-  <section id="finishScreen" class="screen finish-screen hidden">
+  <!-- =====================================================
+       صفحه پایان
+  ====================================================== -->
+
+  <section
+    id="finishScreen"
+    class="screen finish-screen hidden"
+  >
 
     <div class="finish-card">
 
@@ -164,12 +233,17 @@
 
       </div>
 
-      <button id="restartBtn" class="main-btn">
+      <button
+        id="restartBtn"
+        class="main-btn"
+      >
         دوباره بازی کن 🔄
       </button>
 
     </div>
 
+
+    <!-- امضا در صفحه پایان -->
     <img
       src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
       class="signature finish-signature"
@@ -179,6 +253,7 @@
   </section>
 
 </div>
+
 
 <script src="script.js"></script>
 
