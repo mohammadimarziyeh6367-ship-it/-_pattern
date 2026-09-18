@@ -1,6 +1,6 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   ========================================================= */
+========================================================= */
 
 const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
@@ -60,7 +60,6 @@ const colors = {
 const stages = [
 
   /* مرحله 1 */
-
   {
     type: "sample",
     title: "الگو را پیدا کن",
@@ -95,10 +94,10 @@ const stages = [
 
 
   /* مرحله 2 */
-
   {
     type: "missing",
     title: "الگو را ادامه بده",
+    question: "چه رنگ‌هایی تکرار می‌شوند؟",
     instruction: "رنگ درست را انتخاب کن و خانه‌های خالی را رنگ بزن.",
 
     rows: 1,
@@ -122,16 +121,15 @@ const stages = [
       "red",
       "green",
       "green",
-      "green",
-      "green",
       "red",
-      "green"
+      "green",
+      "green",
+      "red"
     ]
   },
 
 
   /* مرحله 3 */
-
   {
     type: "missing",
     title: "الگوی رنگی",
@@ -166,11 +164,10 @@ const stages = [
 
 
   /* مرحله 4 */
-
   {
     type: "missing",
     title: "الگو را بخوان",
-    question: "چه رنگی بعد از سبز می‌آید?",
+    question: "چه رنگی بعد از سبز می‌آید؟",
     instruction: "با دقت الگو را بخوان و کاملش کن.",
 
     rows: 1,
@@ -203,7 +200,6 @@ const stages = [
 
 
   /* مرحله 5 */
-
   {
     type: "missing",
     title: "الگوی شاد",
@@ -217,12 +213,12 @@ const stages = [
       "blue",
       "blue",
       "yellow",
-      "blue",
       null,
+      "blue",
       "yellow",
       null,
       null,
-      "blue",
+      "yellow",
       null
     ],
 
@@ -242,11 +238,10 @@ const stages = [
 
 
   /* مرحله 6 */
-
   {
     type: "missing",
     title: "الگو را کامل کن",
-    question: "کدام رنگ‌ها تکرار می‌شوند?",
+    question: "کدام رنگ‌ها تکرار می‌شوند؟",
     instruction: "الگو را بخوان و خانه‌های خالی را کامل کن.",
 
     rows: 1,
@@ -282,8 +277,6 @@ const stages = [
 
   /* =====================================================
      مرحله 7
-     الگوی اصلی: سبز، سبز، قرمز
-     سمت راست 8 خانه است؛ فقط 3 خانه باید رنگ شود.
   ===================================================== */
 
   {
@@ -303,15 +296,12 @@ const stages = [
       "green",
       "green",
       "red",
-
       "green",
       "green",
       "red",
-
       "green",
       "green",
       null,
-
       null,
       null,
       null
@@ -321,15 +311,12 @@ const stages = [
       "green",
       "green",
       "red",
-
       "green",
       "green",
       "red",
-
       "green",
       "green",
       "red",
-
       "green",
       "green",
       "red"
@@ -347,8 +334,6 @@ const stages = [
 
   /* =====================================================
      مرحله 8
-     الگوی اصلی: آبی، زرد
-     سمت راست 8 خانه است؛ فقط 2 خانه باید رنگ شود.
   ===================================================== */
 
   {
@@ -358,7 +343,8 @@ const stages = [
 
     question: "الگوی تکرارشونده را پیدا کن.",
 
-    instructionالگوی سمت چپ را کامل کن؛ سپس فقط یک مرتبه الگوی تکرار شونده را در سمت راست رسم کن.",
+    instruction:
+      "الگوی سمت چپ را کامل کن؛ سپس فقط یک مرتبه الگوی تکرارشونده را در سمت راست رسم کن.",
 
     rows: 1,
     cols: 12,
@@ -366,19 +352,14 @@ const stages = [
     start: [
       "blue",
       "yellow",
-
       "blue",
       "yellow",
-
       "blue",
       null,
-
       null,
       null,
-
       null,
       null,
-
       null,
       null
     ],
@@ -409,8 +390,6 @@ const stages = [
 
   /* =====================================================
      مرحله 9
-     الگوی اصلی: سبز، قرمز، قرمز
-     سمت راست 9 خانه است؛ فقط 3 خانه باید رنگ شود.
   ===================================================== */
 
   {
@@ -430,15 +409,12 @@ const stages = [
       "green",
       "red",
       "red",
-
       "green",
       "red",
       "red",
-
       "green",
       null,
       null,
-
       null,
       null,
       null
@@ -448,15 +424,12 @@ const stages = [
       "green",
       "red",
       "red",
-
       "green",
       "red",
       "red",
-
       "green",
       "red",
       "red",
-
       "green",
       "red",
       "red"
@@ -474,8 +447,6 @@ const stages = [
 
   /* =====================================================
      مرحله 10
-     شکل گل با خودِ خانه‌های رنگی
-     بدون گل جداگانه
   ===================================================== */
 
   {
@@ -533,13 +504,12 @@ const stages = [
 
 
   /* مرحله 11 */
-
   {
     type: "remove",
 
     title: "کدام شکل اضافه است?",
 
-    question: "با حذف کدام یک ، الگو منظم می شود ؟",
+    question: "با حذف کدام یک، الگو منظم می‌شود؟",
 
     instruction: "شکلی را که با الگو هماهنگ نیست، انتخاب کن.",
 
@@ -573,13 +543,12 @@ const stages = [
 
 
   /* مرحله 12 */
-
   {
     type: "remove",
 
     title: "شکل ناهماهنگ",
 
-    question: "کدام خانه با الگو هماهنگ نیست?",
+    question: "کدام خانه با الگو هماهنگ نیست؟",
 
     instruction: "خانه‌ی ناهماهنگ را پیدا کن و روی آن بزن.",
 
@@ -646,6 +615,7 @@ function playCorrectSound() {
   gain.connect(ctx.destination);
 
   gain.gain.setValueAtTime(0.001, ctx.currentTime);
+
   gain.gain.exponentialRampToValueAtTime(
     0.18,
     ctx.currentTime + 0.03
@@ -733,10 +703,16 @@ function createPalette() {
 
 
 /* =========================================================
-   ساخت جدول
+   ساخت جدول معمولی
 ========================================================= */
 
-function createGrid(container, rows, cols, values, editable = false) {
+function createGrid(
+  container,
+  rows,
+  cols,
+  values,
+  editable = false
+) {
 
   container.innerHTML = "";
 
@@ -745,8 +721,6 @@ function createGrid(container, rows, cols, values, editable = false) {
 
   container.style.gridTemplateRows =
     `repeat(${rows}, 58px)`;
-
-  const cells = [];
 
   for (let i = 0; i < rows * cols; i++) {
 
@@ -757,55 +731,46 @@ function createGrid(container, rows, cols, values, editable = false) {
     const value = values ? values[i] : null;
 
     if (value) {
+
       cell.classList.add(`color-${value}`);
-    } else {
-      cell.classList.add("blank");
-    }
-
-    if (!editable) {
       cell.classList.add("locked");
-    }
 
-    cell.dataset.index = i;
-    cell.dataset.color = value || "";
+      cell.dataset.color = value;
 
-    if (editable) {
+    } else {
 
-      cell.addEventListener("click", () => {
+      cell.classList.add("blank");
+      cell.dataset.color = "";
 
-        if (!selectedColor) {
-          message.textContent =
-            "اول یک رنگ از پالت انتخاب کن 🌈";
-          message.className = "message wrong";
-          return;
-        }
+      if (editable) {
 
-        cell.dataset.color = selectedColor;
+        cell.addEventListener("click", () => {
 
-        cell.className =
-          `pattern-cell color-${selectedColor}`;
+          if (!selectedColor) {
 
-        cell.classList.add("selected");
+            message.textContent =
+              "اول یک رنگ از پالت انتخاب کن 🌈";
 
-        setTimeout(() => {
-          cell.classList.remove("selected");
-        }, 180);
+            message.className = "message wrong";
 
-      });
+            return;
+          }
 
+          cell.dataset.color = selectedColor;
+
+          cell.className =
+            `pattern-cell color-${selectedColor}`;
+        });
+      }
     }
 
     container.appendChild(cell);
-
-    cells.push(cell);
   }
-
-  return cells;
 }
 
 
 /* =========================================================
-   ساخت جدول‌های الگوی جدید
+   ساخت مراحل الگوی تکرارشونده
 ========================================================= */
 
 function createTextbookStage(stage) {
@@ -819,11 +784,6 @@ function createTextbookStage(stage) {
   mainGrid.style.gridTemplateRows =
     `repeat(${stage.rows}, 58px)`;
 
-  /*
-    سمت چپ:
-    خانه‌های رنگ‌شده قفل هستند.
-    خانه‌های خالی قابل رنگ‌آمیزی هستند.
-  */
 
   for (let i = 0; i < stage.rows * stage.cols; i++) {
 
@@ -843,7 +803,6 @@ function createTextbookStage(stage) {
     } else {
 
       cell.classList.add("blank");
-
       cell.dataset.color = "";
 
       cell.addEventListener("click", () => {
@@ -863,28 +822,22 @@ function createTextbookStage(stage) {
 
         cell.className =
           `pattern-cell color-${selectedColor}`;
-
       });
-
     }
 
     mainGrid.appendChild(cell);
   }
 
 
-  /*
-    سمت راست:
-    تعداد خانه‌ها بیشتر است.
-    اما فقط به اندازه repeat باید رنگ شوند.
-  */
-
-  const repeatSlots = stage.repeatSlots || stage.repeat.length;
+  const repeatSlots =
+    stage.repeatSlots || stage.repeat.length;
 
   repeatGrid.style.gridTemplateColumns =
     `repeat(${repeatSlots}, 58px)`;
 
   repeatGrid.style.gridTemplateRows =
     `repeat(1, 58px)`;
+
 
   for (let i = 0; i < repeatSlots; i++) {
 
@@ -919,7 +872,7 @@ function createTextbookStage(stage) {
 
 
 /* =========================================================
-   مرحله نهایی سه‌ردیفه
+   مرحله نهایی
 ========================================================= */
 
 function createFinalStage(stage) {
@@ -952,7 +905,6 @@ function createFinalStage(stage) {
     } else {
 
       cell.classList.add("blank");
-
       cell.dataset.color = "";
 
       cell.addEventListener("click", () => {
@@ -978,12 +930,6 @@ function createFinalStage(stage) {
     mainGrid.appendChild(cell);
   }
 
-
-  /*
-    سمت راست:
-    تعداد خانه‌ها بیشتر است،
-    ولی فقط یک واحد از الگو باید رنگ شود.
-  */
 
   const repeatRows = stage.repeatRows;
   const repeatCols = stage.repeatCols;
@@ -1042,6 +988,7 @@ function createRemoveStage(stage) {
   mainGrid.style.gridTemplateRows =
     "repeat(1, 58px)";
 
+
   for (let i = 0; i < stage.start.length; i++) {
 
     const cell = document.createElement("button");
@@ -1092,7 +1039,7 @@ function renderStage() {
   message.className = "message";
 
   stageNumber.textContent =
-    `مرحله ${currentStage + 1} از ${stages.length}`;
+    `مرحله ${toPersianNumber(currentStage + 1)} از ${toPersianNumber(stages.length)}`;
 
   scoreText.textContent =
     `امتیاز: ${toPersianNumber(score)}`;
@@ -1181,12 +1128,6 @@ function checkColorStage(stage) {
   }
 
 
-  /*
-    در مراحل textbook و final:
-    سمت راست فقط باید به اندازه واحد الگو
-    رنگ شده باشد.
-  */
-
   if (
     stage.type === "textbook" ||
     stage.type === "finalFlower"
@@ -1205,10 +1146,6 @@ function checkColorStage(stage) {
 
       const expected =
         expectedRepeat[i] || "";
-
-      /*
-        خانه‌های اضافه باید خالی بمانند.
-      */
 
       if (actual !== expected) {
         return false;
@@ -1243,7 +1180,7 @@ function checkRemoveStage(stage) {
 
 
 /* =========================================================
-   بررسی
+   بررسی پاسخ
 ========================================================= */
 
 function checkAnswer() {
@@ -1312,7 +1249,7 @@ function checkAnswer() {
 
 
 /* =========================================================
-   شروع
+   شروع بازی
 ========================================================= */
 
 startBtn.addEventListener("click", () => {
