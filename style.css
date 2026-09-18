@@ -1,53 +1,109 @@
+/* =========================================================
+   بازی «الگوی منظم» | ریاضی پایه اول
+   طراحی مناسب موبایل + پروژکتور
+========================================================= */
+
 * {
   box-sizing: border-box;
+
   -webkit-tap-highlight-color: transparent;
 }
 
+
 :root {
+
   --purple: #7438c8;
+
   --pink: #ff77a8;
+
   --yellow: #ffd84d;
+
   --green: #53c878;
-  --blue: #19a9e5;
-  --red: #f04435;
-  --orange: #ff7026;
+
+  --blue: #4d9cff;
+
+  --red: #f05a5a;
+
+  --orange: #ff9f43;
+
   --bg: #fff8fc;
+
   --dark: #3b3150;
+
+  /*
+    اندازه خانه‌ها
+    برای پروژکتور بزرگ و واضح است.
+  */
+
+  --cell-size: 58px;
 }
+
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-}
 
-body {
-  font-family: Tahoma, Arial, sans-serif;
+  margin: 0;
+
+  padding: 0;
+
+  width: 100%;
+
+  min-height: 100%;
+
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+
   background: var(--bg);
+
   color: var(--dark);
+
   overflow-x: hidden;
 }
 
+
+body {
+
+  min-height: 100vh;
+}
+
+
 button,
 input {
+
   font-family: inherit;
 }
 
+
+button {
+
+  touch-action: manipulation;
+}
+
+
 .app {
+
   width: 100%;
+
   min-height: 100vh;
 }
 
+
 .screen {
-  width: 100%;
+
   min-height: 100vh;
-  padding: 18px;
+
+  width: 100%;
+
+  padding: 20px;
+
   position: relative;
 }
 
+
 .hidden {
+
   display: none !important;
 }
 
@@ -57,10 +113,15 @@ input {
 ========================================================= */
 
 .start-screen {
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
   text-align: center;
 
   background:
@@ -78,10 +139,12 @@ input {
 }
 
 
-/* عکس معلم کمی بزرگ‌تر */
+/* عکس معلم فقط صفحه اول */
 
 .teacher-card {
+
   width: 135px;
+
   height: 135px;
 
   border-radius: 50%;
@@ -91,13 +154,17 @@ input {
   background: white;
 
   box-shadow:
-    0 8px 25px rgba(116, 56, 200, 0.18);
+    0 8px 25px
+    rgba(116, 56, 200, 0.18);
 
   margin-bottom: 13px;
 }
 
+
 .teacher-photo {
+
   width: 100%;
+
   height: 100%;
 
   object-fit: cover;
@@ -105,23 +172,29 @@ input {
   border-radius: 50%;
 }
 
+
 .start-screen h1 {
+
   color: var(--purple);
 
   margin: 5px 0;
 
-  font-size: 35px;
+  font-size: 34px;
 }
 
+
 .start-screen h2 {
+
   color: var(--pink);
 
   margin: 0 0 18px;
 
-  font-size: 22px;
+  font-size: 21px;
 }
 
+
 .welcome-box {
+
   width: min(560px, 95%);
 
   background: white;
@@ -137,14 +210,19 @@ input {
   line-height: 1.9;
 
   box-shadow:
-    0 7px 20px rgba(116, 56, 200, 0.1);
+    0 7px 20px
+    rgba(116, 56, 200, 0.1);
 }
 
+
 .welcome-box p {
+
   margin: 4px;
 }
 
+
 #studentName {
+
   width: min(430px, 90%);
 
   margin-top: 20px;
@@ -162,11 +240,15 @@ input {
   outline: none;
 }
 
+
 #studentName:focus {
+
   border-color: var(--purple);
 }
 
+
 .main-btn {
+
   margin-top: 15px;
 
   border: none;
@@ -187,7 +269,9 @@ input {
     0 7px 0 #5a27a7;
 }
 
+
 .main-btn:active {
+
   transform: translateY(4px);
 
   box-shadow:
@@ -200,6 +284,7 @@ input {
 ========================================================= */
 
 .game-screen {
+
   background:
     radial-gradient(
       circle at top left,
@@ -208,59 +293,73 @@ input {
     ),
     #fffafe;
 
-  padding-top: 10px;
+  padding-top: 14px;
+
+  padding-bottom: 15px;
 }
 
 
-/* دکمه‌های قبلی و بعدی بالاتر */
+/* =========================================================
+   نوار بالا
+   دکمه‌ها از امضا جدا هستند
+========================================================= */
 
 .top-bar {
+
   width: 100%;
 
-  max-width: 1180px;
+  max-width: 1200px;
 
-  margin: 0 auto 5px;
+  margin: 0 auto 8px;
 
   display: flex;
 
   justify-content: space-between;
 
-  align-items: flex-start;
+  align-items: center;
 
-  gap: 10px;
+  gap: 20px;
 
   position: relative;
 
-  z-index: 10;
+  z-index: 5;
 }
 
+
 .small-btn {
-  border: 2px solid #d9c1f7;
+
+  border: none;
 
   background: white;
 
   color: var(--purple);
 
+  border: 2px solid #d9c1f7;
+
   border-radius: 14px;
 
-  padding: 10px 17px;
+  padding: 10px 18px;
 
   font-size: 16px;
 
-  font-weight: bold;
-
   cursor: pointer;
 
-  min-width: 90px;
+  box-shadow:
+    0 3px 8px
+    rgba(116,56,200,.08);
 }
 
+
 .small-btn:disabled {
-  opacity: 0.45;
+
+  opacity: .45;
 
   cursor: default;
 }
 
+
 .stage-info {
+
   display: flex;
 
   flex-direction: column;
@@ -282,75 +381,88 @@ input {
 ========================================================= */
 
 .game-header {
+
   text-align: center;
 
-  max-width: 1180px;
+  max-width: 1200px;
 
-  margin: 7px auto 12px;
+  margin: 8px auto 12px;
 }
 
+
 .game-header h2 {
+
   color: var(--purple);
 
   margin: 4px;
 
-  font-size: 30px;
+  font-size: 29px;
 }
 
+
 #questionText {
-  font-size: 21px;
+
+  font-size: 20px;
 
   font-weight: bold;
 
-  margin: 8px 0;
+  margin: 7px 0;
 }
 
+
 .instruction {
+
   color: #68587d;
 
-  font-size: 18px;
+  font-size: 17px;
 
   line-height: 1.7;
 
   margin: 4px auto;
+
+  max-width: 1100px;
 }
 
 
 /* =========================================================
-   محدوده جدول
+   جدول‌ها
 ========================================================= */
 
 .pattern-area {
+
   width: 100%;
 
-  max-width: 1200px;
+  max-width: 1250px;
 
-  margin: 11px auto;
+  margin: 12px auto;
 
   text-align: center;
 }
 
+
 .area-title {
+
   color: var(--purple);
 
   font-weight: bold;
 
-  font-size: 19px;
+  font-size: 18px;
 
   margin-bottom: 7px;
 }
 
 
-/* =========================================================
-   جدول شطرنجی
-========================================================= */
-
 .pattern-grid {
+
   display: grid;
 
   justify-content: center;
 
   align-items: center;
+
+  /*
+    خانه‌های مجاور کاملاً چسبیده
+  */
 
   gap: 0;
 
@@ -364,24 +476,25 @@ input {
 
   overflow-x: auto;
 
-  border: 3px solid #777;
+  border: 3px solid #6c5a80;
 
-  border-radius: 3px;
+  border-radius: 4px;
 
   background: white;
 }
 
 
-/*
-  اندازه بزرگ برای پروژکتور
-*/
+/* =========================================================
+   خانه
+========================================================= */
 
 .pattern-cell {
-  width: 58px;
 
-  height: 58px;
+  width: var(--cell-size);
 
-  border: 1px solid #a8a8a8;
+  height: var(--cell-size);
+
+  border: 1px solid #9a9a9a;
 
   margin: 0;
 
@@ -392,17 +505,25 @@ input {
   cursor: pointer;
 
   position: relative;
+
+  flex-shrink: 0;
 }
+
 
 .pattern-cell.blank {
-  background: white;
+
+  background: #ffffff;
 }
 
+
 .pattern-cell.locked {
+
   cursor: default;
 }
 
+
 .pattern-cell.selected {
+
   outline: 4px solid #ffbd3e;
 
   outline-offset: -4px;
@@ -414,30 +535,43 @@ input {
 ========================================================= */
 
 .color-green {
+
   background: var(--green) !important;
 }
 
+
 .color-red {
+
   background: var(--red) !important;
 }
 
+
 .color-blue {
+
   background: var(--blue) !important;
 }
 
+
 .color-yellow {
+
   background: var(--yellow) !important;
 }
 
+
 .color-orange {
+
   background: var(--orange) !important;
 }
 
+
 .color-pink {
+
   background: var(--pink) !important;
 }
 
+
 .color-purple {
+
   background: var(--purple) !important;
 }
 
@@ -447,45 +581,101 @@ input {
 ========================================================= */
 
 .palette-area {
+
   text-align: center;
 
-  margin: 14px auto;
+  margin: 12px auto 14px;
 }
+
 
 .palette-title {
+
   font-weight: bold;
 
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 
-  font-size: 18px;
+  font-size: 17px;
 }
 
+
 .palette {
+
   display: flex;
 
   justify-content: center;
+
+  align-items: center;
 
   flex-wrap: wrap;
 
   gap: 9px;
 }
 
-.color-btn {
-  width: 50px;
 
-  height: 50px;
+.color-btn {
+
+  width: 48px;
+
+  height: 48px;
 
   border-radius: 50%;
 
   border: 4px solid white;
 
   box-shadow:
-    0 2px 8px rgba(0,0,0,.18);
+    0 2px 8px
+    rgba(0,0,0,.18);
 
   cursor: pointer;
+
+  padding: 0;
 }
 
+
 .color-btn.active {
+
+  outline: 4px solid var(--purple);
+
+  transform: scale(1.08);
+}
+
+
+/* =========================================================
+   پاک‌کن
+========================================================= */
+
+.eraser-btn {
+
+  width: 48px;
+
+  height: 48px;
+
+  border-radius: 50%;
+
+  border: 4px solid white;
+
+  background: white;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.18);
+
+  font-size: 24px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+}
+
+
+.eraser-btn.active {
+
   outline: 4px solid var(--purple);
 
   transform: scale(1.08);
@@ -497,10 +687,13 @@ input {
 ========================================================= */
 
 .repeat-area {
-  margin-top: 15px;
+
+  margin-top: 13px;
 }
 
+
 .repeat-area .pattern-grid {
+
   border-color: var(--purple);
 }
 
@@ -510,7 +703,8 @@ input {
 ========================================================= */
 
 .message {
-  min-height: 30px;
+
+  min-height: 28px;
 
   text-align: center;
 
@@ -518,14 +712,18 @@ input {
 
   font-weight: bold;
 
-  margin: 7px 12px;
+  margin: 7px;
 }
 
+
 .message.correct {
+
   color: #20a45a;
 }
 
+
 .message.wrong {
+
   color: #dc4444;
 }
 
@@ -535,9 +733,10 @@ input {
 ========================================================= */
 
 .check-btn {
+
   display: block;
 
-  margin: 10px auto 18px;
+  margin: 10px auto 8px;
 
   border: none;
 
@@ -545,13 +744,11 @@ input {
 
   color: white;
 
-  padding: 14px 32px;
+  padding: 13px 32px;
 
   border-radius: 17px;
 
-  font-size: 20px;
-
-  font-weight: bold;
+  font-size: 19px;
 
   cursor: pointer;
 
@@ -559,7 +756,9 @@ input {
     0 6px 0 #349b59;
 }
 
+
 .check-btn:active {
+
   transform: translateY(3px);
 
   box-shadow:
@@ -567,12 +766,22 @@ input {
 }
 
 
+.check-btn:disabled {
+
+  opacity: .7;
+
+  cursor: default;
+}
+
+
 /* =========================================================
    امضا
-   فقط از صفحه دوم به بعد
+   فقط صفحه بازی و پایان
+   کمی بالاتر از قبل
 ========================================================= */
 
 .signature {
+
   display: block;
 
   object-fit: contain;
@@ -580,32 +789,37 @@ input {
   background: transparent;
 
   border: none;
+
+  pointer-events: none;
 }
 
-
-/*
-  امضا کمی بالاتر آمده،
-  اما با دکمه‌ها فاصله دارد.
-*/
 
 .game-signature {
-  width: 170px;
 
-  margin: -5px auto 5px;
+  width: 175px;
+
+  margin: -2px auto 0;
+
+  position: relative;
+
+  z-index: 1;
 }
 
-.finish-signature {
-  width: 170px;
 
-  margin: 10px auto 0;
+.finish-signature {
+
+  width: 175px;
+
+  margin: 12px auto 0;
 }
 
 
 /* =========================================================
-   پایان
+   صفحه پایان
 ========================================================= */
 
 .finish-screen {
+
   display: flex;
 
   align-items: center;
@@ -615,9 +829,19 @@ input {
   flex-direction: column;
 
   text-align: center;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      #ffe4f0,
+      transparent 35%
+    ),
+    #fff9fc;
 }
 
+
 .finish-card {
+
   background: white;
 
   width: min(550px, 94%);
@@ -627,20 +851,27 @@ input {
   border-radius: 30px;
 
   box-shadow:
-    0 10px 35px rgba(116, 56, 200, .15);
+    0 10px 35px
+    rgba(116, 56, 200, .15);
 }
 
+
 .trophy {
+
   font-size: 70px;
 }
 
+
 .finish-card h1 {
+
   color: var(--purple);
 
   font-size: 38px;
 }
 
+
 .final-score {
+
   margin: 20px auto;
 
   background: #f4edff;
@@ -656,10 +887,56 @@ input {
   gap: 5px;
 }
 
+
 .final-score strong {
+
   font-size: 38px;
 
   color: var(--purple);
+}
+
+
+/* =========================================================
+   پروژکتور
+========================================================= */
+
+@media (min-width: 1100px) {
+
+  :root {
+
+    --cell-size: 58px;
+  }
+
+
+  .game-screen {
+
+    padding-top: 12px;
+  }
+
+
+  .pattern-area {
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+  }
+
+
+  .game-header {
+
+    margin-top: 5px;
+
+    margin-bottom: 8px;
+  }
+
+
+  .palette-area {
+
+    margin-top: 8px;
+
+    margin-bottom: 10px;
+  }
+
 }
 
 
@@ -669,112 +946,165 @@ input {
 
 @media (max-width: 650px) {
 
+  :root {
+
+    --cell-size: 48px;
+  }
+
+
   .screen {
+
     padding: 10px;
   }
 
-  .game-screen {
-    padding-top: 7px;
-  }
+
+  /* عکس صفحه اول کمی بزرگ‌تر */
 
   .teacher-card {
+
     width: 125px;
+
     height: 125px;
   }
 
+
   .start-screen h1 {
+
     font-size: 29px;
   }
 
+
   .start-screen h2 {
+
     font-size: 19px;
   }
 
+
   .welcome-box {
+
+    font-size: 17px;
+
+    padding: 14px;
+  }
+
+
+  #studentName {
+
     font-size: 17px;
   }
 
-  .game-header {
-    margin-top: 5px;
+
+  .top-bar {
+
+    gap: 7px;
+
+    margin-bottom: 5px;
   }
 
-  .game-header h2 {
-    font-size: 23px;
-  }
-
-  #questionText {
-    font-size: 17px;
-  }
-
-  .instruction {
-    font-size: 15px;
-  }
 
   .small-btn {
+
     padding: 8px 10px;
 
     font-size: 14px;
-
-    min-width: 76px;
   }
 
+
   .stage-info {
+
     font-size: 13px;
   }
 
-  /*
-    در موبایل کمی کوچک‌تر،
-    ولی همچنان واضح
-  */
 
-  .pattern-cell {
-    width: 48px;
-    height: 48px;
+  .game-header h2 {
+
+    font-size: 23px;
   }
 
+
+  #questionText {
+
+    font-size: 17px;
+  }
+
+
+  .instruction {
+
+    font-size: 14px;
+
+    line-height: 1.6;
+  }
+
+
+  .area-title {
+
+    font-size: 16px;
+  }
+
+
   .color-btn {
+
     width: 43px;
+
     height: 43px;
   }
 
-  .game-signature {
-    width: 145px;
 
-    margin-top: -3px;
+  .eraser-btn {
+
+    width: 43px;
+
+    height: 43px;
+
+    font-size: 21px;
   }
+
+
+  .game-signature {
+
+    width: 150px;
+
+    margin-top: 0;
+  }
+
 
   .finish-signature {
-    width: 145px;
 
-    margin-top: 8px;
+    width: 150px;
   }
+
 }
 
 
 /* =========================================================
-   صفحه‌های خیلی بزرگ / پروژکتور
+   صفحه‌های خیلی کوچک
 ========================================================= */
 
-@media (min-width: 1200px) {
+@media (max-width: 390px) {
 
-  .pattern-cell {
-    width: 60px;
-    height: 60px;
+  :root {
+
+    --cell-size: 44px;
   }
 
-  .game-header h2 {
-    font-size: 32px;
+
+  .small-btn {
+
+    padding: 7px 8px;
+
+    font-size: 13px;
   }
 
-  #questionText {
-    font-size: 22px;
+
+  .stage-info {
+
+    font-size: 12px;
   }
 
-  .instruction {
-    font-size: 19px;
+
+  .game-signature {
+
+    width: 135px;
   }
 
-  .area-title {
-    font-size: 20px;
-  }
 }
