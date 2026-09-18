@@ -1,101 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
-  <meta
-    name="theme-color"
-    content="#7438c8"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   >
 
   <title>الگوی منظم | ریاضی پایه اول</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
-
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <main id="app">
 
-  <!-- =========================
+  <!-- =====================================================
        صفحه شروع
-  ========================== -->
+       ===================================================== -->
 
-  <section
-    id="cover"
-    class="screen active"
-  >
+  <section id="cover" class="screen active">
 
     <div class="cover-card">
 
       <div class="cover-top">
 
-        <span>🌈</span>
+        <div class="teacher-photo-wrap">
+          <img
+            src="IMG_4332.jpeg"
+            class="teacher-photo"
+            alt="معلم"
+          >
+        </div>
 
-        <span>
-          ریاضی پایه اول
-        </span>
+        <div class="cover-title">
 
-        <span>🌈</span>
+          <h1>
+            الگوی منظم
+          </h1>
 
-      </div>
+          <p>
+            بازی کشف و ساخت الگو
+          </p>
 
+        </div>
 
-      <img
-        class="teacher-photo"
-        src="IMG_4332.jpeg"
-        alt="آموزگار"
-      >
-
-
-      <h1>
-        الگوی منظم
-      </h1>
-
-
-      <div class="subtitle">
-        بازی کشف و ساخت الگو
       </div>
 
 
       <div class="cover-pattern">
 
         <span class="mini-circle blue"></span>
-
         <span class="mini-circle yellow"></span>
-
         <span class="mini-circle blue"></span>
-
         <span class="mini-circle yellow"></span>
 
       </div>
 
-      <!-- نام دانش آموز -->
+
+      <!-- متن آموزشی -->
+
+      <div class="intro-message">
+
+        <strong>
+          بچه‌های گلم 🌸
+        </strong>
+
+        <br>
+
+        الگوخوانی خیلی مهم است.
+
+        <br>
+
+        پس اول الگو را بخوانید،
+        بعد ادامه‌اش بدهید.
+
+      </div>
+
+
+      <!-- نام دانش‌آموز -->
 
       <div class="student-name-box">
 
         <label for="studentName">
-          نام زیبایت را وارد کن:
+          نام زیبایت را وارد کن
         </label>
 
         <input
           id="studentName"
           type="text"
-          inputmode="text"
+          maxlength="25"
           autocomplete="off"
-          maxlength="30"
-          placeholder="نام دانش‌آموز"
+          placeholder="نام من..."
         >
 
       </div>
@@ -105,7 +104,7 @@
         id="startBtn"
         class="primary-btn"
       >
-        شروع بازی 🎮
+        شروع بازی 🌟
       </button>
 
     </div>
@@ -113,67 +112,63 @@
   </section>
 
 
-  <!-- =========================
-       صفحه بازی
-  ========================== -->
 
-  <section
-    id="game"
-    class="screen"
-  >
+  <!-- =====================================================
+       صفحه بازی
+       ===================================================== -->
+
+  <section id="game" class="screen">
 
     <header class="game-header">
 
-      <div class="game-title">
-        🌸 الگوی منظم
+      <div
+        id="levelLabel"
+        class="level-label"
+      >
+        مرحله ۱ از ۱۲
       </div>
 
-      <div class="stats">
-
-        <span id="levelLabel">
-          مرحله ۱ از ۱۳
-        </span>
-
-        <span id="scoreLabel">
-          امتیاز: ۰
-        </span>
-
+      <div
+        id="scoreLabel"
+        class="score-label"
+      >
+        امتیاز: ۰
       </div>
 
     </header>
 
 
-    <div class="progress">
+    <div class="progress-box">
 
-      <div id="progressBar"></div>
+      <div
+        id="progressBar"
+        class="progress-bar"
+      ></div>
 
     </div>
 
 
-    <section class="question-card">
+    <div class="question-card">
 
       <div
         id="typeBadge"
         class="type-badge"
       >
-        جای خالی
+        الگو
       </div>
 
+      <h2 id="questionText">
+        الگو را با دقت نگاه کن.
+      </h2>
 
-      <div
-        id="questionText"
-        class="question-text"
-      ></div>
-
-
-      <div
-        id="instruction"
-        class="instruction"
-      ></div>
+      <p id="instruction">
+        الگو را بخوان و ادامه بده.
+      </p>
 
 
       <div
         id="patternArea"
+        class="pattern-area"
       ></div>
 
 
@@ -181,7 +176,7 @@
         id="choicesTitle"
         class="choices-title hidden"
       >
-        شکل مناسب را بکش و در جای خالی قرار بده:
+        یکی را انتخاب کن
       </div>
 
 
@@ -194,43 +189,9 @@
       <div
         id="feedback"
         class="feedback"
-        aria-live="polite"
       ></div>
 
-    </section>
-
-
-    <!-- کنترل‌ها -->
-
-    <nav
-      class="bottom-actions"
-      aria-label="کنترل مرحله"
-    >
-
-      <button
-        id="exitBtn"
-        class="control-btn exit-btn"
-      >
-        خروج
-      </button>
-
-
-      <button
-        id="prevBtn"
-        class="control-btn"
-      >
-        مرحله قبل
-      </button>
-
-
-      <button
-        id="nextBtn"
-        class="control-btn"
-      >
-        مرحله بعد
-      </button>
-
-    </nav>
+    </div>
 
 
     <!-- امضا -->
@@ -245,46 +206,70 @@
 
     </div>
 
+
+    <!-- کنترل‌ها -->
+
+    <div class="game-controls">
+
+      <button
+        id="exitBtn"
+        class="secondary-btn"
+      >
+        خروج
+      </button>
+
+      <button
+        id="prevBtn"
+        class="secondary-btn"
+      >
+        قبلی
+      </button>
+
+      <button
+        id="nextBtn"
+        class="primary-btn small"
+      >
+        بعدی
+      </button>
+
+    </div>
+
   </section>
 
 
-  <!-- =========================
-       پایان
-  ========================== -->
 
-  <section
-    id="finish"
-    class="screen"
-  >
+  <!-- =====================================================
+       پایان
+       ===================================================== -->
+
+  <section id="finish" class="screen">
 
     <div class="finish-card">
 
-      <div class="finish-stars">
-        🌟 🌸 🌟
+      <div class="finish-emoji">
+        🎉
       </div>
-
 
       <h1>
         آفرین!
       </h1>
 
-
       <p id="finishMessage">
-        تو الگوها را با دقت پیدا کردی.
+        تو یک قهرمان الگوها هستی.
       </p>
-
 
       <div
         id="finalScore"
         class="final-score"
-      ></div>
-
+      >
+        امتیاز: ۰
+      </div>
 
       <button
         id="restartBtn"
         class="primary-btn"
       >
-        دوباره بازی می‌کنم 🔄
+        دوباره بازی می‌کنم
       </button>
 
     </div>
@@ -297,5 +282,4 @@
 <script src="script.js"></script>
 
 </body>
-
 </html>
