@@ -153,46 +153,41 @@ const stages = [
   /* =====================================================
      مرحله 2
   ====================================================== */
+/* مرحله 2 */
 
-  {
-    type: "missing",
+{
+  type: "missing",
+  title: "الگو را ادامه بده",
+  question: "الگوی رنگی را پیدا کن.",
+  instruction: "خانه‌های خالی را با رنگ درست کامل کن.",
 
-    title: "الگوی رنگی",
+  rows: 1,
+  cols: 9,
 
-    question:
-      "الگو را بخوان و ادامه بده.",
+  start: [
+    "green",
+    "green",
+    "red",
+    "red",
+    "green",
+    "green",
+    "red",
+    "red",
+    null
+  ],
 
-    instruction:
-      "خانه‌های خالی را با رنگ درست کامل کن.",
-
-    rows: 1,
-    cols: 9,
-
-    start: [
-      "green",
-      "green",
-      "red",
-      null,
-      "green",
-      "green",
-      "red",
-      null,
-      null
-    ],
-
-    answer: [
-      "green",
-      "green",
-      "red",
-      "green",
-      "green",
-      "red",
-      "green",
-      "green",
-      "red"
-    ]
-  },
-
+  answer: [
+    "green",
+    "green",
+    "red",
+    "red",
+    "green",
+    "green",
+    "red",
+    "red",
+    "green"
+  ]
+},
 
   /* =====================================================
      مرحله 3
