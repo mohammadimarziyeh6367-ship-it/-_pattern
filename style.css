@@ -1,853 +1,329 @@
+/* =========================================================
+   بازی «الگوی منظم» | ریاضی پایه اول
+   ========================================================= */
+
 * {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --purple: #7438c8;
+    --purple-dark: #54249b;
+
+    --pink: #ff6fae;
+    --yellow: #ffd52f;
+    --green: #3eaa4c;
+    --red: #df2028;
+    --blue: #12a6d8;
+    --orange: #ed7425;
+
+    --grid-line: #b9dceb;
+
+    --text: #33264d;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-  font-family:
-    "Tahoma",
-    "Arial",
-    sans-serif;
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8fc,
+            #f3edff
+        );
+
+    color: var(--text);
 }
 
 body {
-  background:
-    linear-gradient(
-      135deg,
-      #f7efff,
-      #fff7fb,
-      #f2f7ff
-    );
-
-  color: #333;
-
-  overflow-x: hidden;
+    min-height: 100vh;
 }
-
 
 button,
 input {
-  font-family: inherit;
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
 }
 
 
-/* ==============================
-   GAME CONTAINER
-============================== */
-
-.game-container {
-  width: 100%;
-  min-height: 100vh;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 15px;
-}
-
-
-/* ==============================
-   SCREEN
-============================== */
+/* =========================================================
+   صفحات
+   ========================================================= */
 
 .screen {
-  width: 100%;
-  max-width: 1100px;
-  min-height: 90vh;
-
-  background: rgba(255,255,255,0.94);
-
-  border-radius: 32px;
-
-  box-shadow:
-    0 15px 50px rgba(90, 55, 120, 0.15);
-
-  padding: 30px;
-
-  position: relative;
-
-  overflow: hidden;
-}
-
-
-.hidden {
-  display: none !important;
-}
-
-
-/* ==============================
-   START SCREEN
-============================== */
-
-#startScreen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-}
-
-
-.top-decoration {
-  font-size: clamp(25px, 5vw, 45px);
-
-  margin-bottom: 10px;
-
-  letter-spacing: 8px;
-}
-
-
-h1 {
-  margin: 5px 0;
-
-  color: #7438c8;
-
-  font-size: clamp(32px, 6vw, 60px);
-}
-
-
-.subtitle {
-  color: #777;
-
-  font-size: clamp(18px, 3vw, 28px);
-
-  margin-top: 5px;
-}
-
-
-.teacher-image {
-  width: 145px;
-  height: 145px;
-
-  object-fit: cover;
-
-  border-radius: 50%;
-
-  border: 6px solid #ead8ff;
-
-  margin: 15px 0;
-
-  box-shadow:
-    0 8px 25px rgba(116,56,200,0.18);
-}
-
-
-.welcome {
-  font-size: clamp(18px, 3vw, 25px);
-
-  line-height: 2;
-
-  color: #555;
-}
-
-
-#studentName {
-  width: min(90%, 450px);
-
-  padding: 16px 20px;
-
-  border: 3px solid #dfc8ff;
-
-  border-radius: 20px;
-
-  outline: none;
-
-  font-size: 19px;
-
-  text-align: center;
-
-  margin: 12px 0;
-
-  transition: 0.2s;
-}
-
-
-#studentName:focus {
-  border-color: #7438c8;
-
-  box-shadow:
-    0 0 0 5px rgba(116,56,200,0.1);
-}
-
-
-.main-button {
-  border: none;
-
-  background:
-    linear-gradient(
-      135deg,
-      #7438c8,
-      #a66be0
-    );
-
-  color: white;
-
-  padding: 15px 38px;
-
-  border-radius: 18px;
-
-  font-size: 20px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  margin-top: 10px;
-
-  box-shadow:
-    0 8px 20px rgba(116,56,200,0.25);
-
-  transition: 0.2s;
-}
-
-
-.main-button:hover {
-  transform: translateY(-2px);
-}
-
-
-.main-button:active {
-  transform: scale(0.96);
-}
-
-
-.start-pattern {
-  margin-top: 25px;
-
-  font-size: clamp(28px, 5vw, 48px);
-
-  letter-spacing: 7px;
-}
-
-
-/* ==============================
-   SIGNATURE
-============================== */
-
-.signature {
-  margin-top: 25px;
-
-  color: #222;
-
-  font-size: 11px;
-
-  line-height: 1.7;
-
-  opacity: 0.85;
-
-  text-align: center;
-}
-
-.signature strong {
-  font-size: 12px;
-}
-
-
-/* ==============================
-   HEADER
-============================== */
-
-.game-header {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  gap: 10px;
-
-  margin-bottom: 15px;
-
-  flex-wrap: wrap;
-}
-
-
-.game-title {
-  color: #7438c8;
-
-  font-size: clamp(20px, 4vw, 32px);
-
-  font-weight: bold;
-}
-
-
-.score-box,
-.question-box {
-  background: #f5edff;
-
-  color: #7438c8;
-
-  padding: 10px 16px;
-
-  border-radius: 14px;
-
-  font-size: 17px;
-
-  font-weight: bold;
-}
-
-
-.student-display {
-  text-align: center;
-
-  font-size: 18px;
-
-  color: #7438c8;
-
-  margin-bottom: 10px;
-}
-
-
-/* ==============================
-   QUESTION AREA
-============================== */
-
-.question-area {
-  text-align: center;
-
-  min-height: 550px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-}
-
-
-.question-type {
-  display: inline-block;
-
-  padding: 8px 18px;
-
-  background: #f0e4ff;
-
-  color: #7438c8;
-
-  border-radius: 20px;
-
-  font-size: 15px;
-
-  font-weight: bold;
-
-  margin-bottom: 8px;
-}
-
-
-#questionText {
-  color: #444;
-
-  font-size: clamp(20px, 4vw, 32px);
-
-  line-height: 1.7;
-
-  margin: 8px auto 20px;
-}
-
-
-/* ==============================
-   PATTERN
-============================== */
-
-.pattern-row {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  flex-wrap: nowrap;
-
-  gap: clamp(7px, 1.5vw, 18px);
-
-  width: 100%;
-
-  max-width: 1000px;
-
-  overflow-x: auto;
-
-  padding: 20px 8px;
-
-  scrollbar-width: none;
-}
-
-.pattern-row::-webkit-scrollbar {
-  display: none;
-}
-
-
-.shape {
-  flex: 0 0 auto;
-
-  width: clamp(50px, 8vw, 85px);
-
-  height: clamp(50px, 8vw, 85px);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  user-select: none;
-
-  font-size: clamp(25px, 5vw, 45px);
-
-  font-weight: bold;
-}
-
-
-.circle {
-  border-radius: 50%;
-}
-
-
-.square {
-  border-radius: 10px;
-}
-
-
-.triangle {
-  width: 0;
-
-  height: 0;
-
-  border-left:
-    clamp(28px, 4vw, 42px)
-    solid transparent;
-
-  border-right:
-    clamp(28px, 4vw, 42px)
-    solid transparent;
-
-  border-bottom:
-    clamp(52px, 8vw, 76px)
-    solid #f39c12;
-
-  background: transparent;
-}
-
-
-.blue {
-  background: #3498db;
-}
-
-.yellow {
-  background: #f1c40f;
-}
-
-.purple {
-  background: #9b59b6;
-}
-
-.pink {
-  background: #e84393;
-}
-
-.green {
-  background: #2ecc71;
-}
-
-.red {
-  background: #e74c3c;
-}
-
-
-.pattern-placeholder {
-  width: clamp(50px, 8vw, 85px);
-
-  height: clamp(50px, 8vw, 85px);
-
-  border: 4px dashed #bda3d8;
-
-  border-radius: 12px;
-
-  background: #faf7ff;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  font-size: 28px;
-
-  color: #bda3d8;
-
-  flex: 0 0 auto;
-}
-
-
-/* ==============================
-   OPTIONS
-============================== */
-
-.options {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  gap: 18px;
-
-  flex-wrap: wrap;
-
-  margin-top: 20px;
-
-  width: 100%;
-}
-
-
-.option-shape {
-  cursor: grab;
-
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-
-  border: 4px solid transparent;
-}
-
-
-.option-shape:hover {
-  transform: scale(1.08);
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,0.15);
-}
-
-
-.option-shape:active {
-  cursor: grabbing;
-
-  transform: scale(0.95);
-}
-
-
-.option-label {
-  font-size: 15px;
-
-  color: #555;
-
-  margin-top: 5px;
-}
-
-
-.shape-option-wrapper {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-}
-
-
-/* ==============================
-   CHECKERBOARD
-============================== */
-
-.checkerboard {
-  display: grid;
-
-  grid-template-columns:
-    repeat(6, minmax(45px, 80px));
-
-  grid-auto-rows:
-    minmax(45px, 80px);
-
-  gap: 2px;
-
-  padding: 8px;
-
-  background: #d9d9d9;
-
-  border: 4px solid #8d8d8d;
-
-  border-radius: 12px;
-
-  margin: 10px auto;
-
-  max-width: 100%;
-}
-
-
-.checker-cell {
-  background: white;
-
-  border: 1px solid #ccc;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: clamp(25px, 5vw, 45px);
-
-  cursor: pointer;
-}
-
-
-.checker-cell:nth-child(even) {
-  background: #f8f8f8;
-}
-
-
-.checker-cell.missing {
-  border: 4px dashed #7438c8;
-
-  background: #f5edff;
-
-  color: #7438c8;
-}
-
-
-/* ==============================
-   REMOVE WRONG SHAPE
-============================== */
-
-.remove-pattern {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: clamp(5px, 1.5vw, 16px);
-
-  flex-wrap: nowrap;
-
-  overflow-x: auto;
-
-  max-width: 100%;
-
-  padding: 25px 10px;
-}
-
-
-.removable-shape {
-  flex: 0 0 auto;
-
-  width: clamp(48px, 7vw, 72px);
-
-  height: clamp(48px, 7vw, 72px);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: clamp(24px, 4vw, 40px);
-
-  cursor: pointer;
-
-  transition: 0.2s;
-
-  border: 4px solid transparent;
-}
-
-
-.removable-shape:hover {
-  transform: scale(1.1);
-}
-
-
-.removable-shape.selected {
-  border-color: #e74c3c;
-
-  transform: scale(1.12);
-
-  box-shadow:
-    0 0 0 5px rgba(231,76,60,0.12);
-}
-
-
-/* ==============================
-   MESSAGE
-============================== */
-
-#message {
-  min-height: 45px;
-
-  margin-top: 15px;
-
-  font-size: 20px;
-
-  font-weight: bold;
-}
-
-
-.correct {
-  color: #27ae60;
-}
-
-
-.wrong {
-  color: #e74c3c;
-}
-
-
-/* ==============================
-   NAVIGATION
-============================== */
-
-.navigation {
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 12px;
-
-  margin-top: 15px;
-}
-
-
-.nav-button {
-  border: none;
-
-  background: #7438c8;
-
-  color: white;
-
-  padding: 12px 22px;
-
-  border-radius: 15px;
-
-  font-size: 17px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-
-.nav-button:active {
-  transform: scale(0.95);
-}
-
-
-.game-signature {
-  margin-top: 10px;
-}
-
-
-/* ==============================
-   END
-============================== */
-
-#endScreen {
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-}
-
-
-#celebration {
-  font-size: 90px;
-
-  animation:
-    bounce 1s infinite alternate;
-}
-
-
-@keyframes bounce {
-
-  from {
-    transform: translateY(0);
-  }
-
-  to {
-    transform: translateY(-15px);
-  }
-
-}
-
-
-.final-score {
-  margin: 20px;
-
-  padding: 20px 40px;
-
-  background: #f5edff;
-
-  border-radius: 20px;
-
-  font-size: 25px;
-
-  color: #7438c8;
-}
-
-
-.final-score strong {
-  font-size: 40px;
-}
-
-
-.stars {
-  font-size: 40px;
-
-  margin: 10px;
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
-
-@media (max-width: 650px) {
-
-  .screen {
-    padding: 18px;
-
-    min-height: 95vh;
-
-    border-radius: 22px;
-  }
-
-
-  .question-area {
-    min-height: 470px;
-  }
-
-
-  .checkerboard {
-    grid-template-columns:
-      repeat(6, minmax(38px, 1fr));
+    display: none;
 
     width: 100%;
-  }
+    min-height: 100vh;
+}
+
+.screen.active {
+    display: flex;
+}
 
 
-  .navigation {
+/* =========================================================
+   صفحه شروع
+   ========================================================= */
+
+#startScreen {
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 15px;
+}
+
+.start-card {
+    width: min(600px, 95vw);
+
+    background: white;
+
+    border-radius: 35px;
+
+    padding: 30px 25px 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 30px rgba(80,40,130,0.14);
+
+    border: 4px solid #eadcff;
+}
+
+.teacher-card {
+    width: 135px;
+    height: 135px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 6px solid var(--purple);
+
+    box-shadow:
+        0 6px 18px rgba(116,56,200,0.22);
+}
+
+.teacher-photo {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.start-card h1 {
+    margin: 5px 0 15px;
+
+    color: var(--purple);
+
+    font-size:
+        clamp(30px, 5vw, 48px);
+}
+
+.welcome-text {
+    background: #faf6ff;
+
+    border-radius: 22px;
+
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    line-height: 2;
+
+    font-size:
+        clamp(17px, 2.5vw, 22px);
+}
+
+.welcome-text p {
+    margin: 4px;
+}
+
+.name-box {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin: 20px 0;
+}
+
+.name-box label {
+    font-size: 19px;
+
+    font-weight: bold;
+}
+
+.name-box input {
+    width: 100%;
+
+    height: 55px;
+
+    border: 3px solid #d9c5f8;
+
+    border-radius: 17px;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    outline: none;
+
+    background: white;
+}
+
+.name-box input:focus {
+    border-color: var(--purple);
+}
+
+.main-btn {
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            #965fe2
+        );
+
+    color: white;
+
+    padding: 15px 35px;
+
+    border-radius: 18px;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 6px 15px rgba(116,56,200,0.25);
+}
+
+
+/* =========================================================
+   صفحه بازی
+   ========================================================= */
+
+#gameScreen {
+    flex-direction: column;
+
+    padding-bottom: 30px;
+}
+
+.top-bar {
+    width: 100%;
+
+    background: white;
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,0.08);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 10px 18px;
+
     position: sticky;
 
-    bottom: 5px;
+    top: 0;
 
-    background: rgba(255,255,255,0.92);
-
-    padding-top: 8px;
-  }
-
-
-  .nav-button {
-    flex: 1;
-
-    font-size: 15px;
-  }
-
+    z-index: 50;
 }
+
+.nav-btn {
+    background: var(--purple);
+
+    color: white;
+
+    min-width: 110px;
+
+    padding: 11px 15px;
+
+    border-radius: 14px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+.nav-btn:disabled {
+    opacity: .35;
+}
+
+.stage-counter {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    font-weight: bold;
+}
+
+#stageNumber {
+    color: var(--purple);
+
+    font-size: 20px;
+}
+
+#scoreText {
+    font-size: 15px;
+
+    color: #777;
+}
+
+.game-container {
+    width: min(1400px, 97vw);
+
+    margin: 18px auto 0;
+
+    text-align: center;
+}
+
+.game-title {
+    font-size:
+        clamp(27px, 4vw, 42px);
+
+    font-weight: bold;
+
+    color: var(--purple);
+
+    margin-bottom: 8px;
+}
+
+.instruction {
+    max-width: 1200px;
+
+    margin: 0 auto 20px;
+
+    background: white;
+
+    border: 3px solid #e6d9fa;
+
+    border-radius: 20px;
+
+    padding: 12
