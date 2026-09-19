@@ -1,158 +1,242 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
 
-  <title>الگوی منظم | ریاضی پایه اول</title>
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-  <link rel="stylesheet" href="style.css">
+    <title>الگوی منظم | ریاضی پایه اول</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="game-container">
+<div class="app">
 
-    <!-- صفحه شروع -->
-    <section id="startScreen" class="screen">
+    <!-- =========================
+         صفحه شروع
+    ========================== -->
 
-      <div class="top-decoration">⭐ 🔵 🟨 🔺 ⭐</div>
+    <section id="startScreen" class="screen active">
 
-      <h1>الگوی منظم</h1>
+        <div class="start-card">
 
-      <p class="subtitle">ریاضی پایه اول دبستان</p>
+            <div class="teacher-card">
+                <img
+                    src="IMG_4332.jpeg"
+                    class="teacher-photo"
+                    alt="آموزگار"
+                >
+            </div>
 
-      <img
-        src="IMG_4332.jpeg"
-        class="teacher-image"
-        alt="آموزگار"
-      >
+            <h1>الگوی منظم</h1>
 
-      <p class="welcome">
-        سلام قهرمان کوچک 🌸
-        <br>
-        آماده‌ای الگوها را کشف کنی؟
-      </p>
+            <div class="welcome-text">
 
-      <input
-        id="studentName"
-        type="text"
-        maxlength="30"
-        placeholder="نام زیبایت را وارد کن"
-        autocomplete="off"
-      >
+                <p>بچه‌های گلم 🌸</p>
 
-      <button id="startButton" class="main-button">
-        شروع بازی 🚀
-      </button>
+                <p>
+                    الگوخوانی خیلی مهم است.
+                    <br>
+                    پس اول الگو را بخوانید،
+                    بعد ادامه‌اش بدهید.
+                </p>
 
-      <div class="start-pattern">
-        🔵 🟨 🔺 🔵 🟨 🔺
-      </div>
+            </div>
 
-      <div class="signature">
-        AI based educational content creator:<br>
-        <strong>ENG Marziyeh Mohammadi</strong>
-      </div>
+            <div class="name-box">
+
+                <label for="studentName">
+                    نام زیبایت را وارد کن:
+                </label>
+
+                <input
+                    id="studentName"
+                    type="text"
+                    maxlength="25"
+                    placeholder="نام من..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <button
+                id="startBtn"
+                class="main-btn"
+            >
+                شروع بازی 🚀
+            </button>
+
+        </div>
 
     </section>
 
 
-    <!-- صفحه بازی -->
-    <section id="gameScreen" class="screen hidden">
+    <!-- =========================
+         صفحه بازی
+    ========================== -->
 
-      <header class="game-header">
+    <section id="gameScreen" class="screen">
 
-        <div class="game-title">
-          🌈 الگوی منظم
+        <div class="top-bar">
+
+            <button
+                id="prevBtn"
+                class="nav-btn"
+            >
+                ❮ قبلی
+            </button>
+
+            <div class="stage-counter">
+
+                <span id="stageNumber">
+                    مرحله ۱
+                </span>
+
+                <span id="scoreText">
+                    امتیاز: ۰
+                </span>
+
+            </div>
+
+            <button
+                id="nextBtn"
+                class="nav-btn"
+            >
+                بعدی ❯
+            </button>
+
         </div>
 
-        <div class="score-box">
-          امتیاز:
-          <span id="score">0</span>
+
+        <div class="game-container">
+
+            <div class="game-title">
+                <span id="gameTitle">
+                    الگوی منظم
+                </span>
+            </div>
+
+
+            <div
+                id="instruction"
+                class="instruction"
+            ></div>
+
+
+            <!-- جدول اصلی -->
+            <div
+                id="mainArea"
+                class="main-area"
+            ></div>
+
+
+            <!-- انتخاب رنگ / شکل -->
+            <div
+                id="paletteArea"
+                class="palette-area"
+            ></div>
+
+
+            <!-- جدول رسم واحد الگو -->
+            <div
+                id="repeatSection"
+                class="repeat-section"
+            >
+
+                <div class="repeat-title">
+                    حالا یک بار الگوی تکرارشونده را اینجا رسم کن ✏️
+                </div>
+
+                <div id="repeatArea"></div>
+
+            </div>
+
+
+            <div
+                id="message"
+                class="message"
+            ></div>
+
+
+            <button
+                id="checkBtn"
+                class="check-btn"
+            >
+                بررسی پاسخ ✅
+            </button>
+
+
+            <img
+                src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+                class="game-signature"
+                alt="امضا"
+            >
+
         </div>
-
-        <div class="question-box">
-          <span id="questionNumber">1</span>
-          /
-          <span id="totalQuestions">12</span>
-        </div>
-
-      </header>
-
-
-      <div class="student-display">
-        🌸 <span id="displayName"></span>
-      </div>
-
-
-      <main class="question-area">
-
-        <div id="questionType" class="question-type"></div>
-
-        <h2 id="questionText"></h2>
-
-        <div id="questionContent"></div>
-
-        <div id="message"></div>
-
-      </main>
-
-
-      <div class="navigation">
-
-        <button id="prevButton" class="nav-button">
-          ⬅ قبلی
-        </button>
-
-        <button id="nextButton" class="nav-button">
-          بعدی ➡
-        </button>
-
-      </div>
-
-
-      <div class="signature game-signature">
-        AI based educational content creator:
-        <strong>ENG Marziyeh Mohammadi</strong>
-      </div>
 
     </section>
 
 
-    <!-- پایان بازی -->
-    <section id="endScreen" class="screen hidden">
+    <!-- =========================
+         صفحه پایان
+    ========================== -->
 
-      <div id="celebration">🎉</div>
+    <section
+        id="finishScreen"
+        class="screen"
+    >
 
-      <h1>آفرین قهرمان الگوها! 🌟</h1>
+        <div class="finish-card">
 
-      <p id="finalMessage"></p>
+            <div class="trophy">
+                🏆
+            </div>
 
-      <div class="final-score">
-        امتیاز تو:
-        <strong id="finalScore">0</strong>
-      </div>
+            <h1>
+                آفرین قهرمان! 🌟
+            </h1>
 
-      <div class="stars">
-        ⭐ ⭐ ⭐ ⭐ ⭐
-      </div>
+            <p id="finishMessage"></p>
 
-      <button id="restartButton" class="main-button">
-        دوباره بازی می‌کنم 🔄
-      </button>
+            <div class="final-score">
 
-      <div class="signature">
-        AI based educational content creator:<br>
-        <strong>ENG Marziyeh Mohammadi</strong>
-      </div>
+                <span>
+                    امتیاز نهایی
+                </span>
+
+                <strong id="finalScore">
+                    ۰
+                </strong>
+
+            </div>
+
+            <button
+                id="restartBtn"
+                class="main-btn"
+            >
+                دوباره بازی کن 🔄
+            </button>
+
+            <img
+                src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+                class="finish-signature"
+                alt="امضا"
+            >
+
+        </div>
 
     </section>
 
-  </div>
+</div>
 
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
