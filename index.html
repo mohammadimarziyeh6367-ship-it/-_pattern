@@ -1,242 +1,189 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+  <title>الگوی منظم | ریاضی پایه اول</title>
 
-    <title>الگوی منظم | ریاضی پایه اول</title>
-
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="app">
+  <!-- =========================
+       صفحه شروع
+  ========================== -->
+  <section id="startScreen" class="screen start-screen">
 
-    <!-- =========================
-         صفحه شروع
-    ========================== -->
+    <div class="start-card">
 
-    <section id="startScreen" class="screen active">
+      <div class="teacher-frame">
+        <img src="IMG_4332.jpeg"
+             alt="آموزگار"
+             class="teacher-photo">
+      </div>
 
-        <div class="start-card">
+      <div class="welcome-badge">
+        ریاضی پایه اول 🌈
+      </div>
 
-            <div class="teacher-card">
-                <img
-                    src="IMG_4332.jpeg"
-                    class="teacher-photo"
-                    alt="آموزگار"
-                >
-            </div>
+      <h1>الگوی منظم</h1>
 
-            <h1>الگوی منظم</h1>
+      <div class="welcome-text">
+        <strong>بچه‌های گلم</strong>
+        <br>
+        الگوخوانی خیلی مهم است.
+        <br>
+        پس اول الگو را بخوانید، سپس ادامه‌ دهید🥰
+      </div>
 
-            <div class="welcome-text">
+      <div class="name-box">
 
-                <p>بچه‌های گلم 🌸</p>
+        <label for="studentName">
+          نام زیبایت را وارد کن 🌸
+        </label>
 
-                <p>
-                    الگوخوانی خیلی مهم است.
-                    <br>
-                    پس اول الگو را بخوانید،
-                    بعد ادامه‌اش بدهید.
-                </p>
+        <input
+          id="studentName"
+          type="text"
+          maxlength="25"
+          autocomplete="off"
+          placeholder="مثلاً سارا"
+        >
 
-            </div>
+      </div>
 
-            <div class="name-box">
+      <button id="startBtn" class="main-btn">
+        شروع بازی 🚀
+      </button>
 
-                <label for="studentName">
-                    نام زیبایت را وارد کن:
-                </label>
+    </div>
 
-                <input
-                    id="studentName"
-                    type="text"
-                    maxlength="25"
-                    placeholder="نام من..."
-                    autocomplete="off"
-                >
+  </section>
 
-            </div>
 
-            <button
-                id="startBtn"
-                class="main-btn"
-            >
-                شروع بازی 🚀
-            </button>
+  <!-- =========================
+       صفحه بازی
+  ========================== -->
+  <section id="gameScreen" class="screen game-screen hidden">
 
+    <header class="game-header">
+
+      <button id="prevBtn" class="nav-btn">
+        ➜ مرحله قبل
+      </button>
+
+      <div class="stage-info">
+        <div class="game-title">
+          الگوی منظم
         </div>
 
-    </section>
+        <div id="stageCounter">
+          مرحله ۱ از ۱۶
+        </div>
+      </div>
+
+      <button id="nextBtn" class="nav-btn">
+        مرحله بعد ➜
+      </button>
+
+    </header>
 
 
-    <!-- =========================
-         صفحه بازی
-    ========================== -->
+    <main class="game-content">
 
-    <section id="gameScreen" class="screen">
+      <div id="instruction" class="instruction"></div>
 
-        <div class="top-bar">
+      <div id="taskArea"></div>
 
-            <button
-                id="prevBtn"
-                class="nav-btn"
-            >
-                ❮ قبلی
-            </button>
+      <!-- ناحیه الگوی تکرارشونده -->
+      <div id="repeatBox" class="repeat-box hidden">
 
-            <div class="stage-counter">
-
-                <span id="stageNumber">
-                    مرحله ۱
-                </span>
-
-                <span id="scoreText">
-                    امتیاز: ۰
-                </span>
-
-            </div>
-
-            <button
-                id="nextBtn"
-                class="nav-btn"
-            >
-                بعدی ❯
-            </button>
-
+        <div class="repeat-title">
+          ✨ الگوی تکرارشونده را یک بار اینجا رسم کن
         </div>
 
+        <div id="repeatArea" class="repeat-area"></div>
 
-        <div class="game-container">
-
-            <div class="game-title">
-                <span id="gameTitle">
-                    الگوی منظم
-                </span>
-            </div>
+      </div>
 
 
-            <div
-                id="instruction"
-                class="instruction"
-            ></div>
+      <!-- انتخاب رنگ / شکل -->
+      <div id="paletteBox" class="palette-box">
 
-
-            <!-- جدول اصلی -->
-            <div
-                id="mainArea"
-                class="main-area"
-            ></div>
-
-
-            <!-- انتخاب رنگ / شکل -->
-            <div
-                id="paletteArea"
-                class="palette-area"
-            ></div>
-
-
-            <!-- جدول رسم واحد الگو -->
-            <div
-                id="repeatSection"
-                class="repeat-section"
-            >
-
-                <div class="repeat-title">
-                    حالا یک بار الگوی تکرارشونده را اینجا رسم کن ✏️
-                </div>
-
-                <div id="repeatArea"></div>
-
-            </div>
-
-
-            <div
-                id="message"
-                class="message"
-            ></div>
-
-
-            <button
-                id="checkBtn"
-                class="check-btn"
-            >
-                بررسی پاسخ ✅
-            </button>
-
-
-            <img
-                src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-                class="game-signature"
-                alt="امضا"
-            >
-
+        <div class="palette-title">
+          ابزار انتخاب
         </div>
 
-    </section>
+        <div id="palette" class="palette"></div>
+
+      </div>
 
 
-    <!-- =========================
-         صفحه پایان
-    ========================== -->
+      <button id="checkBtn" class="check-btn">
+        بررسی پاسخ 🌟
+      </button>
 
-    <section
-        id="finishScreen"
-        class="screen"
-    >
 
-        <div class="finish-card">
+      <button id="clearBtn" class="clear-btn">
+        پاک کردن پاسخ 🧹
+      </button>
 
-            <div class="trophy">
-                🏆
-            </div>
 
-            <h1>
-                آفرین قهرمان! 🌟
-            </h1>
+      <div id="feedback" class="feedback"></div>
 
-            <p id="finishMessage"></p>
+    </main>
 
-            <div class="final-score">
 
-                <span>
-                    امتیاز نهایی
-                </span>
+    <!-- امضا فقط از صفحه دوم بازی به بعد -->
+    <div class="signature-wrap">
+      <img
+        src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+        alt="امضا"
+        class="signature">
+    </div>
 
-                <strong id="finalScore">
-                    ۰
-                </strong>
+  </section>
 
-            </div>
 
-            <button
-                id="restartBtn"
-                class="main-btn"
-            >
-                دوباره بازی کن 🔄
-            </button>
+  <!-- =========================
+       پایان بازی
+  ========================== -->
+  <section id="finishScreen" class="screen finish-screen hidden">
 
-            <img
-                src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-                class="finish-signature"
-                alt="امضا"
-            >
+    <div class="finish-card">
 
-        </div>
+      <div class="finish-icon">
+        🌟
+      </div>
 
-    </section>
+      <h1>
+        آفرین!
+      </h1>
 
-</div>
+      <div id="finishText"></div>
 
-<script src="script.js"></script>
+      <div id="finalScore" class="final-score"></div>
+
+      <button id="restartBtn" class="main-btn">
+        دوباره بازی کنیم 🔄
+      </button>
+
+      <div class="signature-wrap finish-signature">
+        <img
+          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+          alt="امضا"
+          class="signature">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <script src="script.js"></script>
 
 </body>
 </html>
