@@ -1,79 +1,55 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
+   طراحی کودکانه، شاد و مناسب موبایل و پروژکتور
    ========================================================= */
 
 * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
-
-:root {
-    --purple: #7438c8;
-    --purple-dark: #54249b;
-
-    --pink: #ff6fae;
-    --yellow: #ffd52f;
-    --green: #3eaa4c;
-    --red: #df2028;
-    --blue: #12a6d8;
-    --orange: #ed7425;
-
-    --grid-line: #b9dceb;
-
-    --text: #33264d;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    min-height: 100%;
-
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff8fc,
-            #f3edff
-        );
-
-    color: var(--text);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-    min-height: 100vh;
+  font-family:
+    "Vazirmatn",
+    "Tahoma",
+    "Arial",
+    sans-serif;
+
+  background:
+    radial-gradient(circle at 10% 10%, #fff4c7 0, transparent 25%),
+    radial-gradient(circle at 90% 15%, #ffd8ef 0, transparent 25%),
+    linear-gradient(135deg, #f8f3ff, #fff);
+  
+  color: #352044;
 }
 
 button,
 input {
-    font-family: inherit;
-}
-
-button {
-    cursor: pointer;
-    border: none;
+  font-family: inherit;
 }
 
 
 /* =========================================================
-   صفحات
+   عمومی
    ========================================================= */
 
-.screen {
-    display: none;
-
-    width: 100%;
-    min-height: 100vh;
+.hidden {
+  display: none !important;
 }
 
-.screen.active {
-    display: flex;
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 
@@ -81,141 +57,189 @@ button {
    صفحه شروع
    ========================================================= */
 
-#startScreen {
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px 15px;
+.start-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 14px;
 }
 
 .start-card {
-    width: min(600px, 95vw);
+  width: min(680px, 96vw);
+  padding: 28px 24px 30px;
 
-    background: white;
+  background: rgba(255,255,255,0.96);
 
-    border-radius: 35px;
+  border-radius: 32px;
 
-    padding: 30px 25px 35px;
+  box-shadow:
+    0 18px 50px rgba(116, 56, 200, 0.16),
+    0 5px 15px rgba(0,0,0,0.06);
 
-    text-align: center;
+  text-align: center;
 
-    box-shadow:
-        0 10px 30px rgba(80,40,130,0.14);
-
-    border: 4px solid #eadcff;
+  border: 3px solid #f1ddff;
 }
 
-.teacher-card {
-    width: 135px;
-    height: 135px;
+.teacher-frame {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 15px;
 
-    margin: 0 auto 18px;
+  border-radius: 50%;
 
-    border-radius: 50%;
+  padding: 5px;
 
-    overflow: hidden;
+  background:
+    linear-gradient(
+      135deg,
+      #7438c8,
+      #ff77bb,
+      #ffd85a
+    );
 
-    border: 6px solid var(--purple);
-
-    box-shadow:
-        0 6px 18px rgba(116,56,200,0.22);
+  box-shadow:
+    0 8px 22px rgba(116,56,200,0.25);
 }
 
 .teacher-photo {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    object-fit: cover;
+  display: block;
 
-    display: block;
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border: 4px solid white;
+}
+
+.welcome-badge {
+  display: inline-block;
+
+  padding: 8px 17px;
+
+  border-radius: 30px;
+
+  background: #f4eaff;
+  color: #7438c8;
+
+  font-size: 16px;
+  font-weight: 900;
+
+  margin-bottom: 8px;
 }
 
 .start-card h1 {
-    margin: 5px 0 15px;
+  margin: 3px 0 15px;
 
-    color: var(--purple);
+  font-size: clamp(30px, 6vw, 50px);
 
-    font-size:
-        clamp(30px, 5vw, 48px);
+  color: #7438c8;
+
+  font-weight: 1000;
+
+  text-shadow:
+    2px 3px 0 #f0dcff;
 }
 
 .welcome-text {
-    background: #faf6ff;
+  line-height: 2;
 
-    border-radius: 22px;
+  font-size: clamp(18px, 3vw, 24px);
 
-    padding: 15px;
+  color: #49334f;
 
-    margin-bottom: 20px;
-
-    line-height: 2;
-
-    font-size:
-        clamp(17px, 2.5vw, 22px);
+  margin-bottom: 22px;
 }
 
-.welcome-text p {
-    margin: 4px;
+.welcome-text strong {
+  color: #ec4c91;
+  font-size: 1.15em;
 }
 
 .name-box {
-    display: flex;
+  width: min(460px, 100%);
 
-    flex-direction: column;
+  margin: 0 auto 18px;
 
-    gap: 10px;
-
-    margin: 20px 0;
+  text-align: right;
 }
 
 .name-box label {
-    font-size: 19px;
+  display: block;
 
-    font-weight: bold;
+  margin-bottom: 8px;
+
+  color: #7438c8;
+
+  font-size: 17px;
+
+  font-weight: 900;
 }
 
 .name-box input {
-    width: 100%;
+  width: 100%;
 
-    height: 55px;
+  border: 3px solid #ead8f8;
 
-    border: 3px solid #d9c5f8;
+  border-radius: 18px;
 
-    border-radius: 17px;
+  padding: 14px 17px;
 
-    text-align: center;
+  font-size: 18px;
 
-    font-size: 20px;
+  outline: none;
 
-    outline: none;
+  text-align: right;
 
-    background: white;
+  background: #fff;
+
+  transition: 0.2s;
 }
 
 .name-box input:focus {
-    border-color: var(--purple);
+  border-color: #7438c8;
+
+  box-shadow:
+    0 0 0 4px rgba(116,56,200,0.12);
 }
 
 .main-btn {
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            #965fe2
-        );
+  border: 0;
 
-    color: white;
+  cursor: pointer;
 
-    padding: 15px 35px;
+  color: white;
 
-    border-radius: 18px;
+  font-size: 20px;
 
-    font-size: 21px;
+  font-weight: 900;
 
-    font-weight: bold;
+  padding: 14px 35px;
 
-    box-shadow:
-        0 6px 15px rgba(116,56,200,0.25);
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7438c8,
+      #a451e0
+    );
+
+  box-shadow:
+    0 7px 0 #552296,
+    0 13px 25px rgba(116,56,200,0.2);
+
+  transition: 0.15s;
+}
+
+.main-btn:active {
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 #552296;
 }
 
 
@@ -223,107 +247,837 @@ button {
    صفحه بازی
    ========================================================= */
 
-#gameScreen {
-    flex-direction: column;
-
-    padding-bottom: 30px;
+.game-screen {
+  padding: 12px 12px 15px;
 }
 
-.top-bar {
-    width: 100%;
+.game-header {
+  width: min(1250px, 100%);
 
-    background: white;
+  margin: 0 auto 12px;
 
-    box-shadow:
-        0 3px 15px rgba(0,0,0,0.08);
+  display: grid;
 
-    display: flex;
+  grid-template-columns:
+    minmax(110px, 170px)
+    1fr
+    minmax(110px, 170px);
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: space-between;
-
-    padding: 10px 18px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 50;
+  gap: 10px;
 }
 
-.nav-btn {
-    background: var(--purple);
+.stage-info {
+  text-align: center;
 
-    color: white;
+  background: rgba(255,255,255,0.94);
 
-    min-width: 110px;
+  border:
+    2px solid #eadbfa;
 
-    padding: 11px 15px;
+  border-radius: 18px;
 
-    border-radius: 14px;
+  padding: 8px 10px;
 
-    font-size: 17px;
-
-    font-weight: bold;
-}
-
-.nav-btn:disabled {
-    opacity: .35;
-}
-
-.stage-counter {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 3px;
-
-    font-weight: bold;
-}
-
-#stageNumber {
-    color: var(--purple);
-
-    font-size: 20px;
-}
-
-#scoreText {
-    font-size: 15px;
-
-    color: #777;
-}
-
-.game-container {
-    width: min(1400px, 97vw);
-
-    margin: 18px auto 0;
-
-    text-align: center;
+  box-shadow:
+    0 4px 15px rgba(0,0,0,0.06);
 }
 
 .game-title {
-    font-size:
-        clamp(27px, 4vw, 42px);
+  color: #7438c8;
 
-    font-weight: bold;
+  font-size: clamp(18px, 3vw, 27px);
 
-    color: var(--purple);
+  font-weight: 1000;
+}
 
-    margin-bottom: 8px;
+#stageCounter {
+  margin-top: 2px;
+
+  color: #777;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.nav-btn {
+  border: 0;
+
+  background: white;
+
+  color: #7438c8;
+
+  font-weight: 900;
+
+  font-size: clamp(13px, 2vw, 17px);
+
+  border-radius: 15px;
+
+  padding: 11px 10px;
+
+  min-height: 48px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.08);
+
+  border: 2px solid #eadbfa;
+}
+
+.nav-btn:active {
+  transform: scale(0.97);
+}
+
+.nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.game-content {
+  width: min(1250px, 100%);
+
+  margin: 0 auto;
+
+  text-align: center;
 }
 
 .instruction {
-    max-width: 1200px;
+  width: min(1000px, 100%);
 
-    margin: 0 auto 20px;
+  margin: 0 auto 12px;
 
-    background: white;
+  background:
+    linear-gradient(
+      135deg,
+      #fff,
+      #fff8fd
+    );
 
-    border: 3px solid #e6d9fa;
+  border: 2px solid #f0d8e8;
 
-    border-radius: 20px;
+  border-radius: 17px;
 
-    padding: 12
+  padding: 10px 14px;
+
+  color: #4b3153;
+
+  font-size: clamp(16px, 2.5vw, 22px);
+
+  font-weight: 900;
+
+  line-height: 1.6;
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.05);
+}
+
+
+/* =========================================================
+   جدول اصلی ۲۱ خانه‌ای
+   ========================================================= */
+
+.task-wrap {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin: 5px auto 12px;
+}
+
+.pattern-grid {
+  width: 100%;
+
+  max-width: 1200px;
+
+  display: grid;
+
+  grid-template-columns: repeat(21, minmax(0, 1fr));
+
+  gap: 0;
+
+  border:
+    4px solid #3d3151;
+
+  border-radius: 9px;
+
+  overflow: hidden;
+
+  background: white;
+
+  box-shadow:
+    0 8px 22px rgba(0,0,0,0.12);
+}
+
+.pattern-cell {
+  aspect-ratio: 1 / 1;
+
+  min-width: 0;
+
+  border-left: 1px solid rgba(40,40,40,0.25);
+  border-bottom: 1px solid rgba(40,40,40,0.25);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  position: relative;
+
+  transition:
+    transform 0.1s,
+    filter 0.1s;
+}
+
+.pattern-cell:last-child {
+  border-left: 0;
+}
+
+.pattern-cell:hover {
+  filter: brightness(1.06);
+}
+
+.pattern-cell:active {
+  transform: scale(0.93);
+}
+
+.pattern-cell.locked {
+  cursor: default;
+}
+
+.pattern-cell.editable {
+  background: white;
+}
+
+
+/* رنگ خانه ها */
+
+.cell-green {
+  background: #58c86b !important;
+}
+
+.cell-blue {
+  background: #42a5f5 !important;
+}
+
+.cell-yellow {
+  background: #ffd84d !important;
+}
+
+.cell-red {
+  background: #ef5350 !important;
+}
+
+.cell-pink {
+  background: #ff73ad !important;
+}
+
+.cell-purple {
+  background: #9c64e8 !important;
+}
+
+.cell-white {
+  background: #fff !important;
+}
+
+
+/* =========================================================
+   قسمت رسم یک بار الگو
+   ========================================================= */
+
+.repeat-box {
+  margin: 10px auto 13px;
+
+  width: min(650px, 100%);
+
+  background: white;
+
+  border: 3px solid #ead8f8;
+
+  border-radius: 18px;
+
+  padding: 10px;
+
+  box-shadow:
+    0 5px 16px rgba(116,56,200,0.08);
+}
+
+.repeat-title {
+  color: #7438c8;
+
+  font-size: clamp(15px, 2.4vw, 20px);
+
+  font-weight: 1000;
+
+  margin-bottom: 8px;
+}
+
+.repeat-area {
+  display: grid;
+
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+
+  gap: 0;
+
+  width: min(500px, 100%);
+
+  margin: 0 auto;
+
+  border: 3px solid #3d3151;
+
+  border-radius: 7px;
+
+  overflow: hidden;
+}
+
+.repeat-cell {
+  aspect-ratio: 1 / 1;
+
+  border-left: 1px solid rgba(40,40,40,0.25);
+
+  cursor: pointer;
+
+  background: white;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.repeat-cell:last-child {
+  border-left: 0;
+}
+
+
+/* =========================================================
+   پالت
+   ========================================================= */
+
+.palette-box {
+  margin: 10px auto;
+
+  width: min(800px, 100%);
+
+  background: rgba(255,255,255,0.94);
+
+  border:
+    2px solid #eadbfa;
+
+  border-radius: 18px;
+
+  padding: 8px 10px;
+
+  box-shadow:
+    0 4px 13px rgba(0,0,0,0.05);
+}
+
+.palette-title {
+  color: #7438c8;
+
+  font-size: 15px;
+
+  font-weight: 900;
+
+  margin-bottom: 6px;
+}
+
+.palette {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+.palette-item {
+  width: 43px;
+  height: 43px;
+
+  border-radius: 12px;
+
+  border: 3px solid white;
+
+  box-shadow:
+    0 2px 7px rgba(0,0,0,0.15);
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 1000;
+
+  transition: 0.15s;
+}
+
+.palette-item.selected {
+  outline: 3px solid #7438c8;
+
+  outline-offset: 2px;
+
+  transform: scale(1.07);
+}
+
+.palette-item.eraser {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #fff,
+      #fff 7px,
+      #ffd4e7 7px,
+      #ffd4e7 14px
+    );
+
+  color: #e44284;
+
+  font-size: 22px;
+}
+
+
+/* =========================================================
+   شکل ها
+   ========================================================= */
+
+.shape {
+  position: relative;
+
+  width: 58%;
+
+  height: 58%;
+
+  display: block;
+}
+
+.shape-circle {
+  border-radius: 50%;
+  background: #42a5f5;
+}
+
+.shape-square {
+  background: #ffcf3f;
+}
+
+.shape-triangle {
+  width: 0;
+  height: 0;
+
+  border-left: 30% solid transparent;
+  border-right: 30% solid transparent;
+  border-bottom: 60% solid #ef5350;
+}
+
+.shape-star {
+  font-size: clamp(15px, 2.5vw, 35px);
+  line-height: 1;
+}
+
+.shape-heart {
+  font-size: clamp(15px, 2.5vw, 35px);
+  line-height: 1;
+}
+
+.shape-diamond {
+  background: #59c96c;
+
+  transform: rotate(45deg);
+
+  width: 50%;
+  height: 50%;
+}
+
+
+/* =========================================================
+   سوال حذف شکل
+   ========================================================= */
+
+.shape-row {
+  width: 100%;
+
+  max-width: 1000px;
+
+  margin: 12px auto;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 5px;
+
+  flex-wrap: nowrap;
+}
+
+.shape-option {
+  flex: 1 1 0;
+
+  min-width: 0;
+
+  max-width: 95px;
+
+  aspect-ratio: 1 / 1;
+
+  border: 3px solid #eadbfa;
+
+  border-radius: 13px;
+
+  background: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.08);
+
+  transition: 0.15s;
+}
+
+.shape-option.selected {
+  border-color: #7438c8;
+
+  background: #f4eaff;
+
+  transform: translateY(-5px);
+}
+
+
+/* =========================================================
+   دکمه ها
+   ========================================================= */
+
+.check-btn,
+.clear-btn {
+  border: 0;
+
+  cursor: pointer;
+
+  font-weight: 900;
+
+  font-size: 17px;
+
+  padding: 10px 20px;
+
+  border-radius: 15px;
+
+  margin: 4px;
+
+  min-height: 45px;
+}
+
+.check-btn {
+  background:
+    linear-gradient(
+      135deg,
+      #4fc76b,
+      #27a957
+    );
+
+  color: white;
+
+  box-shadow:
+    0 5px 0 #168344;
+}
+
+.clear-btn {
+  background: #fff0f5;
+
+  color: #e34c86;
+
+  border: 2px solid #ffc7dd;
+}
+
+.check-btn:active,
+.clear-btn:active {
+  transform: translateY(3px);
+}
+
+.feedback {
+  min-height: 35px;
+
+  margin: 8px auto 0;
+
+  font-size: clamp(16px, 2.6vw, 21px);
+
+  font-weight: 1000;
+
+  color: #7438c8;
+}
+
+
+/* =========================================================
+   امضا
+   ========================================================= */
+
+.signature-wrap {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin-top: 9px;
+
+  padding-bottom: 4px;
+
+  pointer-events: none;
+}
+
+.signature {
+  width: min(175px, 32vw);
+
+  max-height: 65px;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+
+/* =========================================================
+   پایان
+   ========================================================= */
+
+.finish-screen {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.finish-card {
+  width: min(600px, 94vw);
+
+  text-align: center;
+
+  background: white;
+
+  border-radius: 30px;
+
+  padding: 30px 20px;
+
+  border: 3px solid #eadbfa;
+
+  box-shadow:
+    0 15px 40px rgba(116,56,200,0.15);
+}
+
+.finish-icon {
+  font-size: 65px;
+
+  animation:
+    floatIcon 1.7s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+}
+
+.finish-card h1 {
+  color: #7438c8;
+
+  font-size: 42px;
+
+  margin: 5px 0 10px;
+}
+
+#finishText {
+  font-size: 21px;
+
+  line-height: 1.9;
+}
+
+.final-score {
+  display: inline-block;
+
+  margin: 15px 0;
+
+  padding: 12px 25px;
+
+  border-radius: 20px;
+
+  background: #fff3bf;
+
+  color: #765400;
+
+  font-size: 23px;
+
+  font-weight: 1000;
+}
+
+.finish-signature {
+  margin-top: 20px;
+}
+
+
+/* =========================================================
+   انیمیشن بازخورد
+   ========================================================= */
+
+.success-animation {
+  animation:
+    successPop 0.5s ease;
+}
+
+@keyframes successPop {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   موبایل
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .start-screen {
+    padding: 10px;
+  }
+
+  .start-card {
+    padding: 18px 14px 22px;
+
+    border-radius: 24px;
+  }
+
+  .teacher-frame {
+    width: 115px;
+    height: 115px;
+  }
+
+  .welcome-text {
+    font-size: 17px;
+  }
+
+  .game-screen {
+    padding: 7px 6px 8px;
+  }
+
+  .game-header {
+    grid-template-columns:
+      1fr
+      1.2fr
+      1fr;
+
+    gap: 5px;
+  }
+
+  .nav-btn {
+    font-size: 11px;
+
+    padding: 8px 4px;
+
+    min-height: 42px;
+  }
+
+  .stage-info {
+    padding: 6px 3px;
+  }
+
+  .game-title {
+    font-size: 16px;
+  }
+
+  #stageCounter {
+    font-size: 11px;
+  }
+
+  .instruction {
+    font-size: 15px;
+
+    padding: 7px 8px;
+
+    margin-bottom: 8px;
+  }
+
+  .pattern-grid {
+    border-width: 3px;
+  }
+
+  .palette-item {
+    width: 37px;
+    height: 37px;
+  }
+
+  .check-btn,
+  .clear-btn {
+    font-size: 14px;
+
+    padding: 8px 13px;
+  }
+
+  .signature {
+    width: 145px;
+  }
+
+  .shape-option {
+    border-width: 2px;
+  }
+
+}
+
+
+/* =========================================================
+   نمایشگرهای بزرگ / پروژکتور
+   ========================================================= */
+
+@media (min-width: 1000px) {
+
+  .game-screen {
+    padding-top: 16px;
+  }
+
+  .pattern-cell {
+    min-height: 48px;
+  }
+
+  .repeat-cell {
+    min-height: 65px;
+  }
+
+  .palette-item {
+    width: 48px;
+    height: 48px;
+  }
+
+}
