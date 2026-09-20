@@ -1100,3 +1100,6 @@ input {
   direction: ltr;
   flex-direction: row;
 }
+.pattern-cell:nth-child(20) {
+  border-right: 3px solid #3d3151 !important;
+}
