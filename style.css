@@ -1081,3 +1081,22 @@ input {
   }
 
 }
+/* =========================================================
+   اصلاح جهت الگوها
+   الگوها، شکل ها و جدول های شطرنجی از سمت چپ شروع شوند
+   ========================================================= */
+
+.pattern-grid {
+  direction: ltr;
+  grid-auto-flow: row;
+}
+
+.repeat-area {
+  direction: ltr;
+  grid-auto-flow: row;
+}
+
+.shape-row {
+  direction: ltr;
+  flex-direction: row;
+}
