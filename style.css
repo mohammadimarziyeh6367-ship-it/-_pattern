@@ -28,7 +28,7 @@ body {
     radial-gradient(circle at 10% 10%, #fff4c7 0, transparent 25%),
     radial-gradient(circle at 90% 15%, #ffd8ef 0, transparent 25%),
     linear-gradient(135deg, #f8f3ff, #fff);
-  
+
   color: #352044;
 }
 
@@ -396,12 +396,13 @@ input {
 
   display: grid;
 
-  grid-template-columns: repeat(21, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(21, minmax(0, 1fr));
 
   gap: 0;
 
   border:
-    4px solid #3d3151;
+    3px solid #3d3151;
 
   border-radius: 9px;
 
@@ -411,6 +412,8 @@ input {
 
   box-shadow:
     0 8px 22px rgba(0,0,0,0.12);
+
+  direction: ltr;
 }
 
 .pattern-cell {
@@ -418,8 +421,11 @@ input {
 
   min-width: 0;
 
-  border-left: 1px solid rgba(40,40,40,0.25);
-  border-bottom: 1px solid rgba(40,40,40,0.25);
+  border-left:
+    1px solid rgba(40,40,40,0.25);
+
+  border-bottom:
+    1px solid rgba(40,40,40,0.25);
 
   display: flex;
 
@@ -435,6 +441,11 @@ input {
     filter 0.1s;
 }
 
+/*
+   مهم:
+   هیچ خط ضخیم برای خانه آخر نداریم.
+   خط بیرونی جدول خودش مرز را می‌سازد.
+*/
 .pattern-cell:last-child {
   border-left: 0;
 }
@@ -456,7 +467,9 @@ input {
 }
 
 
-/* رنگ خانه ها */
+/* =========================================================
+   رنگ خانه ها
+   ========================================================= */
 
 .cell-green {
   background: #58c86b !important;
@@ -488,13 +501,48 @@ input {
 
 
 /* =========================================================
-   قسمت رسم یک بار الگو
+   جدول چهار ردیفی سؤال ترکیبی
+   ========================================================= */
+
+.combined-pattern-box {
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 5px auto 14px;
+
+  padding: 8px 0;
+}
+
+.combined-row {
+  width: 100%;
+
+  margin: 0 auto 9px;
+
+  display: flex;
+
+  justify-content: center;
+
+  direction: ltr;
+}
+
+.combined-row .pattern-grid {
+  margin: 0;
+}
+
+.combined-row-label {
+  display: none;
+}
+
+
+/* =========================================================
+   بخش الگوی تکرارشونده
    ========================================================= */
 
 .repeat-box {
   margin: 10px auto 13px;
 
-  width: min(650px, 100%);
+  width: min(760px, 100%);
 
   background: white;
 
@@ -521,7 +569,8 @@ input {
 .repeat-area {
   display: grid;
 
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
 
   gap: 0;
 
@@ -534,12 +583,15 @@ input {
   border-radius: 7px;
 
   overflow: hidden;
+
+  direction: ltr;
 }
 
 .repeat-cell {
   aspect-ratio: 1 / 1;
 
-  border-left: 1px solid rgba(40,40,40,0.25);
+  border-left:
+    1px solid rgba(40,40,40,0.25);
 
   cursor: pointer;
 
@@ -553,6 +605,63 @@ input {
 
 .repeat-cell:last-child {
   border-left: 0;
+}
+
+
+/* =========================================================
+   الگوی تکرارشونده چهار ردیفی
+   ========================================================= */
+
+.combined-repeat-box {
+  width: min(900px, 100%);
+
+  margin: 12px auto 15px;
+
+  background: #fff;
+
+  border:
+    3px solid #ead8f8;
+
+  border-radius: 20px;
+
+  padding: 12px;
+
+  box-shadow:
+    0 5px 16px rgba(116,56,200,0.08);
+}
+
+.combined-repeat-title {
+  color: #7438c8;
+
+  font-size: clamp(16px, 2.5vw, 21px);
+
+  font-weight: 1000;
+
+  margin-bottom: 10px;
+}
+
+.combined-repeat-row {
+  width: min(620px, 100%);
+
+  margin: 7px auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  direction: ltr;
+
+  border:
+    2px solid #3d3151;
+
+  border-radius: 5px;
+
+  overflow: hidden;
+}
+
+.combined-repeat-row .repeat-cell {
+  aspect-ratio: 1 / 1;
 }
 
 
@@ -718,6 +827,8 @@ input {
   gap: 5px;
 
   flex-wrap: nowrap;
+
+  direction: ltr;
 }
 
 .shape-option {
@@ -1031,7 +1142,7 @@ input {
   }
 
   .pattern-grid {
-    border-width: 3px;
+    border-width: 2px;
   }
 
   .palette-item {
@@ -1052,6 +1163,18 @@ input {
 
   .shape-option {
     border-width: 2px;
+  }
+
+  .combined-row {
+    margin-bottom: 6px;
+  }
+
+  .combined-repeat-box {
+    padding: 8px;
+  }
+
+  .combined-repeat-row {
+    margin: 5px auto;
   }
 
 }
@@ -1080,26 +1203,4 @@ input {
     height: 48px;
   }
 
-}
-/* =========================================================
-   اصلاح جهت الگوها
-   الگوها، شکل ها و جدول های شطرنجی از سمت چپ شروع شوند
-   ========================================================= */
-
-.pattern-grid {
-  direction: ltr;
-  grid-auto-flow: row;
-}
-
-.repeat-area {
-  direction: ltr;
-  grid-auto-flow: row;
-}
-
-.shape-row {
-  direction: ltr;
-  flex-direction: row;
-}
-.pattern-cell:nth-child(20) {
-  border-right: 3px solid #3d3151 !important;
 }
