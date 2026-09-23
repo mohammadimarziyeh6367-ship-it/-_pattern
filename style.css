@@ -1111,31 +1111,29 @@ input {
 /* =========================================================
    امضا
    ========================================================= */
-
-.signature-wrap {
-  width: 100%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  margin-top: 9px;
-
-  padding-bottom: 4px;
-
-  pointer-events: none;
-}
+/* =========================
+   امضای پایین صفحه
+   ========================= */
 
 .signature {
-  width: min(175px, 32vw);
-
-  max-height: 65px;
-
+  width: min(190px, 35vw);
+  height: auto;
+  max-height: 55px;
   object-fit: contain;
-
   display: block;
+  margin: 4px auto 0;
+}
+
+/* جلوگیری از ایجاد اسکرول به خاطر امضا */
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: hidden;
 }
 
 
