@@ -399,7 +399,8 @@ input {
   grid-template-columns:
     repeat(21, minmax(0, 1fr));
 
-  gap: 0;
+  /* بسیار مهم: هیچ فاصله‌ای بین خانه‌ها */
+  gap: 0 !important;
 
   border:
     3px solid #3d3151;
@@ -421,11 +422,16 @@ input {
 
   min-width: 0;
 
+  /* همه خطوط دقیقاً یکسان */
   border-left:
     1px solid rgba(40,40,40,0.25);
 
   border-bottom:
     1px solid rgba(40,40,40,0.25);
+
+  border-top: 0;
+
+  border-right: 0;
 
   display: flex;
 
@@ -443,11 +449,12 @@ input {
 
 /*
    مهم:
-   هیچ خط ضخیم برای خانه آخر نداریم.
-   خط بیرونی جدول خودش مرز را می‌سازد.
+   خط آخر هم وجود دارد و دقیقاً همرنگ و هم‌ضخامت
+   خطوط داخلی است.
 */
 .pattern-cell:last-child {
-  border-left: 0;
+  border-left:
+    1px solid rgba(40,40,40,0.25);
 }
 
 .pattern-cell:hover {
@@ -501,7 +508,7 @@ input {
 
 
 /* =========================================================
-   جدول چهار ردیفی سؤال ترکیبی
+   سؤال ترکیبی چهار ردیفی
    ========================================================= */
 
 .combined-pattern-box {
@@ -511,13 +518,17 @@ input {
 
   margin: 5px auto 14px;
 
-  padding: 8px 0;
+  padding: 0 !important;
 }
 
+/*
+   تمام ردیف‌ها کاملاً چسبیده به هم
+*/
 .combined-row {
   width: 100%;
 
-  margin: 0 auto 9px;
+  margin: 0 !important;
+  padding: 0 !important;
 
   display: flex;
 
@@ -526,12 +537,21 @@ input {
   direction: ltr;
 }
 
-.combined-row .pattern-grid {
-  margin: 0;
+.combined-row + .combined-row {
+  margin-top: 0 !important;
 }
 
-.combined-row-label {
-  display: none;
+.combined-row .pattern-grid {
+  margin: 0 !important;
+}
+
+/*
+   اطمینان از اینکه حتی wrapper داخلی هم
+   فاصله ایجاد نکند
+*/
+.combined-pattern-box .task-wrap {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 
@@ -572,7 +592,7 @@ input {
   grid-template-columns:
     repeat(6, minmax(0, 1fr));
 
-  gap: 0;
+  gap: 0 !important;
 
   width: min(500px, 100%);
 
@@ -593,6 +613,13 @@ input {
   border-left:
     1px solid rgba(40,40,40,0.25);
 
+  border-bottom:
+    1px solid rgba(40,40,40,0.25);
+
+  border-top: 0;
+
+  border-right: 0;
+
   cursor: pointer;
 
   background: white;
@@ -603,13 +630,18 @@ input {
   justify-content: center;
 }
 
+/*
+   خط آخر هم دقیقاً مثل همه خطوط
+*/
 .repeat-cell:last-child {
-  border-left: 0;
+  border-left:
+    1px solid rgba(40,40,40,0.25);
 }
 
 
 /* =========================================================
    الگوی تکرارشونده چهار ردیفی
+   همه ردیف‌ها کاملاً چسبیده
    ========================================================= */
 
 .combined-repeat-box {
@@ -640,10 +672,14 @@ input {
   margin-bottom: 10px;
 }
 
+/*
+   ردیف‌های پایین بدون هیچ فاصله
+*/
 .combined-repeat-row {
   width: min(620px, 100%);
 
-  margin: 7px auto;
+  margin: 0 auto !important;
+  padding: 0 !important;
 
   display: grid;
 
@@ -655,13 +691,137 @@ input {
   border:
     2px solid #3d3151;
 
-  border-radius: 5px;
+  border-radius: 0;
 
   overflow: hidden;
+
+  gap: 0 !important;
+}
+
+/*
+   ردیف بعدی دقیقاً به ردیف قبلی می‌چسبد
+*/
+.combined-repeat-row + .combined-repeat-row {
+  margin-top: -2px !important;
 }
 
 .combined-repeat-row .repeat-cell {
   aspect-ratio: 1 / 1;
+
+  margin: 0 !important;
+  border-radius: 0 !important;
+
+  border-left:
+    1px solid rgba(40,40,40,0.25);
+
+  border-bottom:
+    1px solid rgba(40,40,40,0.25);
+
+  border-top: 0;
+
+  border-right: 0;
+}
+
+.combined-repeat-row .repeat-cell:last-child {
+  border-left:
+    1px solid rgba(40,40,40,0.25);
+}
+
+
+/* =========================================================
+   حالت مخصوص لیست چند ردیفی پایین
+   ========================================================= */
+
+.repeat-multi-list {
+  display: flex !important;
+
+  flex-direction: column !important;
+
+  gap: 0 !important;
+
+  row-gap: 0 !important;
+
+  column-gap: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+
+  width: 100% !important;
+}
+
+.multi-repeat-row {
+  display: flex !important;
+
+  align-items: stretch !important;
+
+  gap: 0 !important;
+
+  row-gap: 0 !important;
+
+  column-gap: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+
+.multi-repeat-row + .multi-repeat-row {
+  margin-top: 0 !important;
+
+  padding-top: 0 !important;
+}
+
+.mini-repeat-grid {
+  display: grid !important;
+
+  gap: 0 !important;
+
+  row-gap: 0 !important;
+
+  column-gap: 0 !important;
+
+  margin: 0 !important;
+
+  padding: 0 !important;
+}
+
+.mini-repeat-grid .repeat-cell {
+  margin: 0 !important;
+
+  border-radius: 0 !important;
+
+  box-sizing: border-box !important;
+
+  border-left:
+    1px solid rgba(40,40,40,0.25) !important;
+
+  border-bottom:
+    1px solid rgba(40,40,40,0.25) !important;
+
+  border-top: 0 !important;
+
+  border-right: 0 !important;
+}
+
+.mini-repeat-grid .repeat-cell:last-child {
+  border-left:
+    1px solid rgba(40,40,40,0.25) !important;
+}
+
+.repeat-multi-list .multi-repeat-row,
+.repeat-multi-list .mini-repeat-grid {
+  gap: 0 !important;
+
+  row-gap: 0 !important;
+
+  column-gap: 0 !important;
+}
+
+.repeat-multi-list * {
+  margin-top: 0 !important;
+
+  margin-bottom: 0 !important;
 }
 
 
@@ -1165,18 +1325,46 @@ input {
     border-width: 2px;
   }
 
+  /*
+     سؤال ترکیبی:
+     هیچ فاصله‌ای بین ردیف‌ها
+  */
   .combined-row {
-    margin-bottom: 6px;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
+  .combined-pattern-box {
+    margin: 5px auto 14px;
+    padding: 0 !important;
+  }
+
+  /*
+     الگوی تکرارشونده پایین:
+     هیچ فاصله‌ای بین ردیف‌ها
+  */
   .combined-repeat-box {
     padding: 8px;
   }
 
   .combined-repeat-row {
-    margin: 5px auto;
+    margin: 0 auto !important;
   }
 
+  .combined-repeat-row + .combined-repeat-row {
+    margin-top: -2px !important;
+  }
+
+  .repeat-multi-list {
+    gap: 0 !important;
+    row-gap: 0 !important;
+  }
+
+  .multi-repeat-row {
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }
 
 
