@@ -1674,22 +1674,24 @@ function createCombinedCheckerStage(
     title
   );
 
+stage.rows.forEach(
+  (rowData, rowIndex) => {
 
-  stage.rows.forEach(
-    (rowData, rowIndex) => {
+    // ردیف چهارم حذف شود
+    if (rowIndex === 3) return;
 
-      const repeatRow =
-        createCombinedRepeatRow(
-          rowData.pattern,
-          rowIndex
-        );
-
-      repeatWrapper.appendChild(
-        repeatRow
+    const repeatRow =
+      createCombinedRepeatRow(
+        rowData.pattern,
+        rowIndex
       );
 
-    }
-  );
+    repeatWrapper.appendChild(
+      repeatRow
+    );
+
+  }
+);
 
   taskArea.appendChild(
     repeatWrapper
