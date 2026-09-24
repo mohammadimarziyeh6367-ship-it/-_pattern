@@ -643,23 +643,25 @@ input {
    الگوی تکرارشونده چهار ردیفی
    همه ردیف‌ها کاملاً چسبیده
    ========================================================= */
+/* =========================================================
+   مرحله ۱۲ | الگوهای تکرارشونده پایین
+   ========================================================= */
 
 .combined-repeat-box {
   width: min(900px, 100%);
-
   margin: 12px auto 15px;
 
   background: #fff;
 
-  border:
-    3px solid #ead8f8;
-
+  border: 3px solid #ead8f8;
   border-radius: 20px;
 
   padding: 12px;
 
   box-shadow:
     0 5px 16px rgba(116,56,200,0.08);
+
+  box-sizing: border-box;
 }
 
 .combined-repeat-title {
@@ -670,54 +672,68 @@ input {
   font-weight: 1000;
 
   margin-bottom: 10px;
+
+  text-align: center;
 }
 
-/*
-   ردیف‌های پایین بدون هیچ فاصله
-*//* =========================================================
-   الگوی تکرارشونده پایین
-   تعداد ستون‌ها دقیقاً برابر تعداد خانه‌های واقعی
-   همه خانه‌ها کاملاً هم‌اندازه
+
+/* =========================================================
+   هر ردیف پایین
    ========================================================= */
 
 .combined-repeat-row {
-  width: min(620px, 100%);
+  width: fit-content;
+  max-width: 100%;
 
-  margin: 0 auto !important;
+  margin: 8px auto !important;
   padding: 0 !important;
 
-  display: grid !important;
+  display: flex !important;
 
-  /* مهم:
-     دیگر 6 ستون ثابت نداریم.
-     به تعداد واقعی خانه‌ها ستون مساوی ساخته می‌شود.
-  */
-  grid-template-columns: none !important;
+  flex-direction: row !important;
 
-  grid-auto-flow: column !important;
+  flex-wrap: nowrap !important;
 
-  grid-auto-columns: minmax(0, 1fr) !important;
+  justify-content: center !important;
+  align-items: stretch !important;
 
   gap: 0 !important;
 
-  direction: ltr;
+  direction: ltr !important;
 
   border: 2px solid #3d3151;
 
-  border-radius: 0;
+  border-radius: 5px;
 
   overflow: hidden;
+
+  box-sizing: border-box;
 }
 
-/* هر خانه دقیقاً هم‌اندازه خانه‌های دیگر */
+
+/* =========================================================
+   خانه‌های پایین
+   دقیقاً هم‌اندازه
+   ========================================================= */
+
 .combined-repeat-row .repeat-cell {
-  width: 100% !important;
-  min-width: 0 !important;
+
+  flex: 0 0 52px !important;
+
+  width: 52px !important;
+  min-width: 52px !important;
+  max-width: 52px !important;
+
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
 
   aspect-ratio: 1 / 1;
 
   margin: 0 !important;
 
+  padding: 0 !important;
+
   border-radius: 0 !important;
 
   box-sizing: border-box !important;
@@ -725,122 +741,74 @@ input {
   border-left:
     1px solid rgba(40,40,40,0.25) !important;
 
-  border-bottom:
-    1px solid rgba(40,40,40,0.25) !important;
+  border-bottom: 0 !important;
 
   border-top: 0 !important;
 
   border-right: 0 !important;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 }
 
-/* خط آخر هم دقیقاً هم‌رنگ و هم‌اندازه */
+
+/* آخرین خانه خط سمت چپ خودش را دارد */
 .combined-repeat-row .repeat-cell:last-child {
   border-left:
     1px solid rgba(40,40,40,0.25) !important;
 }
 
-/* ردیف‌های پایین کاملاً به هم چسبیده */
-.combined-repeat-row + .combined-repeat-row {
-  margin-top: -2px !important;
-}
 
 /* =========================================================
-   حالت مخصوص لیست چند ردیفی پایین
+   موبایل
    ========================================================= */
 
-.repeat-multi-list {
-  display: flex !important;
+@media (max-width: 600px) {
 
-  flex-direction: column !important;
+  .combined-repeat-box {
+    padding: 8px;
+  }
 
-  gap: 0 !important;
+  .combined-repeat-row {
+    margin: 7px auto !important;
+  }
 
-  row-gap: 0 !important;
+  .combined-repeat-row .repeat-cell {
 
-  column-gap: 0 !important;
+    flex: 0 0 38px !important;
 
-  margin: 0 !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
 
-  padding: 0 !important;
-
-  width: 100% !important;
-}
-
-.multi-repeat-row {
-  display: flex !important;
-
-  align-items: stretch !important;
-
-  gap: 0 !important;
-
-  row-gap: 0 !important;
-
-  column-gap: 0 !important;
-
-  margin: 0 !important;
-
-  padding: 0 !important;
-}
-
-.multi-repeat-row + .multi-repeat-row {
-  margin-top: 0 !important;
-
-  padding-top: 0 !important;
-}
-
-.mini-repeat-grid {
-  display: grid !important;
-
-  gap: 0 !important;
-
-  row-gap: 0 !important;
-
-  column-gap: 0 !important;
-
-  margin: 0 !important;
-
-  padding: 0 !important;
-}
-
-.mini-repeat-grid .repeat-cell {
-  margin: 0 !important;
-
-  border-radius: 0 !important;
-
-  box-sizing: border-box !important;
-
-  border-left:
-    1px solid rgba(40,40,40,0.25) !important;
-
-  border-bottom:
-    1px solid rgba(40,40,40,0.25) !important;
-
-  border-top: 0 !important;
-
-  border-right: 0 !important;
-}
-
-.mini-repeat-grid .repeat-cell:last-child {
-  border-left:
-    1px solid rgba(40,40,40,0.25) !important;
-}
-
-.repeat-multi-list .multi-repeat-row,
-.repeat-multi-list .mini-repeat-grid {
-  gap: 0 !important;
-
-  row-gap: 0 !important;
-
-  column-gap: 0 !important;
-}
-
-.repeat-multi-list * {
-  margin-top: 0 !important;
-
-  margin-bottom: 0 !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+  }
 }
 
 
+/* =========================================================
+   پروژکتور
+   ========================================================= */
+
+@media (min-width: 1000px) {
+
+  .combined-repeat-row .repeat-cell {
+
+    flex: 0 0 58px !important;
+
+    width: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+
+    height: 58px !important;
+    min-height: 58px !important;
+    max-height: 58px !important;
+  }
+}
 /* =========================================================
    پالت
    ========================================================= */
