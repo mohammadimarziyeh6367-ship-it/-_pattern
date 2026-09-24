@@ -1525,7 +1525,7 @@ function createCombinedRepeatRow(
 
   for (
     let i = 0;
-    i < 6;
+    i <  pattern.length;
     i++
   ) {
 
@@ -2080,7 +2080,7 @@ function checkCombinedCheckerStage(
 
       for (
         let i = 0;
-        i < 6;
+        i < unitLength;
         i++
       ) {
 
