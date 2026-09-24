@@ -298,19 +298,17 @@ const stages = [
 
   /* =====================================================
      مرحله 12
+     سه ردیف × 21 ستون
+     جدول بالا کاملاً یکپارچه
      
-     فقط سه ردیف الگو
-     ردیف چهارم کاملاً حذف شده است.
+     جدول پایین:
+     سه ردیف × 6 ستون
      ===================================================== */
 
   {
     type: "combinedChecker",
 
     rows: [
-
-      /* -------------------------------------------------
-         الگوی اول
-         ------------------------------------------------- */
 
       {
         pattern: [
@@ -323,11 +321,6 @@ const stages = [
           18,19,20
         ]
       },
-
-
-      /* -------------------------------------------------
-         الگوی دوم
-         ------------------------------------------------- */
 
       {
         pattern: [
@@ -342,11 +335,6 @@ const stages = [
           18,19,20
         ]
       },
-
-
-      /* -------------------------------------------------
-         الگوی سوم
-         ------------------------------------------------- */
 
       {
         pattern: [
@@ -374,104 +362,64 @@ const stages = [
    ========================================================= */
 
 const startScreen =
-  document.getElementById(
-    "startScreen"
-  );
+  document.getElementById("startScreen");
 
 const gameScreen =
-  document.getElementById(
-    "gameScreen"
-  );
+  document.getElementById("gameScreen");
 
 const finishScreen =
-  document.getElementById(
-    "finishScreen"
-  );
+  document.getElementById("finishScreen");
 
 const studentNameInput =
-  document.getElementById(
-    "studentName"
-  );
+  document.getElementById("studentName");
 
 const startBtn =
-  document.getElementById(
-    "startBtn"
-  );
+  document.getElementById("startBtn");
 
 const prevBtn =
-  document.getElementById(
-    "prevBtn"
-  );
+  document.getElementById("prevBtn");
 
 const nextBtn =
-  document.getElementById(
-    "nextBtn"
-  );
+  document.getElementById("nextBtn");
 
 const stageCounter =
-  document.getElementById(
-    "stageCounter"
-  );
+  document.getElementById("stageCounter");
 
 const instruction =
-  document.getElementById(
-    "instruction"
-  );
+  document.getElementById("instruction");
 
 const taskArea =
-  document.getElementById(
-    "taskArea"
-  );
+  document.getElementById("taskArea");
 
 const repeatBox =
-  document.getElementById(
-    "repeatBox"
-  );
+  document.getElementById("repeatBox");
 
 const repeatArea =
-  document.getElementById(
-    "repeatArea"
-  );
+  document.getElementById("repeatArea");
 
 const paletteBox =
-  document.getElementById(
-    "paletteBox"
-  );
+  document.getElementById("paletteBox");
 
 const palette =
-  document.getElementById(
-    "palette"
-  );
+  document.getElementById("palette");
 
 const checkBtn =
-  document.getElementById(
-    "checkBtn"
-  );
+  document.getElementById("checkBtn");
 
 const clearBtn =
-  document.getElementById(
-    "clearBtn"
-  );
+  document.getElementById("clearBtn");
 
 const feedback =
-  document.getElementById(
-    "feedback"
-  );
+  document.getElementById("feedback");
 
 const restartBtn =
-  document.getElementById(
-    "restartBtn"
-  );
+  document.getElementById("restartBtn");
 
 const finishText =
-  document.getElementById(
-    "finishText"
-  );
+  document.getElementById("finishText");
 
 const finalScore =
-  document.getElementById(
-    "finalScore"
-  );
+  document.getElementById("finalScore");
 
 
 /* =========================================================
@@ -509,8 +457,7 @@ function playTone(
       return;
 
     if (
-      audioContext.state ===
-      "suspended"
+      audioContext.state === "suspended"
     ) {
       audioContext.resume();
     }
@@ -534,21 +481,16 @@ function playTone(
 
     gain.gain.exponentialRampToValueAtTime(
       0.001,
-      audioContext.currentTime +
-      duration
+      audioContext.currentTime + duration
     );
 
     oscillator.connect(gain);
-
-    gain.connect(
-      audioContext.destination
-    );
+    gain.connect(audioContext.destination);
 
     oscillator.start();
 
     oscillator.stop(
-      audioContext.currentTime +
-      duration
+      audioContext.currentTime + duration
     );
 
   } catch (e) {}
@@ -584,7 +526,7 @@ function playCorrect() {
       0.05
     );
 
-  },100);
+  }, 100);
 
   setTimeout(() => {
 
@@ -595,7 +537,7 @@ function playCorrect() {
       0.05
     );
 
-  },210);
+  }, 210);
 }
 
 
@@ -617,7 +559,7 @@ function playWrong() {
       0.03
     );
 
-  },120);
+  }, 120);
 }
 
 
@@ -672,9 +614,7 @@ function createColorCell(
 ) {
 
   const cell =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   cell.className =
     "pattern-cell " +
@@ -723,8 +663,7 @@ function createColorCell(
       playClick();
 
       if (
-        selectedTool ===
-        "eraser"
+        selectedTool === "eraser"
       ) {
 
         cell.dataset.color =
@@ -741,7 +680,6 @@ function createColorCell(
         cell.className =
           "pattern-cell editable cell-" +
           selectedTool;
-
       }
 
     }
@@ -772,9 +710,7 @@ function createColorPalette() {
     color => {
 
       const item =
-        document.createElement(
-          "button"
-        );
+        document.createElement("button");
 
       item.type = "button";
 
@@ -795,36 +731,26 @@ function createColorPalette() {
             color;
 
           document
-            .querySelectorAll(
-              ".palette-item"
-            )
+            .querySelectorAll(".palette-item")
             .forEach(x =>
-              x.classList.remove(
-                "selected"
-              )
+              x.classList.remove("selected")
             );
 
-          item.classList.add(
-            "selected"
-          );
+          item.classList.add("selected");
 
           playClick();
 
         }
       );
 
-      palette.appendChild(
-        item
-      );
+      palette.appendChild(item);
 
     }
   );
 
 
   const eraser =
-    document.createElement(
-      "button"
-    );
+    document.createElement("button");
 
   eraser.type = "button";
 
@@ -842,27 +768,19 @@ function createColorPalette() {
         "eraser";
 
       document
-        .querySelectorAll(
-          ".palette-item"
-        )
+        .querySelectorAll(".palette-item")
         .forEach(x =>
-          x.classList.remove(
-            "selected"
-          )
+          x.classList.remove("selected")
         );
 
-      eraser.classList.add(
-        "selected"
-      );
+      eraser.classList.add("selected");
 
       playClick();
 
     }
   );
 
-  palette.appendChild(
-    eraser
-  );
+  palette.appendChild(eraser);
 }
 
 
@@ -887,9 +805,7 @@ function createShapePalette() {
     shape => {
 
       const item =
-        document.createElement(
-          "button"
-        );
+        document.createElement("button");
 
       item.type = "button";
 
@@ -916,36 +832,26 @@ function createShapePalette() {
             shape;
 
           document
-            .querySelectorAll(
-              ".palette-item"
-            )
+            .querySelectorAll(".palette-item")
             .forEach(x =>
-              x.classList.remove(
-                "selected"
-              )
+              x.classList.remove("selected")
             );
 
-          item.classList.add(
-            "selected"
-          );
+          item.classList.add("selected");
 
           playClick();
 
         }
       );
 
-      palette.appendChild(
-        item
-      );
+      palette.appendChild(item);
 
     }
   );
 
 
   const eraser =
-    document.createElement(
-      "button"
-    );
+    document.createElement("button");
 
   eraser.type = "button";
 
@@ -963,32 +869,24 @@ function createShapePalette() {
         "eraser";
 
       document
-        .querySelectorAll(
-          ".palette-item"
-        )
+        .querySelectorAll(".palette-item")
         .forEach(x =>
-          x.classList.remove(
-            "selected"
-          )
+          x.classList.remove("selected")
         );
 
-      eraser.classList.add(
-        "selected"
-      );
+      eraser.classList.add("selected");
 
       playClick();
 
     }
   );
 
-  palette.appendChild(
-    eraser
-  );
+  palette.appendChild(eraser);
 }
 
 
 /* =========================================================
-   جدول رنگی
+   جدول رنگی معمولی
    ========================================================= */
 
 function createMainColorGrid(stage) {
@@ -996,17 +894,13 @@ function createMainColorGrid(stage) {
   taskArea.innerHTML = "";
 
   const wrap =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   wrap.className =
     "task-wrap";
 
   const grid =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   grid.className =
     "pattern-grid";
@@ -1020,8 +914,7 @@ function createMainColorGrid(stage) {
   ) {
 
     const patternIndex =
-      i %
-      stage.pattern.length;
+      i % stage.pattern.length;
 
     const shouldBeBlank =
       stage.blanks.includes(i);
@@ -1031,10 +924,7 @@ function createMainColorGrid(stage) {
     if (!shouldBeBlank) {
 
       color =
-        stage.pattern[
-          patternIndex
-        ];
-
+        stage.pattern[patternIndex];
     }
 
     const cell =
@@ -1045,29 +935,18 @@ function createMainColorGrid(stage) {
         "main"
       );
 
-    grid.appendChild(
-      cell
-    );
+    grid.appendChild(cell);
 
-    currentCells.push(
-      cell
-    );
-
+    currentCells.push(cell);
   }
 
-  wrap.appendChild(
-    grid
-  );
+  wrap.appendChild(grid);
 
-  taskArea.appendChild(
-    wrap
-  );
+  taskArea.appendChild(wrap);
 
   createColorPalette();
 
-  createRepeatGrid(
-    stage.pattern
-  );
+  createRepeatGrid(stage.pattern);
 }
 
 
@@ -1080,17 +959,13 @@ function createShapeGrid(stage) {
   taskArea.innerHTML = "";
 
   const wrap =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   wrap.className =
     "task-wrap";
 
   const grid =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   grid.className =
     "pattern-grid";
@@ -1104,16 +979,13 @@ function createShapeGrid(stage) {
   ) {
 
     const patternIndex =
-      i %
-      stage.pattern.length;
+      i % stage.pattern.length;
 
     const shouldBeBlank =
       stage.blanks.includes(i);
 
     const cell =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     cell.className =
       "pattern-cell " +
@@ -1129,9 +1001,7 @@ function createShapeGrid(stage) {
     if (!shouldBeBlank) {
 
       const shape =
-        stage.pattern[
-          patternIndex
-        ];
+        stage.pattern[patternIndex];
 
       cell.dataset.shape =
         shape;
@@ -1145,8 +1015,7 @@ function createShapeGrid(stage) {
 
     } else {
 
-      cell.dataset.shape =
-        "";
+      cell.dataset.shape = "";
 
       cell.classList.add(
         "cell-white"
@@ -1162,15 +1031,11 @@ function createShapeGrid(stage) {
           playClick();
 
           if (
-            selectedTool ===
-            "eraser"
+            selectedTool === "eraser"
           ) {
 
-            cell.innerHTML =
-              "";
-
-            cell.dataset.shape =
-              "";
+            cell.innerHTML = "";
+            cell.dataset.shape = "";
 
           } else {
 
@@ -1186,51 +1051,34 @@ function createShapeGrid(stage) {
                 font-size:clamp(12px,3vw,38px);
                 line-height:1;
               ">${shapeInfo[shape].symbol}</span>`;
-
           }
 
         }
       );
-
     }
 
-    grid.appendChild(
-      cell
-    );
+    grid.appendChild(cell);
 
-    currentCells.push(
-      cell
-    );
-
+    currentCells.push(cell);
   }
 
-  wrap.appendChild(
-    grid
-  );
+  wrap.appendChild(grid);
 
-  taskArea.appendChild(
-    wrap
-  );
+  taskArea.appendChild(wrap);
 
   createShapePalette();
 
-  repeatBox.classList.add(
-    "hidden"
-  );
+  repeatBox.classList.add("hidden");
 }
 
 
 /* =========================================================
-   رسم یک بار الگو
+   رسم یک بار الگو در مراحل معمولی
    ========================================================= */
 
-function createRepeatGrid(
-  pattern
-) {
+function createRepeatGrid(pattern) {
 
-  repeatBox.classList.remove(
-    "hidden"
-  );
+  repeatBox.classList.remove("hidden");
 
   repeatArea.innerHTML = "";
 
@@ -1243,9 +1091,7 @@ function createRepeatGrid(
   ) {
 
     const cell =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     cell.className =
       "repeat-cell";
@@ -1266,18 +1112,15 @@ function createRepeatGrid(
         playClick();
 
         if (
-          selectedTool ===
-          "eraser"
+          selectedTool === "eraser"
         ) {
 
-          cell.dataset.value =
-            "";
+          cell.dataset.value = "";
 
           cell.className =
             "repeat-cell";
 
-          cell.innerHTML =
-            "";
+          cell.innerHTML = "";
 
         } else {
 
@@ -1293,8 +1136,7 @@ function createRepeatGrid(
               "repeat-cell cell-" +
               value;
 
-            cell.innerHTML =
-              "";
+            cell.innerHTML = "";
 
           } else {
 
@@ -1306,22 +1148,15 @@ function createRepeatGrid(
                 color:${shapeInfo[value].color};
                 font-size:28px;
               ">${shapeInfo[value].symbol}</span>`;
-
           }
-
         }
 
       }
     );
 
-    repeatArea.appendChild(
-      cell
-    );
+    repeatArea.appendChild(cell);
 
-    repeatCells.push(
-      cell
-    );
-
+    repeatCells.push(cell);
   }
 }
 
@@ -1330,38 +1165,27 @@ function createRepeatGrid(
    سؤال حذف شکل
    ========================================================= */
 
-function createRemoveStage(
-  stage
-) {
+function createRemoveStage(stage) {
 
   taskArea.innerHTML = "";
 
-  repeatBox.classList.add(
-    "hidden"
-  );
+  repeatBox.classList.add("hidden");
 
-  paletteBox.classList.add(
-    "hidden"
-  );
+  paletteBox.classList.add("hidden");
 
   const row =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   row.className =
     "shape-row";
 
-  selectedShapeAnswer =
-    null;
+  selectedShapeAnswer = null;
 
   stage.shapes.forEach(
     (shape, index) => {
 
       const option =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
       option.className =
         "shape-option";
@@ -1381,18 +1205,12 @@ function createRemoveStage(
         () => {
 
           document
-            .querySelectorAll(
-              ".shape-option"
-            )
+            .querySelectorAll(".shape-option")
             .forEach(x =>
-              x.classList.remove(
-                "selected"
-              )
+              x.classList.remove("selected")
             );
 
-          option.classList.add(
-            "selected"
-          );
+          option.classList.add("selected");
 
           selectedShapeAnswer =
             index;
@@ -1402,281 +1220,137 @@ function createRemoveStage(
         }
       );
 
-      row.appendChild(
-        option
-      );
-
+      row.appendChild(option);
     }
   );
 
-  taskArea.appendChild(
-    row
-  );
+  taskArea.appendChild(row);
 }
 
 
 /* =========================================================
-   ساخت یک ردیف از سؤال ترکیبی
+   مرحله ۱۲
+   جدول اصلی یکپارچه:
+   ۳ ردیف × ۲۱ ستون
    ========================================================= */
 
-function createCombinedRow(
-  rowData,
-  rowIndex
-) {
-
-  const rowWrap =
-    document.createElement(
-      "div"
-    );
-
-  rowWrap.className =
-    "combined-row";
-
-  const grid =
-    document.createElement(
-      "div"
-    );
-
-  grid.className =
-    "pattern-grid";
-
-  grid.dataset.row =
-    rowIndex;
-
-  for (
-    let i = 0;
-    i < TOTAL_COLUMNS;
-    i++
-  ) {
-
-    const shouldBeBlank =
-      rowData.blanks.includes(i);
-
-    const patternIndex =
-      i %
-      rowData.pattern.length;
-
-    const color =
-      shouldBeBlank
-        ? null
-        : rowData.pattern[
-            patternIndex
-          ];
-
-    const cell =
-      createColorCell(
-        color,
-        shouldBeBlank,
-        i,
-        "combined-" + rowIndex
-      );
-
-    cell.dataset.row =
-      rowIndex;
-
-    cell.dataset.expected =
-      rowData.pattern[
-        patternIndex
-      ];
-
-    grid.appendChild(
-      cell
-    );
-
-    currentCells.push({
-      cell: cell,
-      rowIndex: rowIndex,
-      expected:
-        rowData.pattern[
-          patternIndex
-        ]
-    });
-
-  }
-
-  rowWrap.appendChild(
-    grid
-  );
-
-  return rowWrap;
-}
-
-
-/* =========================================================
-   الگوی تکرارشونده پایین سؤال ترکیبی
-   فقط برای سه ردیف
-   ========================================================= */
-
-function createCombinedRepeatRow(
-  pattern,
-  rowIndex
-) {
-
-  const row =
-    document.createElement(
-      "div"
-    );
-
-  row.className =
-    "combined-repeat-row";
-
-  row.dataset.row =
-    rowIndex;
-
-  for (
-    let i = 0;
-    i <  pattern.length;
-    i++
-  ) {
-
-    const cell =
-      document.createElement(
-        "div"
-      );
-
-    cell.className =
-      "repeat-cell";
-
-    cell.dataset.row =
-      rowIndex;
-
-    cell.dataset.index =
-      i;
-
-    cell.dataset.value =
-      "";
-
-    cell.addEventListener(
-      "click",
-      () => {
-
-        if (!selectedTool)
-          return;
-
-        playClick();
-
-        if (
-          selectedTool ===
-          "eraser"
-        ) {
-
-          cell.dataset.value =
-            "";
-
-          cell.className =
-            "repeat-cell";
-
-          cell.innerHTML =
-            "";
-
-        } else {
-
-          cell.dataset.value =
-            selectedTool;
-
-          if (
-            COLORS[selectedTool]
-          ) {
-
-            cell.className =
-              "repeat-cell cell-" +
-              selectedTool;
-
-            cell.innerHTML =
-              "";
-
-          }
-
-        }
-
-      }
-    );
-
-    row.appendChild(
-      cell
-    );
-
-    repeatCells.push(
-      cell
-    );
-
-  }
-
-  return row;
-}
-
-
-/* =========================================================
-   سؤال ترکیبی ۳ الگو
-   ========================================================= */
-
-function createCombinedCheckerStage(
-  stage
-) {
+function createCombinedCheckerStage(stage) {
 
   taskArea.innerHTML = "";
 
-  repeatBox.classList.add(
-    "hidden"
-  );
+  repeatBox.classList.add("hidden");
 
-  paletteBox.classList.remove(
-    "hidden"
-  );
+  paletteBox.classList.remove("hidden");
 
   currentCells = [];
   repeatCells = [];
 
+
+  /* =====================================================
+     جدول اصلی
+     یک جدول واحد ۳ × ۲۱
+     ===================================================== */
+
   const combinedBox =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   combinedBox.className =
     "combined-pattern-box";
 
-  /* فقط سه ردیف از stage.rows ساخته می‌شود */
+
+  const mainGrid =
+    document.createElement("div");
+
+  mainGrid.className =
+    "pattern-grid combined-main-grid";
+
 
   stage.rows.forEach(
     (rowData, rowIndex) => {
 
-      const row =
-        createCombinedRow(
-          rowData,
-          rowIndex
-        );
+      for (
+        let i = 0;
+        i < TOTAL_COLUMNS;
+        i++
+      ) {
 
-      combinedBox.appendChild(
-        row
-      );
+        const shouldBeBlank =
+          rowData.blanks.includes(i);
+
+        const patternIndex =
+          i % rowData.pattern.length;
+
+        const color =
+          shouldBeBlank
+            ? null
+            : rowData.pattern[patternIndex];
+
+
+        const cell =
+          createColorCell(
+            color,
+            shouldBeBlank,
+            i,
+            "combined-" + rowIndex
+          );
+
+
+        cell.dataset.row =
+          rowIndex;
+
+
+        /* پاسخ مورد انتظار */
+        cell.dataset.expected =
+          rowData.pattern[
+            patternIndex
+          ];
+
+
+        mainGrid.appendChild(cell);
+
+
+        currentCells.push({
+          cell: cell,
+          rowIndex: rowIndex,
+          expected:
+            rowData.pattern[
+              patternIndex
+            ]
+        });
+
+      }
 
     }
+  );
+
+
+  combinedBox.appendChild(
+    mainGrid
   );
 
   taskArea.appendChild(
     combinedBox
   );
 
+
   createColorPalette();
 
 
   /* =====================================================
-     بخش پایین
-     فقط سه الگوی تکرارشونده
+     جدول پایین
+     دقیقاً ۳ ردیف × ۶ ستون
+     یک مستطیل کاملاً یکپارچه
      ===================================================== */
 
   const repeatWrapper =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   repeatWrapper.className =
     "combined-repeat-box";
 
+
   const title =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   title.className =
     "combined-repeat-title";
@@ -1684,29 +1358,122 @@ function createCombinedCheckerStage(
   title.textContent =
     "✨ الگوی تکرارشونده را برای هر ردیف، یک بار در پایین تکرار کن.";
 
+
   repeatWrapper.appendChild(
     title
   );
 
 
-  /* فقط سه ردیف */
+  const repeatGrid =
+    document.createElement("div");
+
+  repeatGrid.className =
+    "combined-repeat-grid";
+
+
+  /* =====================================================
+     ساخت دقیقاً ۱۸ خانه:
+     ۳ ردیف × ۶ ستون
+     ===================================================== */
 
   stage.rows.forEach(
     (rowData, rowIndex) => {
 
-      const repeatRow =
-        createCombinedRepeatRow(
-          rowData.pattern,
-          rowIndex
+      for (
+        let i = 0;
+        i < 6;
+        i++
+      ) {
+
+        const cell =
+          document.createElement("div");
+
+        cell.className =
+          "repeat-cell";
+
+
+        cell.dataset.row =
+          rowIndex;
+
+        cell.dataset.index =
+          i;
+
+        cell.dataset.value =
+          "";
+
+
+        /* الگوی مورد انتظار */
+        cell.dataset.expected =
+          rowData.pattern[
+            i % rowData.pattern.length
+          ];
+
+
+        cell.addEventListener(
+          "click",
+          () => {
+
+            if (!selectedTool)
+              return;
+
+            playClick();
+
+
+            if (
+              selectedTool === "eraser"
+            ) {
+
+              cell.dataset.value =
+                "";
+
+              cell.className =
+                "repeat-cell";
+
+              cell.innerHTML =
+                "";
+
+            } else {
+
+              cell.dataset.value =
+                selectedTool;
+
+
+              if (
+                COLORS[selectedTool]
+              ) {
+
+                cell.className =
+                  "repeat-cell cell-" +
+                  selectedTool;
+
+                cell.innerHTML =
+                  "";
+
+              }
+
+            }
+
+          }
         );
 
-      repeatWrapper.appendChild(
-        repeatRow
-      );
+
+        repeatGrid.appendChild(
+          cell
+        );
+
+        repeatCells.push(
+          cell
+        );
+
+      }
 
     }
   );
 
+
+  repeatWrapper.appendChild(
+    repeatGrid
+  );
 
   taskArea.appendChild(
     repeatWrapper
@@ -1729,25 +1496,19 @@ function clearCurrentAnswer() {
   /* حذف شکل */
 
   if (
-    stage.type ===
-    "remove"
+    stage.type === "remove"
   ) {
 
     selectedShapeAnswer =
       null;
 
     document
-      .querySelectorAll(
-        ".shape-option"
-      )
+      .querySelectorAll(".shape-option")
       .forEach(x =>
-        x.classList.remove(
-          "selected"
-        )
+        x.classList.remove("selected")
       );
 
-    feedback.textContent =
-      "";
+    feedback.textContent = "";
 
     return;
   }
@@ -1756,8 +1517,7 @@ function clearCurrentAnswer() {
   /* سؤال ترکیبی */
 
   if (
-    stage.type ===
-    "combinedChecker"
+    stage.type === "combinedChecker"
   ) {
 
     currentCells.forEach(
@@ -1767,10 +1527,9 @@ function clearCurrentAnswer() {
           item.cell;
 
         if (
-          cell.classList
-            .contains(
-              "editable"
-            )
+          cell.classList.contains(
+            "editable"
+          )
         ) {
 
           cell.dataset.color =
@@ -1778,7 +1537,6 @@ function clearCurrentAnswer() {
 
           cell.className =
             "pattern-cell editable cell-white";
-
         }
 
       }
@@ -1800,6 +1558,7 @@ function clearCurrentAnswer() {
       }
     );
 
+
     feedback.textContent =
       "";
 
@@ -1813,15 +1572,13 @@ function clearCurrentAnswer() {
     cell => {
 
       if (
-        cell.classList
-          .contains(
-            "editable"
-          )
+        cell.classList.contains(
+          "editable"
+        )
       ) {
 
         if (
-          stage.type ===
-          "shape"
+          stage.type === "shape"
         ) {
 
           cell.dataset.shape =
@@ -1837,7 +1594,6 @@ function clearCurrentAnswer() {
 
           cell.className =
             "pattern-cell editable cell-white";
-
         }
 
       }
@@ -1861,6 +1617,7 @@ function clearCurrentAnswer() {
     }
   );
 
+
   feedback.textContent =
     "";
 }
@@ -1870,9 +1627,7 @@ function clearCurrentAnswer() {
    بررسی رنگ
    ========================================================= */
 
-function checkColorStage(
-  stage
-) {
+function checkColorStage(stage) {
 
   let correct = true;
 
@@ -1881,17 +1636,15 @@ function checkColorStage(
     cell => {
 
       const index =
-        Number(
-          cell.dataset.index
-        );
+        Number(cell.dataset.index);
+
 
       if (
-        !stage.blanks.includes(
-          index
-        )
+        !stage.blanks.includes(index)
       ) {
         return;
       }
+
 
       const expected =
         stage.pattern[
@@ -1899,16 +1652,16 @@ function checkColorStage(
           stage.pattern.length
         ];
 
+
       const actual =
         cell.dataset.color;
 
+
       if (
-        actual !==
-        expected
+        actual !== expected
       ) {
 
         correct = false;
-
       }
 
     }
@@ -1920,607 +1673,4 @@ function checkColorStage(
 
 
   for (
-    let i = 0;
-    i < 6;
-    i++
-  ) {
-
-    const actual =
-      repeatCells[i]
-        .dataset.value;
-
-    if (
-      i < unitLength
-    ) {
-
-      if (
-        actual !==
-        stage.pattern[i]
-      ) {
-
-        correct = false;
-
-      }
-
-    } else {
-
-      if (
-        actual !== ""
-      ) {
-
-        correct = false;
-
-      }
-
-    }
-
-  }
-
-  return correct;
-}
-
-
-/* =========================================================
-   بررسی شکل
-   ========================================================= */
-
-function checkShapeStage(
-  stage
-) {
-
-  for (
-    const cell of currentCells
-  ) {
-
-    const index =
-      Number(
-        cell.dataset.index
-      );
-
-    if (
-      !stage.blanks.includes(
-        index
-      )
-    ) {
-      continue;
-    }
-
-    const expected =
-      stage.pattern[
-        index %
-        stage.pattern.length
-      ];
-
-    if (
-      cell.dataset.shape !==
-      expected
-    ) {
-
-      return false;
-
-    }
-
-  }
-
-  return true;
-}
-
-
-/* =========================================================
-   بررسی حذف
-   ========================================================= */
-
-function checkRemoveStage(
-  stage
-) {
-
-  return (
-    selectedShapeAnswer ===
-    stage.answer
-  );
-}
-
-
-/* =========================================================
-   بررسی سؤال ترکیبی
-   فقط سه ردیف
-   ========================================================= */
-
-function checkCombinedCheckerStage(
-  stage
-) {
-
-  let correct = true;
-
-
-  /* =====================================================
-     بررسی سه ردیف اصلی
-     ===================================================== */
-
-  currentCells.forEach(
-    item => {
-
-      const cell =
-        item.cell;
-
-      if (
-        !cell.classList
-          .contains(
-            "editable"
-          )
-      ) {
-        return;
-      }
-
-      if (
-        cell.dataset.color !==
-        item.expected
-      ) {
-
-        correct = false;
-
-      }
-
-    }
-  );
-
-
-  /* =====================================================
-     بررسی سه الگوی تکرارشونده
-     ===================================================== */
-
-  let repeatOffset = 0;
-
-
-  stage.rows.forEach(
-    rowData => {
-
-      const unitLength =
-        rowData.pattern.length;
-
-      for (
-        let i = 0;
-        i < unitLength;
-        i++
-      ) {
-
-        const cell =
-          repeatCells[
-            repeatOffset + i
-          ];
-
-        if (!cell) {
-
-          correct = false;
-          continue;
-
-        }
-
-        const actual =
-          cell.dataset.value;
-
-        if (
-          i < unitLength
-        ) {
-
-          if (
-            actual !==
-            rowData.pattern[i]
-          ) {
-
-            correct = false;
-
-          }
-
-        } else {
-
-          if (
-            actual !== ""
-          ) {
-
-            correct = false;
-
-          }
-
-        }
-
-      }
-
-      repeatOffset += 6;
-
-    }
-  );
-
-  return correct;
-}
-
-
-/* =========================================================
-   بررسی کلی
-   ========================================================= */
-
-function checkAnswer() {
-
-  const stage =
-    stages[currentStage];
-
-  let correct = false;
-
-
-  if (
-    stage.type ===
-    "color"
-  ) {
-
-    correct =
-      checkColorStage(
-        stage
-      );
-
-  } else if (
-    stage.type ===
-    "shape"
-  ) {
-
-    correct =
-      checkShapeStage(
-        stage
-      );
-
-  } else if (
-    stage.type ===
-    "remove"
-  ) {
-
-    correct =
-      checkRemoveStage(
-        stage
-      );
-
-  } else if (
-    stage.type ===
-    "combinedChecker"
-  ) {
-
-    correct =
-      checkCombinedCheckerStage(
-        stage
-      );
-
-  }
-
-
-  if (correct) {
-
-    score++;
-
-    playCorrect();
-
-    feedback.innerHTML =
-      `👏🏻آفرین ${studentName || "قهرمان"}! خیلی خوب الگو را پیدا کردی!`;
-
-    feedback.style.color =
-      "#21a454";
-
-    taskArea.classList.add(
-      "success-animation"
-    );
-
-    setTimeout(
-      () => {
-
-        taskArea.classList.remove(
-          "success-animation"
-        );
-
-      },
-      600
-    );
-
-  } else {
-
-    playWrong();
-
-    feedback.innerHTML =
-      "🌱 اشکالی ندارد! دوباره با دقت به تکرار الگو نگاه کن.";
-
-    feedback.style.color =
-      "#e34c86";
-
-  }
-
-}
-
-
-/* =========================================================
-   نمایش مرحله
-   ========================================================= */
-
-function renderStage() {
-
-  const stage =
-    stages[currentStage];
-
-  instruction.textContent =
-    stage.instruction;
-
-  feedback.textContent =
-    "";
-
-  selectedTool =
-    null;
-
-  selectedShapeAnswer =
-    null;
-
-  repeatCells = [];
-
-  currentCells = [];
-
-  paletteBox.classList.remove(
-    "hidden"
-  );
-
-
-  if (
-    stage.type ===
-    "color"
-  ) {
-
-    createMainColorGrid(
-      stage
-    );
-
-  } else if (
-    stage.type ===
-    "shape"
-  ) {
-
-    createShapeGrid(
-      stage
-    );
-
-  } else if (
-    stage.type ===
-    "remove"
-  ) {
-
-    createRemoveStage(
-      stage
-    );
-
-  } else if (
-    stage.type ===
-    "combinedChecker"
-  ) {
-
-    createCombinedCheckerStage(
-      stage
-    );
-
-  }
-
-
-  stageCounter.textContent =
-    `مرحله ${currentStage + 1} از ${stages.length}`;
-
-
-  prevBtn.disabled =
-    currentStage === 0;
-
-  nextBtn.disabled =
-    currentStage ===
-    stages.length - 1;
-
-  checkBtn.classList.remove(
-    "hidden"
-  );
-
-}
-
-
-/* =========================================================
-   مرحله بعد
-   ========================================================= */
-
-function nextStage() {
-
-  if (
-    currentStage <
-    stages.length - 1
-  ) {
-
-    currentStage++;
-
-    renderStage();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  } else {
-
-    showFinish();
-
-  }
-
-}
-
-
-/* =========================================================
-   مرحله قبل
-   ========================================================= */
-
-function previousStage() {
-
-  if (
-    currentStage > 0
-  ) {
-
-    currentStage--;
-
-    renderStage();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-}
-
-
-/* =========================================================
-   پایان
-   ========================================================= */
-
-function showFinish() {
-
-  gameScreen.classList.add(
-    "hidden"
-  );
-
-  finishScreen.classList.remove(
-    "hidden"
-  );
-
-  finishText.innerHTML =
-    `خیلی خوب پیش رفتی، <strong>${studentName || "قهرمان کوچولو"}</strong>!`;
-
-  finalScore.textContent =
-    `امتیاز: ${score} از ${stages.length} 🌟`;
-
-  playCorrect();
-
-}
-
-
-/* =========================================================
-   شروع
-   ========================================================= */
-
-function startGame() {
-
-  initAudio();
-
-  studentName =
-    studentNameInput.value.trim();
-
-  if (!studentName) {
-
-    studentName =
-      "قهرمان کوچولو";
-
-  }
-
-  score = 0;
-
-  currentStage = 0;
-
-  startScreen.classList.add(
-    "hidden"
-  );
-
-  finishScreen.classList.add(
-    "hidden"
-  );
-
-  gameScreen.classList.remove(
-    "hidden"
-  );
-
-  renderStage();
-
-}
-
-
-/* =========================================================
-   شروع مجدد
-   ========================================================= */
-
-function restartGame() {
-
-  score = 0;
-
-  currentStage = 0;
-
-  finishScreen.classList.add(
-    "hidden"
-  );
-
-  startScreen.classList.remove(
-    "hidden"
-  );
-
-}
-
-
-/* =========================================================
-   رویدادها
-   ========================================================= */
-
-startBtn.addEventListener(
-  "click",
-  startGame
-);
-
-
-prevBtn.addEventListener(
-  "click",
-  () => {
-
-    playClick();
-
-    previousStage();
-
-  }
-);
-
-
-nextBtn.addEventListener(
-  "click",
-  () => {
-
-    playClick();
-
-    nextStage();
-
-  }
-);
-
-
-checkBtn.addEventListener(
-  "click",
-  checkAnswer
-);
-
-
-clearBtn.addEventListener(
-  "click",
-  clearCurrentAnswer
-);
-
-
-restartBtn.addEventListener(
-  "click",
-  restartGame
-);
-
-
-studentNameInput.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key ===
-      "Enter"
-    ) {
-
-      startGame();
-
-    }
-
-  }
-);
+    let i =
