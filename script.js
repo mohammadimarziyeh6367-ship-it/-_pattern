@@ -1,6 +1,6 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   نسخه نهایی
+   نسخه نهایی اصلاح‌شده
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentCells = [];
   let repeatCells = [];
   let selectedShapeAnswer = null;
+
   let audioContext = null;
 
-  /* جلوگیری از گرفتن امتیاز دوباره */
   const completedStages = new Set();
 
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     مراحل
+     مراحل — دقیقاً ۱۲ مرحله
      ========================================================= */
 
   const stages = [
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["green", "green", "red"],
-      blanks: [15, 16, 17, 18, 19, 20],
+      blanks: [15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را ادامه بده."
     },
 
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["blue", "yellow"],
-      blanks: [13, 14, 15, 16, 17, 18, 19, 20],
+      blanks: [13,14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را ادامه بده."
     },
 
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["green", "red", "red"],
-      blanks: [14, 15, 16, 17, 18, 19, 20],
+      blanks: [14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را پیدا کن و ادامه بده."
     },
 
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["yellow", "blue", "green"],
-      blanks: [14, 15, 16, 17, 18, 19, 20],
+      blanks: [14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را پیدا کن و ادامه بده."
     },
 
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["red", "red", "yellow"],
-      blanks: [14, 15, 16, 17, 18, 19, 20],
+      blanks: [14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را پیدا کن و ادامه بده."
     },
 
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["green", "blue", "blue"],
-      blanks: [14, 15, 16, 17, 18, 19, 20],
+      blanks: [14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را پیدا کن و ادامه بده."
     },
 
@@ -94,76 +94,127 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       type: "color",
       pattern: ["pink", "pink", "yellow"],
-      blanks: [14, 15, 16, 17, 18, 19, 20],
+      blanks: [14,15,16,17,18,19,20],
       instruction: "الگوی تکرارشونده را ادامه بده."
     },
 
-    /* مرحله ۸ */
+    /* =====================================================
+       مرحله ۸
+       ۱۵ خانه
+       یک ردیف
+       دو بار کامل: دایره، دایره، مثلث
+       ۶ خانه از قبل پر
+       ۹ خانه خالی
+       ===================================================== */
+
     {
       type: "shape",
-      pattern: [
-        "circle",
-        "circle",
-        "triangle",
-        "circle",
-        "circle",
-        "triangle"
+      pattern: ["circle", "circle", "triangle"],
+
+      length: 15,
+
+      prefilled: 6,
+
+      blanks: [
+        6,7,8,9,10,11,12,13,14
       ],
-      blanks: [13, 14, 15, 16, 17, 18, 19, 20],
-      instruction: "الگوی تکرارشونده را پیدا کن و الگو را ادامه بده."
+
+      instruction:
+        "الگوی دایره، دایره، مثلث را ادامه بده."
     },
 
-    /* مرحله ۹ */
+    /* =====================================================
+       مرحله ۹
+       دو بار:
+       🔵 🔵 🟨
+       🔵 🔵 🟨
+       سپس یک شکل اشتباه
+       دانش‌آموز باید شکل اشتباه را حذف کند.
+       ===================================================== */
+
     {
       type: "remove",
+
       shapes: [
         "circle",
         "circle",
         "square",
+
         "circle",
         "circle",
-        "triangle",
-        "circle"
+        "square",
+
+        "triangle"
       ],
-      answer: 5,
-      instruction: "کدام شکل را حذف کنیم تا الگو منظم شود؟"
+
+      answer: 6,
+
+      instruction:
+        "کدام شکل اشتباه است؟ آن را حذف کن تا الگو منظم شود."
     },
 
-    /* مرحله ۱۰ */
+    /* =====================================================
+       مرحله ۱۰
+       ۱۲ خانه بزرگ
+       دو بار:
+       ستاره، ستاره، قلب
+       ۶ خانه آماده
+       ۶ خانه خالی
+       ===================================================== */
+
     {
       type: "shape",
+
       pattern: [
-        "star",
-        "star",
-        "heart",
         "star",
         "star",
         "heart"
       ],
-      blanks: [13, 14, 15, 16, 17, 18, 19, 20],
-      instruction: "الگوی تکرارشونده را پیدا کن و الگو را ادامه بده."
+
+      length: 12,
+
+      prefilled: 6,
+
+      blanks: [
+        6,7,8,9,10,11
+      ],
+
+      instruction:
+        "الگوی ستاره، ستاره، قلب را ادامه بده."
     },
 
-    /* مرحله ۱۱ */
+    /* =====================================================
+       مرحله ۱۱
+       دو مثلث قرمز + دایره آبی
+       دوباره دو مثلث قرمز + یک اشتباه
+       دوباره دو مثلث قرمز + دایره آبی
+       ===================================================== */
+
     {
       type: "remove",
+
       shapes: [
         "triangle",
         "triangle",
         "circle",
+
         "triangle",
         "triangle",
         "square",
-        "triangle"
+
+        "triangle",
+        "triangle",
+        "circle"
       ],
+
       answer: 5,
-      instruction: "کدام شکل را حذف کنیم تا الگو منظم شود؟"
+
+      instruction:
+        "کدام شکل اشتباه است؟ آن را حذف کن تا الگو منظم شود."
     },
 
     /* =====================================================
        مرحله ۱۲
-       جدول اصلی: ۳ ردیف × ۲۱ ستون
-       جدول پایین: ۶ ستون × ۳ ردیف
        ===================================================== */
 
     {
@@ -172,35 +223,41 @@ document.addEventListener("DOMContentLoaded", function () {
       rows: [
 
         {
-          pattern: ["green", "white"],
-          blanks: [14, 15, 16, 17, 18, 19, 20]
+          pattern: ["green","white"],
+          blanks: [14,15,16,17,18,19,20]
         },
 
         {
-          pattern: ["white", "green", "white", "red"],
-          blanks: [14, 15, 16, 17, 18, 19, 20]
+          pattern: ["white","green","white","red"],
+          blanks: [14,15,16,17,18,19,20]
         },
 
         {
-          pattern: ["green", "white"],
-          blanks: [14, 15, 16, 17, 18, 19, 20]
+          pattern: ["green","white"],
+          blanks: [14,15,16,17,18,19,20]
         }
 
       ],
 
-      instruction: "الگو را پیدا کن و سپس ادامه بده."
+      instruction:
+        "الگو را پیدا کن و سپس ادامه بده."
     }
 
   ];
 
 
   /* =========================================================
-     عناصر صفحه
+     عناصر HTML
      ========================================================= */
 
-  const startScreen = document.getElementById("startScreen");
-  const gameScreen = document.getElementById("gameScreen");
-  const finishScreen = document.getElementById("finishScreen");
+  const startScreen =
+    document.getElementById("startScreen");
+
+  const gameScreen =
+    document.getElementById("gameScreen");
+
+  const finishScreen =
+    document.getElementById("finishScreen");
 
   const studentNameInput =
     document.getElementById("studentName");
@@ -255,50 +312,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     بررسی وجود عناصر ضروری
-     ========================================================= */
-
-  if (
-    !startScreen ||
-    !gameScreen ||
-    !finishScreen ||
-    !studentNameInput ||
-    !startBtn ||
-    !prevBtn ||
-    !nextBtn ||
-    !stageCounter ||
-    !instruction ||
-    !taskArea ||
-    !paletteBox ||
-    !palette ||
-    !checkBtn ||
-    !clearBtn ||
-    !feedback ||
-    !restartBtn
-  ) {
-    console.error(
-      "خطا: یکی از عناصر اصلی HTML پیدا نشد."
-    );
-
-    return;
-  }
-
-
-  /* =========================================================
      صدا
      ========================================================= */
 
   function initAudio() {
 
-    if (audioContext)
+    if (audioContext) {
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume().catch(() => {});
+      }
+
       return;
+    }
 
     const AudioCtx =
       window.AudioContext ||
       window.webkitAudioContext;
 
     if (AudioCtx) {
-      audioContext = new AudioCtx();
+      try {
+        audioContext = new AudioCtx();
+      } catch (error) {
+        audioContext = null;
+      }
     }
   }
 
@@ -314,14 +351,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       initAudio();
 
-      if (!audioContext)
-        return;
-
-      if (
-        audioContext.state === "suspended"
-      ) {
-        audioContext.resume();
-      }
+      if (!audioContext) return;
 
       const oscillator =
         audioContext.createOscillator();
@@ -331,8 +361,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       oscillator.type = type;
 
-      oscillator.frequency.value =
-        frequency;
+      oscillator.frequency.setValueAtTime(
+        frequency,
+        audioContext.currentTime
+      );
 
       gain.gain.setValueAtTime(
         volume,
@@ -359,24 +391,49 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /* صدای همه دکمه‌ها */
   function playClick() {
 
     playTone(
       620,
       0.07,
       "sine",
-      0.035
+      0.045
     );
   }
 
 
+  /* صدای انتخاب رنگ / شکل */
+  function playSelect() {
+
+    playTone(
+      760,
+      0.065,
+      "sine",
+      0.045
+    );
+
+    setTimeout(() => {
+
+      playTone(
+        920,
+        0.07,
+        "sine",
+        0.035
+      );
+
+    }, 55);
+  }
+
+
+  /* صدای پاسخ درست */
   function playCorrect() {
 
     playTone(
       523,
       0.10,
       "sine",
-      0.05
+      0.055
     );
 
     setTimeout(() => {
@@ -385,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
         659,
         0.10,
         "sine",
-        0.05
+        0.055
       );
 
     }, 100);
@@ -396,32 +453,33 @@ document.addEventListener("DOMContentLoaded", function () {
         784,
         0.18,
         "sine",
-        0.05
+        0.055
       );
 
     }, 210);
   }
 
 
+  /* صدای پاسخ غلط — کاملاً متفاوت */
   function playWrong() {
 
     playTone(
-      190,
-      0.15,
+      180,
+      0.18,
       "sawtooth",
-      0.035
+      0.045
     );
 
     setTimeout(() => {
 
       playTone(
-        140,
-        0.13,
+        120,
+        0.20,
         "sawtooth",
-        0.03
+        0.04
       );
 
-    }, 120);
+    }, 130);
   }
 
 
@@ -465,7 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     ساخت خانه رنگی
+     خانه رنگی
      ========================================================= */
 
   function createColorCell(
@@ -511,13 +569,10 @@ document.addEventListener("DOMContentLoaded", function () {
       "click",
       function () {
 
-        if (!editable)
-          return;
+        if (!editable) return;
+        if (!selectedTool) return;
 
-        if (!selectedTool)
-          return;
-
-        playClick();
+        playSelect();
 
         if (
           selectedTool === "eraser"
@@ -528,7 +583,9 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.className =
             "pattern-cell editable cell-white";
 
-        } else {
+        } else if (
+          COLORS[selectedTool]
+        ) {
 
           cell.dataset.color =
             selectedTool;
@@ -537,6 +594,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "pattern-cell editable cell-" +
             selectedTool;
         }
+
       }
     );
 
@@ -567,7 +625,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.createElement("button");
 
       item.type = "button";
-      item.className = "palette-item";
+
+      item.className =
+        "palette-item";
 
       item.style.background =
         COLORS[color];
@@ -578,6 +638,8 @@ document.addEventListener("DOMContentLoaded", function () {
       item.addEventListener(
         "click",
         function () {
+
+          initAudio();
 
           selectedTool =
             color;
@@ -598,7 +660,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "selected"
           );
 
-          playClick();
+          /* صدای مخصوص انتخاب رنگ */
+          playSelect();
         }
       );
 
@@ -610,14 +673,18 @@ document.addEventListener("DOMContentLoaded", function () {
       document.createElement("button");
 
     eraser.type = "button";
+
     eraser.className =
       "palette-item eraser";
 
-    eraser.textContent = "⌫";
+    eraser.textContent =
+      "⌫";
 
     eraser.addEventListener(
       "click",
       function () {
+
+        initAudio();
 
         selectedTool =
           "eraser";
@@ -638,7 +705,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "selected"
         );
 
-        playClick();
+        playSelect();
       }
     );
 
@@ -669,16 +736,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.createElement("button");
 
       item.type = "button";
+
       item.className =
         "palette-item";
-
-      item.style.background =
-        "#fff";
 
       item.innerHTML =
         `<span style="
           color:${shapeInfo[shape].color};
-          font-size:25px;
+          font-size:30px;
+          line-height:1;
         ">${shapeInfo[shape].symbol}</span>`;
 
       item.dataset.tool =
@@ -687,6 +753,8 @@ document.addEventListener("DOMContentLoaded", function () {
       item.addEventListener(
         "click",
         function () {
+
+          initAudio();
 
           selectedTool =
             shape;
@@ -707,7 +775,8 @@ document.addEventListener("DOMContentLoaded", function () {
             "selected"
           );
 
-          playClick();
+          /* صدای مخصوص انتخاب شکل */
+          playSelect();
         }
       );
 
@@ -719,14 +788,18 @@ document.addEventListener("DOMContentLoaded", function () {
       document.createElement("button");
 
     eraser.type = "button";
+
     eraser.className =
       "palette-item eraser";
 
-    eraser.textContent = "⌫";
+    eraser.textContent =
+      "⌫";
 
     eraser.addEventListener(
       "click",
       function () {
+
+        initAudio();
 
         selectedTool =
           "eraser";
@@ -747,7 +820,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "selected"
         );
 
-        playClick();
+        playSelect();
       }
     );
 
@@ -756,18 +829,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     جدول رنگی اصلی
+     جدول رنگی
      ========================================================= */
 
   function createMainColorGrid(stage) {
 
     taskArea.innerHTML = "";
 
+    repeatBox.classList.add("hidden");
+
     const wrap =
       document.createElement("div");
 
     wrap.className =
       "task-wrap";
+
+    const scroll =
+      document.createElement("div");
+
+    scroll.className =
+      "grid-scroll";
 
     const grid =
       document.createElement("div");
@@ -794,9 +875,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!shouldBeBlank) {
 
         color =
-          stage.pattern[
-            patternIndex
-          ];
+          stage.pattern[patternIndex];
       }
 
       const cell =
@@ -812,7 +891,9 @@ document.addEventListener("DOMContentLoaded", function () {
       currentCells.push(cell);
     }
 
-    wrap.appendChild(grid);
+    scroll.appendChild(grid);
+    wrap.appendChild(scroll);
+
     taskArea.appendChild(wrap);
 
     createColorPalette();
@@ -824,7 +905,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     جدول شکل
+     ساخت مرحله شکل
      ========================================================= */
 
   function createShapeGrid(stage) {
@@ -833,28 +914,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     repeatBox.classList.add("hidden");
 
-    const wrap =
+    const scroll =
       document.createElement("div");
 
-    wrap.className =
-      "task-wrap";
+    scroll.className =
+      "shape-grid-scroll";
 
     const grid =
       document.createElement("div");
 
     grid.className =
-      "pattern-grid";
+      "compact-shape-grid";
+
+    grid.style.setProperty(
+      "--shape-count",
+      stage.length
+    );
 
     currentCells = [];
 
     for (
       let i = 0;
-      i < TOTAL_COLUMNS;
+      i < stage.length;
       i++
     ) {
-
-      const patternIndex =
-        i % stage.pattern.length;
 
       const shouldBeBlank =
         stage.blanks.includes(i);
@@ -863,7 +946,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.createElement("div");
 
       cell.className =
-        "pattern-cell " +
+        "compact-shape-cell " +
         (
           shouldBeBlank
             ? "editable"
@@ -877,7 +960,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const shape =
           stage.pattern[
-            patternIndex
+            i % stage.pattern.length
           ];
 
         cell.dataset.shape =
@@ -886,13 +969,15 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.innerHTML =
           `<span style="
             color:${shapeInfo[shape].color};
-            font-size:clamp(12px,3vw,38px);
+            font-size:44px;
             line-height:1;
           ">${shapeInfo[shape].symbol}</span>`;
 
       } else {
 
-        cell.dataset.shape = "";
+        cell.dataset.shape =
+          "";
+
         cell.classList.add(
           "cell-white"
         );
@@ -904,7 +989,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!selectedTool)
               return;
 
-            playClick();
+            playSelect();
 
             if (
               selectedTool === "eraser"
@@ -913,7 +998,9 @@ document.addEventListener("DOMContentLoaded", function () {
               cell.innerHTML = "";
               cell.dataset.shape = "";
 
-            } else {
+            } else if (
+              shapeInfo[selectedTool]
+            ) {
 
               const shape =
                 selectedTool;
@@ -924,20 +1011,23 @@ document.addEventListener("DOMContentLoaded", function () {
               cell.innerHTML =
                 `<span style="
                   color:${shapeInfo[shape].color};
-                  font-size:clamp(12px,3vw,38px);
+                  font-size:44px;
                   line-height:1;
                 ">${shapeInfo[shape].symbol}</span>`;
             }
+
           }
         );
       }
 
       grid.appendChild(cell);
+
       currentCells.push(cell);
     }
 
-    wrap.appendChild(grid);
-    taskArea.appendChild(wrap);
+    scroll.appendChild(grid);
+
+    taskArea.appendChild(scroll);
 
     createShapePalette();
   }
@@ -949,9 +1039,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function createRepeatGrid(pattern) {
 
-    repeatBox.classList.remove("hidden");
+    repeatBox.classList.remove(
+      "hidden"
+    );
 
     repeatArea.innerHTML = "";
+
     repeatCells = [];
 
     for (
@@ -979,7 +1072,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!selectedTool)
             return;
 
-          playClick();
+          playSelect();
 
           if (
             selectedTool === "eraser"
@@ -1008,10 +1101,12 @@ document.addEventListener("DOMContentLoaded", function () {
             cell.innerHTML =
               "";
           }
+
         }
       );
 
       repeatArea.appendChild(cell);
+
       repeatCells.push(cell);
     }
   }
@@ -1025,8 +1120,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     taskArea.innerHTML = "";
 
-    repeatBox.classList.add("hidden");
-    paletteBox.classList.add("hidden");
+    repeatBox.classList.add(
+      "hidden"
+    );
+
+    paletteBox.classList.add(
+      "hidden"
+    );
+
+    selectedShapeAnswer =
+      null;
+
+    const scroll =
+      document.createElement("div");
+
+    scroll.className =
+      "shape-row-scroll";
 
     const row =
       document.createElement("div");
@@ -1034,11 +1143,8 @@ document.addEventListener("DOMContentLoaded", function () {
     row.className =
       "shape-row";
 
-    selectedShapeAnswer =
-      null;
-
     stage.shapes.forEach(
-      function (shape, index) {
+      function (shape,index) {
 
         const option =
           document.createElement("div");
@@ -1052,13 +1158,15 @@ document.addEventListener("DOMContentLoaded", function () {
         option.innerHTML =
           `<span style="
             color:${shapeInfo[shape].color};
-            font-size:clamp(25px,6vw,60px);
+            font-size:45px;
             line-height:1;
           ">${shapeInfo[shape].symbol}</span>`;
 
         option.addEventListener(
           "click",
           function () {
+
+            initAudio();
 
             document
               .querySelectorAll(
@@ -1079,7 +1187,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedShapeAnswer =
               index;
 
-            playClick();
+            playSelect();
           }
         );
 
@@ -1087,20 +1195,23 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
-    taskArea.appendChild(row);
+    scroll.appendChild(row);
+
+    taskArea.appendChild(scroll);
   }
 
 
   /* =========================================================
      مرحله ۱۲
-     جدول اصلی یکپارچه ۳ × ۲۱
      ========================================================= */
 
   function createCombinedCheckerStage(stage) {
 
     taskArea.innerHTML = "";
 
-    repeatBox.classList.add("hidden");
+    repeatBox.classList.add(
+      "hidden"
+    );
 
     paletteBox.classList.remove(
       "hidden"
@@ -1110,9 +1221,7 @@ document.addEventListener("DOMContentLoaded", function () {
     repeatCells = [];
 
 
-    /* =====================================================
-       جدول اصلی
-       ===================================================== */
+    /* جدول اصلی */
 
     const combinedBox =
       document.createElement("div");
@@ -1120,6 +1229,11 @@ document.addEventListener("DOMContentLoaded", function () {
     combinedBox.className =
       "combined-pattern-box";
 
+    const mainScroll =
+      document.createElement("div");
+
+    mainScroll.className =
+      "grid-scroll";
 
     const mainGrid =
       document.createElement("div");
@@ -1128,13 +1242,8 @@ document.addEventListener("DOMContentLoaded", function () {
       "combined-main-grid";
 
 
-    /*
-       ۳ ردیف × ۲۱ ستون
-       همه خانه‌ها داخل یک Grid واحد
-       */
-
     stage.rows.forEach(
-      function (rowData, rowIndex) {
+      function (rowData,rowIndex) {
 
         for (
           let i = 0;
@@ -1185,9 +1294,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
+    mainScroll.appendChild(
+      mainGrid
+    );
 
     combinedBox.appendChild(
-      mainGrid
+      mainScroll
     );
 
     taskArea.appendChild(
@@ -1198,17 +1310,13 @@ document.addEventListener("DOMContentLoaded", function () {
     createColorPalette();
 
 
-    /* =====================================================
-       جدول پایین
-       دقیقاً ۶ ستون × ۳ ردیف
-       ===================================================== */
+    /* جدول پایین ۶ × ۳ */
 
     const repeatWrapper =
       document.createElement("div");
 
     repeatWrapper.className =
       "combined-repeat-box";
-
 
     const title =
       document.createElement("div");
@@ -1232,7 +1340,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     stage.rows.forEach(
-      function (rowData, rowIndex) {
+      function (rowData,rowIndex) {
 
         for (
           let i = 0;
@@ -1262,7 +1370,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (!selectedTool)
                 return;
 
-              playClick();
+              playSelect();
 
               if (
                 selectedTool === "eraser"
@@ -1274,9 +1382,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 cell.className =
                   "repeat-cell cell-white";
 
-                cell.innerHTML =
-                  "";
-
               } else if (
                 COLORS[selectedTool]
               ) {
@@ -1287,24 +1392,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 cell.className =
                   "repeat-cell cell-" +
                   selectedTool;
-
-                cell.innerHTML =
-                  "";
               }
+
             }
           );
 
-          repeatGrid.appendChild(
-            cell
-          );
+          repeatGrid.appendChild(cell);
 
-          repeatCells.push(
-            cell
-          );
+          repeatCells.push(cell);
         }
       }
     );
-
 
     repeatWrapper.appendChild(
       repeatGrid
@@ -1317,7 +1415,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     پاک کردن پاسخ
+     پاک کردن
      ========================================================= */
 
   function clearCurrentAnswer() {
@@ -1326,7 +1424,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const stage =
       stages[currentStage];
-
 
     if (
       stage.type === "remove"
@@ -1379,7 +1476,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       );
 
-
       repeatCells.forEach(
         function (cell) {
 
@@ -1388,9 +1484,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
           cell.className =
             "repeat-cell cell-white";
-
-          cell.innerHTML =
-            "";
         }
       );
 
@@ -1408,9 +1501,7 @@ document.addEventListener("DOMContentLoaded", function () {
           !cell.classList.contains(
             "editable"
           )
-        ) {
-          return;
-        }
+        ) return;
 
         if (
           stage.type === "shape"
@@ -1430,9 +1521,9 @@ document.addEventListener("DOMContentLoaded", function () {
           cell.className =
             "pattern-cell editable cell-white";
         }
+
       }
     );
-
 
     repeatCells.forEach(
       function (cell) {
@@ -1454,13 +1545,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     بررسی مرحله رنگی
+     بررسی رنگ
      ========================================================= */
 
   function checkColorStage(stage) {
 
     let correct = true;
-
 
     currentCells.forEach(
       function (cell) {
@@ -1470,20 +1560,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (
           !stage.blanks.includes(index)
-        ) {
-          return;
-        }
+        ) return;
 
         const expected =
           stage.pattern[
             index % stage.pattern.length
           ];
 
-        const actual =
-          cell.dataset.color;
-
         if (
-          actual !== expected
+          cell.dataset.color !==
+          expected
         ) {
 
           correct = false;
@@ -1492,15 +1578,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /*
-       جدول پایین معمولی:
-       فقط به اندازه طول الگوی اصلی
-       باید پر شود.
-       */
-
     const unitLength =
       stage.pattern.length;
-
 
     for (
       let i = 0;
@@ -1512,7 +1591,6 @@ document.addEventListener("DOMContentLoaded", function () {
         repeatCells[i];
 
       if (!cell) {
-
         correct = false;
         continue;
       }
@@ -1520,10 +1598,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const actual =
         cell.dataset.value;
 
-
-      if (
-        i < unitLength
-      ) {
+      if (i < unitLength) {
 
         if (
           actual !==
@@ -1535,10 +1610,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       } else {
 
-        if (
-          actual !== ""
-        ) {
-
+        if (actual !== "") {
           correct = false;
         }
       }
@@ -1549,7 +1621,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     بررسی مرحله شکل
+     بررسی شکل
      ========================================================= */
 
   function checkShapeStage(stage) {
@@ -1563,9 +1635,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (
         !stage.blanks.includes(index)
-      ) {
-        continue;
-      }
+      ) continue;
 
       const expected =
         stage.pattern[
@@ -1586,7 +1656,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     بررسی حذف شکل
+     بررسی حذف
      ========================================================= */
 
   function checkRemoveStage(stage) {
@@ -1607,9 +1677,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let correct = true;
 
 
-    /* -----------------------------------------------------
-       جدول اصلی ۳ × ۲۱
-       ----------------------------------------------------- */
+    /* جدول اصلی */
 
     currentCells.forEach(
       function (item) {
@@ -1621,9 +1689,7 @@ document.addEventListener("DOMContentLoaded", function () {
           !cell.classList.contains(
             "editable"
           )
-        ) {
-          return;
-        }
+        ) return;
 
         if (
           cell.dataset.color !==
@@ -1636,12 +1702,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* -----------------------------------------------------
-       جدول پایین ۶ × ۳
-       ----------------------------------------------------- */
+    /* جدول پایین */
 
     let cellIndex = 0;
-
 
     stage.rows.forEach(
       function (rowData) {
@@ -1660,6 +1723,7 @@ document.addEventListener("DOMContentLoaded", function () {
             correct = false;
 
             cellIndex++;
+
             continue;
           }
 
@@ -1668,11 +1732,9 @@ document.addEventListener("DOMContentLoaded", function () {
               i % rowData.pattern.length
             ];
 
-          const actual =
-            cell.dataset.value;
-
           if (
-            actual !== expected
+            cell.dataset.value !==
+            expected
           ) {
 
             correct = false;
@@ -1683,7 +1745,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
-
     return correct;
   }
 
@@ -1693,6 +1754,8 @@ document.addEventListener("DOMContentLoaded", function () {
      ========================================================= */
 
   function checkAnswer() {
+
+    initAudio();
 
     const stage =
       stages[currentStage];
@@ -1933,23 +1996,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================================================
-     شروع بازی
+     شروع
      ========================================================= */
 
   function startGame() {
 
     initAudio();
 
+    playClick();
+
     studentName =
       studentNameInput.value.trim();
 
     if (!studentName) {
-
       studentName =
         "قهرمان کوچولو";
     }
 
     score = 0;
+
     currentStage = 0;
 
     completedStages.clear();
@@ -1981,7 +2046,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function restartGame() {
 
+    initAudio();
+
+    playClick();
+
     score = 0;
+
     currentStage = 0;
 
     completedStages.clear();
@@ -2020,6 +2090,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "click",
     function () {
 
+      initAudio();
+
       playClick();
 
       previousStage();
@@ -2031,6 +2103,8 @@ document.addEventListener("DOMContentLoaded", function () {
   nextBtn.addEventListener(
     "click",
     function () {
+
+      initAudio();
 
       playClick();
 
@@ -2044,7 +2118,20 @@ document.addEventListener("DOMContentLoaded", function () {
     "click",
     function () {
 
-      checkAnswer();
+      initAudio();
+
+      /* صدای خود دکمه */
+      playClick();
+
+      /* سپس صدای درست یا غلط */
+      setTimeout(
+        function () {
+
+          checkAnswer();
+
+        },
+        55
+      );
 
     }
   );
@@ -2053,6 +2140,8 @@ document.addEventListener("DOMContentLoaded", function () {
   clearBtn.addEventListener(
     "click",
     function () {
+
+      initAudio();
 
       clearCurrentAnswer();
 
@@ -2081,6 +2170,7 @@ document.addEventListener("DOMContentLoaded", function () {
         startGame();
 
       }
+
     }
   );
 
