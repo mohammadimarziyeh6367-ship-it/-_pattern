@@ -38,7 +38,7 @@
         <br>
         الگوخوانی خیلی مهم است.
         <br>
-        پس اول الگو را بخوانید، سپس ادامه‌ دهید🥰
+        پس اول الگو را بخوانید، سپس ادامه دهید 🥰
       </div>
 
       <div class="name-box">
@@ -52,8 +52,7 @@
           type="text"
           maxlength="25"
           autocomplete="off"
-          placeholder
-        >
+          placeholder="نام زیبایت را بنویس">
 
       </div>
 
@@ -75,7 +74,7 @@
 
     <header class="game-header">
 
-      <button id="prevBtn" class="nav-btn">
+      <button id="prevBtn" class="nav-btn" type="button">
         ➜ مرحله قبل
       </button>
 
@@ -91,7 +90,7 @@
 
       </div>
 
-      <button id="nextBtn" class="nav-btn">
+      <button id="nextBtn" class="nav-btn" type="button">
         مرحله بعد ➜
       </button>
 
@@ -108,10 +107,7 @@
       <div id="taskArea"></div>
 
 
-      <!-- =========================
-           الگوی تکرارشونده
-      ========================== -->
-
+      <!-- الگوی تکرارشونده -->
       <div
         id="repeatBox"
         class="repeat-box hidden">
@@ -128,10 +124,7 @@
       </div>
 
 
-      <!-- =========================
-           پالت
-      ========================== -->
-
+      <!-- پالت -->
       <div
         id="paletteBox"
         class="palette-box">
@@ -148,18 +141,24 @@
       </div>
 
 
-      <button
-        id="checkBtn"
-        class="check-btn">
-        بررسی پاسخ 🌟
-      </button>
+      <!-- دکمه‌های پایین -->
+      <div class="game-actions">
 
+        <button
+          id="checkBtn"
+          class="check-btn"
+          type="button">
+          بررسی پاسخ 🌟
+        </button>
 
-      <button
-        id="clearBtn"
-        class="clear-btn">
-        پاک کردن پاسخ 🧹
-      </button>
+        <button
+          id="clearBtn"
+          class="clear-btn"
+          type="button">
+          پاک کردن پاسخ 🧹
+        </button>
+
+      </div>
 
 
       <div
@@ -171,7 +170,7 @@
 
 
     <!-- امضا -->
-    <div class="signature-wrap">
+    <div class="signature-wrap game-signature">
 
       <img
         src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
@@ -210,7 +209,8 @@
 
       <button
         id="restartBtn"
-        class="main-btn">
+        class="main-btn"
+        type="button">
         دوباره بازی کنیم 🔄
       </button>
 
