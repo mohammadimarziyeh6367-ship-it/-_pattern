@@ -1,6 +1,6 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   نسخه اصلاح‌شده نهایی
+   نسخه مهندسی‌شده بدون اسکرول افقی جدول‌ها
    ========================================================= */
 
 * {
@@ -30,15 +30,16 @@ body {
     );
 
   color: #3d3151;
+
   min-height: 100vh;
   min-height: 100svh;
 }
 
 button,
 input {
+  font-family: inherit;
   -webkit-appearance: none;
   appearance: none;
-  font-family: inherit;
 }
 
 button {
@@ -53,7 +54,7 @@ button {
 
 
 /* =========================================================
-   شروع
+   صفحه شروع
    ========================================================= */
 
 .start-screen {
@@ -65,7 +66,7 @@ button {
   align-items: center;
   justify-content: center;
 
-  padding: 20px;
+  padding: 18px;
 }
 
 .start-card {
@@ -75,28 +76,27 @@ button {
 
   border-radius: 30px;
 
-  padding: clamp(22px, 5vw, 42px);
+  padding: clamp(20px, 5vw, 40px);
 
   text-align: center;
 
+  border: 3px solid rgba(116,56,200,0.12);
+
   box-shadow:
     0 15px 45px rgba(88,55,130,0.16);
-
-  border:
-    3px solid rgba(116,56,200,0.12);
 }
 
 .teacher-photo {
   display: block;
 
-  width: min(210px, 55vw);
-  height: min(210px, 55vw);
+  width: min(205px, 52vw);
+  height: min(205px, 52vw);
 
   object-fit: cover;
 
   border-radius: 50%;
 
-  margin: 0 auto 18px;
+  margin: 0 auto 16px;
 
   border: 6px solid #fff;
 
@@ -157,7 +157,7 @@ button {
 #studentName {
   width: min(480px,100%);
 
-  height: 58px;
+  height: 56px;
 
   border: 3px solid #d9c2f3;
 
@@ -197,7 +197,7 @@ button {
 .main-btn {
   width: min(360px,100%);
 
-  min-height: 62px;
+  min-height: 60px;
 
   margin-top: 18px;
 
@@ -242,9 +242,13 @@ button {
   min-height: 100svh;
 
   padding:
-    12px
-    clamp(8px,2vw,25px)
-    35px;
+    10px
+    clamp(8px,2vw,20px)
+    28px;
+}
+
+.game-content {
+  width: 100%;
 }
 
 
@@ -254,23 +258,23 @@ button {
 
 .game-header {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1100px;
 
-  margin: 0 auto 10px;
+  margin: 0 auto 9px;
 
   display: flex;
 
   align-items: center;
   justify-content: space-between;
 
-  gap: 10px;
+  gap: 7px;
 
   background:
     rgba(255,255,255,0.94);
 
-  border-radius: 20px;
+  border-radius: 18px;
 
-  padding: 10px 14px;
+  padding: 8px 9px;
 
   box-shadow:
     0 5px 20px rgba(70,50,90,0.08);
@@ -284,7 +288,7 @@ button {
 .game-title {
   color: #7438c8;
 
-  font-size: clamp(17px,3vw,24px);
+  font-size: clamp(16px,3vw,23px);
 
   font-weight: 1000;
 }
@@ -292,7 +296,7 @@ button {
 #stageCounter {
   color: #e85b91;
 
-  font-size: clamp(15px,2.7vw,21px);
+  font-size: clamp(14px,2.7vw,20px);
 
   font-weight: 1000;
 
@@ -300,20 +304,20 @@ button {
 }
 
 .nav-btn {
-  min-width: 145px;
-  min-height: 56px;
+  min-width: 118px;
+  min-height: 48px;
 
-  padding: 8px 15px;
+  padding: 7px 9px;
 
   border: none;
 
-  border-radius: 16px;
+  border-radius: 14px;
 
   background: #f0e4fb;
 
   color: #60309f;
 
-  font-size: clamp(15px,2.7vw,19px);
+  font-size: clamp(13px,2.5vw,18px);
 
   font-weight: 1000;
 
@@ -340,26 +344,26 @@ button {
    ========================================================= */
 
 .instruction {
-  width: min(1100px,100%);
+  width: min(950px,100%);
 
-  margin: 8px auto 12px;
+  margin: 7px auto 10px;
 
-  padding: 11px 15px;
+  padding: 9px 12px;
 
   background:
-    rgba(255,255,255,0.92);
+    rgba(255,255,255,0.94);
 
-  border-radius: 18px;
+  border-radius: 16px;
 
   text-align: center;
 
   color: #7438c8;
 
-  font-size: clamp(16px,3vw,23px);
+  font-size: clamp(15px,2.8vw,21px);
 
   font-weight: 1000;
 
-  line-height: 1.8;
+  line-height: 1.7;
 
   box-shadow:
     0 4px 15px rgba(80,50,100,0.07);
@@ -372,7 +376,7 @@ button {
 
 #taskArea {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1050px;
 
   margin: 0 auto;
 }
@@ -384,50 +388,22 @@ button {
 
   justify-content: center;
 
-  padding: 5px 0;
+  padding: 3px 0;
 }
 
 
 /* =========================================================
-   اسکرول افقی جدول‌های خیلی عریض
-   ========================================================= */
-
-.grid-scroll {
-  width: 100%;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  -webkit-overflow-scrolling: touch;
-
-  padding:
-    4px 2px 9px;
-}
-
-.grid-scroll::-webkit-scrollbar {
-  height: 7px;
-}
-
-.grid-scroll::-webkit-scrollbar-thumb {
-  background: #cdb4e8;
-  border-radius: 20px;
-}
-
-
-/* =========================================================
-   جدول ۲۱ خانه‌ای
+   جدول اصلی رنگی
+   تعداد خانه‌ها متناسب با طول الگو است.
+   حداکثر ۱۲ خانه
    ========================================================= */
 
 .pattern-grid {
-  width: 100%;
-  max-width: 1200px;
+  width: min(760px, 100%);
 
   margin: 0 auto;
 
   display: grid;
-
-  grid-template-columns:
-    repeat(21,minmax(0,1fr));
 
   gap: 0;
 
@@ -442,7 +418,7 @@ button {
   direction: ltr;
 
   box-shadow:
-    0 8px 22px rgba(0,0,0,0.12);
+    0 7px 18px rgba(0,0,0,0.10);
 }
 
 .pattern-cell {
@@ -452,11 +428,8 @@ button {
 
   aspect-ratio: 1 / 1;
 
-  border-left:
-    1px solid rgba(40,40,40,0.22);
-
-  border-bottom:
-    1px solid rgba(40,40,40,0.22);
+  border-right: 2px solid #3d3151;
+  border-bottom: 2px solid #3d3151;
 
   display: flex;
 
@@ -465,30 +438,27 @@ button {
 
   position: relative;
 
+  user-select: none;
+  -webkit-user-select: none;
+
   transition:
     transform 0.12s ease,
     filter 0.12s ease;
-
-  user-select: none;
-  -webkit-user-select: none;
-}
-.pattern-cell {
-  border-left: 2px solid #3d3151;
-  border-bottom: 2px solid #3d3151;
 }
 
-/* تمام خطوط عمودی بین ۲۱ خانه کاملاً مشخص */
-.pattern-cell:nth-child(21n) {
-  border-left: 2px solid #3d3151;
+/* آخرین خانه هر ردیف فقط لبه بیرونی دارد */
+.pattern-cell:last-child {
+  border-right: none;
 }
 
 .pattern-cell.editable {
   cursor: pointer;
+
   background: #fff;
 }
 
 .pattern-cell.editable:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
 
@@ -527,25 +497,25 @@ button {
 
 /* =========================================================
    جدول تکرار
+   فقط به اندازه خود الگو ساخته می‌شود
    ========================================================= */
 
-#repeatBox {
-  width: 100%;
-  max-width: 900px;
+.repeat-box {
+  width: min(650px,100%);
 
-  margin: 13px auto;
+  margin: 10px auto;
 
-  padding: 12px;
+  padding: 9px;
 
   background:
-    rgba(255,255,255,0.94);
+    rgba(255,255,255,0.95);
 
-  border: 3px solid #ead8f8;
+  border: 2px solid #ead8f8;
 
-  border-radius: 20px;
+  border-radius: 17px;
 
   box-shadow:
-    0 5px 18px rgba(116,56,200,0.08);
+    0 5px 15px rgba(116,56,200,0.07);
 }
 
 .repeat-title {
@@ -553,22 +523,19 @@ button {
 
   color: #7438c8;
 
-  font-size: clamp(15px,3vw,21px);
+  font-size: clamp(14px,2.7vw,19px);
 
   font-weight: 1000;
 
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
-#repeatArea {
-  width: min(520px,100%);
+.repeat-area {
+  width: min(360px,100%);
 
-  margin: auto;
+  margin: 0 auto;
 
   display: grid;
-
-  grid-template-columns:
-    repeat(6,minmax(0,1fr));
 
   gap: 0;
 
@@ -588,28 +555,20 @@ button {
 
   min-width: 0;
 
-  border-left:
-    1px solid rgba(40,40,40,0.25);
-
-  border-bottom:
-    1px solid rgba(40,40,40,0.25);
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
+  border-right: 2px solid #3d3151;
+  border-bottom: 2px solid #3d3151;
 
   cursor: pointer;
 
   transition: 0.12s ease;
 }
 
-.repeat-cell:nth-child(6n) {
-  border-left: none;
+.repeat-cell:last-child {
+  border-right: none;
 }
 
 .repeat-cell:active {
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
 
@@ -617,22 +576,22 @@ button {
    پالت
    ========================================================= */
 
-#paletteBox {
-  width: min(850px,100%);
+.palette-box {
+  width: min(720px,100%);
 
-  margin: 13px auto;
+  margin: 10px auto;
 
-  padding: 11px;
+  padding: 8px;
 
   background:
     rgba(255,255,255,0.96);
 
-  border: 3px solid #ead8f8;
+  border: 2px solid #ead8f8;
 
-  border-radius: 20px;
+  border-radius: 17px;
 
   box-shadow:
-    0 5px 18px rgba(116,56,200,0.08);
+    0 5px 15px rgba(116,56,200,0.07);
 }
 
 .palette-title {
@@ -642,12 +601,12 @@ button {
 
   font-weight: 1000;
 
-  font-size: clamp(15px,3vw,20px);
+  font-size: clamp(14px,2.7vw,19px);
 
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-#palette {
+.palette {
   display: flex;
 
   justify-content: center;
@@ -655,16 +614,16 @@ button {
 
   flex-wrap: wrap;
 
-  gap: 10px;
+  gap: 7px;
 }
 
 .palette-item {
-  width: clamp(46px,9vw,62px);
-  height: clamp(46px,9vw,62px);
+  width: clamp(40px,9vw,56px);
+  height: clamp(40px,9vw,56px);
 
   border: 3px solid rgba(61,49,81,0.16);
 
-  border-radius: 14px;
+  border-radius: 12px;
 
   cursor: pointer;
 
@@ -696,51 +655,29 @@ button {
 
   color: #7438c8;
 
-  font-size: 27px;
+  font-size: 23px;
 
   font-weight: 1000;
 }
 
 
 /* =========================================================
-   شبکه شکل‌های بزرگ
+   شکل‌ها
+   بدون اسکرول افقی
    ========================================================= */
 
-.shape-grid-scroll {
-  width: 100%;
-
-  overflow-x: auto;
-
-  -webkit-overflow-scrolling: touch;
-
-  padding:
-    5px 3px 12px;
-}
-
-.shape-grid-scroll::-webkit-scrollbar {
-  height: 7px;
-}
-
-.shape-grid-scroll::-webkit-scrollbar-thumb {
-  background: #cdb4e8;
-  border-radius: 20px;
-}
-
-.compact-shape-grid {
-  width: max-content;
+.shape-grid {
+  width: min(760px,100%);
 
   margin: 0 auto;
 
   display: grid;
 
-  grid-template-columns:
-    repeat(var(--shape-count), 64px);
-
   gap: 0;
 
   border: 3px solid #3d3151;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   overflow: hidden;
 
@@ -749,15 +686,19 @@ button {
   direction: ltr;
 
   box-shadow:
-    0 8px 22px rgba(0,0,0,0.12);
+    0 7px 18px rgba(0,0,0,0.10);
 }
 
-.compact-shape-cell {
-  width: 64px;
-  height: 64px;
+.shape-cell {
+  width: 100%;
 
-  border-left:
-    1px solid rgba(40,40,40,0.22);
+  aspect-ratio: 1 / 1;
+
+  min-width: 0;
+
+  border-right: 2px solid #3d3151;
+
+  border-bottom: 2px solid #3d3151;
 
   display: flex;
 
@@ -766,22 +707,23 @@ button {
 
   background: #fff;
 
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.compact-shape-cell:nth-child(
-  var(--shape-count)n
-) {
-  border-left: none;
-}
-
-.compact-shape-cell.editable {
   cursor: pointer;
 }
 
-.compact-shape-cell:active {
-  transform: scale(0.95);
+.shape-cell:last-child {
+  border-right: none;
+}
+
+.shape-cell:active {
+  transform: scale(0.94);
+}
+
+.shape-symbol {
+  font-size: clamp(22px,7vw,46px);
+
+  line-height: 1;
+
+  display: block;
 }
 
 
@@ -789,54 +731,34 @@ button {
    سؤال حذف شکل
    ========================================================= */
 
-.shape-row-scroll {
-  width: 100%;
-
-  overflow-x: auto;
-
-  -webkit-overflow-scrolling: touch;
-
-  padding: 5px 3px 12px;
-}
-
 .shape-row {
-  width: max-content;
+  width: min(620px,100%);
 
-  min-width: min(100%,900px);
+  margin: 5px auto;
 
-  margin: 0 auto;
+  display: grid;
 
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  direction: ltr;
+  gap: 6px;
 
   background:
     rgba(255,255,255,0.95);
 
-  border: 3px solid #ead8f8;
+  border: 2px solid #ead8f8;
 
-  border-radius: 20px;
+  border-radius: 17px;
 
-  padding: 15px 12px;
+  padding: 9px;
 
   box-shadow:
-    0 6px 18px rgba(70,50,90,0.08);
+    0 6px 17px rgba(70,50,90,0.08);
 }
 
 .shape-option {
-  flex: 0 0 68px;
-
-  width: 68px;
-  height: 68px;
+  aspect-ratio: 1 / 1;
 
   border: 3px solid #e1d5ea;
 
-  border-radius: 16px;
+  border-radius: 13px;
 
   background: #fff;
 
@@ -859,6 +781,12 @@ button {
     0 0 0 4px rgba(116,56,200,0.12);
 }
 
+.remove-shape-symbol {
+  font-size: clamp(27px,8vw,46px);
+
+  line-height: 1;
+}
+
 
 /* =========================================================
    مرحله ۱۲
@@ -866,30 +794,22 @@ button {
 
 .combined-pattern-box {
   width: 100%;
-  max-width: 1200px;
 
-  margin: 5px auto 14px;
-
-  overflow: hidden;
+  margin: 3px auto 10px;
 }
 
-.combined-main-grid {
+.combined-row-box {
   width: 100%;
-  max-width: 1200px;
+
+  margin: 4px auto;
 
   display: grid;
-
-  grid-template-columns:
-    repeat(21,minmax(0,1fr));
-
-  grid-template-rows:
-    repeat(3,minmax(0,1fr));
 
   gap: 0;
 
   border: 3px solid #3d3151;
 
-  border-radius: 9px;
+  border-radius: 8px;
 
   overflow: hidden;
 
@@ -898,136 +818,111 @@ button {
   direction: ltr;
 
   box-shadow:
-    0 8px 22px rgba(0,0,0,0.12);
+    0 5px 13px rgba(0,0,0,0.08);
 }
 
-.combined-main-grid .pattern-cell {
-  aspect-ratio: 1 /1
-     
-.combined-main-grid
-.pattern-cell:nth-child(21n) {
-  border-left: 2px solid #3d3151;
+.combined-row-box .pattern-cell {
+  border-right: 2px solid #3d3151;
+  border-bottom: 0;
 }
 
-/* =========================================================
-   جدول پایین مرحله ۱۲
-   ========================================================= */
+.combined-row-box .pattern-cell:last-child {
+  border-right: none;
+}
+
+
+/* جدول‌های پایین مرحله ۱۲ */
 
 .combined-repeat-box {
-  width: min(900px,100%);
+  width: min(720px,100%);
 
-  margin: 12px auto 15px;
+  margin: 9px auto 12px;
+
+  padding: 9px;
 
   background: #fff;
 
-  border: 3px solid #ead8f8;
+  border: 2px solid #ead8f8;
 
-  border-radius: 20px;
-
-  padding: 12px;
+  border-radius: 17px;
 
   box-shadow:
-    0 5px 16px rgba(116,56,200,0.08);
+    0 5px 15px rgba(116,56,200,0.07);
 }
 
 .combined-repeat-title {
   color: #7438c8;
 
-  font-size: clamp(16px,2.5vw,21px);
+  font-size: clamp(14px,2.6vw,19px);
 
   font-weight: 1000;
 
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 
   text-align: center;
 
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
-.combined-repeat-grid {
-  width: min(420px,100%);
+.combined-repeat-row {
+  width: min(330px,100%);
 
-  margin: 0 auto;
+  margin: 5px auto;
 
   display: grid;
 
-  grid-template-columns:
-    repeat(6,minmax(0,1fr));
-
-  grid-template-rows:
-    repeat(3,minmax(0,1fr));
-
   gap: 0;
 
-  border: 3px solid #3d3151;
+  border: 2px solid #3d3151;
 
-  border-radius: 7px;
+  border-radius: 6px;
 
   overflow: hidden;
 
   direction: ltr;
-
-  background: #fff;
 }
 
-.combined-repeat-grid .repeat-cell {
-  aspect-ratio: 1 / 1;
-
-  border-left:
-    1px solid rgba(40,40,40,0.25);
-
-  border-bottom:
-    1px solid rgba(40,40,40,0.25);
-
-  border-radius: 0;
-
-  margin: 0;
-
-  padding: 0;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
+.combined-repeat-row .repeat-cell {
+  border-right: 2px solid #3d3151;
+  border-bottom: none;
 }
 
-.combined-repeat-grid
-.repeat-cell:nth-child(6n) {
-  border-left: 2px solid #3d3151;
+.combined-repeat-row .repeat-cell:last-child {
+  border-right: none;
 }
 
 
 /* =========================================================
-   دکمه‌های پایین جدول
+   دکمه‌ها
    ========================================================= */
 
 .game-actions {
-  width: min(760px,100%);
+  width: min(650px,100%);
 
-  margin: 16px auto 6px;
+  margin: 12px auto 5px;
 
   display: flex;
 
   justify-content: center;
   align-items: center;
 
-  gap: 18px;
+  gap: 10px;
 
   flex-wrap: wrap;
 }
 
 .game-actions button {
-  width: min(270px,100%);
+  width: min(250px,100%);
 
-  min-height: 64px;
+  min-height: 56px;
 
-  padding: 10px 22px;
+  padding: 9px 17px;
 
   border: none;
 
-  border-radius: 18px;
+  border-radius: 17px;
 
-  font-size: clamp(17px,3vw,21px);
+  font-size: clamp(16px,3vw,20px);
 
   font-weight: 1000;
 
@@ -1042,7 +937,7 @@ button {
   transform: scale(0.96);
 }
 
-#checkBtn {
+.check-btn {
   background:
     linear-gradient(
       135deg,
@@ -1053,10 +948,10 @@ button {
   color: #fff;
 
   box-shadow:
-    0 7px 18px rgba(50,160,75,0.22);
+    0 7px 17px rgba(50,160,75,0.20);
 }
 
-#clearBtn {
+.clear-btn {
   background:
     linear-gradient(
       135deg,
@@ -1067,12 +962,7 @@ button {
   color: #7438c8;
 
   box-shadow:
-    0 7px 18px rgba(116,56,200,0.12);
-}
-
-.game-actions button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+    0 7px 17px rgba(116,56,200,0.10);
 }
 
 
@@ -1080,31 +970,25 @@ button {
    بازخورد
    ========================================================= */
 
-#feedback {
-  width: min(900px,100%);
+.feedback {
+  min-height: 38px;
 
-  min-height: 40px;
+  width: min(850px,100%);
 
-  margin: 5px auto 10px;
+  margin: 5px auto;
 
   text-align: center;
 
-  font-size: clamp(16px,3vw,22px);
+  font-size: clamp(15px,3vw,21px);
 
   font-weight: 1000;
 
   line-height: 1.7;
-
-  padding: 4px 10px;
 }
 
-
-/* =========================================================
-   انیمیشن
-   ========================================================= */
-
 .success-animation {
-  animation: successPop 0.55s ease;
+  animation:
+    successPop 0.55s ease;
 }
 
 @keyframes successPop {
@@ -1113,22 +997,20 @@ button {
     transform: scale(1);
   }
 
-  40% {
-    transform: scale(1.015);
-  }
-
-  70% {
-    transform: scale(0.995);
+  50% {
+    transform: scale(1.025);
   }
 
   100% {
     transform: scale(1);
   }
+
 }
 
 
 /* =========================================================
    امضا
+   کوچک‌تر اما واضح
    ========================================================= */
 
 .signature-wrap {
@@ -1141,41 +1023,39 @@ button {
   align-items: center;
 }
 
-.signature {
-  display: block;
+.game-signature {
+  margin-top: 10px;
 
-  width: min(360px,72vw);
+  padding-bottom: 3px;
+}
 
-  height: auto;
+.game-signature .signature {
+  width: min(270px,52vw);
 
-  max-height: 125px;
+  max-height: 85px;
 
   object-fit: contain;
 
-  margin: 8px auto 0;
+  display: block;
 }
 
-
-/* از صفحه بازی به بعد امضا عمداً بزرگ است */
-.game-signature .signature {
-  width: min(430px,78vw);
-
-  max-height: 145px;
-
-  margin-top: 10px;
+.finish-signature {
+  margin-top: 20px;
 }
 
 .finish-signature .signature {
-  width: min(430px,78vw);
+  width: min(270px,52vw);
 
-  max-height: 145px;
+  max-height: 85px;
 
-  margin-top: 18px;
+  object-fit: contain;
+
+  display: block;
 }
 
 
 /* =========================================================
-   صفحه پایان
+   پایان بازی
    ========================================================= */
 
 .finish-screen {
@@ -1193,52 +1073,50 @@ button {
 }
 
 .finish-card {
-  width: min(650px,100%);
+  width: min(620px,100%);
 
-  background:
-    rgba(255,255,255,0.97);
+  background: rgba(255,255,255,0.97);
 
   border-radius: 30px;
 
-  padding: clamp(25px,6vw,50px);
+  padding: 28px 20px;
 
   text-align: center;
 
+  border: 3px solid rgba(116,56,200,0.12);
+
   box-shadow:
     0 15px 45px rgba(88,55,130,0.16);
+}
 
-  border:
-    3px solid rgba(116,56,200,0.12);
+.finish-icon {
+  font-size: 58px;
+
+  margin-bottom: 5px;
 }
 
 .finish-card h1 {
-  margin: 0 0 14px;
-
   color: #7438c8;
 
-  font-size: clamp(27px,6vw,45px);
+  font-size: clamp(30px,7vw,48px);
 
-  font-weight: 1000;
+  margin: 0 0 12px;
 }
 
 #finishText {
-  color: #4c4058;
-
   font-size: clamp(17px,4vw,23px);
 
-  line-height: 2;
-
-  margin: 10px 0;
+  line-height: 1.9;
 }
 
-#finalScore {
-  margin: 12px 0 22px;
-
+.final-score {
   color: #e85b91;
 
-  font-size: clamp(22px,5vw,32px);
+  font-size: clamp(20px,4vw,27px);
 
   font-weight: 1000;
+
+  margin-top: 12px;
 }
 
 
@@ -1246,190 +1124,118 @@ button {
    موبایل
    ========================================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 
   .game-screen {
-    padding:
-      8px 6px 30px;
+    padding-left: 7px;
+    padding-right: 7px;
   }
 
   .game-header {
-    border-radius: 15px;
-
-    padding: 8px;
-
-    gap: 6px;
+    gap: 4px;
+    padding: 7px 5px;
   }
 
   .nav-btn {
-    min-width: 112px;
-    min-height: 52px;
+    min-width: 88px;
+    min-height: 43px;
+
+    padding: 5px 5px;
+
+    font-size: 12px;
+  }
+
+  .game-title {
+    font-size: 15px;
+  }
+
+  #stageCounter {
+    font-size: 13px;
+  }
+
+  .instruction {
+    margin-top: 5px;
+    margin-bottom: 7px;
 
     padding: 7px 8px;
 
     font-size: 14px;
   }
 
-  .game-title {
-    font-size: 16px;
+  .pattern-grid {
+    width: min(100%, 760px);
   }
 
-  #stageCounter {
+  .repeat-box {
+    padding: 7px;
+  }
+
+  .repeat-title {
     font-size: 14px;
   }
 
-  .instruction {
-    margin: 6px auto 9px;
-
-    padding: 8px 10px;
-
-    border-radius: 14px;
+  .palette-box {
+    padding: 6px;
   }
 
-  .pattern-grid,
-  .combined-main-grid {
-    border-width: 2px;
-  }
-
-  #paletteBox {
-    padding: 8px;
-    border-radius: 16px;
+  .palette {
+    gap: 5px;
   }
 
   .palette-item {
-    width: 46px;
-    height: 46px;
-
-    border-radius: 11px;
+    width: 39px;
+    height: 39px;
   }
 
   .game-actions {
-    width: 100%;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    margin-top: 15px;
+    gap: 7px;
   }
 
   .game-actions button {
-    width: min(340px,92%);
+    width: min(220px,100%);
 
-    min-height: 62px;
+    min-height: 51px;
 
-    font-size: 18px;
-  }
-
-  .compact-shape-grid {
-    grid-template-columns:
-      repeat(var(--shape-count),58px);
-  }
-
-  .compact-shape-cell {
-    width: 58px;
-    height: 58px;
-  }
-
-  .shape-option {
-    flex-basis: 60px;
-
-    width: 60px;
-    height: 60px;
-  }
-
-  .combined-repeat-box {
-    padding: 8px;
-    border-radius: 16px;
-  }
-
-  .combined-repeat-grid {
-    width: 300px;
-  }
-
-  .game-signature .signature {
-    width: min(390px,88vw);
-
-    max-height: 125px;
-
-    margin-top: 12px;
-  }
-
-  .finish-signature .signature {
-    width: min(390px,88vw);
-
-    max-height: 125px;
-  }
-}
-
-
-/* =========================================================
-   موبایل خیلی کوچک
-   ========================================================= */
-
-@media (max-width: 380px) {
-
-  .game-header {
-    justify-content: center;
-  }
-
-  .stage-info {
-    width: 100%;
-    order: -1;
-  }
-
-  .nav-btn {
-    min-width: 125px;
-  }
-
-  .game-actions button {
-    width: 94%;
-  }
-
-  .palette-item {
-    width: 43px;
-    height: 43px;
-  }
-
-  .compact-shape-grid {
-    grid-template-columns:
-      repeat(var(--shape-count),55px);
-  }
-
-  .compact-shape-cell {
-    width: 55px;
-    height: 55px;
-  }
-
-  .game-signature .signature {
-    width: 340px;
-  }
-}
-
-
-/* =========================================================
-   صفحه بزرگ / پروژکتور
-   ========================================================= */
-
-@media (min-width: 1000px) {
-
-  .game-screen {
-    padding:
-      14px 25px 35px;
-  }
-
-  .game-actions {
-    gap: 22px;
-  }
-
-  .game-actions button {
-    width: 280px;
-    min-height: 68px;
+    font-size: 15px;
   }
 
   .game-signature .signature,
   .finish-signature .signature {
-    width: 430px;
-    max-height: 145px;
+    width: min(230px,52vw);
+
+    max-height: 72px;
   }
+
+}
+
+
+/* =========================================================
+   صفحه‌های خیلی باریک
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+  .nav-btn {
+    min-width: 78px;
+
+    font-size: 11px;
+  }
+
+  .game-title {
+    font-size: 14px;
+  }
+
+  #stageCounter {
+    font-size: 12px;
+  }
+
+  .pattern-cell {
+    border-right-width: 1.5px;
+  }
+
+  .shape-cell,
+  .combined-row-box .pattern-cell {
+    border-right-width: 1.5px;
+  }
+
 }
