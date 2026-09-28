@@ -812,26 +812,42 @@ button {
 
 /* =========================================================
    مرحله ۱۲
+   ========================
+/* =========================================================
+   مرحله ۱۲
+   سه ردیف ۲۱ خانه‌ای کاملاً چسبیده
    ========================================================= */
 
 .combined-pattern-box {
   width: 100%;
 
   margin: 3px auto 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0;
 }
 
 .combined-row-box {
   width: 100%;
 
-  margin: 4px auto;
+  margin: 0;
 
   display: grid;
 
   gap: 0;
 
-  border: 3px solid #3d3151;
+  border-left: 3px solid #3d3151;
+  border-right: 3px solid #3d3151;
 
-  border-radius: 8px;
+  /* خط بالا فقط برای ردیف اول */
+  border-top: 3px solid #3d3151;
+
+  /* خط پایین فقط برای ردیف آخر */
+  border-bottom: 0;
+
+  border-radius: 0;
 
   overflow: hidden;
 
@@ -839,20 +855,37 @@ button {
 
   direction: ltr;
 
-  box-shadow:
-    0 5px 13px rgba(0,0,0,0.08);
-}
-.combined-row-box .pattern-cell {
-  border-right: 2px solid #3d3151;
-  border-bottom: 0;
+  box-shadow: none;
 }
 
-/* آخرین خانه هر ردیف ۲۱تایی */
+/* ردیف آخر */
+.combined-row-box:last-child {
+  border-bottom: 3px solid #3d3151;
+}
+
+/* همه خانه‌های جدول اصلی */
+.combined-row-box .pattern-cell {
+  border-right: 2px solid #3d3151;
+  border-bottom: 2px solid #3d3151;
+
+  border-radius: 0;
+}
+
+/* آخرین خانه هر ردیف */
 .combined-row-box .pattern-cell:last-child {
   border-right: none;
 }
 
-/* جدول‌های پایین مرحله ۱۲ */
+/* خط پایین آخرین ردیف حذف نشود */
+.combined-row-box:last-child .pattern-cell {
+  border-bottom: 0;
+}
+
+
+/* =========================================================
+   جدول پایین مرحله ۱۲
+   سه ردیف ۶ خانه‌ای کاملاً چسبیده
+   ========================================================= */
 
 .combined-repeat-box {
   width: min(720px,100%);
@@ -885,33 +918,53 @@ button {
   line-height: 1.6;
 }
 
+
+/* کل جدول پایین */
 .combined-repeat-row {
   width: min(330px,100%);
 
-  margin: 5px auto;
+  margin: 0 auto;
 
   display: grid;
 
   gap: 0;
 
-  border: 2px solid #3d3151;
+  border-left: 2px solid #3d3151;
+  border-right: 2px solid #3d3151;
 
-  border-radius: 6px;
+  border-top: 2px solid #3d3151;
+
+  border-bottom: 0;
+
+  border-radius: 0;
 
   overflow: hidden;
 
   direction: ltr;
 }
 
-.combined-repeat-row .repeat-cell {
-  border-right: 2px solid #3d3151;
-  border-bottom: none;
+/* آخرین ردیف جدول پایین */
+.combined-repeat-row:last-child {
+  border-bottom: 2px solid #3d3151;
 }
 
+/* خانه‌های جدول پایین */
+.combined-repeat-row .repeat-cell {
+  border-right: 2px solid #3d3151;
+  border-bottom: 2px solid #3d3151;
+
+  border-radius: 0;
+}
+
+/* آخرین خانه هر ردیف */
 .combined-repeat-row .repeat-cell:last-child {
   border-right: none;
 }
 
+/* خط پایین آخرین ردیف */
+.combined-repeat-row:last-child .repeat-cell {
+  border-bottom: 0;
+}
 
 /* =========================================================
    دکمه‌ها
