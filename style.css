@@ -450,30 +450,39 @@ button {
 /* =========================================================
    خطوط عمودی کاملاً مشخص
    ========================================================= */
-
 .pattern-cell {
-  border-left: 0;
+  width: 100%;
+
+  min-width: 0;
+
+  aspect-ratio: 1 / 1;
+
+  border-right: 2px solid #3d3151;
+  border-bottom: 2px solid #3d3151;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease;
+}
+
+/* خط عمودی همه خانه‌ها کاملاً مشخص باشد */
+.pattern-cell {
   border-right: 2px solid #3d3151;
 }
 
-.pattern-cell:nth-child(21n) {
-  border-right: 0;
-}
-
-.combined-row-box .pattern-cell {
-  border-right: 2px solid #3d3151;
-}
-
-.combined-row-box .pattern-cell:nth-child(21n) {
-  border-right: 0;
-}
-
-.repeat-cell {
-  border-right: 2px solid #3d3151;
-}
-
-.repeat-cell:nth-child(6n) {
-  border-right: 0;
+/* فقط آخرین خانه هر ردیف خط بیرونی سمت راست نداشته باشد */
+.pattern-cell:last-child {
+  border-right: none;
 }
 
 /* =========================================================
@@ -561,7 +570,6 @@ button {
 
   overflow: hidden;
 }
-
 .repeat-cell {
   width: 100%;
 
@@ -577,10 +585,15 @@ button {
   transition: 0.12s ease;
 }
 
+/* خط عمودی همه خانه‌های تکرار کاملاً مشخص باشد */
+.repeat-cell {
+  border-right: 2px solid #3d3151;
+}
+
+/* فقط آخرین خانه ردیف خط بیرونی سمت راست نداشته باشد */
 .repeat-cell:last-child {
   border-right: none;
 }
-
 .repeat-cell:active {
   transform: scale(0.95);
 }
@@ -859,10 +872,10 @@ button {
   border-bottom: 0;
 }
 
+/* آخرین خانه هر ردیف ۲۱تایی */
 .combined-row-box .pattern-cell:last-child {
   border-right: none;
 }
-
 
 /* جدول‌های پایین مرحله ۱۲ */
 
