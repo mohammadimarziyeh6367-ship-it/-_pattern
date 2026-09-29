@@ -1294,8 +1294,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lowerBox
     );
 
-
-    createColorPalette();
+createCombinedPalette();
+    
   }
 
 
@@ -1421,59 +1421,150 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      بررسی مرحله ۱۲
      ========================================================= */
+function createCombinedPalette() {
 
-  function checkCombinedCheckerStage(stage) {
+  paletteBox.classList.remove("hidden");
 
-    let correct = true;
+  palette.innerHTML = "";
+
+  selectedTool = null;
+
+  const colorNames = [
+    "green",
+    "blue",
+    "yellow",
+    "red",
+    "pink",
+    "purple"
+  ];
+
+  colorNames.forEach(color => {
+
+    const item = document.createElement("button");
+
+    item.type = "button";
+    item.className = "palette-item";
+    item.dataset.color = color;
+    item.style.background = COLORS[color];
+
+    item.addEventListener("click", () => {
+
+      initAudio();
+
+      selectedTool = color;
+
+      document
+        .querySelectorAll(".palette-item")
+        .forEach(button => {
+          button.classList.remove("selected");
+        });
+
+      item.classList.add("selected");
+
+      playColorSound();
+    });
+
+    palette.appendChild(item);
+  });
 
 
-    /* ۷ خانه انتهایی هر ردیف */
+  /* پاک‌کن */
 
-    currentCells.forEach(
-      cell => {
+  const eraser = document.createElement("button");
 
-        const selected =
-          cell.dataset.selected;
+  eraser.type = "button";
+  eraser.className = "palette-item eraser";
+  eraser.textContent = "⌫";
+  eraser.title = "پاک‌کن";
 
-        const expected =
-          cell.dataset.expected;
+  eraser.addEventListener("click", () => {
 
-        if (
-          !selected ||
-          selected !== expected
-        ) {
+    initAudio();
 
-          correct = false;
-        }
+    selectedTool = "eraser";
+
+    document
+      .querySelectorAll(".palette-item")
+      .forEach(button => {
+        button.classList.remove("selected");
+      });
+
+    eraser.classList.add("selected");
+
+    playClickSound();
+  });
+
+  palette.appendChild(eraser);
+}
+   function checkCombinedCheckerStage(stage) {
+
+  let correct = true;
+
+
+  /* ==========================================
+     ۷ خانه انتهایی سه ردیف اصلی
+     سفید یعنی خانه باید خالی باشد
+     ========================================== */
+
+  currentCells.forEach(cell => {
+
+    const selected = cell.dataset.selected;
+    const expected = cell.dataset.expected;
+
+    if (expected === "white") {
+
+      /* سفید = خالی */
+
+      if (selected) {
+        correct = false;
       }
-    );
 
+    } else {
 
-    /* ۱۸ خانه پایین */
+      /* رنگ واقعی باید انتخاب شده باشد */
 
-    repeatCells.forEach(
-      cell => {
-
-        const selected =
-          cell.dataset.selected;
-
-        const expected =
-          cell.dataset.expected;
-
-        if (
-          !selected ||
-          selected !== expected
-        ) {
-
-          correct = false;
-        }
+      if (
+        !selected ||
+        selected !== expected
+      ) {
+        correct = false;
       }
-    );
+    }
+
+  });
 
 
-    showCheckResult(correct);
-  }
+  /* ==========================================
+     ۱۸ خانه جدول پایین
+     سفید یعنی خالی
+     ========================================== */
 
+  repeatCells.forEach(cell => {
+
+    const selected = cell.dataset.selected;
+    const expected = cell.dataset.expected;
+
+    if (expected === "white") {
+
+      if (selected) {
+        correct = false;
+      }
+
+    } else {
+
+      if (
+        !selected ||
+        selected !== expected
+      ) {
+        correct = false;
+      }
+    }
+
+  });
+
+
+  showCheckResult(correct);
+}
 
   /* =========================================================
      نمایش نتیجه
