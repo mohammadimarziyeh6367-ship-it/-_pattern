@@ -1,6 +1,6 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   نسخه نهایی هماهنگ با CSS جدید
+   نسخه نهایی
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -175,12 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
     },
 
-    /* =======================================================
-       مرحله ۸
-       ۱۵ خانه
-       ۶ خانه آماده + ۹ خانه خالی
-       ======================================================= */
-
+    /* مرحله ۸ */
     {
       type: "shape",
       pattern: ["circle", "circle", "triangle"],
@@ -192,15 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "🔷 الگو را بخوان و سپس آن را ادامه بده."
     },
 
-    /* =======================================================
-       مرحله ۹
-       حذف شکل اشتباه
-       شکل اشتباه دقیقاً وسط قرار دارد
-       
-       بعد از حذف مثلث:
-       دایره، دایره، مربع، دایره، دایره، مربع
-       ======================================================= */
-
+    /* مرحله ۹ */
     {
       type: "remove",
 
@@ -220,12 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "🔍 شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
     },
 
-    /* =======================================================
-       مرحله ۱۰
-       ۱۲ خانه
-       ۶ خانه آماده + ۶ خانه خالی
-       ======================================================= */
-
+    /* مرحله ۱۰ */
     {
       type: "shape",
 
@@ -238,15 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "🔷 الگو را بخوان و سپس آن را ادامه بده."
     },
 
-    /* =======================================================
-       مرحله ۱۱
-       حذف شکل اشتباه
-       شکل اشتباه در وسط قرار دارد
-       
-       بعد از حذف مربع:
-       مثلث، مثلث، دایره، مثلث، مثلث، دایره، مثلث، مثلث
-       ======================================================= */
-
+    /* مرحله ۱۱ */
     {
       type: "remove",
 
@@ -268,12 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "🔍 شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
     },
 
-    /* =======================================================
-       مرحله ۱۲
-       سه ردیف ۲۱ خانه‌ای
-       سه ردیف ۶ خانه‌ای در قسمت پایین
-       ======================================================= */
-
+    /* مرحله ۱۲ */
     {
       type: "combinedChecker",
 
@@ -316,9 +285,11 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================================================= */
 
   function persianNumber(number) {
-    return String(number).replace(/[0-9]/g, digit => {
-      return "۰۱۲۳۴۵۶۷۸۹"[digit];
-    });
+
+    return String(number).replace(
+      /[0-9]/g,
+      digit => "۰۱۲۳۴۵۶۷۸۹"[digit]
+    );
   }
 
 
@@ -327,8 +298,11 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================================================= */
 
   function initAudio() {
+
     try {
+
       if (!audioContext) {
+
         const AudioCtx =
           window.AudioContext ||
           window.webkitAudioContext;
@@ -342,10 +316,12 @@ document.addEventListener("DOMContentLoaded", () => {
         audioContext &&
         audioContext.state === "suspended"
       ) {
+
         audioContext.resume();
       }
 
     } catch (error) {
+
       console.log("Audio unavailable");
     }
   }
@@ -393,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
     } catch (error) {
+
       console.log("Tone error");
     }
   }
@@ -420,7 +397,14 @@ document.addEventListener("DOMContentLoaded", () => {
     playTone(660, 0.10, "sine", 0.05);
 
     setTimeout(() => {
-      playTone(880, 0.14, "sine", 0.05);
+
+      playTone(
+        880,
+        0.14,
+        "sine",
+        0.05
+      );
+
     }, 90);
   }
 
@@ -429,48 +413,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!audioContext) return;
 
-    playTone(220, 0.16, "sawtooth", 0.035);
+    playTone(
+      220,
+      0.16,
+      "sawtooth",
+      0.035
+    );
 
     setTimeout(() => {
-      playTone(170, 0.20, "sawtooth", 0.03);
+
+      playTone(
+        170,
+        0.20,
+        "sawtooth",
+        0.03
+      );
+
     }, 110);
   }
 
 
   /* =========================================================
-     انتخاب نام
+     شروع بازی
      ========================================================= */
 
-  startBtn.addEventListener("click", () => {
+  startBtn.addEventListener(
+    "click",
+    () => {
 
-    initAudio();
+      initAudio();
 
-    studentName =
-      studentNameInput.value.trim();
+      studentName =
+        studentNameInput.value.trim();
 
-    if (!studentName) {
-      studentName = "شکوفه‌ی عزیز";
+      if (!studentName) {
+        studentName = "شکوفه‌ی عزیز";
+      }
+
+      playClickSound();
+
+      currentStage = 0;
+      score = 0;
+
+      completedStages.clear();
+
+      startScreen.classList.add("hidden");
+
+      finishScreen.classList.add("hidden");
+
+      gameScreen.classList.remove("hidden");
+
+      renderStage();
     }
-
-    playClickSound();
-
-    currentStage = 0;
-    score = 0;
-
-    completedStages.clear();
-
-    startScreen.classList.add("hidden");
-
-    finishScreen.classList.add("hidden");
-
-    gameScreen.classList.remove("hidden");
-
-    renderStage();
-  });
+  );
 
 
   /* =========================================================
-     ساخت جدول رنگی اصلی
+     جدول رنگی اصلی
      ========================================================= */
 
   function createMainColorGrid(stage) {
@@ -480,9 +479,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid =
       document.createElement("div");
 
-    grid.className = "pattern-grid";
+    grid.className =
+      "pattern-grid";
 
-    const pattern = stage.pattern;
+    const pattern =
+      stage.pattern;
 
     const total =
       pattern.length * 4;
@@ -498,10 +499,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const cell =
         document.createElement("div");
 
-      cell.className = "pattern-cell";
+      cell.className =
+        "pattern-cell";
 
       const expected =
-        pattern[i % pattern.length];
+        pattern[
+          i % pattern.length
+        ];
 
       cell.dataset.expected =
         expected;
@@ -514,7 +518,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } else {
 
-        cell.classList.add("editable");
+        cell.classList.add(
+          "editable"
+        );
 
         cell.addEventListener(
           "click",
@@ -523,11 +529,15 @@ document.addEventListener("DOMContentLoaded", () => {
             initAudio();
 
             if (!selectedTool) {
+
               playClickSound();
+
               return;
             }
 
-            if (selectedTool === "eraser") {
+            if (
+              selectedTool === "eraser"
+            ) {
 
               clearCellColor(cell);
 
@@ -555,16 +565,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     رنگ‌آمیزی خانه
+     رنگ‌آمیزی خانه اصلی
      ========================================================= */
 
-  function setCellColor(cell, color) {
+  function setCellColor(
+    cell,
+    color
+  ) {
 
-    Object.keys(COLORS).forEach(name => {
-      cell.classList.remove(
-        `cell-${name}`
-      );
-    });
+    Object.keys(COLORS).forEach(
+      name => {
+
+        cell.classList.remove(
+          `cell-${name}`
+        );
+
+      }
+    );
 
     cell.classList.add(
       `cell-${color}`
@@ -577,31 +594,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clearCellColor(cell) {
 
-    Object.keys(COLORS).forEach(name => {
-      cell.classList.remove(
-        `cell-${name}`
-      );
-    });
+    Object.keys(COLORS).forEach(
+      name => {
+
+        cell.classList.remove(
+          `cell-${name}`
+        );
+
+      }
+    );
 
     delete cell.dataset.selected;
 
-    cell.classList.add("editable");
+    cell.classList.add(
+      "editable"
+    );
 
     playClickSound();
   }
 
 
   /* =========================================================
-     جدول تکرار مراحل رنگی
+     جدول پایین مراحل ۱ تا ۷
      
-     همیشه ۶ خانه
+     ۶ خانه دارد اما فقط یک بار الگو
+     باید از سمت چپ در آن نوشته شود.
+     
+     خانه‌های باقی‌مانده باید خالی بمانند.
      ========================================================= */
 
   function createRepeatGrid(pattern) {
 
     repeatCells = [];
 
-    repeatBox.classList.remove("hidden");
+    repeatBox.classList.remove(
+      "hidden"
+    );
 
     repeatArea.innerHTML = "";
 
@@ -616,8 +644,28 @@ document.addEventListener("DOMContentLoaded", () => {
       cell.className =
         "repeat-cell";
 
-      cell.dataset.expected =
-        pattern[i % pattern.length];
+      /*
+       * فقط به اندازه طول الگو
+       * خانه دارای پاسخ است.
+       *
+       * مثال:
+       * الگوی ۳تایی:
+       * 🟩 🟩 🟥 ⬜ ⬜ ⬜
+       *
+       * الگوی ۲تایی:
+       * 🟦 🟨 ⬜ ⬜ ⬜ ⬜
+       */
+
+      if (i < pattern.length) {
+
+        cell.dataset.expected =
+          pattern[i];
+
+      } else {
+
+        cell.dataset.expected =
+          "";
+      }
 
       cell.addEventListener(
         "click",
@@ -626,11 +674,15 @@ document.addEventListener("DOMContentLoaded", () => {
           initAudio();
 
           if (!selectedTool) {
+
             playClickSound();
+
             return;
           }
 
-          if (selectedTool === "eraser") {
+          if (
+            selectedTool === "eraser"
+          ) {
 
             clearRepeatCell(cell);
 
@@ -659,13 +711,15 @@ document.addEventListener("DOMContentLoaded", () => {
     color
   ) {
 
-    Object.keys(COLORS).forEach(name => {
+    Object.keys(COLORS).forEach(
+      name => {
 
-      cell.classList.remove(
-        `cell-${name}`
-      );
+        cell.classList.remove(
+          `cell-${name}`
+        );
 
-    });
+      }
+    );
 
     cell.classList.add(
       `cell-${color}`
@@ -678,13 +732,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clearRepeatCell(cell) {
 
-    Object.keys(COLORS).forEach(name => {
+    Object.keys(COLORS).forEach(
+      name => {
 
-      cell.classList.remove(
-        `cell-${name}`
-      );
+        cell.classList.remove(
+          `cell-${name}`
+        );
 
-    });
+      }
+    );
 
     delete cell.dataset.selected;
 
@@ -694,12 +750,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      پالت رنگ
-     شامل سفید
      ========================================================= */
 
   function createColorPalette() {
 
-    paletteBox.classList.remove("hidden");
+    paletteBox.classList.remove(
+      "hidden"
+    );
 
     palette.innerHTML = "";
 
@@ -715,53 +772,63 @@ document.addEventListener("DOMContentLoaded", () => {
       "white"
     ];
 
-    colorNames.forEach(color => {
+    colorNames.forEach(
+      color => {
 
-      const item =
-        document.createElement("button");
+        const item =
+          document.createElement("button");
 
-      item.type = "button";
+        item.type = "button";
 
-      item.className =
-        "palette-item";
+        item.className =
+          "palette-item";
 
-      item.dataset.color =
-        color;
+        item.dataset.color =
+          color;
 
-      item.style.background =
-        COLORS[color];
+        item.style.background =
+          COLORS[color];
 
-      /* برای دیده شدن رنگ سفید */
-      if (color === "white") {
+        if (color === "white") {
 
-        item.style.border =
-          "3px solid #3d3151";
-      }
-
-      item.addEventListener(
-        "click",
-        () => {
-
-          initAudio();
-
-          selectedTool = color;
-
-          document
-            .querySelectorAll(".palette-item")
-            .forEach(button => {
-              button.classList.remove(
-                "selected"
-              );
-            });
-
-          item.classList.add("selected");
-
-          playColorSound();
+          item.style.border =
+            "3px solid #3d3151";
         }
-      );
 
-      palette.appendChild(item);
-    });
+        item.addEventListener(
+          "click",
+          () => {
+
+            initAudio();
+
+            selectedTool =
+              color;
+
+            document
+              .querySelectorAll(
+                ".palette-item"
+              )
+              .forEach(
+                button => {
+
+                  button.classList.remove(
+                    "selected"
+                  );
+
+                }
+              );
+
+            item.classList.add(
+              "selected"
+            );
+
+            playColorSound();
+          }
+        );
+
+        palette.appendChild(item);
+      }
+    );
 
 
     /* پاک‌کن */
@@ -774,7 +841,8 @@ document.addEventListener("DOMContentLoaded", () => {
     eraser.className =
       "palette-item eraser";
 
-    eraser.textContent = "⌫";
+    eraser.textContent =
+      "⌫";
 
     eraser.title =
       "پاک‌کن";
@@ -785,23 +853,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         initAudio();
 
-        selectedTool = "eraser";
+        selectedTool =
+          "eraser";
 
         document
-          .querySelectorAll(".palette-item")
-          .forEach(button => {
-            button.classList.remove(
-              "selected"
-            );
-          });
+          .querySelectorAll(
+            ".palette-item"
+          )
+          .forEach(
+            button => {
 
-        eraser.classList.add("selected");
+              button.classList.remove(
+                "selected"
+              );
+
+            }
+          );
+
+        eraser.classList.add(
+          "selected"
+        );
 
         playClickSound();
       }
     );
 
-    palette.appendChild(eraser);
+    palette.appendChild(
+      eraser
+    );
   }
 
 
@@ -824,11 +903,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const readyCount =
       stage.readyCells;
-
-    /*
-       برای اینکه شکل‌ها از سمت چپ شروع شوند،
-       ستون‌ها اندازه کنترل‌شده دارند.
-    */
 
     grid.style.gridTemplateColumns =
       `repeat(${total}, minmax(0, 1fr))`;
@@ -863,7 +937,9 @@ document.addEventListener("DOMContentLoaded", () => {
         symbol.title =
           shapeInfo[shape].label;
 
-        cell.appendChild(symbol);
+        cell.appendChild(
+          symbol
+        );
 
       } else {
 
@@ -906,7 +982,9 @@ document.addEventListener("DOMContentLoaded", () => {
             symbol.textContent =
               shapeInfo[shape].symbol;
 
-            cell.appendChild(symbol);
+            cell.appendChild(
+              symbol
+            );
 
             cell.dataset.selected =
               shape;
@@ -915,13 +993,19 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
 
-        currentCells.push(cell);
+        currentCells.push(
+          cell
+        );
       }
 
-      grid.appendChild(cell);
+      grid.appendChild(
+        cell
+      );
     }
 
-    taskArea.appendChild(grid);
+    taskArea.appendChild(
+      grid
+    );
   }
 
 
@@ -931,7 +1015,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createShapePalette() {
 
-    paletteBox.classList.remove("hidden");
+    paletteBox.classList.remove(
+      "hidden"
+    );
 
     palette.innerHTML = "";
 
@@ -946,56 +1032,69 @@ document.addEventListener("DOMContentLoaded", () => {
       "diamond"
     ];
 
-    shapes.forEach(shape => {
+    shapes.forEach(
+      shape => {
 
-      const item =
-        document.createElement("button");
+        const item =
+          document.createElement("button");
 
-      item.type = "button";
+        item.type = "button";
 
-      item.className =
-        "palette-item";
+        item.className =
+          "palette-item";
 
-      const symbol =
-        document.createElement("span");
+        const symbol =
+          document.createElement("span");
 
-      symbol.className =
-        "shape-symbol";
+        symbol.className =
+          "shape-symbol";
 
-      symbol.textContent =
-        shapeInfo[shape].symbol;
+        symbol.textContent =
+          shapeInfo[shape].symbol;
 
-      item.appendChild(symbol);
+        item.appendChild(
+          symbol
+        );
 
-      item.title =
-        shapeInfo[shape].label;
+        item.title =
+          shapeInfo[shape].label;
 
-      item.addEventListener(
-        "click",
-        () => {
+        item.addEventListener(
+          "click",
+          () => {
 
-          initAudio();
+            initAudio();
 
-          selectedTool = shape;
+            selectedTool =
+              shape;
 
-          document
-            .querySelectorAll(".palette-item")
-            .forEach(button => {
-              button.classList.remove(
-                "selected"
+            document
+              .querySelectorAll(
+                ".palette-item"
+              )
+              .forEach(
+                button => {
+
+                  button.classList.remove(
+                    "selected"
+                  );
+
+                }
               );
-            });
 
-          item.classList.add(
-            "selected"
-          );
+            item.classList.add(
+              "selected"
+            );
 
-          playShapeSound();
-        }
-      );
+            playShapeSound();
+          }
+        );
 
-      palette.appendChild(item);
-    });
+        palette.appendChild(
+          item
+        );
+      }
+    );
   }
 
 
@@ -1007,9 +1106,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     selectedShapeAnswer = null;
 
-    paletteBox.classList.add("hidden");
+    paletteBox.classList.add(
+      "hidden"
+    );
 
-    repeatBox.classList.add("hidden");
+    repeatBox.classList.add(
+      "hidden"
+    );
 
     const row =
       document.createElement("div");
@@ -1049,7 +1152,9 @@ document.addEventListener("DOMContentLoaded", () => {
         symbol.textContent =
           shapeInfo[shape].symbol;
 
-        option.appendChild(symbol);
+        option.appendChild(
+          symbol
+        );
 
         option.addEventListener(
           "click",
@@ -1064,11 +1169,15 @@ document.addEventListener("DOMContentLoaded", () => {
               .querySelectorAll(
                 ".shape-option"
               )
-              .forEach(item => {
-                item.classList.remove(
-                  "selected"
-                );
-              });
+              .forEach(
+                item => {
+
+                  item.classList.remove(
+                    "selected"
+                  );
+
+                }
+              );
 
             option.classList.add(
               "selected"
@@ -1078,17 +1187,20 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
 
-        row.appendChild(option);
+        row.appendChild(
+          option
+        );
       }
     );
 
-    taskArea.appendChild(row);
+    taskArea.appendChild(
+      row
+    );
   }
 
 
   /* =========================================================
      مرحله ۱۲
-     سه ردیف ۲۱ خانه‌ای
      ========================================================= */
 
   function createCombinedCheckerStage(stage) {
@@ -1096,8 +1208,13 @@ document.addEventListener("DOMContentLoaded", () => {
     currentCells = [];
     repeatCells = [];
 
-    repeatBox.classList.add("hidden");
-    paletteBox.classList.remove("hidden");
+    repeatBox.classList.add(
+      "hidden"
+    );
+
+    paletteBox.classList.remove(
+      "hidden"
+    );
 
     palette.innerHTML = "";
 
@@ -1109,6 +1226,10 @@ document.addEventListener("DOMContentLoaded", () => {
     mainBox.className =
       "combined-pattern-box";
 
+
+    /* =======================================================
+       جدول اصلی سه ردیف × ۲۱ خانه
+       ======================================================= */
 
     stage.rows.forEach(
       rowData => {
@@ -1122,11 +1243,6 @@ document.addEventListener("DOMContentLoaded", () => {
         row.style.gridTemplateColumns =
           "repeat(21, minmax(0, 1fr))";
 
-        /*
-          ۲۱ خانه:
-          ۱۴ خانه آماده
-          ۷ خانه قابل تکمیل
-        */
 
         for (let i = 0; i < 21; i++) {
 
@@ -1143,6 +1259,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           cell.dataset.expected =
             expected;
+
+
+          /*
+           * ۱۴ خانه اول آماده هستند.
+           * ۷ خانه آخر را دانش‌آموز ادامه می‌دهد.
+           */
 
           if (i < 14) {
 
@@ -1163,15 +1285,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 initAudio();
 
                 if (!selectedTool) {
+
                   playClickSound();
+
                   return;
                 }
 
                 if (
-                  selectedTool === "eraser"
+                  selectedTool ===
+                  "eraser"
                 ) {
 
-                  clearCellColor(cell);
+                  clearCellColor(
+                    cell
+                  );
 
                 } else {
 
@@ -1185,23 +1312,35 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             );
 
-            currentCells.push(cell);
+            currentCells.push(
+              cell
+            );
           }
 
-          row.appendChild(cell);
+          row.appendChild(
+            cell
+          );
         }
 
-        mainBox.appendChild(row);
+        mainBox.appendChild(
+          row
+        );
       }
     );
 
-
-    taskArea.appendChild(mainBox);
+    taskArea.appendChild(
+      mainBox
+    );
 
 
     /* =======================================================
-       بخش پایین مرحله ۱۲
+       جدول پایین مرحله ۱۲
        سه ردیف × ۶ خانه
+       
+       دانش‌آموز فقط یک بار الگو را
+       از سمت چپ تکرار می‌کند.
+       
+       خانه آخر باید خالی بماند.
        ======================================================= */
 
     const lowerBox =
@@ -1220,7 +1359,9 @@ document.addEventListener("DOMContentLoaded", () => {
     title.textContent =
       "🔁 الگوی هر ردیف را یک بار در پایین تکرار کن.";
 
-    lowerBox.appendChild(title);
+    lowerBox.appendChild(
+      title
+    );
 
 
     stage.rows.forEach(
@@ -1244,10 +1385,38 @@ document.addEventListener("DOMContentLoaded", () => {
           cell.className =
             "repeat-cell";
 
-          cell.dataset.expected =
-            rowData.pattern[
-              i % rowData.pattern.length
-            ];
+
+          /*
+           * در مرحله ۱۲:
+           *
+           * فقط پنج خانه اول
+           * متعلق به یک بار تکرار الگو هستند.
+           *
+           * خانه ششم باید خالی بماند.
+           *
+           * مثال ردیف اول:
+           * سبز | خالی | سبز | خالی | سبز | خالی
+           *
+           * ردیف دوم:
+           * خالی | سبز | خالی | قرمز | خالی | خالی
+           *
+           * ردیف سوم:
+           * سبز | خالی | سبز | خالی | سبز | خالی
+           */
+
+          if (i < 5) {
+
+            cell.dataset.expected =
+              rowData.pattern[
+                i % rowData.pattern.length
+              ];
+
+          } else {
+
+            cell.dataset.expected =
+              "";
+          }
+
 
           cell.addEventListener(
             "click",
@@ -1256,15 +1425,20 @@ document.addEventListener("DOMContentLoaded", () => {
               initAudio();
 
               if (!selectedTool) {
+
                 playClickSound();
+
                 return;
               }
 
               if (
-                selectedTool === "eraser"
+                selectedTool ===
+                "eraser"
               ) {
 
-                clearRepeatCell(cell);
+                clearRepeatCell(
+                  cell
+                );
 
               } else {
 
@@ -1275,12 +1449,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 playColorSound();
               }
+
             }
           );
 
-          repeatRow.appendChild(cell);
 
-          repeatCells.push(cell);
+          repeatRow.appendChild(
+            cell
+          );
+
+          repeatCells.push(
+            cell
+          );
         }
 
         lowerBox.appendChild(
@@ -1294,13 +1474,19 @@ document.addEventListener("DOMContentLoaded", () => {
       lowerBox
     );
 
-createCombinedPalette();
-    
+
+    createCombinedPalette();
   }
 
 
   /* =========================================================
-     بررسی مراحل رنگی
+     بررسی مراحل ۱ تا ۷
+     
+     مهم:
+     جدول پایین ۶ خانه دارد اما فقط یک بار
+     الگو باید از سمت چپ در آن تکرار شود.
+     
+     خانه‌های باقی‌مانده باید خالی باشند.
      ========================================================= */
 
   function checkColorStage(stage) {
@@ -1308,7 +1494,9 @@ createCombinedPalette();
     let correct = true;
 
 
-    /* خانه‌های اصلی */
+    /* =======================================================
+       بررسی خانه‌های اصلی
+       ======================================================= */
 
     currentCells.forEach(
       cell => {
@@ -1330,10 +1518,12 @@ createCombinedPalette();
     );
 
 
-    /* خانه‌های تکرار */
+    /* =======================================================
+       بررسی جدول پایین
+       ======================================================= */
 
     repeatCells.forEach(
-      cell => {
+      (cell, index) => {
 
         const selected =
           cell.dataset.selected;
@@ -1341,18 +1531,40 @@ createCombinedPalette();
         const expected =
           cell.dataset.expected;
 
-        if (
-          !selected ||
-          selected !== expected
-        ) {
 
-          correct = false;
+        /*
+         * خانه‌های مربوط به یک بار الگو
+         * باید دقیقاً رنگ درست داشته باشند.
+         */
+
+        if (index < stage.pattern.length) {
+
+          if (
+            !selected ||
+            selected !== expected
+          ) {
+
+            correct = false;
+          }
+
+        } else {
+
+          /*
+           * خانه‌های باقی‌مانده باید کاملاً خالی باشند.
+           */
+
+          if (selected) {
+
+            correct = false;
+          }
         }
       }
     );
 
 
-    showCheckResult(correct);
+    showCheckResult(
+      correct
+    );
   }
 
 
@@ -1383,8 +1595,9 @@ createCombinedPalette();
       }
     );
 
-
-    showCheckResult(correct);
+    showCheckResult(
+      correct
+    );
   }
 
 
@@ -1414,157 +1627,259 @@ createCombinedPalette();
       selectedShapeAnswer ===
       stage.answer;
 
-    showCheckResult(correct);
+    showCheckResult(
+      correct
+    );
+  }
+
+
+  /* =========================================================
+     پالت مخصوص مرحله ۱۲
+     سفید در پالت نیست.
+     سفید یعنی خانه خالی.
+     ========================================================= */
+
+  function createCombinedPalette() {
+
+    paletteBox.classList.remove(
+      "hidden"
+    );
+
+    palette.innerHTML = "";
+
+    selectedTool = null;
+
+    const colorNames = [
+      "green",
+      "blue",
+      "yellow",
+      "red",
+      "pink",
+      "purple"
+    ];
+
+
+    colorNames.forEach(
+      color => {
+
+        const item =
+          document.createElement("button");
+
+        item.type = "button";
+
+        item.className =
+          "palette-item";
+
+        item.dataset.color =
+          color;
+
+        item.style.background =
+          COLORS[color];
+
+        item.addEventListener(
+          "click",
+          () => {
+
+            initAudio();
+
+            selectedTool =
+              color;
+
+            document
+              .querySelectorAll(
+                ".palette-item"
+              )
+              .forEach(
+                button => {
+
+                  button.classList.remove(
+                    "selected"
+                  );
+
+                }
+              );
+
+            item.classList.add(
+              "selected"
+            );
+
+            playColorSound();
+          }
+        );
+
+        palette.appendChild(
+          item
+        );
+      }
+    );
+
+
+    /* پاک‌کن */
+
+    const eraser =
+      document.createElement("button");
+
+    eraser.type = "button";
+
+    eraser.className =
+      "palette-item eraser";
+
+    eraser.textContent =
+      "⌫";
+
+    eraser.title =
+      "پاک‌کن";
+
+    eraser.addEventListener(
+      "click",
+      () => {
+
+        initAudio();
+
+        selectedTool =
+          "eraser";
+
+        document
+          .querySelectorAll(
+            ".palette-item"
+          )
+          .forEach(
+            button => {
+
+              button.classList.remove(
+                "selected"
+              );
+
+            }
+          );
+
+        eraser.classList.add(
+          "selected"
+        );
+
+        playClickSound();
+      }
+    );
+
+    palette.appendChild(
+      eraser
+    );
   }
 
 
   /* =========================================================
      بررسی مرحله ۱۲
+     
+     سفید = خالی
+     خانه ششم جدول پایین = خالی
      ========================================================= */
-function createCombinedPalette() {
 
-  paletteBox.classList.remove("hidden");
+  function checkCombinedCheckerStage(stage) {
 
-  palette.innerHTML = "";
-
-  selectedTool = null;
-
-  const colorNames = [
-    "green",
-    "blue",
-    "yellow",
-    "red",
-    "pink",
-    "purple"
-  ];
-
-  colorNames.forEach(color => {
-
-    const item = document.createElement("button");
-
-    item.type = "button";
-    item.className = "palette-item";
-    item.dataset.color = color;
-    item.style.background = COLORS[color];
-
-    item.addEventListener("click", () => {
-
-      initAudio();
-
-      selectedTool = color;
-
-      document
-        .querySelectorAll(".palette-item")
-        .forEach(button => {
-          button.classList.remove("selected");
-        });
-
-      item.classList.add("selected");
-
-      playColorSound();
-    });
-
-    palette.appendChild(item);
-  });
+    let correct = true;
 
 
-  /* پاک‌کن */
+    /* =======================================================
+       جدول اصلی
+       ======================================================= */
 
-  const eraser = document.createElement("button");
+    currentCells.forEach(
+      cell => {
 
-  eraser.type = "button";
-  eraser.className = "palette-item eraser";
-  eraser.textContent = "⌫";
-  eraser.title = "پاک‌کن";
+        const selected =
+          cell.dataset.selected;
 
-  eraser.addEventListener("click", () => {
-
-    initAudio();
-
-    selectedTool = "eraser";
-
-    document
-      .querySelectorAll(".palette-item")
-      .forEach(button => {
-        button.classList.remove("selected");
-      });
-
-    eraser.classList.add("selected");
-
-    playClickSound();
-  });
-
-  palette.appendChild(eraser);
-}
-   function checkCombinedCheckerStage(stage) {
-
-  let correct = true;
+        const expected =
+          cell.dataset.expected;
 
 
-  /* ==========================================
-     ۷ خانه انتهایی سه ردیف اصلی
-     سفید یعنی خانه باید خالی باشد
-     ========================================== */
+        if (
+          expected === "white"
+        ) {
 
-  currentCells.forEach(cell => {
+          /*
+           * سفید یعنی خانه نباید رنگ شود.
+           */
 
-    const selected = cell.dataset.selected;
-    const expected = cell.dataset.expected;
+          if (selected) {
 
-    if (expected === "white") {
+            correct = false;
+          }
 
-      /* سفید = خالی */
+        } else {
 
-      if (selected) {
-        correct = false;
+          if (
+            !selected ||
+            selected !== expected
+          ) {
+
+            correct = false;
+          }
+        }
       }
+    );
 
-    } else {
 
-      /* رنگ واقعی باید انتخاب شده باشد */
+    /* =======================================================
+       جدول پایین
+       ======================================================= */
 
-      if (
-        !selected ||
-        selected !== expected
-      ) {
-        correct = false;
+    repeatCells.forEach(
+      cell => {
+
+        const selected =
+          cell.dataset.selected;
+
+        const expected =
+          cell.dataset.expected;
+
+
+        if (
+          expected === ""
+        ) {
+
+          /*
+           * خانه‌ای که پایان یک بار
+           * تکرار الگوست باید خالی بماند.
+           */
+
+          if (selected) {
+
+            correct = false;
+          }
+
+        } else if (
+          expected === "white"
+        ) {
+
+          /*
+           * سفید یعنی خالی.
+           */
+
+          if (selected) {
+
+            correct = false;
+          }
+
+        } else {
+
+          if (
+            !selected ||
+            selected !== expected
+          ) {
+
+            correct = false;
+          }
+        }
       }
-    }
-
-  });
+    );
 
 
-  /* ==========================================
-     ۱۸ خانه جدول پایین
-     سفید یعنی خالی
-     ========================================== */
+    showCheckResult(
+      correct
+    );
+  }
 
-  repeatCells.forEach(cell => {
-
-    const selected = cell.dataset.selected;
-    const expected = cell.dataset.expected;
-
-    if (expected === "white") {
-
-      if (selected) {
-        correct = false;
-      }
-
-    } else {
-
-      if (
-        !selected ||
-        selected !== expected
-      ) {
-        correct = false;
-      }
-    }
-
-  });
-
-
-  showCheckResult(correct);
-}
 
   /* =========================================================
      نمایش نتیجه
@@ -1633,21 +1948,30 @@ function createCombinedPalette() {
       const stage =
         stages[currentStage];
 
-      if (stage.type === "color") {
 
-        checkColorStage(stage);
+      if (
+        stage.type === "color"
+      ) {
+
+        checkColorStage(
+          stage
+        );
 
       } else if (
         stage.type === "shape"
       ) {
 
-        checkShapeStage(stage);
+        checkShapeStage(
+          stage
+        );
 
       } else if (
         stage.type === "remove"
       ) {
 
-        checkRemoveStage(stage);
+        checkRemoveStage(
+          stage
+        );
 
       } else if (
         stage.type === "combinedChecker"
@@ -1671,6 +1995,7 @@ function createCombinedPalette() {
 
     playClickSound();
 
+
     currentCells.forEach(
       cell => {
 
@@ -1681,13 +2006,15 @@ function createCombinedPalette() {
         ) {
 
           Object.keys(COLORS)
-            .forEach(color => {
+            .forEach(
+              color => {
 
-              cell.classList.remove(
-                `cell-${color}`
-              );
+                cell.classList.remove(
+                  `cell-${color}`
+                );
 
-            });
+              }
+            );
 
           delete cell.dataset.selected;
 
@@ -1701,32 +2028,38 @@ function createCombinedPalette() {
       cell => {
 
         Object.keys(COLORS)
-          .forEach(color => {
+          .forEach(
+            color => {
 
-            cell.classList.remove(
-              `cell-${color}`
-            );
+              cell.classList.remove(
+                `cell-${color}`
+              );
 
-          });
+            }
+          );
 
         delete cell.dataset.selected;
       }
     );
 
 
-    selectedShapeAnswer = null;
+    selectedShapeAnswer =
+      null;
 
 
     document
       .querySelectorAll(
         ".shape-option"
       )
-      .forEach(option => {
+      .forEach(
+        option => {
 
-        option.classList.remove(
-          "selected"
-        );
-      });
+          option.classList.remove(
+            "selected"
+          );
+
+        }
+      );
 
 
     feedback.textContent = "";
@@ -1756,9 +2089,11 @@ function createCombinedPalette() {
     currentCells = [];
     repeatCells = [];
 
-    selectedShapeAnswer = null;
+    selectedShapeAnswer =
+      null;
 
-    selectedTool = null;
+    selectedTool =
+      null;
 
 
     taskArea.innerHTML = "";
@@ -1768,9 +2103,13 @@ function createCombinedPalette() {
     palette.innerHTML = "";
 
 
-    repeatBox.classList.add("hidden");
+    repeatBox.classList.add(
+      "hidden"
+    );
 
-    paletteBox.classList.add("hidden");
+    paletteBox.classList.add(
+      "hidden"
+    );
 
 
     feedback.textContent = "";
@@ -1783,7 +2122,11 @@ function createCombinedPalette() {
     /* شماره مرحله */
 
     stageCounter.textContent =
-      `مرحله ${persianNumber(currentStage + 1)} از ${persianNumber(stages.length)}`;
+      `مرحله ${persianNumber(
+        currentStage + 1
+      )} از ${persianNumber(
+        stages.length
+      )}`;
 
 
     instruction.textContent =
@@ -1800,6 +2143,7 @@ function createCombinedPalette() {
 
     nextBtn.disabled = false;
 
+
     if (
       currentStage ===
       stages.length - 1
@@ -1815,11 +2159,15 @@ function createCombinedPalette() {
     }
 
 
-    /* ساخت محتوای مرحله */
+    /* ساخت مرحله */
 
-    if (stage.type === "color") {
+    if (
+      stage.type === "color"
+    ) {
 
-      createMainColorGrid(stage);
+      createMainColorGrid(
+        stage
+      );
 
       createRepeatGrid(
         stage.pattern
@@ -1831,7 +2179,9 @@ function createCombinedPalette() {
       stage.type === "shape"
     ) {
 
-      createShapeGrid(stage);
+      createShapeGrid(
+        stage
+      );
 
       createShapePalette();
 
@@ -1839,7 +2189,9 @@ function createCombinedPalette() {
       stage.type === "remove"
     ) {
 
-      createRemoveStage(stage);
+      createRemoveStage(
+        stage
+      );
 
     } else if (
       stage.type === "combinedChecker"
@@ -1864,7 +2216,9 @@ function createCombinedPalette() {
 
       playClickSound();
 
-      if (currentStage > 0) {
+      if (
+        currentStage > 0
+      ) {
 
         currentStage--;
 
@@ -1923,7 +2277,11 @@ function createCombinedPalette() {
 
 
     finalScore.textContent =
-      `امتیاز تو: ${persianNumber(score)} از ${persianNumber(stages.length)}`;
+      `امتیاز تو: ${persianNumber(
+        score
+      )} از ${persianNumber(
+        stages.length
+      )}`;
 
 
     playCorrectSound();
