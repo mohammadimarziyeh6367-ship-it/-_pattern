@@ -616,11 +616,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      جدول پایین مراحل ۱ تا ۷
-     
-     ۶ خانه دارد اما فقط یک بار الگو
-     باید از سمت چپ در آن نوشته شود.
-     
-     خانه‌های باقی‌مانده باید خالی بمانند.
      ========================================================= */
 
   function createRepeatGrid(pattern) {
@@ -643,18 +638,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cell.className =
         "repeat-cell";
-
-      /*
-       * فقط به اندازه طول الگو
-       * خانه دارای پاسخ است.
-       *
-       * مثال:
-       * الگوی ۳تایی:
-       * 🟩 🟩 🟥 ⬜ ⬜ ⬜
-       *
-       * الگوی ۲تایی:
-       * 🟦 🟨 ⬜ ⬜ ⬜ ⬜
-       */
 
       if (i < pattern.length) {
 
@@ -886,6 +869,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      ساخت مرحله شکل
+     
+     فقط در مرحله ۸ و ۱۰ شکل‌ها رنگی هستند.
+     منطق پاسخ‌دهی هیچ تغییری نکرده است.
      ========================================================= */
 
   function createShapeGrid(stage) {
@@ -910,6 +896,27 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.style.justifyContent =
       "start";
 
+
+    /*
+     * رنگ شکل‌های مرحله ۸ و ۱۰
+     *
+     * مرحله ۸:
+     * دایره = آبی
+     * مثلث = قرمز
+     *
+     * مرحله ۱۰:
+     * ستاره = زرد
+     * قلب = صورتی
+     */
+
+    const shapeColors = {
+      circle: COLORS.blue,
+      triangle: COLORS.red,
+      star: COLORS.yellow,
+      heart: COLORS.pink
+    };
+
+
     for (let i = 0; i < total; i++) {
 
       const cell =
@@ -917,6 +924,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       cell.className =
         "shape-cell";
+
+
+      /* =====================================================
+         شکل‌های آماده
+         ===================================================== */
 
       if (i < readyCount) {
 
@@ -937,6 +949,24 @@ document.addEventListener("DOMContentLoaded", () => {
         symbol.title =
           shapeInfo[shape].label;
 
+
+        /*
+         * فقط مرحله ۸ و ۱۰ رنگی می‌شوند.
+         * رنگ روی ظاهر شکل اعمال می‌شود و
+         * هیچ ارتباطی با جواب صحیح ندارد.
+         */
+
+        if (
+          (currentStage === 7 ||
+           currentStage === 9) &&
+          shapeColors[shape]
+        ) {
+
+          symbol.style.color =
+            shapeColors[shape];
+        }
+
+
         cell.appendChild(
           symbol
         );
@@ -946,6 +976,10 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.classList.add(
           "editable"
         );
+
+        /*
+         * expected کاملاً بدون تغییر باقی مانده است.
+         */
 
         cell.dataset.expected =
           stage.pattern[
@@ -982,9 +1016,31 @@ document.addEventListener("DOMContentLoaded", () => {
             symbol.textContent =
               shapeInfo[shape].symbol;
 
+
+            /*
+             * شکل انتخاب‌شده دانش‌آموز هم
+             * در مرحله ۸ و ۱۰ رنگی می‌شود.
+             */
+
+            if (
+              (currentStage === 7 ||
+               currentStage === 9) &&
+              shapeColors[shape]
+            ) {
+
+              symbol.style.color =
+                shapeColors[shape];
+            }
+
+
             cell.appendChild(
               symbol
             );
+
+            /*
+             * selected همان نام شکل باقی می‌ماند.
+             * بنابراین بررسی پاسخ هیچ تغییری نمی‌کند.
+             */
 
             cell.dataset.selected =
               shape;
@@ -1261,11 +1317,6 @@ document.addEventListener("DOMContentLoaded", () => {
             expected;
 
 
-          /*
-           * ۱۴ خانه اول آماده هستند.
-           * ۷ خانه آخر را دانش‌آموز ادامه می‌دهد.
-           */
-
           if (i < 14) {
 
             cell.classList.add(
@@ -1335,12 +1386,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =======================================================
        جدول پایین مرحله ۱۲
-       سه ردیف × ۶ خانه
-       
-       دانش‌آموز فقط یک بار الگو را
-       از سمت چپ تکرار می‌کند.
-       
-       خانه آخر باید خالی بماند.
        ======================================================= */
 
     const lowerBox =
@@ -1385,24 +1430,6 @@ document.addEventListener("DOMContentLoaded", () => {
           cell.className =
             "repeat-cell";
 
-
-          /*
-           * در مرحله ۱۲:
-           *
-           * فقط پنج خانه اول
-           * متعلق به یک بار تکرار الگو هستند.
-           *
-           * خانه ششم باید خالی بماند.
-           *
-           * مثال ردیف اول:
-           * سبز | خالی | سبز | خالی | سبز | خالی
-           *
-           * ردیف دوم:
-           * خالی | سبز | خالی | قرمز | خالی | خالی
-           *
-           * ردیف سوم:
-           * سبز | خالی | سبز | خالی | سبز | خالی
-           */
 
           if (i < 5) {
 
@@ -1481,22 +1508,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      بررسی مراحل ۱ تا ۷
-     
-     مهم:
-     جدول پایین ۶ خانه دارد اما فقط یک بار
-     الگو باید از سمت چپ در آن تکرار شود.
-     
-     خانه‌های باقی‌مانده باید خالی باشند.
      ========================================================= */
 
   function checkColorStage(stage) {
 
     let correct = true;
 
-
-    /* =======================================================
-       بررسی خانه‌های اصلی
-       ======================================================= */
 
     currentCells.forEach(
       cell => {
@@ -1518,10 +1535,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =======================================================
-       بررسی جدول پایین
-       ======================================================= */
-
     repeatCells.forEach(
       (cell, index) => {
 
@@ -1530,12 +1543,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const expected =
           cell.dataset.expected;
-
-
-        /*
-         * خانه‌های مربوط به یک بار الگو
-         * باید دقیقاً رنگ درست داشته باشند.
-         */
 
         if (index < stage.pattern.length) {
 
@@ -1548,10 +1555,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
         } else {
-
-          /*
-           * خانه‌های باقی‌مانده باید کاملاً خالی باشند.
-           */
 
           if (selected) {
 
@@ -1635,8 +1638,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      پالت مخصوص مرحله ۱۲
-     سفید در پالت نیست.
-     سفید یعنی خانه خالی.
      ========================================================= */
 
   function createCombinedPalette() {
@@ -1707,9 +1708,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
 
-        palette.appendChild(
-          item
-        );
+        palette.appendChild(item);
       }
     );
 
@@ -1769,19 +1768,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      بررسی مرحله ۱۲
-     
-     سفید = خالی
-     خانه ششم جدول پایین = خالی
      ========================================================= */
 
   function checkCombinedCheckerStage(stage) {
 
     let correct = true;
 
-
-    /* =======================================================
-       جدول اصلی
-       ======================================================= */
 
     currentCells.forEach(
       cell => {
@@ -1796,10 +1788,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           expected === "white"
         ) {
-
-          /*
-           * سفید یعنی خانه نباید رنگ شود.
-           */
 
           if (selected) {
 
@@ -1820,10 +1808,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =======================================================
-       جدول پایین
-       ======================================================= */
-
     repeatCells.forEach(
       cell => {
 
@@ -1838,11 +1822,6 @@ document.addEventListener("DOMContentLoaded", () => {
           expected === ""
         ) {
 
-          /*
-           * خانه‌ای که پایان یک بار
-           * تکرار الگوست باید خالی بماند.
-           */
-
           if (selected) {
 
             correct = false;
@@ -1851,10 +1830,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (
           expected === "white"
         ) {
-
-          /*
-           * سفید یعنی خالی.
-           */
 
           if (selected) {
 
@@ -2119,8 +2094,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* شماره مرحله */
-
     stageCounter.textContent =
       `مرحله ${persianNumber(
         currentStage + 1
@@ -2133,13 +2106,9 @@ document.addEventListener("DOMContentLoaded", () => {
       stage.instruction;
 
 
-    /* دکمه قبلی */
-
     prevBtn.disabled =
       currentStage === 0;
 
-
-    /* دکمه بعدی */
 
     nextBtn.disabled = false;
 
@@ -2158,8 +2127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "بعدی ➡️";
     }
 
-
-    /* ساخت مرحله */
 
     if (
       stage.type === "color"
