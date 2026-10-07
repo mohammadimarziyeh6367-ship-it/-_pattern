@@ -5,10 +5,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================================
-     عناصر صفحه
-     ========================================================= */
-
   const startScreen = document.getElementById("startScreen");
   const gameScreen = document.getElementById("gameScreen");
   const finishScreen = document.getElementById("finishScreen");
@@ -124,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["green", "green", "red"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۲ */
@@ -132,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["blue", "yellow"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۳ */
@@ -140,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["green", "red", "red"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۴ */
@@ -148,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["yellow", "blue", "green"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۵ */
@@ -156,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["red", "red", "yellow"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۶ */
@@ -164,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["green", "blue", "blue"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۷ */
@@ -172,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "color",
       pattern: ["pink", "pink", "yellow"],
       instruction:
-        "🎨 الگو را بخوان و سپس خانه‌های خالی را کامل کن."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۸ */
@@ -184,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
       readyCells: 6,
 
       instruction:
-        "🔷 الگو را بخوان و سپس آن را ادامه بده."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۹ */
@@ -204,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       answer: 3,
 
       instruction:
-        "🔍 شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
+        "شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
     },
 
     /* مرحله ۱۰ */
@@ -217,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
       readyCells: 6,
 
       instruction:
-        "🔷 الگو را بخوان و سپس آن را ادامه بده."
+        "ابتدا الگو را پیدا کن و سپس ادامه بده."
     },
 
     /* مرحله ۱۱ */
@@ -239,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       answer: 4,
 
       instruction:
-        "🔍 شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
+        "شکل اشتباه را پیدا کن و حذفش کن تا الگو درست شود."
     },
 
     /* مرحله ۱۲ */
@@ -247,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
       type: "combinedChecker",
 
       instruction:
-        "🌈 الگو را پیدا کن و سپس ادامه بده.",
+        "ابتدا الگو را پیدا کن و سپس ادامه بده.",
 
       rows: [
 
@@ -631,6 +627,15 @@ document.addEventListener("DOMContentLoaded", () => {
     repeatArea.style.gridTemplateColumns =
       "repeat(6, minmax(0, 1fr))";
 
+    const repeatTitle =
+      repeatBox.querySelector(".repeat-title");
+
+    if (repeatTitle) {
+
+      repeatTitle.textContent =
+        "الگوی تکرارشونده را فقط یک بار بنویس.";
+    }
+
     for (let i = 0; i < 6; i++) {
 
       const cell =
@@ -869,9 +874,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      ساخت مرحله شکل
-     
-     فقط در مرحله ۸ و ۱۰ شکل‌ها رنگی هستند.
-     منطق پاسخ‌دهی هیچ تغییری نکرده است.
      ========================================================= */
 
   function createShapeGrid(stage) {
@@ -897,17 +899,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "start";
 
 
-    /*
-     * رنگ شکل‌های مرحله ۸ و ۱۰
-     *
-     * مرحله ۸:
-     * دایره = آبی
-     * مثلث = قرمز
-     *
-     * مرحله ۱۰:
-     * ستاره = زرد
-     * قلب = صورتی
-     */
+    /* رنگ شکل‌های مرحله ۸ و ۱۰ */
 
     const shapeColors = {
       circle: COLORS.blue,
@@ -925,10 +917,6 @@ document.addEventListener("DOMContentLoaded", () => {
       cell.className =
         "shape-cell";
 
-
-      /* =====================================================
-         شکل‌های آماده
-         ===================================================== */
 
       if (i < readyCount) {
 
@@ -950,12 +938,6 @@ document.addEventListener("DOMContentLoaded", () => {
           shapeInfo[shape].label;
 
 
-        /*
-         * فقط مرحله ۸ و ۱۰ رنگی می‌شوند.
-         * رنگ روی ظاهر شکل اعمال می‌شود و
-         * هیچ ارتباطی با جواب صحیح ندارد.
-         */
-
         if (
           (currentStage === 7 ||
            currentStage === 9) &&
@@ -976,10 +958,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.classList.add(
           "editable"
         );
-
-        /*
-         * expected کاملاً بدون تغییر باقی مانده است.
-         */
 
         cell.dataset.expected =
           stage.pattern[
@@ -1017,11 +995,6 @@ document.addEventListener("DOMContentLoaded", () => {
               shapeInfo[shape].symbol;
 
 
-            /*
-             * شکل انتخاب‌شده دانش‌آموز هم
-             * در مرحله ۸ و ۱۰ رنگی می‌شود.
-             */
-
             if (
               (currentStage === 7 ||
                currentStage === 9) &&
@@ -1036,11 +1009,6 @@ document.addEventListener("DOMContentLoaded", () => {
             cell.appendChild(
               symbol
             );
-
-            /*
-             * selected همان نام شکل باقی می‌ماند.
-             * بنابراین بررسی پاسخ هیچ تغییری نمی‌کند.
-             */
 
             cell.dataset.selected =
               shape;
@@ -1088,6 +1056,17 @@ document.addEventListener("DOMContentLoaded", () => {
       "diamond"
     ];
 
+
+    /* رنگ ابزارهای مرحله ۸ و ۱۰ */
+
+    const shapeColors = {
+      circle: COLORS.blue,
+      triangle: COLORS.red,
+      star: COLORS.yellow,
+      heart: COLORS.pink
+    };
+
+
     shapes.forEach(
       shape => {
 
@@ -1099,6 +1078,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.className =
           "palette-item";
 
+
         const symbol =
           document.createElement("span");
 
@@ -1107,6 +1087,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         symbol.textContent =
           shapeInfo[shape].symbol;
+
+
+        /* فقط در مرحله ۸ و ۱۰ */
+
+        if (
+          (currentStage === 7 ||
+           currentStage === 9) &&
+          shapeColors[shape]
+        ) {
+
+          symbol.style.color =
+            shapeColors[shape];
+        }
+
 
         item.appendChild(
           symbol
@@ -1283,9 +1277,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "combined-pattern-box";
 
 
-    /* =======================================================
-       جدول اصلی سه ردیف × ۲۱ خانه
-       ======================================================= */
+    /* جدول اصلی */
 
     stage.rows.forEach(
       rowData => {
@@ -1384,9 +1376,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =======================================================
-       جدول پایین مرحله ۱۲
-       ======================================================= */
+    /* جدول پایین مرحله ۱۲ */
 
     const lowerBox =
       document.createElement("div");
@@ -1402,7 +1392,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "combined-repeat-title";
 
     title.textContent =
-      "🔁 الگوی هر ردیف را یک بار در پایین تکرار کن.";
+      "الگوی تکرارشونده را فقط یک بار بنویس.";
 
     lowerBox.appendChild(
       title
@@ -2225,6 +2215,124 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
+     آتش‌بازی پایان بازی
+     اگر امتیاز ۹ تا ۱۲ باشد
+     ========================================================= */
+
+  function createFireworks() {
+
+    const container =
+      document.createElement("div");
+
+    container.className =
+      "fireworks-container";
+
+    document.body.appendChild(
+      container
+    );
+
+
+    const colors = [
+      "#58c86b",
+      "#42a5f5",
+      "#ffd84d",
+      "#ef5350",
+      "#ff73ad",
+      "#9c64e8"
+    ];
+
+
+    for (
+      let burst = 0;
+      burst < 14;
+      burst++
+    ) {
+
+      setTimeout(
+        () => {
+
+          const centerX =
+            8 + Math.random() * 84;
+
+          const centerY =
+            12 + Math.random() * 68;
+
+
+          for (
+            let i = 0;
+            i < 22;
+            i++
+          ) {
+
+            const spark =
+              document.createElement("span");
+
+            spark.className =
+              "firework-spark";
+
+
+            const angle =
+              (Math.PI * 2 * i) / 22;
+
+            const distance =
+              45 + Math.random() * 80;
+
+
+            spark.style.left =
+              centerX + "%";
+
+            spark.style.top =
+              centerY + "%";
+
+            spark.style.background =
+              colors[
+                Math.floor(
+                  Math.random() *
+                  colors.length
+                )
+              ];
+
+
+            spark.style.setProperty(
+              "--x",
+              `${Math.cos(angle) * distance}px`
+            );
+
+            spark.style.setProperty(
+              "--y",
+              `${Math.sin(angle) * distance}px`
+            );
+
+
+            container.appendChild(
+              spark
+            );
+
+
+            setTimeout(
+              () => {
+                spark.remove();
+              },
+              1200
+            );
+          }
+
+        },
+        burst * 180
+      );
+    }
+
+
+    setTimeout(
+      () => {
+        container.remove();
+      },
+      4000
+    );
+  }
+
+
+  /* =========================================================
      صفحه پایان
      ========================================================= */
 
@@ -2252,6 +2360,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     playCorrectSound();
+
+
+    /* اگر ۹ تا ۱۲ مرحله درست باشد */
+
+    if (score >= 9) {
+
+      setTimeout(
+        () => {
+
+          createFireworks();
+
+        },
+        350
+      );
+    }
   }
 
 
