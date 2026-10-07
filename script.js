@@ -1,9 +1,13 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   نسخه نهایی با افکت‌های صوتی متفاوت
+   نسخه نهایی و سازگار با آیفون / Safari
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================================================
+     عناصر صفحه
+     ========================================================= */
 
   const startScreen = document.getElementById("startScreen");
   const gameScreen = document.getElementById("gameScreen");
@@ -117,7 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const stages = [
 
-    /* مرحله ۱ */
+    /* =====================================================
+       مرحله ۱
+       ===================================================== */
+
     {
       type: "color",
 
@@ -132,7 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۲ */
+    /* =====================================================
+       مرحله ۲
+       ===================================================== */
+
     {
       type: "color",
 
@@ -146,7 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۳ */
+    /* =====================================================
+       مرحله ۳
+       ===================================================== */
+
     {
       type: "color",
 
@@ -161,7 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۴ */
+    /* =====================================================
+       مرحله ۴
+       ===================================================== */
+
     {
       type: "color",
 
@@ -176,7 +192,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۵ */
+    /* =====================================================
+       مرحله ۵
+       ===================================================== */
+
     {
       type: "color",
 
@@ -191,7 +210,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۶ */
+    /* =====================================================
+       مرحله ۶
+       ===================================================== */
+
     {
       type: "color",
 
@@ -206,7 +228,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۷ */
+    /* =====================================================
+       مرحله ۷
+       ===================================================== */
+
     {
       type: "color",
 
@@ -221,7 +246,12 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۸ */
+    /* =====================================================
+       مرحله ۸
+       دایره آبی
+       مثلث قرمز
+       ===================================================== */
+
     {
       type: "shape",
 
@@ -240,7 +270,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۹ */
+    /* =====================================================
+       مرحله ۹
+       شکل اشتباه
+       ===================================================== */
+
     {
       type: "remove",
 
@@ -261,7 +295,12 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۱۰ */
+    /* =====================================================
+       مرحله ۱۰
+       ستاره زرد
+       قلب صورتی
+       ===================================================== */
+
     {
       type: "shape",
 
@@ -280,7 +319,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۱۱ */
+    /* =====================================================
+       مرحله ۱۱
+       دو مثلث → دایره → مثلث → مربع اشتباه
+       ===================================================== */
+
     {
       type: "remove",
 
@@ -304,7 +347,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
 
-    /* مرحله ۱۲ */
+    /* =====================================================
+       مرحله ۱۲
+       الگوی ترکیبی
+       ===================================================== */
+
     {
       type: "combinedChecker",
 
@@ -359,9 +406,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      سیستم صدا
+     مهم:
+     هیچ صدایی نباید مانع اجرای بازی شود.
      ========================================================= */
 
-  async function initAudio() {
+  function initAudio() {
 
     try {
 
@@ -372,10 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
           window.webkitAudioContext;
 
         if (AudioCtx) {
-
-          audioContext =
-            new AudioCtx();
-
+          audioContext = new AudioCtx();
         }
 
       }
@@ -385,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
         audioContext.state === "suspended"
       ) {
 
-        await audioContext.resume();
+        audioContext.resume().catch(() => {});
 
       }
 
@@ -399,15 +445,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     صدای پایه
+     پخش صدای ساده
      ========================================================= */
 
   function playTone(
     frequency,
     duration = 0.12,
     type = "sine",
-    volume = 0.04,
-    startTime = 0
+    volume = 0.045,
+    startDelay = 0
   ) {
 
     if (!audioContext) return;
@@ -415,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
 
       const now =
-        audioContext.currentTime + startTime;
+        audioContext.currentTime + startDelay;
 
       const oscillator =
         audioContext.createOscillator();
@@ -423,8 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const gain =
         audioContext.createGain();
 
-      oscillator.type =
-        type;
+      oscillator.type = type;
 
       oscillator.frequency.setValueAtTime(
         frequency,
@@ -432,13 +477,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       gain.gain.setValueAtTime(
-        0.001,
-        now
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
         volume,
-        now + 0.015
+        now
       );
 
       gain.gain.exponentialRampToValueAtTime(
@@ -455,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
       oscillator.start(now);
 
       oscillator.stop(
-        now + duration + 0.02
+        now + duration
       );
 
     } catch (error) {
@@ -468,16 +508,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     صدای کلیک معمولی
+     صدای کلیک
      ========================================================= */
 
   function playClickSound() {
 
+    initAudio();
+
     playTone(
       480,
-      0.055,
+      0.06,
       "sine",
-      0.025
+      0.035
     );
 
   }
@@ -489,19 +531,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playColorSound() {
 
+    initAudio();
+
     playTone(
       560,
       0.07,
       "sine",
-      0.032
+      0.035
     );
 
     playTone(
       720,
-      0.055,
+      0.08,
       "sine",
-      0.022,
-      0.045
+      0.03,
+      0.055
     );
 
   }
@@ -513,18 +557,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playShapeSound() {
 
+    initAudio();
+
     playTone(
       420,
       0.07,
       "triangle",
-      0.032
+      0.035
     );
 
     playTone(
       650,
       0.08,
       "triangle",
-      0.028,
+      0.03,
       0.055
     );
 
@@ -532,43 +578,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     صدای پاسخ صحیح
+     صدای پاسخ درست
      ========================================================= */
 
   function playCorrectSound() {
 
-    if (!audioContext) return;
+    initAudio();
 
-    playTone(
-      523.25,
-      0.12,
-      "sine",
-      0.045,
-      0
-    );
+    const notes = [
+      523,
+      659,
+      784,
+      1046
+    ];
 
-    playTone(
-      659.25,
-      0.12,
-      "sine",
-      0.05,
-      0.10
-    );
+    notes.forEach(
+      (frequency, index) => {
 
-    playTone(
-      783.99,
-      0.15,
-      "sine",
-      0.055,
-      0.20
-    );
+        playTone(
+          frequency,
+          0.12,
+          "sine",
+          0.045,
+          index * 0.09
+        );
 
-    playTone(
-      1046.50,
-      0.22,
-      "sine",
-      0.05,
-      0.31
+      }
     );
 
   }
@@ -580,30 +615,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playWrongSound() {
 
-    if (!audioContext) return;
+    initAudio();
 
-    playTone(
+    const notes = [
       330,
-      0.13,
-      "triangle",
-      0.035,
-      0
-    );
-
-    playTone(
       277,
-      0.15,
-      "triangle",
-      0.032,
-      0.11
-    );
+      220
+    ];
 
-    playTone(
-      220,
-      0.20,
-      "triangle",
-      0.028,
-      0.23
+    notes.forEach(
+      (frequency, index) => {
+
+        playTone(
+          frequency,
+          0.14,
+          "triangle",
+          0.035,
+          index * 0.10
+        );
+
+      }
     );
 
   }
@@ -615,102 +646,374 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playFinishSound() {
 
-    if (!audioContext) return;
+    initAudio();
 
-    playTone(
-      523.25,
-      0.12,
-      "sine",
-      0.04,
-      0
-    );
+    const notes = [
+      523,
+      659,
+      784,
+      1046,
+      1318
+    ];
 
-    playTone(
-      659.25,
-      0.12,
-      "sine",
-      0.045,
-      0.10
-    );
+    notes.forEach(
+      (frequency, index) => {
 
-    playTone(
-      783.99,
-      0.12,
-      "sine",
-      0.05,
-      0.20
-    );
+        playTone(
+          frequency,
+          0.14,
+          "sine",
+          0.045,
+          index * 0.10
+        );
 
-    playTone(
-      1046.50,
-      0.18,
-      "sine",
-      0.055,
-      0.30
-    );
-
-    playTone(
-      1318.51,
-      0.28,
-      "sine",
-      0.045,
-      0.44
+      }
     );
 
   }
 
 
   /* =========================================================
-     شروع بازی
+     نمایش یک رنگ
      ========================================================= */
 
-  startBtn.addEventListener(
-    "click",
-    async () => {
+  function getColorValue(colorName) {
 
-      await initAudio();
+    return COLORS[colorName] || COLORS.white;
 
-      studentName =
-        studentNameInput.value.trim();
-
-      if (!studentName) {
-
-        studentName =
-          "شکوفه‌ی عزیز";
-
-      }
-
-      playClickSound();
-
-      currentStage = 0;
-
-      score = 0;
-
-      completedStages.clear();
-
-      startScreen.classList.add(
-        "hidden"
-      );
-
-      finishScreen.classList.add(
-        "hidden"
-      );
-
-      gameScreen.classList.remove(
-        "hidden"
-      );
-
-      renderStage();
-
-    }
-  );
+  }
 
 
   /* =========================================================
-     جدول رنگی اصلی
+     ساخت خانه رنگی
+     ========================================================= */
+
+  function createColorCell(colorName) {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className = "pattern-cell";
+
+    cell.dataset.value = colorName;
+
+    cell.style.backgroundColor =
+      getColorValue(colorName);
+
+    return cell;
+
+  }
+
+
+  /* =========================================================
+     ساخت خانه شکل
+     ========================================================= */
+
+  function createShapeCell(
+    shapeName,
+    index
+  ) {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className = "shape-cell";
+
+    cell.dataset.shape = shapeName;
+
+    const shape =
+      document.createElement("span");
+
+    shape.className =
+      "shape-symbol";
+
+    shape.textContent =
+      shapeInfo[shapeName].symbol;
+
+    /*
+      مرحله ۸:
+      دایره آبی
+      مثلث قرمز
+
+      مرحله ۱۰:
+      ستاره زرد
+      قلب صورتی
+    */
+
+    if (currentStage === 7) {
+
+      if (shapeName === "circle") {
+        shape.style.color = COLORS.blue;
+      }
+
+      if (shapeName === "triangle") {
+        shape.style.color = COLORS.red;
+      }
+
+    }
+
+    if (currentStage === 9) {
+
+      if (shapeName === "star") {
+        shape.style.color = COLORS.yellow;
+      }
+
+      if (shapeName === "heart") {
+        shape.style.color = COLORS.pink;
+      }
+
+    }
+
+    /*
+      رنگ‌های پیش‌فرض برای سایر مراحل
+    */
+
+    if (
+      !shape.style.color ||
+      shape.style.color === ""
+    ) {
+
+      const defaultShapeColors = {
+        circle: COLORS.blue,
+        square: COLORS.purple,
+        triangle: COLORS.red,
+        star: COLORS.yellow,
+        heart: COLORS.pink,
+        diamond: COLORS.green
+      };
+
+      shape.style.color =
+        defaultShapeColors[shapeName] ||
+        COLORS.purple;
+
+    }
+
+    cell.appendChild(shape);
+
+    if (typeof index === "number") {
+      cell.dataset.index = index;
+    }
+
+    return cell;
+
+  }
+
+
+  /* =========================================================
+     ساخت پالت رنگ
+     ========================================================= */
+
+  function createColorPalette() {
+
+    palette.innerHTML = "";
+
+    const colors = [
+      "green",
+      "blue",
+      "yellow",
+      "red",
+      "pink",
+      "purple"
+    ];
+
+    colors.forEach(
+      colorName => {
+
+        const button =
+          document.createElement("button");
+
+        button.className =
+          "palette-color";
+
+        button.type = "button";
+
+        button.dataset.color =
+          colorName;
+
+        button.style.backgroundColor =
+          getColorValue(colorName);
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedTool =
+              colorName;
+
+            document
+              .querySelectorAll(".palette-color")
+              .forEach(
+                item =>
+                  item.classList.remove(
+                    "selected"
+                  )
+              );
+
+            button.classList.add(
+              "selected"
+            );
+
+            playColorSound();
+
+          }
+        );
+
+        palette.appendChild(button);
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     ساخت پالت شکل
+     ========================================================= */
+
+  function createShapePalette() {
+
+    palette.innerHTML = "";
+
+    let shapes = [];
+
+    if (currentStage === 7) {
+
+      shapes = [
+        "circle",
+        "triangle"
+      ];
+
+    } else if (currentStage === 9) {
+
+      shapes = [
+        "star",
+        "heart"
+      ];
+
+    } else {
+
+      shapes = [
+        "circle",
+        "square",
+        "triangle",
+        "star",
+        "heart",
+        "diamond"
+      ];
+
+    }
+
+    shapes.forEach(
+      shapeName => {
+
+        const button =
+          document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+          "palette-shape";
+
+        button.dataset.shape =
+          shapeName;
+
+        const symbol =
+          document.createElement("span");
+
+        symbol.textContent =
+          shapeInfo[shapeName].symbol;
+
+        symbol.style.fontSize =
+          "30px";
+
+        if (currentStage === 7) {
+
+          if (shapeName === "circle") {
+            symbol.style.color =
+              COLORS.blue;
+          }
+
+          if (shapeName === "triangle") {
+            symbol.style.color =
+              COLORS.red;
+          }
+
+        }
+
+        if (currentStage === 9) {
+
+          if (shapeName === "star") {
+            symbol.style.color =
+              COLORS.yellow;
+          }
+
+          if (shapeName === "heart") {
+            symbol.style.color =
+              COLORS.pink;
+          }
+
+        }
+
+        if (!symbol.style.color) {
+
+          const shapeColors = {
+            circle: COLORS.blue,
+            square: COLORS.purple,
+            triangle: COLORS.red,
+            star: COLORS.yellow,
+            heart: COLORS.pink,
+            diamond: COLORS.green
+          };
+
+          symbol.style.color =
+            shapeColors[shapeName];
+
+        }
+
+        button.appendChild(symbol);
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedTool =
+              shapeName;
+
+            document
+              .querySelectorAll(
+                ".palette-shape"
+              )
+              .forEach(
+                item =>
+                  item.classList.remove(
+                    "selected"
+                  )
+              );
+
+            button.classList.add(
+              "selected"
+            );
+
+            playShapeSound();
+
+          }
+        );
+
+        palette.appendChild(button);
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     ساخت شبکه رنگی
      ========================================================= */
 
   function createMainColorGrid(stage) {
+
+    taskArea.innerHTML = "";
 
     currentCells = [];
 
@@ -723,19 +1026,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const pattern =
       stage.pattern;
 
-    const total =
-      pattern.length * 4;
+    const patternLength =
+      pattern.length;
 
-    const readyCount =
-      pattern.length * 2;
-
-    grid.style.gridTemplateColumns =
-      `repeat(${total}, minmax(0, 1fr))`;
-
+    const totalCells = 21;
 
     for (
       let i = 0;
-      i < total;
+      i < totalCells;
       i++
     ) {
 
@@ -745,470 +1043,63 @@ document.addEventListener("DOMContentLoaded", () => {
       cell.className =
         "pattern-cell";
 
-      const expected =
-        pattern[
-          i % pattern.length
-        ];
+      if (i < 7) {
 
-      cell.dataset.expected =
-        expected;
+        const colorName =
+          pattern[i % patternLength];
 
+        cell.style.backgroundColor =
+          getColorValue(colorName);
 
-      if (i < readyCount) {
-
-        cell.classList.add(
-          `cell-${expected}`
-        );
+        cell.dataset.locked =
+          "true";
 
       } else {
 
         cell.classList.add(
-          "editable"
+          "answer-cell"
         );
+
+        cell.dataset.index =
+          i;
 
         cell.addEventListener(
           "click",
-          async () => {
+          () => {
 
-            await initAudio();
+            if (!selectedTool) return;
 
-            if (!selectedTool) {
+            cell.style.backgroundColor =
+              getColorValue(selectedTool);
 
-              playClickSound();
-
-              return;
-
-            }
-
-
-            if (
-              selectedTool === "eraser"
-            ) {
-
-              clearCellColor(
-                cell
-              );
-
-            } else {
-
-              setCellColor(
-                cell,
-                selectedTool
-              );
-
-              playColorSound();
-
-            }
-
-          }
-        );
-
-        currentCells.push(
-          cell
-        );
-
-      }
-
-      grid.appendChild(
-        cell
-      );
-
-    }
-
-    taskArea.appendChild(
-      grid
-    );
-
-  }
-
-
-  /* =========================================================
-     رنگ‌آمیزی خانه اصلی
-     ========================================================= */
-
-  function setCellColor(
-    cell,
-    color
-  ) {
-
-    Object.keys(
-      COLORS
-    ).forEach(
-      name => {
-
-        cell.classList.remove(
-          `cell-${name}`
-        );
-
-      }
-    );
-
-    cell.classList.add(
-      `cell-${color}`
-    );
-
-    cell.dataset.selected =
-      color;
-
-  }
-
-
-  function clearCellColor(
-    cell
-  ) {
-
-    Object.keys(
-      COLORS
-    ).forEach(
-      name => {
-
-        cell.classList.remove(
-          `cell-${name}`
-        );
-
-      }
-    );
-
-    delete cell.dataset.selected;
-
-    cell.classList.add(
-      "editable"
-    );
-
-    playClickSound();
-
-  }
-
-
-  /* =========================================================
-     جدول پایین مراحل ۱ تا ۷
-     ========================================================= */
-
-  function createRepeatGrid(
-    pattern
-  ) {
-
-    repeatCells = [];
-
-    repeatBox.classList.remove(
-      "hidden"
-    );
-
-    repeatArea.innerHTML = "";
-
-    repeatArea.style.gridTemplateColumns =
-      "repeat(6, minmax(0, 1fr))";
-
-
-    const repeatTitle =
-      repeatBox.querySelector(
-        ".repeat-title"
-      );
-
-    if (repeatTitle) {
-
-      repeatTitle.textContent =
-        "الگوی تکرارشونده را فقط یک بار بنویس.";
-
-    }
-
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-
-      const cell =
-        document.createElement("div");
-
-      cell.className =
-        "repeat-cell";
-
-
-      if (
-        i < pattern.length
-      ) {
-
-        cell.dataset.expected =
-          pattern[i];
-
-      } else {
-
-        cell.dataset.expected =
-          "";
-
-      }
-
-
-      cell.addEventListener(
-        "click",
-        async () => {
-
-          await initAudio();
-
-          if (!selectedTool) {
-
-            playClickSound();
-
-            return;
-
-          }
-
-
-          if (
-            selectedTool === "eraser"
-          ) {
-
-            clearRepeatCell(
-              cell
-            );
-
-          } else {
-
-            setRepeatCellColor(
-              cell,
-              selectedTool
-            );
-
-            playColorSound();
-
-          }
-
-        }
-      );
-
-
-      repeatArea.appendChild(
-        cell
-      );
-
-      repeatCells.push(
-        cell
-      );
-
-    }
-
-  }
-
-
-  function setRepeatCellColor(
-    cell,
-    color
-  ) {
-
-    Object.keys(
-      COLORS
-    ).forEach(
-      name => {
-
-        cell.classList.remove(
-          `cell-${name}`
-        );
-
-      }
-    );
-
-    cell.classList.add(
-      `cell-${color}`
-    );
-
-    cell.dataset.selected =
-      color;
-
-  }
-
-
-  function clearRepeatCell(
-    cell
-  ) {
-
-    Object.keys(
-      COLORS
-    ).forEach(
-      name => {
-
-        cell.classList.remove(
-          `cell-${name}`
-        );
-
-      }
-    );
-
-    delete cell.dataset.selected;
-
-    playClickSound();
-
-  }
-
-
-  /* =========================================================
-     پالت رنگ
-     ========================================================= */
-
-  function createColorPalette() {
-
-    paletteBox.classList.remove(
-      "hidden"
-    );
-
-    palette.innerHTML = "";
-
-    selectedTool = null;
-
-
-    const colorNames = [
-      "green",
-      "blue",
-      "yellow",
-      "red",
-      "pink",
-      "purple",
-      "white"
-    ];
-
-
-    colorNames.forEach(
-      color => {
-
-        const item =
-          document.createElement(
-            "button"
-          );
-
-        item.type = "button";
-
-        item.className =
-          "palette-item";
-
-        item.dataset.color =
-          color;
-
-        item.style.background =
-          COLORS[color];
-
-
-        if (
-          color === "white"
-        ) {
-
-          item.style.border =
-            "3px solid #3d3151";
-
-        }
-
-
-        item.addEventListener(
-          "click",
-          async () => {
-
-            await initAudio();
-
-            selectedTool =
-              color;
-
-
-            document
-              .querySelectorAll(
-                ".palette-item"
-              )
-              .forEach(
-                button => {
-
-                  button.classList.remove(
-                    "selected"
-                  );
-
-                }
-              );
-
-
-            item.classList.add(
-              "selected"
-            );
+            cell.dataset.value =
+              selectedTool;
 
             playColorSound();
 
           }
         );
 
-
-        palette.appendChild(
-          item
-        );
-
       }
-    );
 
+      grid.appendChild(cell);
 
-    /* پاک‌کن */
+      currentCells.push(cell);
 
-    const eraser =
-      document.createElement(
-        "button"
-      );
+    }
 
-    eraser.type = "button";
-
-    eraser.className =
-      "palette-item eraser";
-
-    eraser.textContent =
-      "⌫";
-
-    eraser.title =
-      "پاک‌کن";
-
-
-    eraser.addEventListener(
-      "click",
-      async () => {
-
-        await initAudio();
-
-        selectedTool =
-          "eraser";
-
-
-        document
-          .querySelectorAll(
-            ".palette-item"
-          )
-          .forEach(
-            button => {
-
-              button.classList.remove(
-                "selected"
-              );
-
-            }
-          );
-
-
-        eraser.classList.add(
-          "selected"
-        );
-
-        playClickSound();
-
-      }
-    );
-
-
-    palette.appendChild(
-      eraser
-    );
+    taskArea.appendChild(grid);
 
   }
 
 
   /* =========================================================
-     ساخت مرحله شکل
+     ساخت شبکه شکل
      ========================================================= */
 
-  function createShapeGrid(
-    stage
-  ) {
+  function createMainShapeGrid(stage) {
+
+    taskArea.innerHTML = "";
 
     currentCells = [];
 
@@ -1218,198 +1109,366 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.className =
       "shape-grid";
 
+    const pattern =
+      stage.pattern;
 
-    const total =
+    const totalCells =
       stage.totalCells;
 
-    const readyCount =
+    const readyCells =
       stage.readyCells;
-
-
-    grid.style.gridTemplateColumns =
-      `repeat(${total}, minmax(0, 1fr))`;
-
-    grid.style.justifyContent =
-      "start";
-
-
-    /* رنگ شکل‌های مرحله ۸ و ۱۰ */
-
-    const shapeColors = {
-
-      circle:
-        COLORS.blue,
-
-      triangle:
-        COLORS.red,
-
-      star:
-        COLORS.yellow,
-
-      heart:
-        COLORS.pink
-
-    };
-
 
     for (
       let i = 0;
-      i < total;
+      i < totalCells;
       i++
     ) {
 
       const cell =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
       cell.className =
         "shape-cell";
 
+      if (i < readyCells) {
 
-      if (
-        i < readyCount
-      ) {
-
-        const shape =
-          stage.pattern[
-            i %
-            stage.pattern.length
+        const shapeName =
+          pattern[
+            i % pattern.length
           ];
 
-
-        const symbol =
-          document.createElement(
-            "span"
+        const readyCell =
+          createShapeCell(
+            shapeName,
+            i
           );
 
-        symbol.className =
-          "shape-symbol";
+        cell.replaceWith(
+          readyCell
+        );
 
-        symbol.textContent =
-          shapeInfo[
-            shape
-          ].symbol;
+        currentCells.push(
+          readyCell
+        );
 
-        symbol.title =
-          shapeInfo[
-            shape
-          ].label;
+        continue;
 
+      }
 
-        if (
-          (
-            currentStage === 7 ||
-            currentStage === 9
-          ) &&
-          shapeColors[shape]
-        ) {
+      cell.classList.add(
+        "answer-cell"
+      );
 
-          symbol.style.color =
-            shapeColors[shape];
+      cell.dataset.index =
+        i;
+
+      cell.addEventListener(
+        "click",
+        () => {
+
+          if (!selectedTool) return;
+
+          const newCell =
+            createShapeCell(
+              selectedTool,
+              i
+            );
+
+          newCell.classList.add(
+            "answer-cell"
+          );
+
+          newCell.addEventListener(
+            "click",
+            () => {
+
+              if (!selectedTool) return;
+
+              const replacement =
+                createShapeCell(
+                  selectedTool,
+                  i
+                );
+
+              replacement.classList.add(
+                "answer-cell"
+              );
+
+              replacement.addEventListener(
+                "click",
+                () => {
+
+                  if (!selectedTool) return;
+
+                  const again =
+                    createShapeCell(
+                      selectedTool,
+                      i
+                    );
+
+                  again.classList.add(
+                    "answer-cell"
+                  );
+
+                  currentCells[i] =
+                    again;
+
+                  grid.replaceChild(
+                    again,
+                    currentCells[i]
+                  );
+
+                }
+              );
+
+              currentCells[i] =
+                replacement;
+
+            }
+          );
+
+          currentCells[i] =
+            newCell;
+
+          grid.replaceChild(
+            newCell,
+            cell
+          );
+
+          playShapeSound();
 
         }
+      );
+
+      grid.appendChild(cell);
+
+      currentCells.push(cell);
+
+    }
+
+    taskArea.appendChild(grid);
+
+  }
 
 
-        cell.appendChild(
-          symbol
-        );
+  /* =========================================================
+     شبکه تکرار شونده
+     فقط یک بار نمایش داده می‌شود
+     ========================================================= */
+
+  function createRepeatGrid(stage) {
+
+    repeatArea.innerHTML = "";
+
+    repeatCells = [];
+
+    if (
+      stage.type !== "color" &&
+      stage.type !== "shape"
+    ) {
+
+      repeatBox.classList.add(
+        "hidden"
+      );
+
+      return;
+
+    }
+
+    repeatBox.classList.remove(
+      "hidden"
+    );
+
+    const title =
+      document.createElement("div");
+
+    title.className =
+      "repeat-title";
+
+    title.textContent =
+      "الگوی تکرارشونده را فقط یک بار بنویس.";
+
+    repeatArea.appendChild(
+      title
+    );
+
+    const grid =
+      document.createElement("div");
+
+    grid.className =
+      stage.type === "color"
+        ? "repeat-grid"
+        : "repeat-shape-grid";
+
+    const count =
+      stage.pattern.length;
+
+    for (
+      let i = 0;
+      i < count;
+      i++
+    ) {
+
+      const cell =
+        document.createElement("div");
+
+      cell.className =
+        "repeat-answer-cell";
+
+      cell.dataset.index =
+        i;
+
+      cell.addEventListener(
+        "click",
+        () => {
+
+          if (!selectedTool) return;
+
+          if (stage.type === "color") {
+
+            cell.style.backgroundColor =
+              getColorValue(
+                selectedTool
+              );
+
+            cell.dataset.value =
+              selectedTool;
+
+            playColorSound();
+
+          } else {
+
+            const newCell =
+              createShapeCell(
+                selectedTool,
+                i
+              );
+
+            newCell.classList.add(
+              "repeat-answer-cell"
+            );
+
+            newCell.addEventListener(
+              "click",
+              () => {
+
+                if (!selectedTool) return;
+
+                const replacement =
+                  createShapeCell(
+                    selectedTool,
+                    i
+                  );
+
+                replacement.classList.add(
+                  "repeat-answer-cell"
+                );
+
+                repeatCells[i] =
+                  replacement;
+
+                grid.replaceChild(
+                  replacement,
+                  repeatCells[i]
+                );
+
+                playShapeSound();
+
+              }
+            );
+
+            repeatCells[i] =
+              newCell;
+
+            grid.replaceChild(
+              newCell,
+              cell
+            );
+
+            playShapeSound();
+
+          }
+
+        }
+      );
+
+      grid.appendChild(cell);
+
+      repeatCells.push(cell);
+
+    }
+
+    repeatArea.appendChild(grid);
+
+  }
 
 
-      } else {
+  /* =========================================================
+     مرحله حذف شکل اشتباه
+     ========================================================= */
+
+  function createRemoveStage(stage) {
+
+    taskArea.innerHTML = "";
+
+    repeatBox.classList.add(
+      "hidden"
+    );
+
+    paletteBox.classList.add(
+      "hidden"
+    );
+
+    const grid =
+      document.createElement("div");
+
+    grid.className =
+      "remove-grid";
+
+    stage.shapes.forEach(
+      (shapeName, index) => {
+
+        const cell =
+          createShapeCell(
+            shapeName,
+            index
+          );
 
         cell.classList.add(
-          "editable"
+          "removable-shape"
         );
-
-        cell.dataset.expected =
-          stage.pattern[
-            i %
-            stage.pattern.length
-          ];
-
 
         cell.addEventListener(
           "click",
-          async () => {
+          () => {
 
-            await initAudio();
+            selectedShapeAnswer =
+              index;
 
-            const shape =
-              selectedTool;
-
-
-            if (
-              !shape ||
-              !shapeInfo[shape]
-            ) {
-
-              playClickSound();
-
-              return;
-
-            }
-
-
-            cell.innerHTML = "";
-
-
-            const symbol =
-              document.createElement(
-                "span"
+            document
+              .querySelectorAll(
+                ".removable-shape"
+              )
+              .forEach(
+                item =>
+                  item.classList.remove(
+                    "selected-remove"
+                  )
               );
 
-            symbol.className =
-              "shape-symbol";
-
-            symbol.textContent =
-              shapeInfo[
-                shape
-              ].symbol;
-
-
-            if (
-              (
-                currentStage === 7 ||
-                currentStage === 9
-              ) &&
-              shapeColors[shape]
-            ) {
-
-              symbol.style.color =
-                shapeColors[shape];
-
-            }
-
-
-            cell.appendChild(
-              symbol
+            cell.classList.add(
+              "selected-remove"
             );
-
-
-            cell.dataset.selected =
-              shape;
-
 
             playShapeSound();
 
           }
         );
 
-
-        currentCells.push(
-          cell
-        );
+        grid.appendChild(cell);
 
       }
-
-
-      grid.appendChild(
-        cell
-      );
-
-    }
-
+    );
 
     taskArea.appendChild(
       grid
@@ -1419,497 +1478,816 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =========================================================
-     پالت شکل‌ها
+     مرحله ۱۲
      ========================================================= */
 
-  function createShapePalette() {
+  function createCombinedChecker(stage) {
 
-    paletteBox.classList.remove(
+    taskArea.innerHTML = "";
+
+    repeatBox.classList.add(
       "hidden"
     );
-
-    palette.innerHTML = "";
-
-    selectedTool = null;
-
-
-    const shapes = [
-      "circle",
-      "square",
-      "triangle",
-      "star",
-      "heart",
-      "diamond"
-    ];
-
-
-    const shapeColors = {
-
-      circle:
-        COLORS.blue,
-
-      triangle:
-        COLORS.red,
-
-      star:
-        COLORS.yellow,
-
-      heart:
-        COLORS.pink
-
-    };
-
-
-    shapes.forEach(
-      shape => {
-
-        const item =
-          document.createElement(
-            "button"
-          );
-
-        item.type = "button";
-
-        item.className =
-          "palette-item";
-
-
-        const symbol =
-          document.createElement(
-            "span"
-          );
-
-        symbol.className =
-          "shape-symbol";
-
-        symbol.textContent =
-          shapeInfo[
-            shape
-          ].symbol;
-
-
-        if (
-          (
-            currentStage === 7 ||
-            currentStage === 9
-          ) &&
-          shapeColors[shape]
-        ) {
-
-          symbol.style.color =
-            shapeColors[shape];
-
-        }
-
-
-        item.appendChild(
-          symbol
-        );
-
-
-        item.title =
-          shapeInfo[
-            shape
-          ].label;
-
-
-        item.addEventListener(
-          "click",
-          async () => {
-
-            await initAudio();
-
-            selectedTool =
-              shape;
-
-
-            document
-              .querySelectorAll(
-                ".palette-item"
-              )
-              .forEach(
-                button => {
-
-                  button.classList.remove(
-                    "selected"
-                  );
-
-                }
-              );
-
-
-            item.classList.add(
-              "selected"
-            );
-
-
-            playShapeSound();
-
-          }
-        );
-
-
-        palette.appendChild(
-          item
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =========================================================
-     مرحله حذف شکل
-     ========================================================= */
-
-  function createRemoveStage(
-    stage
-  ) {
-
-    selectedShapeAnswer =
-      null;
-
 
     paletteBox.classList.add(
       "hidden"
     );
 
-    repeatBox.classList.add(
-      "hidden"
-    );
+    const wrapper =
+      document.createElement("div");
 
+    wrapper.className =
+      "combined-checker";
 
-    const row =
-      document.createElement(
-        "div"
-      );
+    stage.rows.forEach(
+      row => {
 
-    row.className =
-      "shape-row";
+        const rowElement =
+          document.createElement("div");
 
+        rowElement.className =
+          "checker-row";
 
-    row.style.gridTemplateColumns =
-      `repeat(${stage.shapes.length}, minmax(0, 1fr))`;
+        row.pattern.forEach(
+          colorName => {
 
-    row.style.justifyContent =
-      "start";
+            const cell =
+              document.createElement("div");
 
-    row.style.direction =
-      "ltr";
+            cell.className =
+              "checker-cell";
 
+            cell.style.backgroundColor =
+              getColorValue(colorName);
 
-    stage.shapes.forEach(
-      (
-        shape,
-        index
-      ) => {
-
-        const option =
-          document.createElement(
-            "button"
-          );
-
-        option.type = "button";
-
-        option.className =
-          "shape-option";
-
-        option.dataset.index =
-          index;
-
-
-        const symbol =
-          document.createElement(
-            "span"
-          );
-
-        symbol.className =
-          "remove-shape-symbol";
-
-        symbol.textContent =
-          shapeInfo[
-            shape
-          ].symbol;
-
-
-        option.appendChild(
-          symbol
-        );
-
-
-        option.addEventListener(
-          "click",
-          async () => {
-
-            await initAudio();
-
-            selectedShapeAnswer =
-              index;
-
-
-            document
-              .querySelectorAll(
-                ".shape-option"
-              )
-              .forEach(
-                item => {
-
-                  item.classList.remove(
-                    "selected"
-                  );
-
-                }
-              );
-
-
-            option.classList.add(
-              "selected"
+            rowElement.appendChild(
+              cell
             );
-
-
-            playShapeSound();
 
           }
         );
 
-
-        row.appendChild(
-          option
+        wrapper.appendChild(
+          rowElement
         );
 
       }
     );
 
-
     taskArea.appendChild(
-      row
+      wrapper
     );
 
   }
 
 
   /* =========================================================
-     مرحله ۱۲
+     نمایش مرحله
      ========================================================= */
 
-  function createCombinedCheckerStage(
-    stage
-  ) {
+  function renderStage() {
+
+    const stage =
+      stages[currentStage];
+
+    selectedTool = null;
+
+    selectedShapeAnswer = null;
 
     currentCells = [];
 
     repeatCells = [];
 
+    feedback.textContent = "";
 
-    repeatBox.classList.add(
-      "hidden"
-    );
+    feedback.className =
+      "feedback";
 
-    paletteBox.classList.remove(
-      "hidden"
-    );
+    stageCounter.textContent =
+      `مرحله ${persianNumber(currentStage + 1)} از ${persianNumber(stages.length)}`;
 
-    palette.innerHTML = "";
-
-    selectedTool = null;
+    instruction.textContent =
+      stage.instruction;
 
 
-    const mainBox =
-      document.createElement(
-        "div"
+    /* دکمه‌ها */
+
+    if (prevBtn) {
+
+      prevBtn.disabled =
+        currentStage === 0;
+
+    }
+
+    if (nextBtn) {
+
+      nextBtn.disabled =
+        currentStage ===
+        stages.length - 1;
+
+    }
+
+
+    /* نوع مرحله */
+
+    if (stage.type === "color") {
+
+      paletteBox.classList.remove(
+        "hidden"
       );
 
-    mainBox.className =
-      "combined-pattern-box";
+      createColorPalette();
+
+      createMainColorGrid(
+        stage
+      );
+
+      createRepeatGrid(
+        stage
+      );
+
+    }
 
 
-    /* جدول اصلی */
+    else if (stage.type === "shape") {
 
-    stage.rows.forEach(
-      rowData => {
+      paletteBox.classList.remove(
+        "hidden"
+      );
 
-        const row =
-          document.createElement(
-            "div"
-          );
+      createShapePalette();
 
-        row.className =
-          "combined-row-box";
+      createMainShapeGrid(
+        stage
+      );
 
-        row.style.gridTemplateColumns =
-          "repeat(21, minmax(0, 1fr))";
+      createRepeatGrid(
+        stage
+      );
+
+    }
 
 
-        for (
-          let i = 0;
-          i < 21;
-          i++
-        ) {
+    else if (stage.type === "remove") {
 
-          const cell =
-            document.createElement(
-              "div"
-            );
+      createRemoveStage(
+        stage
+      );
 
-          cell.className =
-            "pattern-cell";
+    }
 
+
+    else if (
+      stage.type === "combinedChecker"
+    ) {
+
+      createCombinedChecker(
+        stage
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     بررسی مرحله
+     ========================================================= */
+
+  function checkCurrentStage() {
+
+    const stage =
+      stages[currentStage];
+
+    let correct = false;
+
+
+    /* =====================================================
+       مراحل رنگی
+       ===================================================== */
+
+    if (stage.type === "color") {
+
+      correct = true;
+
+      const pattern =
+        stage.pattern;
+
+      const patternLength =
+        pattern.length;
+
+      currentCells.forEach(
+        (cell, index) => {
+
+          if (index < 7) return;
 
           const expected =
-            rowData.pattern[
-              i %
-              rowData.pattern.length
+            pattern[
+              index % patternLength
             ];
 
-
-          cell.dataset.expected =
-            expected;
-
+          const actual =
+            cell.dataset.value;
 
           if (
-            i < 14
+            actual !== expected
           ) {
 
-            cell.classList.add(
-              `cell-${expected}`
-            );
-
-          } else {
-
-            cell.classList.add(
-              "editable"
-            );
-
-
-            cell.addEventListener(
-              "click",
-              async () => {
-
-                await initAudio();
-
-
-                if (
-                  !selectedTool
-                ) {
-
-                  playClickSound();
-
-                  return;
-
-                }
-
-
-                if (
-                  selectedTool ===
-                  "eraser"
-                ) {
-
-                  clearCellColor(
-                    cell
-                  );
-
-                } else {
-
-                  setCellColor(
-                    cell,
-                    selectedTool
-                  );
-
-                  playColorSound();
-
-                }
-
-              }
-            );
-
-
-            currentCells.push(
-              cell
-            );
+            correct = false;
 
           }
 
+        }
+      );
 
-          row.appendChild(
-            cell
-          );
+      /*
+        بررسی الگوی تکرارشونده
+      */
+
+      if (correct) {
+
+        repeatCells.forEach(
+          (cell, index) => {
+
+            const expected =
+              pattern[index];
+
+            const actual =
+              cell.dataset.value;
+
+            if (
+              actual !== expected
+            ) {
+
+              correct = false;
+
+            }
+
+          }
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       مراحل شکلی
+       ===================================================== */
+
+    else if (stage.type === "shape") {
+
+      correct = true;
+
+      const pattern =
+        stage.pattern;
+
+      const patternLength =
+        pattern.length;
+
+      currentCells.forEach(
+        (cell, index) => {
+
+          if (index < stage.readyCells) {
+            return;
+          }
+
+          const expected =
+            pattern[
+              index % patternLength
+            ];
+
+          const actual =
+            cell.dataset.shape;
+
+          if (
+            actual !== expected
+          ) {
+
+            correct = false;
+
+          }
+
+        }
+      );
+
+      if (correct) {
+
+        repeatCells.forEach(
+          (cell, index) => {
+
+            const expected =
+              pattern[index];
+
+            const actual =
+              cell.dataset.shape;
+
+            if (
+              actual !== expected
+            ) {
+
+              correct = false;
+
+            }
+
+          }
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       مرحله حذف
+       ===================================================== */
+
+    else if (stage.type === "remove") {
+
+      correct =
+        selectedShapeAnswer ===
+        stage.answer;
+
+    }
+
+
+    /* =====================================================
+       نمایش نتیجه
+       ===================================================== */
+
+    if (correct) {
+
+      if (
+        !completedStages.has(
+          currentStage
+        )
+      ) {
+
+        score++;
+
+        completedStages.add(
+          currentStage
+        );
+
+      }
+
+      feedback.textContent =
+        "آفرین! پاسخ درست است 🌟";
+
+      feedback.classList.add(
+        "correct"
+      );
+
+      playCorrectSound();
+
+    }
+
+    else {
+
+      feedback.textContent =
+        "اشتباه است؛ دوباره تلاش کن 🌱";
+
+      feedback.classList.add(
+        "wrong"
+      );
+
+      playWrongSound();
+
+    }
+
+
+    /*
+      مرحله ۱۲ یا آخرین مرحله:
+      اگر درست باشد، امکان پایان
+    */
+
+    if (
+      correct &&
+      currentStage ===
+      stages.length - 1
+    ) {
+
+      setTimeout(
+        showFinish,
+        900
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     نمایش پایان
+     ========================================================= */
+
+  function showFinish() {
+
+    gameScreen.classList.add(
+      "hidden"
+    );
+
+    finishScreen.classList.remove(
+      "hidden"
+    );
+
+    finalScore.textContent =
+      `${persianNumber(score)} از ${persianNumber(stages.length)}`;
+
+    finishText.textContent =
+      `${studentName} عزیز، بازی را به پایان رساندی!`;
+
+    playFinishSound();
+
+    /*
+      امتیاز ۹ تا ۱۲
+      آتش‌بازی
+    */
+
+    if (score >= 9) {
+
+      launchFireworks();
+
+    }
+
+  }
+
+
+  /* =========================================================
+     آتش‌بازی
+     ========================================================= */
+
+  function launchFireworks() {
+
+    let fireworks =
+      document.getElementById(
+        "fireworks"
+      );
+
+    if (!fireworks) {
+
+      fireworks =
+        document.createElement("div");
+
+      fireworks.id =
+        "fireworks";
+
+      fireworks.style.position =
+        "fixed";
+
+      fireworks.style.inset =
+        "0";
+
+      fireworks.style.pointerEvents =
+        "none";
+
+      fireworks.style.zIndex =
+        "99999";
+
+      fireworks.style.overflow =
+        "hidden";
+
+      document.body.appendChild(
+        fireworks
+      );
+
+    }
+
+    fireworks.innerHTML = "";
+
+    const colors = [
+      "#58c86b",
+      "#42a5f5",
+      "#ffd84d",
+      "#ef5350",
+      "#ff73ad",
+      "#9c64e8"
+    ];
+
+    for (
+      let i = 0;
+      i < 90;
+      i++
+    ) {
+
+      const particle =
+        document.createElement("div");
+
+      particle.style.position =
+        "absolute";
+
+      particle.style.width =
+        "8px";
+
+      particle.style.height =
+        "8px";
+
+      particle.style.borderRadius =
+        "50%";
+
+      particle.style.background =
+        colors[
+          Math.floor(
+            Math.random() *
+            colors.length
+          )
+        ];
+
+      particle.style.left =
+        Math.random() * 100 + "%";
+
+      particle.style.top =
+        Math.random() * 65 + "%";
+
+      particle.style.boxShadow =
+        "0 0 10px rgba(255,255,255,.8)";
+
+      const duration =
+        1.5 + Math.random() * 2;
+
+      particle.animate(
+        [
+          {
+            transform:
+              "translateY(0) scale(1)",
+            opacity: 1
+          },
+
+          {
+            transform:
+              `translate(
+                ${(Math.random() - 0.5) * 300}px,
+                ${150 + Math.random() * 350}px
+              ) scale(0.2)`,
+            opacity: 0
+          }
+
+        ],
+        {
+          duration:
+            duration * 1000,
+
+          easing:
+            "cubic-bezier(.2,.7,.3,1)",
+
+          fill:
+            "forwards"
+        }
+      );
+
+      fireworks.appendChild(
+        particle
+      );
+
+    }
+
+    setTimeout(
+      () => {
+
+        if (fireworks) {
+          fireworks.innerHTML = "";
+        }
+
+      },
+      4000
+    );
+
+  }
+
+
+  /* =========================================================
+     دکمه شروع بازی
+     مهم:
+     این قسمت عمداً async نیست.
+     بنابراین صدا نمی‌تواند جلوی شروع بازی را بگیرد.
+     ========================================================= */
+
+  if (startBtn) {
+
+    startBtn.addEventListener(
+      "click",
+      () => {
+
+        studentName =
+          studentNameInput
+            ? studentNameInput.value.trim()
+            : "";
+
+        if (!studentName) {
+
+          studentName =
+            "شکوفه‌ی عزیز";
 
         }
 
+        currentStage = 0;
 
-        mainBox.appendChild(
-          row
+        score = 0;
+
+        completedStages.clear();
+
+        startScreen.classList.add(
+          "hidden"
+        );
+
+        finishScreen.classList.add(
+          "hidden"
+        );
+
+        gameScreen.classList.remove(
+          "hidden"
+        );
+
+        /*
+          اول صفحه بازی نمایش داده شود
+          سپس صدا فعال شود.
+        */
+
+        renderStage();
+
+        initAudio();
+
+        setTimeout(
+          () => {
+            playClickSound();
+          },
+          80
         );
 
       }
     );
 
+  }
 
-    taskArea.appendChild(
-      mainBox
+
+  /* =========================================================
+     دکمه مرحله قبل
+     ========================================================= */
+
+  if (prevBtn) {
+
+    prevBtn.addEventListener(
+      "click",
+      () => {
+
+        if (
+          currentStage <= 0
+        ) {
+          return;
+        }
+
+        currentStage--;
+
+        playClickSound();
+
+        renderStage();
+
+      }
     );
 
-
-    /* جدول پایین */
-
-    const lowerBox =
-      document.createElement(
-        "div"
-      );
-
-    lowerBox.className =
-      "combined-repeat-box";
+  }
 
 
-    const title =
-      document.createElement(
-        "div"
-      );
+  /* =========================================================
+     دکمه مرحله بعد
+     ========================================================= */
 
-    title.className =
-      "combined-repeat-title";
+  if (nextBtn) {
 
-    title.textContent =
-      "الگوی تکرارشونده را فقط یک بار بنویس.";
+    nextBtn.addEventListener(
+      "click",
+      () => {
 
+        if (
+          currentStage >=
+          stages.length - 1
+        ) {
+          return;
+        }
 
-    lowerBox.appendChild(
-      title
+        currentStage++;
+
+        playClickSound();
+
+        renderStage();
+
+      }
     );
 
+  }
 
-    stage.rows.forEach(
-      rowData => {
 
-        const repeatRow =
-          document.createElement(
-            "div"
+  /* =========================================================
+     دکمه بررسی پاسخ
+     ========================================================= */
+
+  if (checkBtn) {
+
+    checkBtn.addEventListener(
+      "click",
+      () => {
+
+        checkCurrentStage();
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     پاک کردن پاسخ
+     ========================================================= */
+
+  if (clearBtn) {
+
+    clearBtn.addEventListener(
+      "click",
+      () => {
+
+        playClickSound();
+
+        selectedTool = null;
+
+        selectedShapeAnswer = null;
+
+        renderStage();
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     شروع دوباره
+     ========================================================= */
+
+  if (restartBtn) {
+
+    restartBtn.addEventListener(
+      "click",
+      () => {
+
+        playClickSound();
+
+        currentStage = 0;
+
+        score = 0;
+
+        completedStages.clear();
+
+        selectedTool = null;
+
+        selectedShapeAnswer = null;
+
+        finishScreen.classList.add(
+          "hidden"
+        );
+
+        gameScreen.classList.add(
+          "hidden"
+        );
+
+        startScreen.classList.remove(
+          "hidden"
+        );
+
+        if (studentNameInput) {
+
+          studentNameInput.value =
+            "";
+
+          setTimeout(
+            () => {
+              studentNameInput.focus();
+            },
+            100
           );
 
-        repeatRow.className =
-          "combined-repeat-row";
+        }
+
+      }
+    );
+
+  }
 
 
-        repeatRow.style.gridTemplateColumns =
-          "repeat(6, minmax(0, 1fr))";
+  /* =========================================================
+     وضعیت اولیه
+     ========================================================= */
 
+  gameScreen.classList.add(
+    "hidden"
+  );
 
-        for (
-          let i = 0;
-          i < 6;
-          i++
-        ) {
+  finishScreen.classList.add(
+    "hidden"
+  );
 
-          const cell =
-            document.createElement(
-              "div"
-            );
+  /*
+    در شروع، بازی آماده است
+    ولی صفحه بازی نمایش داده نمی‌شود.
+  */
 
-          cell.className =
-            "repeat-cell";
-
-
-          if (
-            i < 5
-          ) {
+});
