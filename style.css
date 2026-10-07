@@ -1,6 +1,6 @@
 /* =========================================================
    بازی «الگوی منظم» | ریاضی پایه اول
-   نسخه مهندسی‌شده بدون اسکرول افقی جدول‌ها
+   نسخه نهایی
    ========================================================= */
 
 * {
@@ -20,7 +20,6 @@ body {
 body {
   font-family: Tahoma, Arial, sans-serif;
   direction: rtl;
-
   background:
     linear-gradient(
       135deg,
@@ -28,9 +27,7 @@ body {
       #f8efff 45%,
       #eaf8ff 100%
     );
-
   color: #3d3151;
-
   min-height: 100vh;
   min-height: 100svh;
 }
@@ -61,126 +58,84 @@ button {
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 18px;
 }
 
 .start-card {
   width: min(620px, 100%);
-
   background: rgba(255,255,255,0.97);
-
   border-radius: 30px;
-
   padding: clamp(20px, 5vw, 40px);
-
   text-align: center;
-
   border: 3px solid rgba(116,56,200,0.12);
-
   box-shadow:
     0 15px 45px rgba(88,55,130,0.16);
 }
 
 .teacher-photo {
   display: block;
-
   width: min(205px, 52vw);
   height: min(205px, 52vw);
-
   object-fit: cover;
-
   border-radius: 50%;
-
   margin: 0 auto 16px;
-
   border: 6px solid #fff;
-
   box-shadow:
     0 8px 25px rgba(80,50,100,0.18);
 }
 
 .welcome-badge {
   display: inline-block;
-
   padding: 7px 15px;
-
   border-radius: 30px;
-
   background: #f3e7ff;
-
   color: #7438c8;
-
   font-size: clamp(14px,3vw,19px);
-
   font-weight: 900;
-
   margin-bottom: 8px;
 }
 
 .start-card h1 {
   margin: 0 0 10px;
-
   color: #7438c8;
-
   font-size: clamp(27px,6vw,44px);
-
   font-weight: 1000;
-
   line-height: 1.4;
 }
 
 .welcome-text {
   font-size: clamp(16px,3.5vw,21px);
-
   line-height: 2;
-
   margin-bottom: 20px;
 }
 
 .name-box label {
   display: block;
-
   margin-bottom: 8px;
-
   color: #7438c8;
-
   font-size: clamp(16px,3vw,20px);
-
   font-weight: 900;
 }
 
 #studentName {
   width: min(480px,100%);
-
   height: 56px;
-
   border: 3px solid #d9c2f3;
-
   border-radius: 18px;
-
   outline: none;
-
   padding: 0 18px;
-
   text-align: center;
-
   direction: rtl;
-
   font-size: clamp(16px,3vw,21px);
-
   background: #fff;
-
   color: #3d3151;
 }
 
 #studentName:focus {
   border-color: #7438c8;
-
   box-shadow:
     0 0 0 4px rgba(116,56,200,0.10);
 }
@@ -196,13 +151,9 @@ button {
 
 .main-btn {
   width: min(360px,100%);
-
   min-height: 60px;
-
   margin-top: 18px;
-
   border: none;
-
   border-radius: 20px;
 
   background:
@@ -213,11 +164,8 @@ button {
     );
 
   color: white;
-
   font-size: clamp(18px,4vw,24px);
-
   font-weight: 1000;
-
   cursor: pointer;
 
   box-shadow:
@@ -237,7 +185,6 @@ button {
 
 .game-screen {
   width: 100%;
-
   min-height: 100vh;
   min-height: 100svh;
 
@@ -263,7 +210,6 @@ button {
   margin: 0 auto 9px;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
@@ -287,19 +233,14 @@ button {
 
 .game-title {
   color: #7438c8;
-
   font-size: clamp(16px,3vw,23px);
-
   font-weight: 1000;
 }
 
 #stageCounter {
   color: #e85b91;
-
   font-size: clamp(14px,2.7vw,20px);
-
   font-weight: 1000;
-
   white-space: nowrap;
 }
 
@@ -310,15 +251,12 @@ button {
   padding: 7px 9px;
 
   border: none;
-
   border-radius: 14px;
 
   background: #f0e4fb;
-
   color: #60309f;
 
   font-size: clamp(13px,2.5vw,18px);
-
   font-weight: 1000;
 
   cursor: pointer;
@@ -332,9 +270,7 @@ button {
 
 .nav-btn:disabled {
   opacity: 0.35;
-
   cursor: default;
-
   transform: none;
 }
 
@@ -377,30 +313,23 @@ button {
 #taskArea {
   width: 100%;
   max-width: 1050px;
-
   margin: 0 auto;
 }
 
 .task-wrap {
   width: 100%;
-
   display: flex;
-
   justify-content: center;
-
   padding: 3px 0;
 }
 
 
 /* =========================================================
    جدول اصلی رنگی
-   تعداد خانه‌ها متناسب با طول الگو است.
-   حداکثر ۱۲ خانه
    ========================================================= */
 
 .pattern-grid {
   width: min(760px, 100%);
-
   margin: 0 auto;
 
   display: grid;
@@ -408,7 +337,6 @@ button {
   gap: 0;
 
   border: 3px solid #3d3151;
-
   border-radius: 9px;
 
   overflow: hidden;
@@ -423,7 +351,6 @@ button {
 
 .pattern-cell {
   width: 100%;
-
   min-width: 0;
 
   aspect-ratio: 1 / 1;
@@ -432,7 +359,6 @@ button {
   border-bottom: 2px solid #3d3151;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -446,20 +372,10 @@ button {
     filter 0.12s ease;
 }
 
-/* آخرین خانه هر ردیف فقط لبه بیرونی دارد */
-/* =========================================================
-   خطوط عمودی کاملاً مشخص
-   ==================
-
-/* خط عمودی همه خانه‌ها کاملاً مشخص باشد */
-.pattern-cell {
-  border-right: 2px solid #3d3151;
-}
-
-/* فقط آخرین خانه هر ردیف خط بیرونی سمت راست نداشته باشد */
 .pattern-cell:last-child {
   border-right: none;
 }
+
 
 /* =========================================================
    رنگ‌ها
@@ -496,7 +412,6 @@ button {
 
 /* =========================================================
    جدول تکرار
-   فقط به اندازه خود الگو ساخته می‌شود
    ========================================================= */
 
 .repeat-box {
@@ -546,6 +461,7 @@ button {
 
   overflow: hidden;
 }
+
 .repeat-cell {
   width: 100%;
 
@@ -561,15 +477,10 @@ button {
   transition: 0.12s ease;
 }
 
-/* خط عمودی همه خانه‌های تکرار کاملاً مشخص باشد */
-.repeat-cell {
-  border-right: 2px solid #3d3151;
-}
-
-/* فقط آخرین خانه ردیف خط بیرونی سمت راست نداشته باشد */
 .repeat-cell:last-child {
   border-right: none;
 }
+
 .repeat-cell:active {
   transform: scale(0.95);
 }
@@ -666,13 +577,6 @@ button {
 
 /* =========================================================
    شکل‌ها
-   بدون اسکرول افقی
-   ========================================================= */
-
-/* =========================================================
-   شکل‌ها
-   شروع شکل‌ها از سمت چپ
-   بدون اسکرول افقی
    ========================================================= */
 
 .shape-grid {
@@ -708,7 +612,6 @@ button {
   min-width: 0;
 
   border-right: 2px solid #3d3151;
-
   border-bottom: 2px solid #3d3151;
 
   display: flex;
@@ -731,19 +634,13 @@ button {
 
 .shape-symbol {
   font-size: clamp(20px,6vw,42px);
-
   line-height: 1;
-
   display: block;
 }
 
 
 /* =========================================================
    سؤال حذف شکل
-   ========================================================= */
-/* =========================================================
-   سؤال حذف شکل
-   شکل‌ها از سمت چپ چیده می‌شوند
    ========================================================= */
 
 .shape-row {
@@ -806,16 +703,12 @@ button {
 
 .remove-shape-symbol {
   font-size: clamp(25px,7vw,44px);
-
   line-height: 1;
 }
 
+
 /* =========================================================
    مرحله ۱۲
-   ========================
-/* =========================================================
-   مرحله ۱۲
-   سه ردیف ۲۱ خانه‌ای کاملاً چسبیده
    ========================================================= */
 
 .combined-pattern-box {
@@ -824,6 +717,7 @@ button {
   margin: 3px auto 10px;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 0;
@@ -841,10 +735,8 @@ button {
   border-left: 3px solid #3d3151;
   border-right: 3px solid #3d3151;
 
-  /* خط بالا فقط برای ردیف اول */
   border-top: 3px solid #3d3151;
 
-  /* خط پایین فقط برای ردیف آخر */
   border-bottom: 0;
 
   border-radius: 0;
@@ -858,25 +750,20 @@ button {
   box-shadow: none;
 }
 
-/* ردیف آخر */
 .combined-row-box:last-child {
   border-bottom: 3px solid #3d3151;
 }
 
-/* همه خانه‌های جدول اصلی */
 .combined-row-box .pattern-cell {
   border-right: 2px solid #3d3151;
   border-bottom: 2px solid #3d3151;
-
   border-radius: 0;
 }
 
-/* آخرین خانه هر ردیف */
 .combined-row-box .pattern-cell:last-child {
   border-right: none;
 }
 
-/* خط پایین آخرین ردیف حذف نشود */
 .combined-row-box:last-child .pattern-cell {
   border-bottom: 0;
 }
@@ -884,7 +771,6 @@ button {
 
 /* =========================================================
    جدول پایین مرحله ۱۲
-   سه ردیف ۶ خانه‌ای کاملاً چسبیده
    ========================================================= */
 
 .combined-repeat-box {
@@ -918,8 +804,6 @@ button {
   line-height: 1.6;
 }
 
-
-/* کل جدول پایین */
 .combined-repeat-row {
   width: min(330px,100%);
 
@@ -943,28 +827,24 @@ button {
   direction: ltr;
 }
 
-/* آخرین ردیف جدول پایین */
 .combined-repeat-row:last-child {
   border-bottom: 2px solid #3d3151;
 }
 
-/* خانه‌های جدول پایین */
 .combined-repeat-row .repeat-cell {
   border-right: 2px solid #3d3151;
   border-bottom: 2px solid #3d3151;
-
   border-radius: 0;
 }
 
-/* آخرین خانه هر ردیف */
 .combined-repeat-row .repeat-cell:last-child {
   border-right: none;
 }
 
-/* خط پایین آخرین ردیف */
 .combined-repeat-row:last-child .repeat-cell {
   border-bottom: 0;
 }
+
 
 /* =========================================================
    دکمه‌ها
@@ -1084,7 +964,8 @@ button {
 
 /* =========================================================
    امضا
-   کوچک‌تر اما واضح
+   کمی بزرگ‌تر و واضح‌تر
+   بدون افزایش فضای واقعی صفحه
    ========================================================= */
 
 .signature-wrap {
@@ -1111,6 +992,10 @@ button {
   object-fit: contain;
 
   display: block;
+
+  transform: scale(1.14);
+
+  transform-origin: center bottom;
 }
 
 .finish-signature {
@@ -1125,6 +1010,10 @@ button {
   object-fit: contain;
 
   display: block;
+
+  transform: scale(1.10);
+
+  transform-origin: center bottom;
 }
 
 
@@ -1191,6 +1080,69 @@ button {
   font-weight: 1000;
 
   margin-top: 12px;
+}
+
+
+/* =========================================================
+   آتش‌بازی پایان
+   ========================================================= */
+
+.fireworks-container {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  z-index: 9999;
+}
+
+.firework-spark {
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  animation:
+    fireworkBurst 1.15s ease-out forwards;
+
+  box-shadow:
+    0 0 9px rgba(255,255,255,0.9);
+}
+
+@keyframes fireworkBurst {
+
+  0% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      translate(0,0)
+      scale(1.1);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      translate(var(--x),var(--y))
+      scale(0.2);
+  }
 }
 
 
@@ -1273,11 +1225,29 @@ button {
     font-size: 15px;
   }
 
-  .game-signature .signature,
+  .game-signature .signature {
+    width: min(230px,52vw);
+
+    max-height: 72px;
+
+    transform: scale(1.14);
+
+    transform-origin: center bottom;
+  }
+
   .finish-signature .signature {
     width: min(230px,52vw);
 
     max-height: 72px;
+
+    transform: scale(1.10);
+
+    transform-origin: center bottom;
+  }
+
+  .firework-spark {
+    width: 8px;
+    height: 8px;
   }
 
 }
