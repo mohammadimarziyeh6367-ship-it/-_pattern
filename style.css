@@ -759,3 +759,94 @@ button {
         max-height: 45px;
     }
 }
+/* =========================
+   اصلاح جهت جدول‌های ریاضی
+========================= */
+
+.pattern-grid,
+.grid-wrapper {
+    direction: ltr;
+}
+
+
+/* =========================
+   دکمه‌های رنگی انتخاب پاسخ
+========================= */
+
+.palette-area {
+    direction: ltr;
+}
+
+.palette-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* رنگ واقعی دکمه‌ها */
+
+.palette-blue {
+    background: #42a5f5 !important;
+}
+
+.palette-red {
+    background: #ef5350 !important;
+}
+
+.palette-green {
+    background: #58c86b !important;
+}
+
+.palette-yellow {
+    background: #ffd84d !important;
+}
+
+.palette-pink {
+    background: #ff73ad !important;
+}
+
+.palette-purple {
+    background: #9c64e8 !important;
+}
+
+
+/* دکمه‌های شکل */
+
+.palette-heart {
+    background: #fff !important;
+    color: #ff73ad !important;
+    font-size: 28px !important;
+}
+
+.palette-triangle {
+    background: #fff !important;
+    color: #42a5f5 !important;
+    font-size: 27px !important;
+}
+
+.palette-diamond {
+    background: #fff !important;
+    color: #9c64e8 !important;
+    font-size: 27px !important;
+}
+
+.palette-circle {
+    background: #fff !important;
+    color: #58c86b !important;
+    font-size: 27px !important;
+}
+
+.palette-star {
+    background: #fff !important;
+    color: #ffd84d !important;
+    font-size: 27px !important;
+}
+
+.palette-square {
+    background: #fff !important;
+    color: #ef5350 !important;
+    font-size: 27px !important;
+}
