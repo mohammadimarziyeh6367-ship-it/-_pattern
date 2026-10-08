@@ -775,6 +775,9 @@ function renderStage7() {
 /* =====================================
    نمایش هر مرحله
    ===================================== */
+/* =====================================
+   نمایش هر مرحله
+   ===================================== */
 
 function renderStage() {
     resetStageState();
@@ -784,18 +787,408 @@ function renderStage() {
         case 1:
             renderStage1();
             break;
-
         case 2:
             renderStage2();
             break;
-
         case 3:
             renderMousePuzzle(3);
             break;
-
         case 4:
             renderMousePuzzle(4);
             break;
-            
+        case 5:
+            renderStage5();
+            break;
+        case 6:
+            renderStage6();
+            break;
+        case 7:
+            renderStage7();
+            break;
+    }
 
-       
+    stageGoal.classList.toggle("hidden", currentStage !== 7);
+}
+
+
+/* =====================================
+   صداهای بازی
+   ===================================== */
+
+let audioContext = null;
+
+function getAudioContext() {
+    if (!audioContext) {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) {
+            return null;
+        }
+
+        audioContext = new AudioContextClass();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume().catch(() => {});
+    }
+
+    return audioContext;
+}
+
+function playTone(frequency, duration = 0.12, type = "sine") {
+    const context = getAudioContext();
+
+    if (!context) {
+        return;
+    }
+
+    try {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+
+        oscillator.type = type;
+        oscillator.frequency.value = frequency;
+
+        gain.gain.setValueAtTime(0.0001, context.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+            0.12,
+            context.currentTime + 0.015
+        );
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            context.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+
+        oscillator.start();
+        oscillator.stop(context.currentTime + duration + 0.02);
+    } catch (error) {
+        // اگر صدا در دستگاهی پشتیبانی نشد، بازی ادامه پیدا می‌کند.
+    }
+}
+
+function playClickSound() {
+    playTone(660, 0.07);
+}
+
+function playSuccessSound() {
+    playTone(523, 0.15);
+    window.setTimeout(() => playTone(659, 0.15), 130);
+    window.setTimeout(() => playTone(784, 0.22), 260);
+}
+
+function playErrorSound() {
+    playTone(220, 0.18, "triangle");
+}
+
+function playCelebrationSound() {
+    [523, 659, 784, 1047].forEach((frequency, index) => {
+        window.setTimeout(() => playTone(frequency, 0.22), index * 150);
+    });
+}
+
+
+/* =====================================
+   خواندن فارسی
+   ===================================== */
+
+function speakPersian(message) {
+    if (!("speechSynthesis" in window)) {
+        return;
+    }
+
+    try {
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.lang = "fa-IR";
+        utterance.rate = 0.85;
+        utterance.pitch = 1.15;
+
+        window.speechSynthesis.speak(utterance);
+    } catch (error) {
+        // در صورت نبود صدای فارسی، بازی بدون گفتار ادامه می‌یابد.
+    }
+}
+
+
+/* =====================================
+   جشن و تشویق
+   ===================================== */
+
+function celebrate() {
+    playCelebrationSound();
+
+    if (!celebrationLayer) {
+        return;
+    }
+
+    celebrationLayer.innerHTML = "";
+
+    const celebrationColors = [
+        "#58c86b",
+        "#42a5f5",
+        "#ffd84d",
+        "#ef5350",
+        "#ff73ad",
+        "#9c64e8"
+    ];
+
+    for (let i = 0; i < 45; i++) {
+        const piece = makeElement("span", "confetti");
+        piece.textContent = ["★", "✦", "●", "♥"][i % 4];
+
+        piece.style.position = "absolute";
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.top = Math.random() * 70 + "%";
+        piece.style.color =
+            celebrationColors[i % celebrationColors.length];
+        piece.style.fontSize = 12 + Math.random() * 20 + "px";
+        piece.style.pointerEvents = "none";
+
+        celebrationLayer.appendChild(piece);
+    }
+
+    window.setTimeout(() => {
+        celebrationLayer.innerHTML = "";
+    }, 3000);
+}
+
+
+/* =====================================
+   بررسی پاسخ‌ها
+   ===================================== */
+
+function checkAnswer() {
+    if (stageSolved) {
+        return;
+    }
+
+    if (currentStage === 3 || currentStage === 4) {
+        if (mousePuzzleSolved) {
+            stageSolved = true;
+            setFeedback("آفرین! معما را حل کردی! 🎉", "success");
+            playSuccessSound();
+        } else {
+            setFeedback(
+                "موش را روی آجر اشتباه ببر تا پنیر را پیدا کنی! 🐭",
+                "error"
+            );
+            playErrorSound();
+        }
+
+        return;
+    }
+
+    const answerCells = taskArea.querySelectorAll(".answer-cell");
+
+    if (!answerCells.length) {
+        setFeedback("خانه‌ای برای پاسخ پیدا نشد.", "error");
+        playErrorSound();
+        return;
+    }
+
+    const hasEmptyCell = Array.from(answerCells).some((cell) => {
+        return !cell.classList.contains("answered");
+    });
+
+    if (hasEmptyCell) {
+        setFeedback("هنوز همه خانه‌های خالی را کامل نکرده‌ای! 🌈", "error");
+        playErrorSound();
+        return;
+    }
+
+    const allCorrect = Array.from(answerCells).every((cell) => {
+        return getCellValue(cell) === (cell.dataset.expected || "");
+    });
+
+    if (allCorrect) {
+        stageSolved = true;
+
+        setFeedback(
+            "آفرین قهرمان کوچولو! همه پاسخ‌ها درست است! 🌟",
+            "success"
+        );
+
+        checkBtn.disabled = true;
+
+        playSuccessSound();
+        speakPersian("آفرین! همه پاسخ‌ها درست است!");
+        celebrate();
+    } else {
+        setFeedback(
+            "یک بار دیگر با دقت به الگو نگاه کن و پاسخ‌ها را بررسی کن. 💜",
+            "error"
+        );
+
+        playErrorSound();
+        speakPersian("اشکالی ندارد. دوباره تلاش کن.");
+    }
+}
+
+
+/* =====================================
+   پاک کردن پاسخ‌ها
+   ===================================== */
+
+function clearAnswers() {
+    if (stageSolved) {
+        return;
+    }
+
+    if (currentStage === 3 || currentStage === 4) {
+        renderStage();
+        setFeedback("دوباره تلاش کن! موش را حرکت بده. 🐭");
+        playClickSound();
+        return;
+    }
+
+    const answerCells = taskArea.querySelectorAll(".answer-cell");
+
+    answerCells.forEach((cell) => {
+        applyValue(cell, "");
+        cell.classList.remove("answered");
+        cell.setAttribute("aria-label", "خانه پاسخ");
+    });
+
+    selectedValue = null;
+
+    document.querySelectorAll(".palette-btn").forEach((button) => {
+        button.classList.remove("active");
+    });
+
+    setFeedback("خانه‌های پاسخ پاک شدند. از نو شروع کن! ✨");
+    playClickSound();
+}
+
+
+/* =====================================
+   شروع، پایان و راه‌اندازی بازی
+   ===================================== */
+
+function startGame() {
+    getAudioContext();
+
+    studentName = studentNameInput.value.trim();
+
+    if (!studentName) {
+        studentNameInput.focus();
+        setFeedback("اول نام زیبایت را بنویس! 🌸");
+        speakPersian("اول نام زیبایت را بنویس.");
+        return;
+    }
+
+    currentStage = 1;
+
+    startScreen.classList.add("hidden");
+    finishScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
+
+    renderStage();
+
+    playSuccessSound();
+    speakPersian("سلام " + studentName + " جان! بیا بازی الگوها را شروع کنیم.");
+}
+
+function finishGame() {
+    gameScreen.classList.add("hidden");
+    startScreen.classList.add("hidden");
+    finishScreen.classList.remove("hidden");
+
+    finishMessage.textContent = studentName
+        ? "آفرین " + studentName + " جان! تو همه مراحل بازی را پشت سر گذاشتی! 🏆"
+        : "آفرین قهرمان کوچولو! بازی را به پایان رساندی! 🏆";
+
+    celebrate();
+
+    speakPersian(
+        studentName
+            ? "آفرین " + studentName + " جان! تو فوق‌العاده بودی!"
+            : "آفرین قهرمان کوچولو! تو فوق‌العاده بودی!"
+    );
+}
+
+function goToNextStage() {
+    if (currentStage < TOTAL_STAGES) {
+        currentStage++;
+        renderStage();
+        playClickSound();
+    } else {
+        finishGame();
+    }
+}
+
+function goToPreviousStage() {
+    if (currentStage > 1) {
+        currentStage--;
+        renderStage();
+        playClickSound();
+    }
+}
+
+function restartGame() {
+    window.speechSynthesis?.cancel();
+
+    finishScreen.classList.add("hidden");
+    gameScreen.classList.add("hidden");
+    startScreen.classList.remove("hidden");
+
+    studentNameInput.value = "";
+    studentName = "";
+    currentStage = 1;
+
+    playClickSound();
+}
+
+
+/* =====================================
+   اتصال دکمه‌ها
+   ===================================== */
+
+if (startBtn) {
+    startBtn.addEventListener("click", startGame);
+}
+
+if (nextBtn) {
+    nextBtn.addEventListener("click", goToNextStage);
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener("click", goToPreviousStage);
+}
+
+if (restartBtn) {
+    restartBtn.addEventListener("click", restartGame);
+}
+
+if (clearBtn) {
+    clearBtn.addEventListener("click", clearAnswers);
+}
+
+if (checkBtn) {
+    checkBtn.addEventListener("click", checkAnswer);
+}
+
+if (studentNameInput) {
+    studentNameInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            startGame();
+        }
+    });
+}
+
+
+/* =====================================
+   صدای کلیک برای انتخاب رنگ و شکل
+   ===================================== */
+
+document.addEventListener("click", (event) => {
+    const button = event.target.closest(".palette-btn");
+
+    if (button) {
+        playClickSound();
+    }
+});
