@@ -810,3 +810,35 @@ button {
         font-size: 11px;
     }
 }
+/* سؤال ۷: جدول یکپارچه دو ردیفی */
+.logic-grid {
+    display: grid !important;
+    grid-template-columns: repeat(15, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    width: 100%;
+    direction: ltr;
+}
+
+.logic-grid .cell {
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border: 1px solid #b9a2d9;
+    border-radius: 0 !important;
+}
+
+/* خط مشترک بین دو ردیف */
+.logic-grid .cell:nth-child(n + 16) {
+    margin-top: -1px !important;
+}
+
+/* خانه‌های سبز کاملاً واضح */
+.logic-grid .cell.color-green {
+    background: #58c86b !important;
+}
+
+/* خانه‌های پاسخ */
+.logic-grid .cell.answer-cell {
+    background: #fff8e8 !important;
+}
