@@ -679,3 +679,124 @@ color: #ef5350 !important;
 .pattern-grid .answer-cell {
 background-color: #fff8e8;
 }
+/* =====================================
+   اصلاح نهایی جدول پیوسته و رنگی
+   ===================================== */
+
+/* همه خانه‌ها بدون فاصله کنار هم قرار بگیرند */
+.pattern-grid {
+    display: grid !important;
+    gap: 0 !important;
+    row-gap: 0 !important;
+    column-gap: 0 !important;
+    justify-content: center;
+    align-items: stretch;
+    direction: ltr;
+}
+
+/* اتصال خانه‌های افقی و عمودی */
+.pattern-grid .cell {
+    box-sizing: border-box;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: 1px solid #b9a2d9;
+}
+
+/* رنگ‌های واضح خانه‌ها */
+.pattern-grid .cell.color-blue,
+.pattern-grid .color-blue {
+    background: #42a5f5 !important;
+}
+
+.pattern-grid .cell.color-red,
+.pattern-grid .color-red {
+    background: #ef5350 !important;
+}
+
+.pattern-grid .cell.color-green,
+.pattern-grid .color-green {
+    background: #58c86b !important;
+}
+
+.pattern-grid .cell.color-yellow,
+.pattern-grid .color-yellow {
+    background: #ffd84d !important;
+}
+
+.pattern-grid .cell.color-pink,
+.pattern-grid .color-pink {
+    background: #ff73ad !important;
+}
+
+.pattern-grid .cell.color-purple,
+.pattern-grid .color-purple {
+    background: #9c64e8 !important;
+}
+
+/* خانه‌های خالی از جدول جدا نشوند */
+.pattern-grid .answer-cell {
+    border-radius: 0 !important;
+    background: #fff8e8 !important;
+    border: 1px solid #b9a2d9 !important;
+}
+
+/* شکل‌ها رنگ مشخص داشته باشند */
+.pattern-grid .cell[data-shape="heart"] {
+    color: #ff4f9a !important;
+}
+
+.pattern-grid .cell[data-shape="triangle"] {
+    color: #2998ed !important;
+}
+
+.pattern-grid .cell[data-shape="diamond"] {
+    color: #9c64e8 !important;
+}
+
+.pattern-grid .cell[data-shape="circle"] {
+    color: #35b85a !important;
+}
+
+.pattern-grid .cell[data-shape="star"] {
+    color: #e4b400 !important;
+}
+
+.pattern-grid .cell[data-shape="square"] {
+    color: #ef5350 !important;
+}
+
+/* اتصال خانه‌های جدول موش و پنیر */
+.mouse-grid {
+    gap: 0 !important;
+    row-gap: 0 !important;
+    column-gap: 0 !important;
+}
+
+.mouse-grid .cell {
+    border-radius: 0 !important;
+    border: 1px solid #c6a879;
+}
+
+/* موش با انگشت قابل کشیدن باشد */
+.mouse {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.mouse.dragging {
+    cursor: grabbing;
+}
+
+/* شکل اشتباه جواب را لو ندهد */
+.wrong-shape {
+    animation: none !important;
+    outline: none !important;
+}
+
+/* هنگام نمایان شدن پنیر، خانه همچنان به جدول متصل بماند */
+.mouse-grid .cell.cheese-revealed {
+    border-radius: 0 !important;
+    background: #fff4b8 !important;
+}
