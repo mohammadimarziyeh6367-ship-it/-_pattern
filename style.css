@@ -20,7 +20,6 @@ body {
 body {
   font-family: Tahoma, Arial, sans-serif;
   direction: rtl;
-
   background:
     linear-gradient(
       135deg,
@@ -28,9 +27,7 @@ body {
       #f8efff 45%,
       #eaf8ff 100%
     );
-
   color: #3d3151;
-
   min-height: 100vh;
   min-height: 100svh;
 }
@@ -61,126 +58,84 @@ button {
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 18px;
 }
 
 .start-card {
   width: min(620px, 100%);
-
   background: rgba(255,255,255,0.97);
-
   border-radius: 30px;
-
   padding: clamp(20px, 5vw, 40px);
-
   text-align: center;
-
   border: 3px solid rgba(116,56,200,0.12);
-
   box-shadow:
     0 15px 45px rgba(88,55,130,0.16);
 }
 
 .teacher-photo {
   display: block;
-
   width: min(205px, 52vw);
   height: min(205px, 52vw);
-
   object-fit: cover;
-
   border-radius: 50%;
-
   margin: 0 auto 16px;
-
   border: 6px solid #fff;
-
   box-shadow:
     0 8px 25px rgba(80,50,100,0.18);
 }
 
 .welcome-badge {
   display: inline-block;
-
   padding: 7px 15px;
-
   border-radius: 30px;
-
   background: #f3e7ff;
-
   color: #7438c8;
-
   font-size: clamp(14px,3vw,19px);
-
   font-weight: 900;
-
   margin-bottom: 8px;
 }
 
 .start-card h1 {
   margin: 0 0 10px;
-
   color: #7438c8;
-
   font-size: clamp(27px,6vw,44px);
-
   font-weight: 1000;
-
   line-height: 1.4;
 }
 
 .welcome-text {
   font-size: clamp(16px,3.5vw,21px);
-
   line-height: 2;
-
   margin-bottom: 20px;
 }
 
 .name-box label {
   display: block;
-
   margin-bottom: 8px;
-
   color: #7438c8;
-
   font-size: clamp(16px,3vw,20px);
-
   font-weight: 900;
 }
 
 #studentName {
   width: min(480px,100%);
-
   height: 56px;
-
   border: 3px solid #d9c2f3;
-
   border-radius: 18px;
-
   outline: none;
-
   padding: 0 18px;
-
   text-align: center;
-
   direction: rtl;
-
   font-size: clamp(16px,3vw,21px);
-
   background: #fff;
-
   color: #3d3151;
 }
 
 #studentName:focus {
   border-color: #7438c8;
-
   box-shadow:
     0 0 0 4px rgba(116,56,200,0.10);
 }
@@ -196,13 +151,9 @@ button {
 
 .main-btn {
   width: min(360px,100%);
-
   min-height: 60px;
-
   margin-top: 18px;
-
   border: none;
-
   border-radius: 20px;
 
   background:
@@ -213,11 +164,8 @@ button {
     );
 
   color: white;
-
   font-size: clamp(18px,4vw,24px);
-
   font-weight: 1000;
-
   cursor: pointer;
 
   box-shadow:
@@ -237,7 +185,6 @@ button {
 
 .game-screen {
   width: 100%;
-
   min-height: 100vh;
   min-height: 100svh;
 
@@ -263,7 +210,6 @@ button {
   margin: 0 auto 9px;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
@@ -287,19 +233,14 @@ button {
 
 .game-title {
   color: #7438c8;
-
   font-size: clamp(16px,3vw,23px);
-
   font-weight: 1000;
 }
 
 #stageCounter {
   color: #e85b91;
-
   font-size: clamp(14px,2.7vw,20px);
-
   font-weight: 1000;
-
   white-space: nowrap;
 }
 
@@ -310,15 +251,12 @@ button {
   padding: 7px 9px;
 
   border: none;
-
   border-radius: 14px;
 
   background: #f0e4fb;
-
   color: #60309f;
 
   font-size: clamp(13px,2.5vw,18px);
-
   font-weight: 1000;
 
   cursor: pointer;
@@ -332,9 +270,7 @@ button {
 
 .nav-btn:disabled {
   opacity: 0.35;
-
   cursor: default;
-
   transform: none;
 }
 
@@ -377,17 +313,13 @@ button {
 #taskArea {
   width: 100%;
   max-width: 1050px;
-
   margin: 0 auto;
 }
 
 .task-wrap {
   width: 100%;
-
   display: flex;
-
   justify-content: center;
-
   padding: 3px 0;
 }
 
@@ -398,7 +330,6 @@ button {
 
 .pattern-grid {
   width: min(760px, 100%);
-
   margin: 0 auto;
 
   display: grid;
@@ -406,7 +337,6 @@ button {
   gap: 0;
 
   border: 3px solid #3d3151;
-
   border-radius: 9px;
 
   overflow: hidden;
@@ -421,7 +351,6 @@ button {
 
 .pattern-cell {
   width: 100%;
-
   min-width: 0;
 
   aspect-ratio: 1 / 1;
@@ -430,7 +359,6 @@ button {
   border-bottom: 2px solid #3d3151;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -442,10 +370,6 @@ button {
   transition:
     transform 0.12s ease,
     filter 0.12s ease;
-}
-
-.pattern-cell {
-  border-right: 2px solid #3d3151;
 }
 
 .pattern-cell:last-child {
@@ -551,10 +475,6 @@ button {
   cursor: pointer;
 
   transition: 0.12s ease;
-}
-
-.repeat-cell {
-  border-right: 2px solid #3d3151;
 }
 
 .repeat-cell:last-child {
@@ -692,7 +612,6 @@ button {
   min-width: 0;
 
   border-right: 2px solid #3d3151;
-
   border-bottom: 2px solid #3d3151;
 
   display: flex;
@@ -715,9 +634,7 @@ button {
 
 .shape-symbol {
   font-size: clamp(20px,6vw,42px);
-
   line-height: 1;
-
   display: block;
 }
 
@@ -786,7 +703,6 @@ button {
 
 .remove-shape-symbol {
   font-size: clamp(25px,7vw,44px);
-
   line-height: 1;
 }
 
@@ -801,6 +717,7 @@ button {
   margin: 3px auto 10px;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 0;
@@ -840,7 +757,6 @@ button {
 .combined-row-box .pattern-cell {
   border-right: 2px solid #3d3151;
   border-bottom: 2px solid #3d3151;
-
   border-radius: 0;
 }
 
@@ -918,7 +834,6 @@ button {
 .combined-repeat-row .repeat-cell {
   border-right: 2px solid #3d3151;
   border-bottom: 2px solid #3d3151;
-
   border-radius: 0;
 }
 
@@ -1170,7 +1085,6 @@ button {
 
 /* =========================================================
    آتش‌بازی پایان
-   فقط وقتی امتیاز ۹ تا ۱۲ باشد
    ========================================================= */
 
 .fireworks-container {
