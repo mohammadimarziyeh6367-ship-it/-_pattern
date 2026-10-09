@@ -77,7 +77,7 @@ let audioContext = null;
 
 
 /* ========================================
-   صدای کلیک؛ بدون گفتار و صدای تشویقی
+   فقط صدای کلیک
 ======================================== */
 
 function playClickSound() {
@@ -103,7 +103,7 @@ function playClickSound() {
         oscillator.frequency.setValueAtTime(650, now);
 
         gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.06, now + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
 
         oscillator.connect(gain);
@@ -129,9 +129,7 @@ function playClickSound() {
 function makeElement(tag, className, text) {
     const element = document.createElement(tag);
 
-    if (className) {
-        element.className = className;
-    }
+    if (className) element.className = className;
 
     if (text !== undefined && text !== null) {
         element.textContent = text;
@@ -153,9 +151,7 @@ function setFeedback(message, type = "") {
     feedback.textContent = message;
     feedback.className = "feedback";
 
-    if (type) {
-        feedback.classList.add(type);
-    }
+    if (type) feedback.classList.add(type);
 }
 
 function resetStageState() {
@@ -189,20 +185,22 @@ function updateHeader() {
 
 
 /* ========================================
-   تنظیم اندازه جدول‌ها
-   جلوگیری از رفتن خانه‌ها به ردیف بعدی
+   جدول‌های چسبیده با خطوط پیوسته
 ======================================== */
 
-function styleGrid(grid, columns) {
+function styleGrid(grid, columns = 12) {
     grid.style.display = "grid";
     grid.style.gridTemplateColumns =
         `repeat(${columns}, minmax(0, 1fr))`;
 
-    grid.style.gap = "2px";
+    grid.style.gap = "0";
     grid.style.width = "100%";
     grid.style.maxWidth = "100%";
     grid.style.direction = "ltr";
     grid.style.boxSizing = "border-box";
+    grid.style.borderTop = "1px solid #777";
+    grid.style.borderLeft = "1px solid #777";
+    grid.style.margin = "0";
 }
 
 function styleCell(cell) {
@@ -211,16 +209,77 @@ function styleCell(cell) {
     cell.style.aspectRatio = "1 / 1";
     cell.style.boxSizing = "border-box";
     cell.style.padding = "0";
+    cell.style.margin = "0";
     cell.style.display = "flex";
     cell.style.alignItems = "center";
     cell.style.justifyContent = "center";
-    cell.style.fontSize = "clamp(10px, 2.3vw, 22px)";
+    cell.style.fontSize = "clamp(9px, 2.2vw, 22px)";
     cell.style.overflow = "hidden";
+    cell.style.borderRadius = "0";
+    cell.style.border = "0";
+    cell.style.borderRight = "1px solid #777";
+    cell.style.borderBottom = "1px solid #777";
+}
+
+
+/* ========================================
+   نمایش شکل و رنگ در خانه
+======================================== */
+
+function paintCell(cell, value, shape = false) {
+    cell.dataset.value = value ?? "";
+    cell.style.backgroundColor = "#ffffff";
+    cell.style.color = "#7438c8";
+
+    if (value === "" || value === null || value === undefined) {
+        cell.textContent = "";
+        return;
+    }
+
+    if (value === "greenTriangle") {
+        cell.textContent = SHAPES.triangle;
+        cell.style.color = COLORS.green;
+        return;
+    }
+
+    if (value === "purpleCircle") {
+        cell.textContent = SHAPES.circle;
+        cell.style.color = COLORS.purple;
+        return;
+    }
+
+    if (shape && SHAPES[value]) {
+        cell.textContent = SHAPES[value];
+
+        if (value === "triangle") {
+            cell.style.color = COLORS.green;
+        } else if (value === "circle") {
+            cell.style.color = COLORS.purple;
+        } else {
+            cell.style.color = "#7438c8";
+        }
+
+        return;
+    }
+
+    if (COLORS[value]) {
+        cell.textContent = "";
+        cell.style.backgroundColor = COLORS[value];
+        return;
+    }
+
+    if (SHAPES[value]) {
+        cell.textContent = SHAPES[value];
+        return;
+    }
+
+    cell.textContent = String(value);
 }
 
 
 /* ========================================
    ساخت خانه جدول
+   بدون علامت سؤال
 ======================================== */
 
 function createCell(value, options = {}) {
@@ -245,8 +304,9 @@ function createCell(value, options = {}) {
 
     if (answer) {
         cell.classList.add("answer-cell");
-        cell.textContent = "؟";
+        cell.textContent = "";
         cell.setAttribute("aria-label", "خانه خالی");
+        cell.style.backgroundColor = "#ffffff";
     } else {
         paintCell(cell, value, shape);
         cell.dataset.fixed = "true";
@@ -260,9 +320,7 @@ function createCell(value, options = {}) {
             playClickSound();
 
             if (selectedValue === null) {
-                setFeedback(
-                    "ابتدا رنگ یا شکل موردنظرت را انتخاب کن. 🌈"
-                );
+                setFeedback("ابتدا رنگ یا شکل موردنظرت را انتخاب کن. 🌈");
                 return;
             }
 
@@ -271,41 +329,6 @@ function createCell(value, options = {}) {
     }
 
     return cell;
-}
-
-function paintCell(cell, value, shape = false) {
-    cell.dataset.value = value ?? "";
-    cell.style.border = "1px solid #d5d5d5";
-
-    if (value === "" || value === null || value === undefined) {
-        cell.textContent = "□";
-        cell.style.backgroundColor = "#ffffff";
-        cell.style.color = "#999999";
-        cell.style.border = "1px dashed #bcbcbc";
-        return;
-    }
-
-    if (shape) {
-        cell.textContent = SHAPES[value] || "●";
-        cell.style.backgroundColor = "#ffffff";
-        cell.style.color = COLORS[value] || "#7438c8";
-        return;
-    }
-
-    if (COLORS[value]) {
-        cell.textContent = "";
-        cell.style.backgroundColor = COLORS[value];
-        return;
-    }
-
-    if (SHAPES[value]) {
-        cell.textContent = SHAPES[value];
-        cell.style.backgroundColor = "#ffffff";
-        cell.style.color = "#7438c8";
-        return;
-    }
-
-    cell.textContent = String(value);
 }
 
 function applyValue(cell, value) {
@@ -325,14 +348,14 @@ function createPracticeTitle() {
     const title = makeElement(
         "div",
         "practice-title",
-        "دلبندم، الگو را یک بار در زیر تکرار کن 🌸"
+        "دلبندم، الگو را یک بار در زیر تکرار کن"
     );
 
     title.style.textAlign = "center";
     title.style.fontWeight = "bold";
     title.style.color = "#7438c8";
     title.style.fontSize = "clamp(12px, 2.5vw, 17px)";
-    title.style.margin = "12px 0 6px";
+    title.style.margin = "10px 0 6px";
     title.style.lineHeight = "1.8";
 
     return title;
@@ -340,31 +363,34 @@ function createPracticeTitle() {
 
 
 /* ========================================
-   ساخت جدول اصلی و جدول تمرین
+   جدول اصلی و جدول تمرین
+   هر جدول ۱۲ خانه در یک ردیف
 ======================================== */
 
 function renderPatternWithPractice({
     values,
     fixedCount,
-    columns,
-    shape = false,
-    rows = 1,
-    practiceRows = 1
+    columns = 12,
+    shape = false
 }) {
     taskArea.innerHTML = "";
 
-    const mainGrid = makeElement("div", "pattern-grid main-pattern");
-    styleGrid(mainGrid, columns);
+    const mainGrid = makeElement(
+        "div",
+        "pattern-grid main-pattern"
+    );
+
+    styleGrid(mainGrid, 12);
 
     values.forEach((value, index) => {
-        const row = Math.floor(index / columns);
+        const answer = index >= fixedCount;
 
         const cell = createCell(value, {
-            answer: index >= fixedCount,
+            answer,
             expected: value,
             shape,
-            row,
-            index: index % columns
+            row: 0,
+            index
         });
 
         mainGrid.appendChild(cell);
@@ -379,21 +405,15 @@ function renderPatternWithPractice({
         "pattern-grid practice-pattern"
     );
 
-    styleGrid(practiceGrid, columns);
-
-    /*
-      جدول دوم برای تمرین دانش‌آموز است.
-      همه خانه‌های آن خالی هستند تا دانش‌آموز
-      الگوی جدول بالا را خودش تکرار کند.
-    */
+    styleGrid(practiceGrid, 12);
 
     values.forEach((value, index) => {
         const cell = createCell(value, {
             answer: true,
             expected: value,
             shape,
-            row: Math.floor(index / columns),
-            index: index % columns
+            row: 0,
+            index
         });
 
         cell.classList.add("practice-cell");
@@ -408,8 +428,7 @@ function renderPatternWithPractice({
 
 
 /* ========================================
-   رنگ‌ها
-   دانش‌آموز می‌تواند دو رنگ انتخاب کند
+   انتخاب رنگ‌ها
 ======================================== */
 
 function renderColorPalette() {
@@ -463,32 +482,30 @@ function renderColorPalette() {
                 selectedColors = selectedColors.filter(
                     item => item !== color
                 );
-
-                button.classList.remove("selected");
-                button.style.outline = "";
             } else if (selectedColors.length < 2) {
                 selectedColors.push(color);
-                button.classList.add("selected");
-                button.style.outline = "3px solid #7438c8";
             } else {
                 setFeedback(
-                    "فقط دو رنگ انتخاب کن؛ برای تغییر، یکی را دوباره لمس کن."
+                    "برای تغییر رنگ‌ها، ابتدا یکی از رنگ‌های انتخاب‌شده را لمس کن."
                 );
                 return;
             }
 
+            colorGrid.querySelectorAll(".palette-btn").forEach(item => {
+                const chosen = selectedColors.includes(item.dataset.value);
+
+                item.classList.toggle("selected", chosen);
+                item.style.outline = chosen
+                    ? "3px solid #7438c8"
+                    : "";
+            });
+
+            selectedValue = selectedColors[0] ?? null;
+
             if (selectedColors.length === 2) {
-                selectedValue = selectedColors[0];
-
-                setFeedback(
-                    "دو رنگ انتخاب شدند! حالا جدول تمرین را کامل کن. 🌈"
-                );
+                setFeedback("دو رنگ انتخاب شدند. حالا خانه‌ها را کامل کن. 🌈");
             } else {
-                selectedValue = null;
-
-                setFeedback(
-                    "برای شروع، دو رنگ دلخواهت را انتخاب کن."
-                );
+                setFeedback("یک رنگ دیگر هم انتخاب کن.");
             }
         });
 
@@ -515,14 +532,23 @@ function renderShapePalette(shapes) {
         button.title = SHAPE_NAMES[shape];
 
         button.style.backgroundColor = "#ffffff";
-        button.style.color = COLORS[shape] || "#7438c8";
         button.style.fontSize = "22px";
-        button.style.minWidth = "32px";
+        button.style.minWidth = "42px";
+        button.style.borderRadius = "8px";
+
+        if (shape === "triangle") {
+            button.style.color = COLORS.green;
+        } else if (shape === "circle") {
+            button.style.color = COLORS.purple;
+        } else {
+            button.style.color = "#7438c8";
+        }
 
         button.addEventListener("click", () => {
             if (stageSolved) return;
 
             playClickSound();
+
             selectedValue = shape;
 
             paletteArea
@@ -532,7 +558,11 @@ function renderShapePalette(shapes) {
             button.classList.add("selected");
 
             setFeedback(
-                "شکل را انتخاب کردی؛ حالا خانه‌های جدول را کامل کن."
+                shape === "triangle"
+                    ? "مثلث سبز را انتخاب کردی! 💚"
+                    : shape === "circle"
+                        ? "دایره بنفش را انتخاب کردی! 💜"
+                        : "شکل موردنظرت را انتخاب کردی."
             );
         });
 
@@ -551,14 +581,14 @@ function renderStage1() {
 
     const values = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
         values.push(i % 2 === 0 ? "blue" : "red");
     }
 
     renderPatternWithPractice({
         values,
         fixedCount: 6,
-        columns: 10
+        columns: 12
     });
 
     renderColorPalette();
@@ -566,35 +596,88 @@ function renderStage1() {
 
 
 /* ========================================
-   مرحله ۲: الگوی شکل‌ها
+   مرحله ۲: دو مثلث سبز و یک دایره بنفش
 ======================================== */
 
 function renderStage2() {
     instruction.textContent =
-        "به شکل‌ها نگاه کن و الگوی تکرارشونده را پیدا کن.";
+        "به شکل‌ها نگاه کن و الگوی تکرارشونده را ادامه بده.";
+
+    taskArea.innerHTML = "";
+    paletteArea.innerHTML = "";
 
     const unit = [
-        "heart",
-        "heart",
-        "triangle",
-        "triangle",
-        "diamond"
+        "greenTriangle",
+        "greenTriangle",
+        "purpleCircle"
     ];
 
     const values = [];
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 12; i++) {
         values.push(unit[i % unit.length]);
     }
 
-    renderPatternWithPractice({
-        values,
-        fixedCount: 10,
-        columns: 5,
-        shape: true
+    const mainGrid = makeElement(
+        "div",
+        "pattern-grid main-pattern"
+    );
+
+    styleGrid(mainGrid, 12);
+
+    values.forEach((value, index) => {
+        const answer = index >= 6;
+
+        const cell = createCell(value, {
+            answer,
+            expected: value,
+            shape: true,
+            row: 0,
+            index
+        });
+
+        if (answer) {
+            cell.textContent = "";
+            cell.style.backgroundColor = "#ffffff";
+        } else {
+            paintCell(cell, value, true);
+        }
+
+        mainGrid.appendChild(cell);
     });
 
-    renderShapePalette(["heart", "triangle", "diamond"]);
+    taskArea.appendChild(mainGrid);
+
+    taskArea.appendChild(createPracticeTitle());
+
+    const practiceGrid = makeElement(
+        "div",
+        "pattern-grid practice-pattern"
+    );
+
+    styleGrid(practiceGrid, 12);
+
+    for (let i = 0; i < 12; i++) {
+        const expected = unit[i % unit.length];
+
+        const cell = createCell(expected, {
+            answer: true,
+            expected,
+            shape: true,
+            row: 0,
+            index: i
+        });
+
+        cell.classList.add("practice-cell");
+        cell.dataset.practiceExpected = expected;
+        cell.dataset.practiceShape = "true";
+
+        practiceGrid.appendChild(cell);
+    }
+
+    taskArea.appendChild(practiceGrid);
+
+    renderShapePalette(["triangle", "circle"]);
 }
 
 
@@ -609,7 +692,9 @@ function renderMousePuzzle(values, wrongIndex, title) {
     instruction.textContent = title;
 
     const grid = makeElement("div", "pattern-grid mouse-bricks");
-    styleGrid(grid, values.length);
+
+    // ۱۲ خانه در یک ردیف
+    styleGrid(grid, 12);
 
     values.forEach((value, index) => {
         const brick = makeElement("button", "cell mouse-brick");
@@ -619,6 +704,13 @@ function renderMousePuzzle(values, wrongIndex, title) {
         brick.dataset.index = String(index);
         brick.style.color = "#7438c8";
         brick.style.backgroundColor = "#ffffff";
+        brick.style.aspectRatio = "1 / 1";
+        brick.style.borderRadius = "0";
+        brick.style.border = "0";
+        brick.style.borderRight = "1px solid #777";
+        brick.style.borderBottom = "1px solid #777";
+        brick.style.minWidth = "0";
+        brick.style.padding = "0";
 
         brick.addEventListener("click", () => {
             if (mousePuzzleSolved) return;
@@ -629,7 +721,7 @@ function renderMousePuzzle(values, wrongIndex, title) {
                 mousePuzzleSolved = true;
 
                 brick.style.backgroundColor = "#d8f8dc";
-                brick.style.border = "3px solid #58c86b";
+                brick.style.border = "2px solid #58c86b";
 
                 setFeedback(
                     "آفرین! آجر اشتباه را پیدا کردی! 🧀",
@@ -638,9 +730,7 @@ function renderMousePuzzle(values, wrongIndex, title) {
 
                 showMousePractice(values);
             } else {
-                setFeedback(
-                    "این شکل درست است. دوباره با دقت نگاه کن."
-                );
+                setFeedback("این شکل با الگو هماهنگ است. دوباره نگاه کن.");
             }
         });
 
@@ -661,6 +751,7 @@ function renderMousePuzzle(values, wrongIndex, title) {
     const mouse = makeElement("div", "mouse-character", "🐭");
     mouse.style.textAlign = "center";
     mouse.style.fontSize = "28px";
+
     taskArea.appendChild(mouse);
 }
 
@@ -668,9 +759,15 @@ function showMousePractice(values) {
     taskArea.appendChild(createPracticeTitle());
 
     const grid = makeElement("div", "pattern-grid practice-pattern");
-    styleGrid(grid, values.length);
+    styleGrid(grid, 12);
 
-    values.forEach((value, index) => {
+    const practiceValues = [];
+
+    for (let i = 0; i < 12; i++) {
+        practiceValues.push(values[i % values.length]);
+    }
+
+    practiceValues.forEach((value, index) => {
         const cell = createCell(value, {
             answer: true,
             expected: value,
@@ -701,6 +798,8 @@ function renderStage3() {
         "circle",
         "star",
         "circle",
+        "star",
+        "circle",
         "star"
     ];
 
@@ -718,6 +817,8 @@ function renderStage4() {
         "square",
         "triangle",
         "diamond",
+        "triangle",
+        "square",
         "triangle",
         "square",
         "triangle",
@@ -743,14 +844,14 @@ function renderStage5() {
 
     const values = [];
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 12; i++) {
         values.push(i % 2 === 0 ? "pink" : "yellow");
     }
 
     renderPatternWithPractice({
         values,
         fixedCount: 6,
-        columns: 13
+        columns: 12
     });
 
     renderColorPalette();
@@ -782,7 +883,7 @@ function renderStage6() {
 
 
 /* ========================================
-   مرحله ۷: جدول یکپارچه دو ردیفی
+   مرحله ۷: جدول دو ردیفی با ۱۲ ستون
 ======================================== */
 
 function renderStage7() {
@@ -790,49 +891,52 @@ function renderStage7() {
         "الگو را پیدا کن و سپس در جدول زیر تکرار کن.";
 
     taskArea.innerHTML = "";
+    paletteArea.innerHTML = "";
 
     const grid = makeElement("div", "pattern-grid logic-grid");
 
     grid.style.display = "grid";
     grid.style.gridTemplateColumns =
-        "repeat(15, minmax(0, 1fr))";
+        "repeat(12, minmax(0, 1fr))";
+    grid.style.gridTemplateRows = "repeat(2, auto)";
     grid.style.gap = "0";
     grid.style.direction = "ltr";
     grid.style.width = "100%";
+    grid.style.borderTop = "1px solid #777";
+    grid.style.borderLeft = "1px solid #777";
 
-    const row1 = [];
-    const row2 = [];
+    const values = [];
 
-    for (let i = 0; i < 15; i++) {
-        row1.push(i % 3 === 2 ? "" : "green");
-        row2.push(i % 3 === 0 ? "" : "green");
+    for (let i = 0; i < 24; i++) {
+        const column = i % 12;
+        const row = Math.floor(i / 12);
+
+        let value = "";
+
+        if (row === 0) {
+            value = column % 3 === 2 ? "" : "green";
+        } else {
+            value = column % 3 === 0 ? "" : "green";
+        }
+
+        values.push(value);
     }
 
-    const values = [...row1, ...row2];
-
     values.forEach((value, index) => {
-        const column = index % 15;
-        const row = Math.floor(index / 15);
+        const column = index % 12;
+        const row = Math.floor(index / 12);
 
         const cell = createCell(value, {
-            answer: column >= 9,
+            answer: column >= 8,
             expected: value,
             row,
             index: column
         });
 
-        cell.style.borderRadius = "0";
-        cell.style.margin = "0";
-
-        if (row === 1) {
-            cell.style.borderTop = "1px solid #dddddd";
-        }
-
         grid.appendChild(cell);
     });
 
     taskArea.appendChild(grid);
-
     taskArea.appendChild(createPracticeTitle());
 
     const practiceGrid = makeElement(
@@ -842,14 +946,17 @@ function renderStage7() {
 
     practiceGrid.style.display = "grid";
     practiceGrid.style.gridTemplateColumns =
-        "repeat(15, minmax(0, 1fr))";
+        "repeat(12, minmax(0, 1fr))";
+    practiceGrid.style.gridTemplateRows = "repeat(2, auto)";
     practiceGrid.style.gap = "0";
     practiceGrid.style.direction = "ltr";
     practiceGrid.style.width = "100%";
+    practiceGrid.style.borderTop = "1px solid #777";
+    practiceGrid.style.borderLeft = "1px solid #777";
 
     values.forEach((value, index) => {
-        const column = index % 15;
-        const row = Math.floor(index / 15);
+        const column = index % 12;
+        const row = Math.floor(index / 12);
 
         const cell = createCell(value, {
             answer: true,
@@ -859,11 +966,6 @@ function renderStage7() {
         });
 
         cell.dataset.practiceExpected = value;
-
-        if (row === 1) {
-            cell.style.borderTop = "1px solid #dddddd";
-        }
-
         practiceGrid.appendChild(cell);
     });
 
@@ -885,27 +987,21 @@ function renderStage() {
         case 1:
             renderStage1();
             break;
-
         case 2:
             renderStage2();
             break;
-
         case 3:
             renderStage3();
             break;
-
         case 4:
             renderStage4();
             break;
-
         case 5:
             renderStage5();
             break;
-
         case 6:
             renderStage6();
             break;
-
         case 7:
             renderStage7();
             break;
@@ -914,17 +1010,38 @@ function renderStage() {
 
 
 /* ========================================
-   بررسی پاسخ جدول اصلی و جدول تمرین
+   بررسی پاسخ
 ======================================== */
 
 function checkAnswer() {
     if (stageSolved) return;
 
     if (currentStage === 3 || currentStage === 4) {
-        if (mousePuzzleSolved) {
-            setFeedback("آفرین! این مرحله را حل کردی. 🌟", "success");
-        } else {
+        const practiceCells = Array.from(
+            taskArea.querySelectorAll(".practice-pattern .answer-cell")
+        );
+
+        if (!mousePuzzleSolved) {
             setFeedback("ابتدا شکل ناهماهنگ را پیدا کن.");
+            return;
+        }
+
+        if (!practiceCells.length ||
+            !practiceCells.every(cell => cell.classList.contains("answered"))) {
+            setFeedback("دلبندم، جدول تمرین را هم کامل کن. 🌸");
+            return;
+        }
+
+        const practiceCorrect = practiceCells.every(cell =>
+            cell.dataset.value === cell.dataset.practiceExpected
+        );
+
+        if (practiceCorrect) {
+            stageSolved = true;
+            setFeedback("آفرین! هر دو بخش را درست انجام دادی. 🌈", "success");
+            celebrate();
+        } else {
+            setFeedback("یک بار دیگر الگو را با دقت نگاه کن.");
         }
 
         return;
@@ -937,12 +1054,10 @@ function checkAnswer() {
     );
 
     const practiceCells = Array.from(
-        taskArea.querySelectorAll(
-            ".practice-pattern .answer-cell"
-        )
+        taskArea.querySelectorAll(".practice-pattern .answer-cell")
     );
 
-    if (mainCells.length === 0 && practiceCells.length === 0) {
+    if (!mainCells.length || !practiceCells.length) {
         return;
     }
 
@@ -955,9 +1070,7 @@ function checkAnswer() {
     );
 
     if (!mainComplete || !practiceComplete) {
-        setFeedback(
-            "دلبندم، هر دو جدول را کامل کن. 🌸"
-        );
+        setFeedback("دلبندم، هر دو جدول را کامل کن. 🌸");
         return;
     }
 
@@ -965,12 +1078,10 @@ function checkAnswer() {
         cell.dataset.value === cell.dataset.expected
     );
 
-    const practiceCorrect = practiceCells.every(cell => {
-        const expected = cell.dataset.practiceExpected ??
-            cell.dataset.expected;
-
-        return cell.dataset.value === expected;
-    });
+    const practiceCorrect = practiceCells.every(cell =>
+        cell.dataset.value ===
+        (cell.dataset.practiceExpected ?? cell.dataset.expected)
+    );
 
     if (mainCorrect && practiceCorrect) {
         stageSolved = true;
@@ -983,9 +1094,7 @@ function checkAnswer() {
 
         celebrate();
     } else {
-        setFeedback(
-            "دلبندم، یک بار دیگر الگو را با دقت نگاه کن."
-        );
+        setFeedback("دلبندم، یک بار دیگر الگو را با دقت نگاه کن.");
     }
 }
 
@@ -1008,10 +1117,9 @@ function clearAnswers() {
     taskArea.querySelectorAll(".answer-cell").forEach(cell => {
         cell.classList.remove("answered", "correct");
         cell.dataset.value = "";
-        cell.textContent = "؟";
+        cell.textContent = "";
         cell.style.backgroundColor = "#ffffff";
-        cell.style.color = "#999999";
-        cell.style.border = "1px dashed #bcbcbc";
+        cell.style.color = "#ffffff";
     });
 
     selectedValue = null;
@@ -1038,10 +1146,6 @@ function startGame() {
     }
 
     studentName = studentNameInput.value.trim();
-
-    if (audioContext && audioContext.state === "suspended") {
-        audioContext.resume().catch(() => {});
-    }
 
     startScreen.classList.add("hidden");
     finishScreen.classList.add("hidden");
