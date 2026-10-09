@@ -842,3 +842,72 @@ button {
 .logic-grid .cell.answer-cell {
     background: #fff8e8 !important;
 }
+/* جدول‌های فشرده و یک‌ردیفی */
+
+.main-pattern,
+.practice-pattern {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.main-pattern .cell,
+.practice-pattern .cell {
+    min-width: 0 !important;
+    padding: 0 !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.practice-title {
+    text-align: center;
+    color: #7438c8;
+    font-weight: bold;
+    line-height: 1.8;
+    margin: 12px 0 6px;
+}
+
+.color-choice-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 5px;
+}
+
+.palette-btn.selected {
+    outline: 3px solid #7438c8 !important;
+    outline-offset: 1px;
+}
+
+/* دو ردیف جدول مرحله هفتم به هم چسبیده باشند */
+
+.logic-grid {
+    gap: 0 !important;
+}
+
+.logic-grid .cell {
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+/* اندازه مناسب صفحه موبایل */
+
+@media (max-width: 600px) {
+    .game-content {
+        padding: 8px;
+    }
+
+    .pattern-grid {
+        gap: 2px;
+    }
+
+    .pattern-grid .cell {
+        font-size: clamp(9px, 2.5vw, 16px);
+    }
+
+    .practice-title {
+        font-size: 13px;
+    }
+}
