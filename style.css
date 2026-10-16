@@ -1,9 +1,7 @@
 :root {
   --lilac: #e9dcff;
-  --lilac-deep: #c9a9ff;
   --purple: #7040a8;
   --purple-dark: #4b287c;
-  --white: #fff;
   --green: #45bf66;
   --red: #f05262;
   --blue: #4399f2;
@@ -28,7 +26,7 @@ body {
 body {
   font-family: Tahoma, Arial, sans-serif;
   color: var(--text);
-  background: var(--lilac);
+  background: linear-gradient(145deg, #f0e7ff, #dfccff);
   touch-action: manipulation;
 }
 
@@ -63,7 +61,7 @@ button {
   display: none !important;
 }
 
-/* صفحهٔ شروع */
+/* صفحه شروع */
 
 .welcome {
   display: flex;
@@ -79,12 +77,11 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(7px, 1.5vh, 15px);
+  gap: 12px;
   padding: clamp(15px, 3vh, 28px);
-  border: 2px solid #fff;
+  border: 2px solid white;
   border-radius: 28px;
-  background: #ffffffd9;
+  background: #ffffffdf;
   box-shadow: 0 12px 30px #7752a526;
   text-align: center;
 }
@@ -98,7 +95,6 @@ button {
   object-position: center;
   border-radius: 22px;
   border: 3px solid #c4a0ff;
-  background: #f2e9ff;
 }
 
 .welcome-title {
@@ -135,14 +131,10 @@ button {
   outline: none;
 }
 
-#studentName:focus {
-  border-color: var(--purple);
-}
-
 .primary-button {
   min-height: 38px;
-  padding: 8px 15px;
-  color: #fff;
+  padding: 9px 15px;
+  color: white;
   background: linear-gradient(135deg, #9864e7, #7040a8);
   border: 0;
   border-radius: 12px;
@@ -152,7 +144,6 @@ button {
 
 .primary-button:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 #4e2b7a;
 }
 
 .primary-button:disabled {
@@ -160,13 +151,13 @@ button {
   cursor: not-allowed;
 }
 
-/* صفحهٔ بازی */
+/* صفحه بازی */
 
 .game-screen {
   display: flex;
   flex-direction: column;
-  gap: clamp(3px, 0.65vh, 7px);
-  padding: clamp(5px, 1.2vw, 12px);
+  gap: 5px;
+  padding: 7px 9px 3px;
 }
 
 .game-header {
@@ -175,18 +166,17 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  min-height: 35px;
+  min-height: 37px;
 }
 
 .game-brand {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 0;
 }
 
 .brand-icon {
-  font-size: 25px;
+  font-size: 26px;
 }
 
 .game-brand strong,
@@ -207,14 +197,14 @@ button {
 .stage-counter {
   flex-shrink: 0;
   padding: 6px 10px;
-  border-radius: 12px;
-  background: #ffffffc9;
+  border-radius: 11px;
+  background: #ffffffd9;
   font-size: 12px;
   font-weight: bold;
 }
 
 .progress-track {
-  flex: 0 0 4px;
+  flex: 0 0 5px;
   width: 100%;
   overflow: hidden;
   border-radius: 20px;
@@ -229,8 +219,6 @@ button {
   transition: width 0.25s;
 }
 
-/* متن سؤال */
-
 .question-area {
   flex: 0 0 auto;
   text-align: center;
@@ -244,11 +232,11 @@ button {
 
 .question-area p {
   margin: 3px 0;
-  font-size: clamp(10px, 1.9vw, 15px);
+  font-size: clamp(10px, 1.8vw, 14px);
   line-height: 1.5;
 }
 
-/* انتخاب شکل و رنگ */
+/* انتخاب رنگ و شکل */
 
 .palette {
   flex: 0 0 auto;
@@ -257,49 +245,49 @@ button {
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
-  min-height: 31px;
+  min-height: 33px;
 }
 
 .palette-button {
-  min-width: 32px;
-  height: 32px;
+  min-width: 34px;
+  height: 34px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff;
-  border-radius: 9px;
-  background: #ffffffb5;
-  font-size: 19px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: #ffffffc9;
   box-shadow: 0 2px 0 #bca5d6;
 }
 
 .palette-button.selected {
   border-color: var(--purple-dark);
-  background: #fff;
+  background: white;
   box-shadow: 0 0 0 2px #b28be9;
 }
 
-/* دکمه‌ها بالای جدول */
+/* دکمه‌های ناوبری بالای جدول */
 
-.top-nav {
+.nav-buttons {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 5px;
-  padding: 1px 0;
+  gap: 6px;
+  padding: 2px 0;
 }
 
 .nav-button {
-  min-height: 30px;
-  padding: 6px 10px;
+  min-height: 32px;
+  padding: 6px 12px;
   border: 1px solid #b99ce4;
-  border-radius: 9px;
-  background: #ffffffd9;
+  border-radius: 10px;
+  background: #ffffffdf;
   color: #59367f;
   font-size: 12px;
   font-weight: bold;
+  box-shadow: 0 2px 0 #d1bce9;
 }
 
 .nav-button:disabled {
@@ -311,15 +299,16 @@ button {
   color: #a33448;
 }
 
-/* بخش جدول‌ها */
+/* جدول‌ها */
 
 .board-area {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: clamp(3px, 0.6vh, 7px);
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 4px;
   width: 100%;
   overflow: hidden;
 }
@@ -327,9 +316,10 @@ button {
 .board-label {
   flex: 0 0 auto;
   text-align: center;
-  font-size: clamp(10px, 1.8vw, 15px);
+  font-size: clamp(10px, 1.8vw, 14px);
   font-weight: bold;
   color: #5b397f;
+  margin: 1px 0;
 }
 
 .board {
@@ -342,7 +332,7 @@ button {
   margin: 0 auto;
   gap: 0;
   border: 2px solid var(--line);
-  background: #fff;
+  background: white;
   overflow: hidden;
   touch-action: manipulation;
 }
@@ -359,8 +349,6 @@ button {
   grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
-/* خانه‌های جدول */
-
 .cell {
   position: relative;
   display: flex;
@@ -370,54 +358,30 @@ button {
   justify-content: center;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: #fff;
+  background: white;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
 }
 
-.cell.filled,
-.cell.empty-cell {
-  background: #fff;
+.cell.filled {
+  background: white;
 }
 
 .cell.correct-cell {
-  box-shadow: inset 0 0 0 3px #43c66c;
+  box-shadow: inset 0 0 0 2px #43c66c;
 }
 
 .cell.wrong-cell {
-  box-shadow: inset 0 0 0 3px #f05262;
+  box-shadow: inset 0 0 0 2px var(--red);
 }
-
-/* حذف خطوط اضافه در انتهای هر ردیف */
-
-.board.pattern-21 .cell:nth-child(21n),
-.board.pattern-18 .cell:nth-child(18n),
-.board.pattern-12 .cell:nth-child(12n),
-.board.pattern-6 .cell:nth-child(6n),
-.board.line-board .cell:nth-child(10n) {
-  border-right: 0;
-}
-
-.board.rows-1 .cell {
-  border-bottom: 0;
-}
-
-.pattern-21:not(.copy-board) .cell:nth-child(n+43),
-.copy-board.pattern-21 .cell:nth-child(n+13),
-.line-board .cell:nth-child(n+21) {
-  border-bottom: 0;
-}
-
-/* شکل‌ها داخل خانه‌ها */
 
 .shape {
   display: block;
-  width: 64%;
-  height: 64%;
-  max-width: 76%;
-  max-height: 76%;
-  flex: 0 0 auto;
+  width: 66%;
+  height: 66%;
+  max-width: 90%;
+  max-height: 90%;
   pointer-events: none;
 }
 
@@ -432,71 +396,52 @@ button {
 .shape.triangle {
   width: 0;
   height: 0;
-  max-width: none;
-  max-height: none;
-  border-left: clamp(4px, 1.1vw, 10px) solid transparent;
-  border-right: clamp(4px, 1.1vw, 10px) solid transparent;
-  border-bottom: clamp(8px, 2vw, 18px) solid currentColor;
+  border-left: 0.38em solid transparent;
+  border-right: 0.38em solid transparent;
+  border-bottom: 0.7em solid currentColor;
   background: transparent !important;
 }
 
 .shape.diamond {
-  width: 48%;
-  height: 48%;
-  max-width: 65%;
-  max-height: 65%;
+  width: 54%;
+  height: 54%;
   transform: rotate(45deg);
   border-radius: 2px;
 }
 
-/* عنوان و جدول دوم */
-
-.copy-label {
-  margin-top: 1px;
+.cell .shape.triangle {
+  font-size: clamp(12px, 2.3vw, 28px);
 }
 
-.copy-board {
-  flex: 0 1 auto;
-  max-height: 29%;
-}
+/* سؤال اول */
 
-/* پیام پاسخ */
-
-.feedback {
+.board.pattern-18 {
+  height: min(12vh, 78px);
   flex: 0 0 auto;
-  min-height: 18px;
-  text-align: center;
-  font-size: clamp(10px, 1.9vw, 15px);
-  font-weight: bold;
-  color: #4b287c;
 }
 
-/* امضای بزرگ در پایین صفحه */
-
-.game-footer {
+.board.pattern-6 {
+  height: min(8vh, 48px);
   flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: clamp(38px, 7vh, 58px);
-  padding: 0 0 2px;
 }
 
-.signature {
-  display: block;
-  width: clamp(120px, 23vw, 220px);
-  height: clamp(36px, 7vh, 58px);
-  max-height: 58px;
-  object-fit: contain;
-  object-position: center;
-  mix-blend-mode: multiply;
+/* سؤال‌های موش */
+
+.board.pattern-12 {
+  height: min(12vh, 72px);
+  flex: 0 0 auto;
 }
 
-/* جدول ۲۱ ستونی */
+.board.pattern-12 .shape {
+  width: 65%;
+  height: 65%;
+}
+
+/* مرحله چهارم: جدول ۲۱ ستونی */
 
 .board.pattern-21 {
+  height: min(24vh, 160px);
   flex: 0 0 auto;
-  height: min(24vh, 155px);
 }
 
 .board.pattern-21 .cell {
@@ -505,49 +450,22 @@ button {
 }
 
 .board.pattern-21 .shape {
-  width: 70%;
-  height: 70%;
-  max-width: 78%;
-  max-height: 78%;
+  width: 75%;
+  height: 75%;
 }
 
-/* جدول ۱۸ ستونی */
+/* جدول پایین مرحله چهارم */
 
-.board.pattern-18 {
+.copy-board.pattern-21 {
+  height: min(19vh, 120px);
   flex: 0 0 auto;
-  height: min(10vh, 62px);
 }
 
-/* جدول ۶ ستونی */
-
-.board.pattern-6 {
-  flex: 0 0 auto;
-  height: min(8vh, 48px);
-}
-
-/* جدول ۱۲ ستونی */
-
-.board.pattern-12 {
-  flex: 0 0 auto;
-  height: min(10vh, 62px);
-}
-
-.board.pattern-12 .shape {
-  width: 64%;
-  height: 64%;
-}
-
-.copy-board.pattern-6 {
-  flex: 0 0 auto;
-  height: min(8vh, 48px);
-  max-height: none;
-}
-
-/* خط‌های قرمز و آبی: وسط خانه */
+/* خط‌های قرمز و آبی */
 
 .board.line-board {
+  height: min(25vh, 170px);
   flex: 0 0 auto;
-  height: min(27vh, 180px);
 }
 
 .line-cell {
@@ -556,12 +474,12 @@ button {
 
 .line-mark {
   position: absolute;
-  left: 12%;
-  right: 12%;
+  left: 0;
+  right: 0;
   top: 50%;
-  height: clamp(3px, 0.65vh, 6px);
+  height: 5px;
+  border-radius: 5px;
   transform: translateY(-50%);
-  border-radius: 99px;
   pointer-events: none;
 }
 
@@ -573,7 +491,7 @@ button {
   background: var(--blue);
 }
 
-/* موش قابل کشیدن */
+/* موش */
 
 .mouse-start {
   position: absolute;
@@ -595,10 +513,40 @@ button {
   font-size: 38px;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 2px 2px #0002);
 }
 
-/* صفحهٔ پایان */
+/* پیام پاسخ */
+
+.feedback {
+  flex: 0 0 auto;
+  min-height: 20px;
+  text-align: center;
+  font-size: clamp(11px, 1.9vw, 15px);
+  font-weight: bold;
+  color: var(--purple-dark);
+}
+
+/* امضا وسط پایین صفحه */
+
+.game-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 0 2px;
+}
+
+.signature {
+  display: block;
+  width: clamp(100px, 17vw, 165px);
+  height: 44px;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+}
+
+/* صفحه پایان */
 
 .finish-screen {
   display: flex;
@@ -616,7 +564,7 @@ button {
   align-items: center;
   gap: 12px;
   padding: 25px;
-  border: 2px solid #fff;
+  border: 2px solid white;
   border-radius: 26px;
   background: #ffffffdf;
   text-align: center;
@@ -644,19 +592,18 @@ button {
 }
 
 .finish-signature {
-  width: 190px;
-  height: 65px;
-  max-height: 65px;
+  width: 175px;
+  height: 55px;
 }
 
-/* فشفشه روی صفحه */
+/* فشفشه */
 
 .fireworks-canvas {
   position: fixed;
   inset: 0;
+  z-index: 10000;
   width: 100%;
   height: 100%;
-  z-index: 8000;
   pointer-events: none;
 }
 
@@ -664,12 +611,16 @@ button {
 
 @media (max-width: 600px) {
   .game-screen {
-    padding: 4px;
+    padding: 5px 5px 2px;
     gap: 3px;
   }
 
   .game-header {
     min-height: 32px;
+  }
+
+  .brand-icon {
+    font-size: 22px;
   }
 
   .question-area h1 {
@@ -678,71 +629,71 @@ button {
 
   .question-area p {
     font-size: 10px;
-  }
-
-  .palette-button {
-    min-width: 28px;
-    height: 28px;
-    font-size: 15px;
+    line-height: 1.4;
   }
 
   .palette {
-    min-height: 28px;
+    min-height: 29px;
     gap: 3px;
   }
 
-  .top-nav {
-    gap: 3px;
+  .palette-button {
+    min-width: 29px;
+    height: 29px;
+  }
+
+  .nav-buttons {
+    gap: 4px;
   }
 
   .nav-button {
-    min-height: 27px;
-    padding: 4px 7px;
+    min-height: 28px;
+    padding: 5px 8px;
     font-size: 10px;
   }
 
-  .top-nav .primary-button {
-    min-height: 27px;
-    padding: 4px 8px;
+  .nav-buttons .primary-button {
+    min-height: 28px;
+    padding: 5px 8px;
     font-size: 10px;
-  }
-
-  .board.pattern-21 {
-    height: min(21vh, 120px);
   }
 
   .board.pattern-18 {
-    height: min(8vh, 48px);
+    height: min(10vh, 60px);
   }
 
   .board.pattern-6 {
-    height: min(6vh, 38px);
+    height: min(7vh, 42px);
   }
 
   .board.pattern-12 {
-    height: min(8vh, 48px);
+    height: min(9vh, 52px);
   }
 
-  .copy-board.pattern-6 {
-    height: min(6vh, 38px);
+  .board.pattern-21 {
+    height: min(22vh, 135px);
+  }
+
+  .copy-board.pattern-21 {
+    height: min(17vh, 100px);
   }
 
   .board.line-board {
     height: min(22vh, 140px);
   }
 
+  .signature {
+    width: 125px;
+    height: 38px;
+  }
+
   .game-footer {
     min-height: 36px;
   }
 
-  .signature {
-    width: clamp(125px, 35vw, 190px);
-    height: 38px;
-  }
-
-  .cell {
-    border-right-width: 1px;
-    border-bottom-width: 1px;
+  .feedback {
+    min-height: 18px;
+    font-size: 10px;
   }
 }
 
@@ -760,40 +711,31 @@ button {
     margin: 1px 0;
   }
 
-  .palette-button {
-    height: 27px;
-    min-width: 28px;
+  .board.pattern-21 {
+    height: min(19vh, 105px);
   }
 
-  .board.pattern-21 {
-    height: min(19vh, 100px);
+  .copy-board.pattern-21 {
+    height: min(15vh, 78px);
   }
 
   .board.pattern-18 {
-    height: min(7vh, 35px);
-  }
-
-  .board.pattern-6 {
-    height: min(5vh, 29px);
+    height: min(9vh, 50px);
   }
 
   .board.pattern-12 {
-    height: min(7vh, 35px);
-  }
-
-  .copy-board.pattern-6 {
-    height: min(5vh, 29px);
+    height: min(8vh, 38px);
   }
 
   .board.line-board {
-    height: min(20vh, 105px);
-  }
-
-  .game-footer {
-    min-height: 32px;
+    height: min(19vh, 110px);
   }
 
   .signature {
-    height: 31px;
+    height: 32px;
+  }
+
+  .game-footer {
+    min-height: 30px;
   }
 }
