@@ -1,6 +1,9 @@
 "use strict";
 
-/* الگوی منظم | ریاضی پایه اول | آموزگار: مرضیه محمدی */
+/* =====================================================
+   الگوی منظم | ریاضی پایه اول
+   آموزگار: مرضیه محمدی
+   ===================================================== */
 
 const $ = id => document.getElementById(id);
 
@@ -35,12 +38,39 @@ const state = {
   name: "",
   score: 0,
   completed: new Set(),
-  selected: PALETTE_ITEMS[0],
+  selected: { ...PALETTE_ITEMS[0] },
   mouseArmed: false,
   dragging: false,
   dragStage: null,
-  audio: null
+  audio: null,
+  fireworksTimer: null
 };
+
+function cloneItem(item) {
+  return item ? { ...item } : null;
+}
+
+function repeatPattern(pattern, count) {
+  return Array.from(
+    { length: count },
+    (_, index) => cloneItem(pattern[index % pattern.length])
+  );
+}
+
+function toPersianNumber(number) {
+  return String(number).replace(/\d/g, digit => "۰۱۲۳۴۵۶۷۸۹"[digit]);
+}
+
+function sameItem(a, b) {
+  if (!a || !b) return !a && !b;
+  return a.shape === b.shape && a.color === b.color;
+}
+
+function colorItem(color) {
+  return { shape: "square", color };
+}
+
+/* ---------- الگوهای اصلی ---------- */
 
 const patternSix = [
   { shape: "circle", color: "red" },
@@ -51,28 +81,18 @@ const patternSix = [
   { shape: "triangle", color: "green" }
 ];
 
-const cloneItem = item => item ? { ...item } : null;
-
-function repeatPattern(pattern, count) {
-  return Array.from(
-    { length: count },
-    (_, i) => cloneItem(pattern[i % pattern.length])
-  );
-}
-
 function makePatternQuestion(pattern, columns, wrongIndex, wrongItem) {
-  const expected = repeatPattern(pattern, columns);
-  const cells = expected.map(cloneItem);
+  const cells = repeatPattern(pattern, columns);
 
-  cells[wrongIndex] = cloneItem(wrongItem);
+  if (wrongIndex >= 0 && wrongIndex < cells.length) {
+    cells[wrongIndex] = cloneItem(wrongItem);
+  }
 
   return {
     columns,
-    rows: 1,
     cells,
-    expected,
+    expected: repeatPattern(pattern, columns),
     wrongIndex,
-    wrongItem: cloneItem(wrongItem),
     eaten: false
   };
 }
@@ -89,7 +109,6 @@ const mouseQuestions = [
     6,
     { shape: "triangle", color: "red" }
   ),
-
   makePatternQuestion(
     [
       { shape: "triangle", color: "blue" },
@@ -103,31 +122,40 @@ const mouseQuestions = [
   )
 ];
 
-const greenWhite = Array.from(
-  { length: 21 },
-  (_, i) => i % 2 === 0 ? "green" : "white"
-);
-
-const whiteGreenRed = Array.from(
-  { length: 21 },
-  (_, i) => ["white", "green", "white", "red"][i % 4]
-);
+/*
+  مرحله چهارم:
+  ردیف اول: سبز، سفید، سبز، سفید...
+  ردیف دوم: سفید، سبز، سفید، قرمز...
+  ردیف سوم: سبز، سفید، سبز، سفید...
+*/
 
 const threeRowExpected = [
-  greenWhite,
-  whiteGreenRed,
-  [...greenWhite]
+  Array.from({ length: 21 }, (_, i) =>
+    i % 2 === 0 ? "green" : "white"
+  ),
+
+  Array.from({ length: 21 }, (_, i) =>
+    ["white", "green", "white", "red"][i % 4]
+  ),
+
+  Array.from({ length: 21 }, (_, i) =>
+    i % 2 === 0 ? "green" : "white"
+  )
 ];
 
+/* فقط هشت خانه اول هر ردیف از ابتدا رنگی هستند */
+const THREE_ROW_VISIBLE_COLUMNS = 8;
+
+/* الگوی نمونه خط‌ها */
 const lineExpected = Array.from({ length: 30 }, () => null);
 
-[1, 3, 5, 7, 9].forEach(col => {
+for (const col of [1, 3, 5, 7, 9]) {
   lineExpected[col] = "red";
-});
+}
 
-[2, 4, 6, 8].forEach(col => {
+for (const col of [2, 4, 6, 8]) {
   lineExpected[10 + col] = "blue";
-});
+}
 
 const stages = [
   {
@@ -152,17 +180,49 @@ const stages = [
     type: "threeRows",
     title: "الگوی سه‌ردیفی را کامل کن",
     description:
-      "به هر سه ردیف نگاه کن و در جدول پایین الگوی اصلی را یک بار تکرار کن."
+      "الگو را بخوان، خانه‌های خالی جدول بالا را پر کن و سپس الگو را در جدول پایین تکرار کن."
   },
   {
     type: "lines",
     title: "الگوی خطی را ادامه بده",
     description:
-      "به خط‌های پایین خانه‌ها دقت کن. خط‌های قرمز و آبی را در جای درست ادامه بده."
+      "رنگ خط قرمز یا آبی را انتخاب کن و خط‌ها را در جای درست ادامه بده."
   }
 ];
 
-/* ---------------- صدا ---------------- */
+/* ---------- وضعیت سؤال‌ها ---------- */
+
+const copyState = {
+  top: [],
+  bottom: []
+};
+
+const threeRowsState = {
+  top: Array.from({ length: 63 }, (_, index) => {
+    const row = Math.floor(index / 21);
+    const col = index % 21;
+
+    return col < THREE_ROW_VISIBLE_COLUMNS
+      ? colorItem(threeRowExpected[row][col])
+      : null;
+  }),
+
+  bottom: Array.from({ length: 18 }, () => null)
+};
+
+const lineState = {
+  marks: Array.from({ length: 30 }, (_, index) => {
+    const row = Math.floor(index / 10);
+    const col = index % 10;
+
+    if (row === 0 && [1, 3].includes(col)) return "red";
+    if (row === 1 && [2, 4].includes(col)) return "blue";
+
+    return null;
+  })
+};
+
+/* ---------- صدا ---------- */
 
 function playTone(frequency = 660, duration = 0.12) {
   try {
@@ -186,7 +246,6 @@ function playTone(frequency = 660, duration = 0.12) {
     oscillator.frequency.value = frequency;
 
     gain.gain.setValueAtTime(0.13, state.audio.currentTime);
-
     gain.gain.exponentialRampToValueAtTime(
       0.001,
       state.audio.currentTime + duration
@@ -198,7 +257,7 @@ function playTone(frequency = 660, duration = 0.12) {
     oscillator.start();
     oscillator.stop(state.audio.currentTime + duration);
   } catch (error) {
-    // بازی بدون صدا نیز اجرا می‌شود.
+    // بازی در صورت نبود پشتیبانی صدا نیز اجرا می‌شود.
   }
 }
 
@@ -210,23 +269,111 @@ function playSuccess() {
   playTone(660, 0.12);
   setTimeout(() => playTone(830, 0.15), 120);
   setTimeout(() => playTone(990, 0.2), 250);
+}
+
+/* ---------- فشفشه ---------- */
+
+function launchFireworks() {
+  const canvas = $("fireworks");
+  const ctx = canvas.getContext("2d");
+
+  if (!ctx) return;
+
+  canvas.width = window.innerWidth * (window.devicePixelRatio || 1);
+  canvas.height = window.innerHeight * (window.devicePixelRatio || 1);
+
+  ctx.setTransform(
+    window.devicePixelRatio || 1,
+    0,
+    0,
+    window.devicePixelRatio || 1,
+    0,
+    0
+  );
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  const particles = [];
+  const colors = [
+    "#ff4f81",
+    "#ffd84d",
+    "#45bf66",
+    "#4399f2",
+    "#a77be8",
+    "#ff914d"
+  ];
+
+  for (let burst = 0; burst < 5; burst++) {
+    const centerX = width * (0.15 + Math.random() * 0.7);
+    const centerY = height * (0.15 + Math.random() * 0.45);
+
+    for (let i = 0; i < 36; i++) {
+      const angle = (Math.PI * 2 * i) / 36;
+      const speed = 1.5 + Math.random() * 3;
+
+      particles.push({
+        x: centerX,
+        y: centerY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 45 + Math.random() * 25,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: 2 + Math.random() * 2
+      });
+    }
+  }
+
+  if (state.fireworksTimer) {
+    cancelAnimationFrame(state.fireworksTimer);
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    let alive = false;
+
+    particles.forEach(particle => {
+      if (particle.life <= 0) return;
+
+      alive = true;
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      particle.vy += 0.035;
+      particle.life--;
+
+      ctx.globalAlpha = Math.min(1, particle.life / 18);
+      ctx.fillStyle = particle.color;
+      ctx.beginPath();
+      ctx.arc(
+        particle.x,
+        particle.y,
+        particle.size,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
+    });
+
+    ctx.globalAlpha = 1;
+
+    if (alive) {
+      state.fireworksTimer = requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, width, height);
+      state.fireworksTimer = null;
+    }
+  }
+
+  animate();
+}
+
+function celebrate() {
+  playSuccess();
   launchFireworks();
 }
 
-/* ---------------- ابزارهای عمومی ---------------- */
-
-function toPersianNumber(number) {
-  return String(number).replace(
-    /\d/g,
-    digit => "۰۱۲۳۴۵۶۷۸۹"[digit]
-  );
-}
-
-function sameItem(a, b) {
-  if (!a || !b) return !a && !b;
-
-  return a.shape === b.shape && a.color === b.color;
-}
+/* ---------- نمایش شکل‌ها و جدول ---------- */
 
 function shapeElement(item) {
   if (!item) return "";
@@ -235,26 +382,21 @@ function shapeElement(item) {
 
   if (item.shape === "triangle") {
     return `
-      <span
-        class="shape triangle"
-        style="color:${color};border-bottom-color:${color}"
-      ></span>
-    `;
+      <span class="shape triangle"
+            style="color:${color};border-bottom-color:${color}">
+      </span>`;
   }
 
   return `
-    <span
-      class="shape ${item.shape}"
-      style="background:${color}"
-    ></span>
-  `;
+    <span class="shape ${item.shape}"
+          style="background:${color}">
+    </span>`;
 }
 
 function cellElement(item, index, options = {}) {
   const classes = ["cell"];
 
   if (item) classes.push("filled");
-  if (options.empty) classes.push("empty-cell");
   if (options.line) classes.push("line-cell");
 
   const content = options.line
@@ -262,42 +404,37 @@ function cellElement(item, index, options = {}) {
     : shapeElement(item);
 
   return `
-    <div
-      class="${classes.join(" ")}"
-      data-index="${index}"
-      data-board="${options.board || "main"}"
-      ${options.row !== undefined ? `data-row="${options.row}"` : ""}
-      role="button"
-      aria-label="خانه ${toPersianNumber(index + 1)}"
-    >
+    <div class="${classes.join(" ")}"
+         data-index="${index}"
+         data-board="${options.board || "main"}"
+         data-row="${options.row ?? 0}"
+         role="button"
+         aria-label="خانه ${toPersianNumber(index + 1)}">
       ${content}
-    </div>
-  `;
+    </div>`;
 }
 
 function makeBoard(container, rows, columns, cells, options = {}) {
   container.innerHTML = "";
-
   container.className =
     `board rows-${rows} ${options.className || ""}`.trim();
 
   container.style.gridTemplateColumns =
     `repeat(${columns}, minmax(0, 1fr))`;
 
-  for (let i = 0; i < rows * columns; i++) {
+  const total = rows * columns;
+
+  for (let i = 0; i < total; i++) {
     const item = cells[i] || null;
     const row = Math.floor(i / columns);
     const col = i % columns;
 
-    container.insertAdjacentHTML(
-      "beforeend",
-      cellElement(item, i, {
-        board: options.board || "main",
-        empty: !item,
-        line: options.lineMode ? item : null,
-        row
-      })
-    );
+    const html = cellElement(item, i, {
+      board: options.board || "main",
+      row
+    });
+
+    container.insertAdjacentHTML("beforeend", html);
 
     const cell = container.lastElementChild;
 
@@ -312,7 +449,7 @@ function makeBoard(container, rows, columns, cells, options = {}) {
   container.dataset.columns = columns;
 }
 
-/* ---------------- شروع و پایان ---------------- */
+/* ---------- شروع و پایان ---------- */
 
 $("startButton").addEventListener("click", startGame);
 
@@ -320,46 +457,52 @@ $("studentName").addEventListener("keydown", event => {
   if (event.key === "Enter") startGame();
 });
 
-const copyState = {
-  top: [],
-  bottom: Array(6).fill(null)
-};
-
-const threeRowsState = {
-  bottom: Array(18).fill(null)
-};
-
-const lineState = {
-  marks: Array(30).fill(null),
-  initialized: false
-};
-
 function resetGameData() {
   copyState.top = [];
-  copyState.bottom = Array(6).fill(null);
-
-  threeRowsState.bottom = Array(18).fill(null);
-
-  lineState.marks = Array(30).fill(null);
-  lineState.initialized = false;
+  copyState.bottom = [];
 
   mouseQuestions.forEach(question => {
+    question.cells = repeatPattern(question.expected, question.columns);
+    question.cells[question.wrongIndex] = cloneItem(
+      question.wrongIndex >= 0
+        ? question.wrongIndex === 6
+          ? { shape: "triangle", color: "red" }
+          : { shape: "circle", color: "red" }
+        : null
+    );
     question.eaten = false;
-    question.cells = question.expected.map(cloneItem);
-    question.cells[question.wrongIndex] =
-      cloneItem(question.wrongItem);
+  });
+
+  threeRowsState.top = Array.from({ length: 63 }, (_, index) => {
+    const row = Math.floor(index / 21);
+    const col = index % 21;
+
+    return col < THREE_ROW_VISIBLE_COLUMNS
+      ? colorItem(threeRowExpected[row][col])
+      : null;
+  });
+
+  threeRowsState.bottom = Array.from({ length: 18 }, () => null);
+
+  lineState.marks = Array.from({ length: 30 }, (_, index) => {
+    const row = Math.floor(index / 10);
+    const col = index % 10;
+
+    if (row === 0 && [1, 3].includes(col)) return "red";
+    if (row === 1 && [2, 4].includes(col)) return "blue";
+
+    return null;
   });
 }
 
 function startGame() {
-  state.name =
-    $("studentName").value.trim() || "دانش‌آموز عزیز";
-
+  state.name = $("studentName").value.trim() || "دانش‌آموز عزیز";
   state.stage = 0;
   state.score = 0;
   state.completed.clear();
   state.mouseArmed = false;
   state.dragging = false;
+  state.dragStage = null;
   state.selected = cloneItem(PALETTE_ITEMS[0]);
 
   resetGameData();
@@ -368,8 +511,7 @@ function startGame() {
   $("finish").classList.add("hidden");
   $("game").classList.remove("hidden");
 
-  $("studentGreeting").textContent =
-    `${state.name} جان، آماده‌ای؟`;
+  $("studentGreeting").textContent = `${state.name} جان، آماده‌ای؟`;
 
   renderStage();
   playClick();
@@ -379,21 +521,19 @@ function finishGame() {
   $("game").classList.add("hidden");
   $("finish").classList.remove("hidden");
 
-  $("finishTitle").textContent =
-    `آفرین ${state.name} جان!`;
-
+  $("finishTitle").textContent = `آفرین ${state.name} جان!`;
   $("finishMessage").textContent =
     "با دقت الگوها را پیدا کردی و ادامه دادی.";
 
   $("finalScore").textContent =
     `امتیاز تو: ${toPersianNumber(state.score)} از ۵`;
 
-  playSuccess();
+  celebrate();
 }
 
 $("restartButton").addEventListener("click", startGame);
 
-/* ---------------- نمایش سؤال ---------------- */
+/* ---------- نمایش مرحله ---------- */
 
 function renderStage() {
   state.mouseArmed = false;
@@ -407,12 +547,10 @@ function renderStage() {
     `${((state.stage + 1) / stages.length) * 100}%`;
 
   $("questionTitle").textContent = stage.title;
-
   $("questionText").textContent =
     `${state.name} جان، ${stage.description}`;
 
   $("feedback").textContent = "";
-
   $("mainBoard").innerHTML = "";
   $("copyBoard").innerHTML = "";
 
@@ -420,14 +558,11 @@ function renderStage() {
   $("copyBoard").classList.add("hidden");
 
   $("boardLabel").textContent = "الگوی اصلی";
-
   $("palette").innerHTML = "";
 
   $("checkButton").disabled = false;
   $("prevButton").disabled = state.stage === 0;
   $("nextButton").disabled = false;
-
-  $("dragMouse").classList.add("hidden");
 
   if (stage.type === "copy") {
     renderCopyStage();
@@ -440,13 +575,14 @@ function renderStage() {
   }
 }
 
+/* ---------- پالت شکل‌ها ---------- */
+
 function renderPalette(items = PALETTE_ITEMS) {
   const palette = $("palette");
   palette.innerHTML = "";
 
   items.forEach(item => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "palette-button";
 
@@ -455,7 +591,6 @@ function renderPalette(items = PALETTE_ITEMS) {
     }
 
     button.innerHTML = shapeElement(item);
-
     button.setAttribute(
       "aria-label",
       `${SHAPES[item.shape]} ${item.color}`
@@ -464,6 +599,7 @@ function renderPalette(items = PALETTE_ITEMS) {
     button.addEventListener("click", () => {
       state.selected = cloneItem(item);
       renderPalette(items);
+      $("checkButton").disabled = false;
       playClick();
     });
 
@@ -471,7 +607,7 @@ function renderPalette(items = PALETTE_ITEMS) {
   });
 }
 
-/* ---------------- سؤال اول: ادامهٔ الگو ---------------- */
+/* ---------- سؤال اول ---------- */
 
 function renderCopyStage() {
   renderPalette();
@@ -479,134 +615,88 @@ function renderCopyStage() {
   if (copyState.top.length !== 18) {
     copyState.top = [
       ...repeatPattern(patternSix, 2),
-      ...Array(6).fill(null)
+      ...Array.from({ length: 6 }, () => null)
     ];
   }
 
   if (copyState.bottom.length !== 6) {
-    copyState.bottom = Array(6).fill(null);
+    copyState.bottom = Array.from({ length: 6 }, () => null);
   }
 
-  $("boardLabel").textContent =
-    "الگوی اصلی را ادامه بده";
+  $("boardLabel").textContent = "الگوی اصلی را ادامه بده";
 
-  makeBoard(
-    $("mainBoard"),
-    1,
-    18,
-    copyState.top,
-    {
-      className: "pattern-18",
-      onCell: index => {
-        if (index >= 12) {
-          copyState.top[index] = cloneItem(state.selected);
-          $("checkButton").disabled = false;
-          renderCopyStage();
-          playClick();
-        }
+  makeBoard($("mainBoard"), 1, 18, copyState.top, {
+    className: "pattern-18",
+    onCell: index => {
+      if (index >= 12) {
+        copyState.top[index] = cloneItem(state.selected);
+        renderCopyStage();
+        $("checkButton").disabled = false;
+        playClick();
       }
     }
-  );
+  });
 
   $("copyLabel").classList.remove("hidden");
   $("copyBoard").classList.remove("hidden");
 
-  makeBoard(
-    $("copyBoard"),
-    1,
-    6,
-    copyState.bottom,
-    {
-      className: "pattern-6",
-      board: "copy",
-      onCell: index => {
-        copyState.bottom[index] = cloneItem(state.selected);
-        $("checkButton").disabled = false;
-        renderCopyStage();
-        playClick();
-      }
+  makeBoard($("copyBoard"), 1, 6, copyState.bottom, {
+    className: "pattern-6",
+    board: "copy",
+    onCell: index => {
+      copyState.bottom[index] = cloneItem(state.selected);
+      renderCopyStage();
+      $("checkButton").disabled = false;
+      playClick();
     }
-  );
+  });
 }
 
-/* ---------------- سؤال دوم و سوم: موش ---------------- */
+/* ---------- سؤال دوم و سوم: موش ---------- */
 
 function renderMouseStage() {
   const question = mouseQuestions[state.stage - 1];
 
   renderPalette();
 
-  $("boardLabel").textContent =
-    "موش را روی شکل اشتباه ببر";
+  $("boardLabel").textContent = "موش را روی شکل اشتباه ببر";
 
-  makeBoard(
-    $("mainBoard"),
-    1,
-    question.columns,
-    question.cells,
-    {
-      className: "pattern-12",
-      onCell: index => {
-        if (state.mouseArmed) eatShape(index);
-      }
+  makeBoard($("mainBoard"), 1, question.columns, question.cells, {
+    className: "pattern-12",
+    onCell: index => {
+      if (state.mouseArmed) eatShape(index);
     }
-  );
+  });
 
-  if (question.eaten) {
-    const cell = $("mainBoard").querySelector(
-      `.cell[data-index="${question.wrongIndex}"]`
-    );
-
-    if (cell) {
-      cell.innerHTML =
-        shapeElement(question.expected[question.wrongIndex]);
-
-      cell.classList.add("correct-cell");
-    }
-
-    $("feedback").textContent =
-      "آفرین! حالا الگو دوباره منظم شد.";
-
-    return;
-  }
-
-  addMouseToFirstCell();
+  if (!question.eaten) addMouseToFirstCell();
 }
 
 function addMouseToFirstCell() {
-  const first = $("mainBoard").querySelector(".cell");
-
-  if (!first) return;
+  const firstCell = $("mainBoard").querySelector(".cell");
+  if (!firstCell) return;
 
   const mouse = document.createElement("span");
-
   mouse.className = "mouse-start";
   mouse.textContent = "🐭";
   mouse.setAttribute("role", "button");
   mouse.setAttribute("aria-label", "موش را بکش");
   mouse.setAttribute("tabindex", "0");
 
-  first.appendChild(mouse);
+  firstCell.appendChild(mouse);
 
   mouse.addEventListener("click", event => {
     event.stopPropagation();
-
     state.mouseArmed = true;
-
     $("feedback").textContent =
-      "حالا شکل اشتباه را لمس کن یا موش را روی آن بکش.";
-
+      "حالا روی شکل اشتباه بزن یا موش را با انگشت بکش.";
     playClick();
   });
 
   mouse.addEventListener("keydown", event => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-
       state.mouseArmed = true;
-
-      $("feedback").textContent =
-        "حالا خانهٔ دارای شکل اشتباه را انتخاب کن.";
+      $("feedback").textContent = "خانهٔ دارای شکل اشتباه را انتخاب کن.";
     }
   });
 
@@ -617,22 +707,19 @@ function startMouseDrag(event) {
   if (state.dragging) return;
 
   event.preventDefault();
-  event.stopPropagation();
 
   state.dragging = true;
   state.dragStage = state.stage;
   state.mouseArmed = true;
 
-  const stageAtStart = state.stage;
-  const drag = $("dragMouse");
-
-  drag.classList.remove("hidden");
-  drag.style.left = `${event.clientX}px`;
-  drag.style.top = `${event.clientY}px`;
+  const dragMouse = $("dragMouse");
+  dragMouse.classList.remove("hidden");
+  dragMouse.style.left = `${event.clientX}px`;
+  dragMouse.style.top = `${event.clientY}px`;
 
   const move = moveEvent => {
-    drag.style.left = `${moveEvent.clientX}px`;
-    drag.style.top = `${moveEvent.clientY}px`;
+    dragMouse.style.left = `${moveEvent.clientX}px`;
+    dragMouse.style.top = `${moveEvent.clientY}px`;
   };
 
   const end = endEvent => {
@@ -640,8 +727,11 @@ function startMouseDrag(event) {
     document.removeEventListener("pointerup", end);
     document.removeEventListener("pointercancel", end);
 
-    drag.classList.add("hidden");
+    dragMouse.classList.add("hidden");
+
+    const stageAtStart = state.dragStage;
     state.dragging = false;
+    state.dragStage = null;
 
     if (stageAtStart !== state.stage) return;
 
@@ -657,10 +747,7 @@ function startMouseDrag(event) {
     }
   };
 
-  document.addEventListener("pointermove", move, {
-    passive: false
-  });
-
+  document.addEventListener("pointermove", move);
   document.addEventListener("pointerup", end);
   document.addEventListener("pointercancel", end);
 }
@@ -675,7 +762,6 @@ function eatShape(index) {
   if (index !== question.wrongIndex) {
     $("feedback").textContent =
       "یک بار دیگر الگو را با دقت بخوان. 🧐";
-
     playTone(240, 0.12);
     return;
   }
@@ -683,36 +769,30 @@ function eatShape(index) {
   question.eaten = true;
   state.mouseArmed = false;
 
+  question.cells[index] = cloneItem(question.expected[index]);
+
   const cell = $("mainBoard").querySelector(
     `.cell[data-index="${index}"]`
   );
 
   if (cell) {
-    cell.innerHTML = "😋";
-    cell.style.background = "#fff3c4";
+    cell.innerHTML = shapeElement(question.expected[index]);
+    cell.style.background = "#e8ffe9";
   }
 
-  $("feedback").textContent =
-    "موش شکل اشتباه را خورد! 🐭";
-
+  $("feedback").textContent = "موش شکل اشتباه را خورد! 🐭";
   playSuccess();
 
-  const stageAtEat = state.stage;
-
   setTimeout(() => {
-    if (state.stage !== stageAtEat) return;
-    renderMouseStage();
-  }, 650);
+    if (state.stage === 1 || state.stage === 2) {
+      renderMouseStage();
+      $("feedback").textContent =
+        "آفرین! شکل اشتباه اصلاح شد.";
+    }
+  }, 550);
 }
 
-/* ---------------- سؤال چهارم: سه ردیف ---------------- */
-
-function colorItem(color) {
-  return {
-    shape: "square",
-    color
-  };
-}
+/* ---------- مرحله چهارم: سه ردیف ---------- */
 
 function renderColorPalette() {
   const items = [
@@ -726,7 +806,6 @@ function renderColorPalette() {
 
   items.forEach(item => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "palette-button";
 
@@ -742,14 +821,14 @@ function renderColorPalette() {
         border-radius:3px;
         background:${COLORS[item.color]};
         border:1px solid #6d5d7d;
-      "></span>
-    `;
+      "></span>`;
 
     button.setAttribute("aria-label", `رنگ ${item.color}`);
 
     button.addEventListener("click", () => {
       state.selected = cloneItem(item);
       renderColorPalette();
+      $("checkButton").disabled = false;
       playClick();
     });
 
@@ -760,23 +839,32 @@ function renderColorPalette() {
 function renderThreeRowsStage() {
   renderColorPalette();
 
-  const cells = threeRowExpected.flat().map(colorItem);
+  $("boardLabel").textContent =
+    "ستون‌های خالی را با توجه به الگو کامل کن";
+
+  $("copyLabel").textContent =
+    "حالا الگوی سه ردیف را در جدول پایین تکرار کن";
 
   makeBoard(
     $("mainBoard"),
     3,
     21,
-    cells,
+    threeRowsState.top,
     {
-      className: "pattern-21"
+      className: "pattern-21",
+      onCell: (index, row, col) => {
+        if (col < THREE_ROW_VISIBLE_COLUMNS) return;
+
+        threeRowsState.top[index] = colorItem(state.selected.color);
+        renderThreeRowsStage();
+        $("checkButton").disabled = false;
+        playClick();
+      }
     }
   );
 
   $("copyLabel").classList.remove("hidden");
   $("copyBoard").classList.remove("hidden");
-
-  $("copyLabel").textContent =
-    "الگوی بالا را در این جدول یک بار تکرار کن";
 
   makeBoard(
     $("copyBoard"),
@@ -787,16 +875,16 @@ function renderThreeRowsStage() {
       className: "pattern-21",
       board: "copy",
       onCell: index => {
-        threeRowsState.bottom[index] = cloneItem(state.selected);
-        $("checkButton").disabled = false;
+        threeRowsState.bottom[index] = colorItem(state.selected.color);
         renderThreeRowsStage();
+        $("checkButton").disabled = false;
         playClick();
       }
     }
   );
 }
 
-/* ---------------- سؤال پنجم: خط‌های رنگی ---------------- */
+/* ---------- مرحله پنجم: خط‌های رنگی ---------- */
 
 function renderLinePalette() {
   const palette = $("palette");
@@ -804,7 +892,6 @@ function renderLinePalette() {
 
   ["red", "blue"].forEach(color => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "palette-button";
 
@@ -815,8 +902,7 @@ function renderLinePalette() {
         background:${COLORS[color]};
         display:block;
         border-radius:5px;
-      "></span>
-    `;
+      "></span>`;
 
     if (
       state.selected &&
@@ -826,18 +912,10 @@ function renderLinePalette() {
       button.classList.add("selected");
     }
 
-    button.setAttribute(
-      "aria-label",
-      color === "red" ? "خط قرمز" : "خط آبی"
-    );
-
     button.addEventListener("click", () => {
-      state.selected = {
-        shape: "line",
-        color
-      };
-
+      state.selected = { shape: "line", color };
       renderLinePalette();
+      $("checkButton").disabled = false;
       playClick();
     });
 
@@ -848,30 +926,9 @@ function renderLinePalette() {
 function renderLineStage() {
   renderLinePalette();
 
-  /*
-    خط‌های نمونه فقط بار اول ساخته می‌شوند.
-    انتخاب رنگ دانش‌آموز در lineState.marks ذخیره می‌شود.
-  */
-
-  if (!lineState.initialized) {
-    lineState.marks = Array(30).fill(null);
-
-    [1, 3].forEach(col => {
-      lineState.marks[col] = "red";
-    });
-
-    [2, 4].forEach(col => {
-      lineState.marks[10 + col] = "blue";
-    });
-
-    lineState.initialized = true;
-  }
-
   const container = $("mainBoard");
-
   container.innerHTML = "";
   container.className = "board rows-3 line-board";
-
   container.style.gridTemplateColumns =
     "repeat(10, minmax(0, 1fr))";
 
@@ -880,15 +937,12 @@ function renderLineStage() {
     const col = i % 10;
 
     const cell = document.createElement("div");
-
     cell.className = "cell line-cell";
     cell.dataset.index = i;
 
     if (lineState.marks[i]) {
       const mark = document.createElement("span");
-
       mark.className = `line-mark ${lineState.marks[i]}`;
-
       cell.appendChild(mark);
     }
 
@@ -899,38 +953,14 @@ function renderLineStage() {
 
       if (fixed) return;
 
-      if (
-        !state.selected ||
-        state.selected.shape !== "line" ||
-        !["red", "blue"].includes(state.selected.color)
-      ) {
-        $("feedback").textContent =
-          "اول خط قرمز یا آبی را انتخاب کن.";
-
-        playClick();
+      if (!state.selected || state.selected.shape !== "line") {
+        $("feedback").textContent = "اول رنگ خط قرمز یا آبی را انتخاب کن.";
         return;
       }
 
-      /*
-        رنگ خانه ذخیره می‌شود و فقط همان خانه تغییر می‌کند.
-        بنابراین رنگ‌های قبلی پاک نمی‌شوند.
-      */
-
       lineState.marks[i] = state.selected.color;
-
-      cell.innerHTML = "";
-
-      const mark = document.createElement("span");
-
-      mark.className = `line-mark ${lineState.marks[i]}`;
-
-      cell.appendChild(mark);
-
-      $("feedback").textContent =
-        "آفرین! رنگ خط اضافه شد. 🌟";
-
+      renderLineStage();
       $("checkButton").disabled = false;
-
       playClick();
     });
 
@@ -938,13 +968,12 @@ function renderLineStage() {
   }
 }
 
-/* ---------------- بررسی پاسخ‌ها ---------------- */
+/* ---------- بررسی پاسخ ---------- */
 
 $("checkButton").addEventListener("click", checkAnswer);
 
 function checkAnswer() {
   const stage = stages[state.stage];
-
   let correct = false;
 
   if (stage.type === "copy") {
@@ -960,20 +989,20 @@ function checkAnswer() {
   if (!correct) {
     $("feedback").textContent =
       "هنوز چند خانه باقی مانده است. با دقت دوباره بررسی کن. 💜";
-
     playTone(260, 0.12);
     return;
   }
 
-  if (!state.completed.has(state.stage)) {
+  const wasCompleted = state.completed.has(state.stage);
+
+  if (!wasCompleted) {
     state.completed.add(state.stage);
     state.score = state.completed.size;
+    $("feedback").textContent = "آفرین! پاسخ تو درست است. 🌟";
+    celebrate();
+  } else {
+    $("feedback").textContent = "پاسخ این مرحله قبلاً ثبت شده است. آفرین! 🌟";
   }
-
-  $("feedback").textContent =
-    "آفرین! پاسخ تو درست است. 🌟";
-
-  playSuccess();
 
   $("checkButton").disabled = true;
 }
@@ -987,136 +1016,48 @@ function checkCopyAnswer() {
     return sameItem(item, expected);
   });
 
-  const bottomOK = copyState.bottom.every((item, index) => {
-    return sameItem(item, patternSix[index]);
-  });
+  const bottomOK = copyState.bottom.every((item, index) =>
+    sameItem(item, patternSix[index])
+  );
 
   return topOK && bottomOK;
 }
 
 function checkThreeRowsAnswer() {
-  return threeRowsState.bottom.every((item, index) => {
+  const topOK = threeRowsState.top.every((item, index) => {
+    const row = Math.floor(index / 21);
+    const col = index % 21;
+
+    return item &&
+      item.shape === "square" &&
+      item.color === threeRowExpected[row][col];
+  });
+
+  const bottomOK = threeRowsState.bottom.every((item, index) => {
     const row = Math.floor(index / 6);
     const col = index % 6;
-
     const expectedColor = threeRowExpected[row][col];
 
-    return item && item.color === expectedColor;
+    return item &&
+      item.shape === "square" &&
+      item.color === expectedColor;
   });
+
+  return topOK && bottomOK;
 }
 
 function checkLineAnswer() {
-  return lineState.marks.every((mark, index) => {
-    return mark === lineExpected[index];
-  });
+  return lineState.marks.every((mark, index) =>
+    mark === lineExpected[index]
+  );
 }
 
-/* ---------------- فشفشهٔ پاسخ درست ---------------- */
-
-function launchFireworks() {
-  const canvas = $("fireworksCanvas");
-
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-
-  if (!ctx) return;
-
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  canvas.width = Math.floor(innerWidth * dpr);
-  canvas.height = Math.floor(innerHeight * dpr);
-
-  canvas.style.width = innerWidth + "px";
-  canvas.style.height = innerHeight + "px";
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  const particles = [];
-
-  const colors = [
-    "#f05262",
-    "#4399f2",
-    "#45bf66",
-    "#ffd84d",
-    "#a77be8",
-    "#ff82b2"
-  ];
-
-  for (let burst = 0; burst < 3; burst++) {
-    const x = innerWidth * (0.2 + Math.random() * 0.6);
-    const y = innerHeight * (0.18 + Math.random() * 0.38);
-
-    for (let i = 0; i < 38; i++) {
-      const angle = Math.PI * 2 * i / 38;
-      const speed = 1.5 + Math.random() * 3;
-
-      particles.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        life: 45 + Math.random() * 20,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: 2 + Math.random() * 2
-      });
-    }
-  }
-
-  let frame = 0;
-
-  function draw() {
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-    particles.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-
-      particle.vy += 0.045;
-      particle.vx *= 0.99;
-      particle.life--;
-
-      ctx.globalAlpha = Math.max(
-        0,
-        Math.min(1, particle.life / 22)
-      );
-
-      ctx.fillStyle = particle.color;
-
-      ctx.beginPath();
-
-      ctx.arc(
-        particle.x,
-        particle.y,
-        particle.size,
-        0,
-        Math.PI * 2
-      );
-
-      ctx.fill();
-    });
-
-    ctx.globalAlpha = 1;
-
-    frame++;
-
-    if (frame < 70) {
-      requestAnimationFrame(draw);
-    } else {
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-    }
-  }
-
-  draw();
-}
-
-/* ---------------- جابه‌جایی سؤال‌ها ---------------- */
+/* ---------- جابه‌جایی مرحله‌ها ---------- */
 
 $("prevButton").addEventListener("click", () => {
   if (state.stage <= 0) return;
 
   state.stage--;
-
   renderStage();
   playClick();
 });
@@ -1124,7 +1065,6 @@ $("prevButton").addEventListener("click", () => {
 $("nextButton").addEventListener("click", () => {
   if (state.stage < stages.length - 1) {
     state.stage++;
-
     renderStage();
     playClick();
   } else {
@@ -1136,6 +1076,5 @@ $("exitButton").addEventListener("click", () => {
   $("game").classList.add("hidden");
   $("finish").classList.add("hidden");
   $("welcome").classList.remove("hidden");
-
   playClick();
 });
