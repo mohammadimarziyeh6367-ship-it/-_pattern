@@ -3,7 +3,7 @@
   --lilac-deep: #c9a9ff;
   --purple: #7040a8;
   --purple-dark: #4b287c;
-  --white: #ffffff;
+  --white: #fff;
   --green: #45bf66;
   --red: #f05262;
   --blue: #4399f2;
@@ -75,14 +75,14 @@ button {
 .welcome-card {
   width: min(100%, 470px);
   max-height: 96%;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(7px, 1.5vh, 15px);
   padding: clamp(15px, 3vh, 28px);
-  border: 2px solid #ffffff;
+  border: 2px solid #fff;
   border-radius: 28px;
   background: #ffffffd9;
   box-shadow: 0 12px 30px #7752a526;
@@ -140,19 +140,24 @@ button {
 }
 
 .primary-button {
-  min-height: 42px;
-  padding: 10px 18px;
-  color: white;
+  min-height: 38px;
+  padding: 8px 15px;
+  color: #fff;
   background: linear-gradient(135deg, #9864e7, #7040a8);
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   font-weight: bold;
-  box-shadow: 0 4px 0 #4e2b7a;
+  box-shadow: 0 3px 0 #4e2b7a;
 }
 
 .primary-button:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #4e2b7a;
+  box-shadow: 0 1px 0 #4e2b7a;
+}
+
+.primary-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 /* صفحهٔ بازی */
@@ -160,7 +165,7 @@ button {
 .game-screen {
   display: flex;
   flex-direction: column;
-  gap: clamp(4px, 1vh, 9px);
+  gap: clamp(3px, 0.65vh, 7px);
   padding: clamp(5px, 1.2vw, 12px);
 }
 
@@ -170,7 +175,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  min-height: 42px;
+  min-height: 35px;
 }
 
 .game-brand {
@@ -181,7 +186,7 @@ button {
 }
 
 .brand-icon {
-  font-size: 27px;
+  font-size: 25px;
 }
 
 .game-brand strong,
@@ -195,13 +200,13 @@ button {
 }
 
 .game-brand small {
-  margin-top: 3px;
+  margin-top: 2px;
   font-size: clamp(10px, 1.5vw, 13px);
 }
 
 .stage-counter {
   flex-shrink: 0;
-  padding: 7px 10px;
+  padding: 6px 10px;
   border-radius: 12px;
   background: #ffffffc9;
   font-size: 12px;
@@ -209,7 +214,7 @@ button {
 }
 
 .progress-track {
-  flex: 0 0 5px;
+  flex: 0 0 4px;
   width: 100%;
   overflow: hidden;
   border-radius: 20px;
@@ -224,6 +229,8 @@ button {
   transition: width 0.25s;
 }
 
+/* متن سؤال */
+
 .question-area {
   flex: 0 0 auto;
   text-align: center;
@@ -232,14 +239,16 @@ button {
 .question-area h1 {
   margin: 2px 0;
   color: var(--purple-dark);
-  font-size: clamp(16px, 2.7vw, 22px);
+  font-size: clamp(15px, 2.7vw, 22px);
 }
 
 .question-area p {
   margin: 3px 0;
-  font-size: clamp(11px, 1.9vw, 15px);
-  line-height: 1.6;
+  font-size: clamp(10px, 1.9vw, 15px);
+  line-height: 1.5;
 }
+
+/* انتخاب شکل و رنگ */
 
 .palette {
   flex: 0 0 auto;
@@ -248,17 +257,17 @@ button {
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
-  min-height: 36px;
+  min-height: 31px;
 }
 
 .palette-button {
-  min-width: 34px;
-  height: 34px;
+  min-width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ffffff;
-  border-radius: 10px;
+  border: 2px solid #fff;
+  border-radius: 9px;
   background: #ffffffb5;
   font-size: 19px;
   box-shadow: 0 2px 0 #bca5d6;
@@ -266,9 +275,43 @@ button {
 
 .palette-button.selected {
   border-color: var(--purple-dark);
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0 0 0 2px #b28be9;
 }
+
+/* دکمه‌ها بالای جدول */
+
+.top-nav {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 1px 0;
+}
+
+.nav-button {
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid #b99ce4;
+  border-radius: 9px;
+  background: #ffffffd9;
+  color: #59367f;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.nav-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.exit-button {
+  color: #a33448;
+}
+
+/* بخش جدول‌ها */
 
 .board-area {
   flex: 1 1 auto;
@@ -276,7 +319,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(4px, 0.8vh, 8px);
+  gap: clamp(3px, 0.6vh, 7px);
   width: 100%;
   overflow: hidden;
 }
@@ -284,7 +327,7 @@ button {
 .board-label {
   flex: 0 0 auto;
   text-align: center;
-  font-size: clamp(11px, 1.8vw, 15px);
+  font-size: clamp(10px, 1.8vw, 15px);
   font-weight: bold;
   color: #5b397f;
 }
@@ -299,7 +342,7 @@ button {
   margin: 0 auto;
   gap: 0;
   border: 2px solid var(--line);
-  background: white;
+  background: #fff;
   overflow: hidden;
   touch-action: manipulation;
 }
@@ -316,6 +359,8 @@ button {
   grid-template-rows: repeat(3, minmax(0, 1fr));
 }
 
+/* خانه‌های جدول */
+
 .cell {
   position: relative;
   display: flex;
@@ -323,22 +368,15 @@ button {
   min-height: 0;
   align-items: center;
   justify-content: center;
-  border-right: 1.5px solid var(--line);
-  border-bottom: 1.5px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   background: #fff;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
 }
 
-.cell:last-child {
-  border-right: 0;
-}
-
-.cell.filled {
-  background: #ffffff;
-}
-
+.cell.filled,
 .cell.empty-cell {
   background: #fff;
 }
@@ -351,12 +389,35 @@ button {
   box-shadow: inset 0 0 0 3px #f05262;
 }
 
+/* حذف خطوط اضافه در انتهای هر ردیف */
+
+.board.pattern-21 .cell:nth-child(21n),
+.board.pattern-18 .cell:nth-child(18n),
+.board.pattern-12 .cell:nth-child(12n),
+.board.pattern-6 .cell:nth-child(6n),
+.board.line-board .cell:nth-child(10n) {
+  border-right: 0;
+}
+
+.board.rows-1 .cell {
+  border-bottom: 0;
+}
+
+.pattern-21:not(.copy-board) .cell:nth-child(n+43),
+.copy-board.pattern-21 .cell:nth-child(n+13),
+.line-board .cell:nth-child(n+21) {
+  border-bottom: 0;
+}
+
+/* شکل‌ها داخل خانه‌ها */
+
 .shape {
   display: block;
-  width: 66%;
-  height: 66%;
-  max-width: 90%;
-  max-height: 90%;
+  width: 64%;
+  height: 64%;
+  max-width: 76%;
+  max-height: 76%;
+  flex: 0 0 auto;
   pointer-events: none;
 }
 
@@ -365,31 +426,33 @@ button {
 }
 
 .shape.square {
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .shape.triangle {
   width: 0;
   height: 0;
-  border-left: 0.34em solid transparent;
-  border-right: 0.34em solid transparent;
-  border-bottom: 0.65em solid currentColor;
+  max-width: none;
+  max-height: none;
+  border-left: clamp(4px, 1.1vw, 10px) solid transparent;
+  border-right: clamp(4px, 1.1vw, 10px) solid transparent;
+  border-bottom: clamp(8px, 2vw, 18px) solid currentColor;
   background: transparent !important;
 }
 
 .shape.diamond {
-  width: 56%;
-  height: 56%;
+  width: 48%;
+  height: 48%;
+  max-width: 65%;
+  max-height: 65%;
   transform: rotate(45deg);
-  border-radius: 3px;
+  border-radius: 2px;
 }
 
-.cell .shape.triangle {
-  font-size: clamp(12px, 2.3vw, 28px);
-}
+/* عنوان و جدول دوم */
 
 .copy-label {
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .copy-board {
@@ -397,74 +460,43 @@ button {
   max-height: 29%;
 }
 
-.board.rows-1 .cell {
-  border-bottom: 0;
-}
-
-.board.rows-3 .cell:nth-last-child(-n+21) {
-  /* مرزبندی خانه‌ها به صورت یکپارچه باقی می‌ماند */
-}
+/* پیام پاسخ */
 
 .feedback {
   flex: 0 0 auto;
-  min-height: 22px;
+  min-height: 18px;
   text-align: center;
-  font-size: clamp(11px, 1.9vw, 15px);
+  font-size: clamp(10px, 1.9vw, 15px);
   font-weight: bold;
   color: #4b287c;
 }
+
+/* امضای بزرگ در پایین صفحه */
 
 .game-footer {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  min-height: 42px;
+  justify-content: center;
+  min-height: clamp(38px, 7vh, 58px);
+  padding: 0 0 2px;
 }
 
 .signature {
   display: block;
-  width: clamp(65px, 12vw, 125px);
-  max-height: 40px;
+  width: clamp(120px, 23vw, 220px);
+  height: clamp(36px, 7vh, 58px);
+  max-height: 58px;
   object-fit: contain;
   object-position: center;
   mix-blend-mode: multiply;
-}
-
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.nav-button {
-  min-height: 34px;
-  padding: 7px 10px;
-  border: 1px solid #b99ce4;
-  border-radius: 10px;
-  background: #ffffffd9;
-  color: #59367f;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.nav-button:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.exit-button {
-  color: #a33448;
 }
 
 /* جدول ۲۱ ستونی */
 
 .board.pattern-21 {
   flex: 0 0 auto;
-  height: min(25vh, 160px);
+  height: min(24vh, 155px);
 }
 
 .board.pattern-21 .cell {
@@ -473,31 +505,45 @@ button {
 }
 
 .board.pattern-21 .shape {
-  width: 75%;
-  height: 75%;
+  width: 70%;
+  height: 70%;
+  max-width: 78%;
+  max-height: 78%;
 }
 
-/* جدول ۱۲ ستونی سؤال اول */
+/* جدول ۱۸ ستونی */
+
+.board.pattern-18 {
+  flex: 0 0 auto;
+  height: min(10vh, 62px);
+}
+
+/* جدول ۶ ستونی */
+
+.board.pattern-6 {
+  flex: 0 0 auto;
+  height: min(8vh, 48px);
+}
+
+/* جدول ۱۲ ستونی */
 
 .board.pattern-12 {
   flex: 0 0 auto;
-  height: min(9vh, 58px);
+  height: min(10vh, 62px);
 }
 
 .board.pattern-12 .shape {
-  width: 67%;
-  height: 67%;
+  width: 64%;
+  height: 64%;
 }
-
-/* جدول ۶ ستونی پایین سؤال اول */
 
 .copy-board.pattern-6 {
   flex: 0 0 auto;
-  height: min(7vh, 47px);
+  height: min(8vh, 48px);
   max-height: none;
 }
 
-/* جدول خطی */
+/* خط‌های قرمز و آبی: وسط خانه */
 
 .board.line-board {
   flex: 0 0 auto;
@@ -510,10 +556,12 @@ button {
 
 .line-mark {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 5px;
+  left: 12%;
+  right: 12%;
+  top: 50%;
+  height: clamp(3px, 0.65vh, 6px);
+  transform: translateY(-50%);
+  border-radius: 99px;
   pointer-events: none;
 }
 
@@ -547,7 +595,10 @@ button {
   font-size: 38px;
   pointer-events: none;
   transform: translate(-50%, -50%);
+  filter: drop-shadow(0 2px 2px #0002);
 }
+
+/* صفحهٔ پایان */
 
 .finish-screen {
   display: flex;
@@ -559,7 +610,7 @@ button {
 .finish-card {
   width: min(100%, 420px);
   max-height: 95%;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -593,92 +644,32 @@ button {
 }
 
 .finish-signature {
-  width: 145px;
-  max-height: 55px;
+  width: 190px;
+  height: 65px;
+  max-height: 65px;
+}
+
+/* فشفشه روی صفحه */
+
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8000;
+  pointer-events: none;
 }
 
 /* موبایل */
 
 @media (max-width: 600px) {
   .game-screen {
-    padding: 5px;
-    gap: 4px;
+    padding: 4px;
+    gap: 3px;
   }
 
   .game-header {
-    min-height: 35px;
-  }
-
-  .question-area h1 {
-    font-size: 15px;
-  }
-
-  .question-area p {
-    font-size: 10px;
-  }
-
-  .palette-button {
-    min-width: 29px;
-    height: 29px;
-    font-size: 16px;
-  }
-
-  .palette {
-    min-height: 30px;
-    gap: 3px;
-  }
-
-  .board.pattern-21 {
-    height: min(22vh, 125px);
-  }
-
-  .board.pattern-12 {
-    height: min(8vh, 48px);
-  }
-
-  .copy-board.pattern-6 {
-    height: min(6vh, 40px);
-  }
-
-  .board.line-board {
-    height: min(23vh, 145px);
-  }
-
-  .game-footer {
-    min-height: 36px;
-    gap: 3px;
-  }
-
-  .signature {
-    width: 57px;
-    max-height: 30px;
-  }
-
-  .nav-buttons {
-    gap: 3px;
-  }
-
-  .nav-button {
-    min-height: 29px;
-    padding: 5px 7px;
-    font-size: 10px;
-  }
-
-  .game-footer .primary-button {
-    min-height: 29px;
-    padding: 5px 8px;
-    font-size: 10px;
-  }
-
-  .board .cell {
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-  }
-}
-
-@media (max-height: 650px) {
-  .game-screen {
-    gap: 3px;
+    min-height: 32px;
   }
 
   .question-area h1 {
@@ -687,26 +678,122 @@ button {
 
   .question-area p {
     font-size: 10px;
-    margin: 1px 0;
+  }
+
+  .palette-button {
+    min-width: 28px;
+    height: 28px;
+    font-size: 15px;
+  }
+
+  .palette {
+    min-height: 28px;
+    gap: 3px;
+  }
+
+  .top-nav {
+    gap: 3px;
+  }
+
+  .nav-button {
+    min-height: 27px;
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+
+  .top-nav .primary-button {
+    min-height: 27px;
+    padding: 4px 8px;
+    font-size: 10px;
   }
 
   .board.pattern-21 {
-    height: min(21vh, 112px);
+    height: min(21vh, 120px);
+  }
+
+  .board.pattern-18 {
+    height: min(8vh, 48px);
+  }
+
+  .board.pattern-6 {
+    height: min(6vh, 38px);
   }
 
   .board.pattern-12 {
-    height: min(7vh, 38px);
+    height: min(8vh, 48px);
   }
 
   .copy-board.pattern-6 {
-    height: min(6vh, 32px);
+    height: min(6vh, 38px);
   }
 
   .board.line-board {
-    height: min(22vh, 120px);
+    height: min(22vh, 140px);
+  }
+
+  .game-footer {
+    min-height: 36px;
   }
 
   .signature {
-    max-height: 27px;
+    width: clamp(125px, 35vw, 190px);
+    height: 38px;
+  }
+
+  .cell {
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+  }
+}
+
+@media (max-height: 650px) {
+  .game-screen {
+    gap: 2px;
+  }
+
+  .question-area h1 {
+    font-size: 13px;
+  }
+
+  .question-area p {
+    font-size: 9px;
+    margin: 1px 0;
+  }
+
+  .palette-button {
+    height: 27px;
+    min-width: 28px;
+  }
+
+  .board.pattern-21 {
+    height: min(19vh, 100px);
+  }
+
+  .board.pattern-18 {
+    height: min(7vh, 35px);
+  }
+
+  .board.pattern-6 {
+    height: min(5vh, 29px);
+  }
+
+  .board.pattern-12 {
+    height: min(7vh, 35px);
+  }
+
+  .copy-board.pattern-6 {
+    height: min(5vh, 29px);
+  }
+
+  .board.line-board {
+    height: min(20vh, 105px);
+  }
+
+  .game-footer {
+    min-height: 32px;
+  }
+
+  .signature {
+    height: 31px;
   }
 }
