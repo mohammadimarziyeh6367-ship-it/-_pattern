@@ -12,13 +12,10 @@
 
     <section id="welcome" class="screen welcome">
       <div class="welcome-card">
-
-        <img
-          class="teacher-photo"
-          src="IMG_4332.jpeg"
-          alt="عکس آموزگار"
-          onerror="this.style.display='none'"
-        >
+        <img class="teacher-photo"
+             src="IMG_4332.jpeg"
+             alt="عکس آموزگار"
+             onerror="this.style.display='none'">
 
         <div class="welcome-title">الگوی منظم</div>
         <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
@@ -29,19 +26,15 @@
         </p>
 
         <label for="studentName">نام دانش‌آموز:</label>
-
-        <input
-          id="studentName"
-          type="text"
-          maxlength="35"
-          placeholder="نامت را اینجا بنویس"
-          autocomplete="off"
-        >
+        <input id="studentName"
+               type="text"
+               maxlength="35"
+               placeholder="نامت را اینجا بنویس"
+               autocomplete="off">
 
         <button id="startButton" class="primary-button">
           شروع بازی 🚀
         </button>
-
       </div>
     </section>
 
@@ -56,9 +49,7 @@
           </div>
         </div>
 
-        <div class="stage-counter" id="stageCounter">
-          ۱ از ۵
-        </div>
+        <div class="stage-counter" id="stageCounter">۱ از ۵</div>
       </header>
 
       <div class="progress-track">
@@ -72,7 +63,7 @@
 
       <div id="palette" class="palette"></div>
 
-      <div class="nav-buttons top-nav">
+      <div class="nav-buttons">
         <button id="prevButton" class="nav-button">قبلی</button>
         <button id="checkButton" class="primary-button">بررسی پاسخ</button>
         <button id="nextButton" class="nav-button">بعدی</button>
@@ -80,72 +71,47 @@
       </div>
 
       <section id="boardArea" class="board-area">
-
-        <div id="boardLabel" class="board-label">
-          الگوی اصلی
-        </div>
-
+        <div id="boardLabel" class="board-label">الگوی اصلی</div>
         <div id="mainBoard" class="board"></div>
 
         <div id="copyLabel" class="board-label copy-label hidden">
-          حالا الگوی اصلی را یک بار اینجا تکرار کن
+          الگوی بالا را یک بار در جدول پایین تکرار کن
         </div>
 
         <div id="copyBoard" class="board copy-board hidden"></div>
-
       </section>
 
       <div id="feedback" class="feedback" aria-live="polite"></div>
 
       <footer class="game-footer">
-        <img
-          class="signature"
-          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-          alt="امضای مرضیه محمدی"
-          onerror="this.style.display='none'"
-        >
+        <img class="signature"
+             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+             alt="امضای مرضیه محمدی"
+             onerror="this.style.display='none'">
       </footer>
-
     </section>
 
     <section id="finish" class="screen finish-screen hidden">
-
       <div class="finish-card">
         <div class="finish-star">🌟</div>
-
         <h1 id="finishTitle">آفرین قهرمان!</h1>
-
-        <p id="finishMessage">
-          تو الگوها را با دقت پیدا کردی.
-        </p>
-
+        <p id="finishMessage">تو الگوها را با دقت پیدا کردی.</p>
         <div id="finalScore" class="final-score"></div>
 
-        <img
-          class="signature finish-signature"
-          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-          alt="امضای مرضیه محمدی"
-          onerror="this.style.display='none'"
-        >
+        <img class="signature finish-signature"
+             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+             alt="امضای مرضیه محمدی"
+             onerror="this.style.display='none'">
 
         <button id="restartButton" class="primary-button">
           دوباره بازی کنیم
         </button>
       </div>
-
     </section>
-
   </main>
 
-  <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">
-    🐭
-  </div>
-
-  <canvas
-    id="fireworksCanvas"
-    class="fireworks-canvas"
-    aria-hidden="true"
-  ></canvas>
+  <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
+  <canvas id="fireworks" class="fireworks-canvas"></canvas>
 
   <script src="script.js"></script>
 </body>
