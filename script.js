@@ -1,632 +1,114 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#e9dcff">
+  <title>الگوی منظم | ریاضی پایه اول</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="welcome" class="screen welcome">
+      <div class="welcome-card">
+        <img class="teacher-photo"
+             src="IMG_4332.jpeg"
+             alt="عکس آموزگار"
+             onerror="this.style.display='none'">
 
-const COLORS = {
-  green: "#58c86b",
-  blue: "#42a5f5",
-  yellow: "#ffd84d",
-  red: "#ef5350",
-  pink: "#ff73ad",
-  purple: "#9c64e8"
-};
+        <div class="welcome-title">الگوی منظم</div>
+        <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
 
-const faDigits = n =>
-  String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+        <p class="welcome-message">
+          بچه‌های گلم، الگوخوانی خیلی مهم است.
+          پس اول الگو را بخوانید.
+        </p>
 
-const levels = [
-  {
-    instruction: "الگو را پیدا کن و جای خالی را کامل کن.",
-    pattern: [
-      ["color", "green"], ["color", "blue"],
-      ["color", "green"], ["color", "blue"], null,
-      ["color", "blue"], ["color", "green"],
-      ["color", "blue"], ["color", "green"]
-    ],
-    choices: [
-      ["color", "green"],
-      ["color", "blue"],
-      ["color", "yellow"]
-    ],
-    answer: 0,
-    cols: 9
-  },
-  {
-    instruction: "الگو را پیدا کن و سپس ادامه بده.",
-    pattern: [
-      ["shape", "circle", "pink"],
-      ["shape", "square", "yellow"],
-      ["shape", "circle", "pink"],
-      ["shape", "square", "yellow"],
-      null,
-      ["shape", "square", "yellow"],
-      ["shape", "circle", "pink"]
-    ],
-    choices: [
-      ["shape", "circle", "pink"],
-      ["shape", "square", "yellow"],
-      ["shape", "triangle", "blue"]
-    ],
-    answer: 0,
-    cols: 7
-  },
-  {
-    instruction: "کدام شکل باید در جای خالی باشد؟",
-    pattern: [
-      ["shape", "triangle", "blue"],
-      ["shape", "triangle", "yellow"],
-      ["shape", "triangle", "blue"],
-      null,
-      ["shape", "triangle", "blue"],
-      ["shape", "triangle", "yellow"]
-    ],
-    choices: [
-      ["shape", "triangle", "yellow"],
-      ["shape", "triangle", "blue"],
-      ["shape", "circle", "pink"]
-    ],
-    answer: 0,
-    cols: 6
-  },
-  {
-    instruction: "الگوی سه‌تایی را پیدا کن و ادامه بده.",
-    pattern: [
-      ["color", "red"], ["color", "yellow"], ["color", "green"],
-      ["color", "red"], ["color", "yellow"], null,
-      ["color", "red"], ["color", "yellow"], ["color", "green"]
-    ],
-    choices: [
-      ["color", "green"],
-      ["color", "blue"],
-      ["color", "red"]
-    ],
-    answer: 0,
-    cols: 9,
-    repeat: [
-      ["color", "red"],
-      ["color", "yellow"],
-      ["color", "green"]
-    ]
-  },
-  {
-    instruction: "به ترتیب شکل‌ها دقت کن؛ کدام گزینه کم است؟",
-    pattern: [
-      ["shape", "circle", "blue"],
-      ["shape", "star", "yellow"],
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "blue"],
-      null,
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "blue"],
-      ["shape", "star", "yellow"],
-      ["shape", "heart", "pink"]
-    ],
-    choices: [
-      ["shape", "star", "yellow"],
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "blue"]
-    ],
-    answer: 0,
-    cols: 9
-  },
-  {
-    instruction: "الگو را پیدا کن و جای خالی را کامل کن.",
-    pattern: [
-      ["color", "purple"], ["color", "purple"], ["color", "green"],
-      ["color", "purple"], ["color", "purple"], null,
-      ["color", "purple"], ["color", "purple"], ["color", "green"]
-    ],
-    choices: [
-      ["color", "green"],
-      ["color", "purple"],
-      ["color", "blue"]
-    ],
-    answer: 0,
-    cols: 9
-  },
-  {
-    instruction: "الگوی رنگی را پیدا کن.",
-    pattern: [
-      ["color", "pink"], ["color", "yellow"], null,
-      ["color", "pink"], ["color", "yellow"],
-      ["color", "pink"], ["color", "yellow"]
-    ],
-    choices: [
-      ["color", "pink"],
-      ["color", "yellow"],
-      ["color", "purple"]
-    ],
-    answer: 0,
-    cols: 7,
-    repeat: [
-      ["color", "pink"],
-      ["color", "yellow"],
-      ["color", "pink"]
-    ]
-  },
-  {
-    instruction: "کدام شکل باید بیاید؟",
-    pattern: [
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "blue"],
-      ["shape", "star", "yellow"],
-      null,
-      ["shape", "circle", "blue"],
-      ["shape", "star", "yellow"],
-      ["shape", "heart", "pink"]
-    ],
-    choices: [
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "blue"],
-      ["shape", "triangle", "green"]
-    ],
-    answer: 0,
-    cols: 7
-  },
-  {
-    instruction: "الگو را پیدا کن و سپس ادامه بده.",
-    pattern: [
-      ["shape", "circle", "green"],
-      ["shape", "star", "red"],
-      ["shape", "triangle", "blue"],
-      ["shape", "circle", "green"],
-      null,
-      ["shape", "triangle", "blue"],
-      ["shape", "circle", "green"],
-      ["shape", "star", "red"],
-      ["shape", "triangle", "blue"]
-    ],
-    choices: [
-      ["shape", "star", "red"],
-      ["shape", "circle", "green"],
-      ["shape", "triangle", "blue"]
-    ],
-    answer: 0,
-    cols: 9
-  },
-  {
-    instruction: "شکل‌های رنگی را با دقت نگاه کن؛ جای خالی را کامل کن.",
-    pattern: [
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "yellow"],
-      ["shape", "star", "purple"],
-      null,
-      ["shape", "circle", "yellow"],
-      ["shape", "star", "purple"],
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "yellow"],
-      ["shape", "star", "purple"]
-    ],
-    choices: [
-      ["shape", "heart", "pink"],
-      ["shape", "circle", "yellow"],
-      ["shape", "triangle", "blue"]
-    ],
-    answer: 0,
-    cols: 9
-  },
-  {
-    instruction: "کدام شکل اضافه است؟ الگوی منظم را پیدا کن.",
-    pattern: [
-      ["shape", "circle", "blue"],
-      ["shape", "square", "green"],
-      ["shape", "triangle", "yellow"],
-      ["shape", "star", "red"],
-      ["shape", "circle", "blue"],
-      ["shape", "square", "green"],
-      ["shape", "triangle", "yellow"]
-    ],
-    choices: [
-      ["shape", "star", "red"],
-      ["shape", "circle", "blue"],
-      ["shape", "triangle", "yellow"]
-    ],
-    answer: 0,
-    cols: 7
-  },
-  {
-    instruction: "الگو را پیدا کن و سپس ادامه بده.",
-    pattern: [
-      ["color", "red"], ["color", "blue"],
-      ["color", "yellow"], ["color", "green"],
-      ["color", "red"], ["color", "blue"],
-      ["color", "yellow"], null,
-      ["color", "red"], ["color", "blue"],
-      ["color", "yellow"], ["color", "green"]
-    ],
-    choices: [
-      ["color", "green"],
-      ["color", "red"],
-      ["color", "blue"]
-    ],
-    answer: 0,
-    cols: 12,
-    repeat: [
-      ["color", "red"],
-      ["color", "blue"],
-      ["color", "yellow"],
-      ["color", "green"]
-    ]
-  },
-  {
-    instruction: "الگوی بزرگ را پیدا کن و جای خالی را کامل کن.",
-    pattern: [
-      ["shape", "circle", "pink"],
-      ["shape", "square", "blue"],
-      ["shape", "triangle", "yellow"],
-      ["shape", "star", "red"],
-      ["shape", "circle", "pink"],
-      ["shape", "square", "blue"],
-      null,
-      ["shape", "star", "red"],
-      ["shape", "circle", "pink"],
-      ["shape", "square", "blue"],
-      ["shape", "triangle", "yellow"],
-      ["shape", "star", "red"]
-    ],
-    choices: [
-      ["shape", "triangle", "yellow"],
-      ["shape", "star", "red"],
-      ["shape", "circle", "pink"]
-    ],
-    answer: 0,
-    cols: 12,
-    repeat: [
-      ["shape", "circle", "pink"],
-      ["shape", "square", "blue"],
-      ["shape", "triangle", "yellow"],
-      ["shape", "star", "red"]
-    ]
-  }
-];
+        <label for="studentName">نام دانش‌آموز:</label>
+        <input id="studentName"
+               type="text"
+               maxlength="35"
+               placeholder="نامت را اینجا بنویس"
+               autocomplete="off">
 
-let levelIndex = 0;
-let score = 0;
-let playerName = "دوست من";
-let selected = null;
-let solved = new Array(levels.length).fill(false);
-let audioCtx = null;
-
-const $ = id => document.getElementById(id);
-
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-
-  $(id).classList.add("active");
-  window.scrollTo({ top: 0, behavior: "instant" });
-}
-
-function speak(text) {
-  try {
-    if (!("speechSynthesis" in window)) return;
-
-    speechSynthesis.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "fa-IR";
-    utterance.rate = 0.88;
-    utterance.pitch = 1.05;
-
-    speechSynthesis.speak(utterance);
-  } catch (error) {}
-}
-
-function beep(ok = true) {
-  try {
-    audioCtx = audioCtx ||
-      new (window.AudioContext || window.webkitAudioContext)();
-
-    const oscillator = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    oscillator.type = "sine";
-    oscillator.frequency.value = ok ? 660 : 180;
-
-    gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-      0.12,
-      audioCtx.currentTime + 0.015
-    );
-    gain.gain.exponentialRampToValueAtTime(
-      0.0001,
-      audioCtx.currentTime + (ok ? 0.22 : 0.18)
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + (ok ? 0.24 : 0.2));
-  } catch (error) {}
-}
-
-function shapeHTML(item) {
-  if (!item) return "";
-
-  const [kind, type, color] = item;
-
-  if (kind === "color") {
-    return `<span class="shape circle" style="background:${COLORS[type]}"></span>`;
-  }
-
-  if (type === "triangle") {
-    return `<span class="shape triangle" style="color:${COLORS[color]}"></span>`;
-  }
-
-  return `<span class="shape ${type}" style="background:${COLORS[color]}"></span>`;
-}
-
-function cellHTML(item, missing = false) {
-  return `<div class="cell${missing ? " missing" : ""}">${shapeHTML(item)}</div>`;
-}
-
-function renderLevel() {
-  selected = null;
-
-  const level = levels[levelIndex];
-
-  $("levelNo").textContent = faDigits(levelIndex + 1);
-  $("levelTotal").textContent = faDigits(levels.length);
-  $("score").textContent = faDigits(score);
-
-  $("progressBar").style.width =
-    ((levelIndex + 1) / levels.length * 100) + "%";
-
-  $("instruction").textContent = level.instruction;
-
-  const area = $("patternArea");
-  area.innerHTML = "";
-
-  const grid = document.createElement("div");
-  grid.className = "pattern-grid";
-  grid.style.setProperty("--cols", level.cols);
-
-  level.pattern.forEach(item => {
-    grid.insertAdjacentHTML("beforeend", cellHTML(item, !item));
-  });
-
-  area.appendChild(grid);
-
-  const answers = $("answerArea");
-  answers.innerHTML = "";
-
-  level.choices.forEach((item, index) => {
-    const button = document.createElement("button");
-
-    button.className = "choice";
-    button.type = "button";
-    button.setAttribute("aria-pressed", "false");
-    button.innerHTML = shapeHTML(item);
-
-    button.addEventListener("click", () => selectChoice(index));
-
-    answers.appendChild(button);
-  });
-
-  const repeatUnit = $("repeatUnit");
-
-  if (level.repeat) {
-    repeatUnit.classList.remove("hidden");
-    repeatUnit.innerHTML = `
-      <div class="repeat-label">واحد تکرار الگو</div>
-      <div class="repeat-row">
-        ${level.repeat.map(item => cellHTML(item)).join("")}
+        <button id="startButton" class="primary-button">
+          شروع بازی 🚀
+        </button>
       </div>
-    `;
-  } else {
-    repeatUnit.classList.add("hidden");
-    repeatUnit.innerHTML = "";
-  }
+    </section>
 
-  $("feedback").textContent = "";
-  $("feedback").className = "feedback";
+    <section id="game" class="screen game-screen hidden">
+      <header class="game-header">
+        <div class="game-brand">
+          <span class="brand-icon">🌈</span>
+          <div>
+            <strong>الگوی منظم</strong>
+            <small id="studentGreeting">آفرین، آماده‌ای؟</small>
+          </div>
+        </div>
+        <div class="stage-counter" id="stageCounter">۱ از ۵</div>
+      </header>
 
-  $("prevBtn").disabled = levelIndex === 0;
-  $("nextBtn").disabled =
-    !solved[levelIndex] && levelIndex === levels.length - 1;
+      <div class="progress-track">
+        <div id="progressBar"></div>
+      </div>
 
-  // اگر مرحله قبلاً حل شده، پاسخ صحیح مشخص می‌ماند.
-  if (solved[levelIndex]) {
-    const buttons = $("answerArea").querySelectorAll(".choice");
+      <section class="question-area">
+        <h1 id="questionTitle">الگو را ادامه بده</h1>
+        <p id="questionText"></p>
+      </section>
 
-    if (buttons[level.answer]) {
-      buttons[level.answer].classList.add("selected");
-      buttons[level.answer].setAttribute("aria-pressed", "true");
-      selected = level.answer;
-    }
-  }
+      <div id="palette" class="palette"></div>
 
-  if (levelIndex === 0) {
-    speak(level.instruction);
-  }
-}
+      <section id="boardArea" class="board-area">
+        <div id="boardLabel" class="board-label">الگوی اصلی</div>
+        <div id="mainBoard" class="board"></div>
 
-/*
-  اصلاح انتخاب گزینه:
-  با هر بار لمس گزینه جدید، انتخاب قبلی پاک می‌شود.
-  بنابراین فقط یک گزینه در هر لحظه انتخاب‌شده می‌ماند.
-*/
-function selectChoice(index) {
-  const answerArea = $("answerArea");
-  const buttons = answerArea.querySelectorAll(".choice");
+        <div id="copyLabel" class="board-label copy-label hidden">
+          حالا الگوی اصلی را یک بار اینجا تکرار کن
+        </div>
+        <div id="copyBoard" class="board copy-board hidden"></div>
+      </section>
 
-  // پاک کردن انتخاب قبلی از تمام گزینه‌ها
-  buttons.forEach(button => {
-    button.classList.remove("selected");
-    button.setAttribute("aria-pressed", "false");
-  });
+      <div id="feedback" class="feedback" aria-live="polite"></div>
 
-  // ثبت گزینه جدید
-  selected = index;
+      <footer class="game-footer">
+        <img class="signature"
+             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+             alt="امضای مرضیه محمدی"
+             onerror="this.style.display='none'">
 
-  const chosenButton = buttons[index];
+        <div class="nav-buttons">
+          <button id="prevButton" class="nav-button">قبلی</button>
+          <button id="checkButton" class="primary-button">بررسی پاسخ</button>
+          <button id="nextButton" class="nav-button">بعدی</button>
+          <button id="exitButton" class="nav-button exit-button">خروج</button>
+        </div>
+      </footer>
+    </section>
 
-  if (chosenButton) {
-    chosenButton.classList.add("selected");
-    chosenButton.setAttribute("aria-pressed", "true");
-  }
+    <section id="finish" class="screen finish-screen hidden">
+      <div class="finish-card">
+        <div class="finish-star">🌟</div>
+        <h1 id="finishTitle">آفرین قهرمان!</h1>
+        <p id="finishMessage">تو الگوها را با دقت پیدا کردی.</p>
+        <div id="finalScore" class="final-score"></div>
 
-  $("feedback").textContent = "";
-  $("feedback").className = "feedback";
+        <img class="signature finish-signature"
+             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+             alt="امضای مرضیه محمدی"
+             onerror="this.style.display='none'">
 
-  beep(true);
-}
+        <button id="restartButton" class="primary-button">
+          دوباره بازی کنیم
+        </button>
+      </div>
+    </section>
+  </main>
 
-function clearChoice() {
-  selected = null;
+  <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
 
-  $("answerArea").querySelectorAll(".choice").forEach(button => {
-    button.classList.remove("selected");
-    button.setAttribute("aria-pressed", "false");
-  });
-
-  $("feedback").textContent = "";
-  $("feedback").className = "feedback";
-}
-
-function checkAnswer() {
-  if (selected === null) {
-    $("feedback").textContent = "یک گزینه را انتخاب کن 🌸";
-    $("feedback").className = "feedback bad";
-    beep(false);
-    return;
-  }
-
-  const level = levels[levelIndex];
-
-  if (selected === level.answer) {
-    if (!solved[levelIndex]) {
-      solved[levelIndex] = true;
-      score += 10;
-    }
-
-    $("score").textContent = faDigits(score);
-
-    $("feedback").textContent =
-      levelIndex === levels.length - 1
-        ? "آفرین! همهٔ مراحل را انجام دادی 🏆"
-        : "آفرین! پاسخ درست است 🌟";
-
-    $("feedback").className = "feedback ok";
-
-    beep(true);
-    speak("آفرین! پاسخ درست است.");
-    confetti();
-
-    if (levelIndex === levels.length - 1) {
-      setTimeout(showEnd, 650);
-    }
-  } else {
-    $("feedback").textContent =
-      "یک بار دیگر با دقت به الگو نگاه کن 💜";
-
-    $("feedback").className = "feedback bad";
-
-    beep(false);
-    speak("دوباره با دقت نگاه کن.");
-  }
-}
-
-function nextLevel() {
-  if (levelIndex >= levels.length - 1) {
-    if (solved[levelIndex]) {
-      showEnd();
-    } else {
-      checkAnswer();
-    }
-
-    return;
-  }
-
-  levelIndex++;
-  renderLevel();
-}
-
-function prevLevel() {
-  if (levelIndex > 0) {
-    levelIndex--;
-    renderLevel();
-  }
-}
-
-function startGame() {
-  playerName =
-    ($("studentName").value || "دوست من").trim() || "دوست من";
-
-  $("playerName").textContent = playerName;
-
-  levelIndex = 0;
-  score = 0;
-  selected = null;
-  solved = new Array(levels.length).fill(false);
-
-  showScreen("gameScreen");
-  renderLevel();
-}
-
-function showEnd() {
-  $("endName").textContent = playerName;
-  $("finalScore").textContent = faDigits(score);
-
-  showScreen("endScreen");
-
-  speak(`آفرین ${playerName}! بازی را تمام کردی.`);
-  confetti();
-}
-
-function restart() {
-  levelIndex = 0;
-  score = 0;
-  selected = null;
-  solved = new Array(levels.length).fill(false);
-
-  showScreen("gameScreen");
-  renderLevel();
-}
-
-function goHome() {
-  showScreen("startScreen");
-}
-
-function confetti() {
-  const box = $("confetti");
-  box.innerHTML = "";
-
-  const colors = Object.values(COLORS);
-
-  for (let i = 0; i < 34; i++) {
-    const piece = document.createElement("i");
-
-    piece.className = "confetti-piece";
-    piece.style.left = Math.random() * 100 + "%";
-    piece.style.top = (-Math.random() * 20) + "%";
-    piece.style.background = colors[i % colors.length];
-    piece.style.transform = `rotate(${Math.random() * 180}deg)`;
-    piece.style.animationDelay = (Math.random() * 0.15) + "s";
-
-    box.appendChild(piece);
-  }
-
-  setTimeout(() => {
-    box.innerHTML = "";
-  }, 1500);
-}
-
-// اتصال دکمه‌ها
-$("startBtn").addEventListener("click", startGame);
-
-$("studentName").addEventListener("keydown", event => {
-  if (event.key === "Enter") {
-    startGame();
-  }
-});
-
-$("checkBtn").addEventListener("click", checkAnswer);
-$("clearBtn").addEventListener("click", clearChoice);
-$("nextBtn").addEventListener("click", nextLevel);
-$("prevBtn").addEventListener("click", prevLevel);
-$("homeBtn").addEventListener("click", goHome);
-$("restartBtn").addEventListener("click", restart);
-$("endHomeBtn").addEventListener("click", goHome);
-
-$("studentName").focus();
+  <script src="script.js"></script>
+</body>
+</html>
