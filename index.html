@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#e9dcff">
   <title>الگوی منظم | ریاضی پایه اول</title>
   <link rel="stylesheet" href="style.css">
@@ -12,29 +12,13 @@
   <main id="app">
     <section id="welcome" class="screen welcome">
       <div class="welcome-card">
-        <img class="teacher-photo"
-             src="IMG_4332.jpeg"
-             alt="عکس آموزگار"
-             onerror="this.style.display='none'">
-
+        <img class="teacher-photo" src="IMG_4332.jpeg" alt="عکس آموزگار" onerror="this.style.display='none'">
         <div class="welcome-title">الگوی منظم</div>
         <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
-
-        <p class="welcome-message">
-          بچه‌های گلم، الگوخوانی خیلی مهم است.
-          پس اول الگو را بخوانید.
-        </p>
-
+        <p class="welcome-message">بچه‌های گلم، الگوخوانی خیلی مهم است. پس اول الگو را بخوانید.</p>
         <label for="studentName">نام دانش‌آموز:</label>
-        <input id="studentName"
-               type="text"
-               maxlength="35"
-               placeholder="نامت را اینجا بنویس"
-               autocomplete="off">
-
-        <button id="startButton" class="primary-button">
-          شروع بازی 🚀
-        </button>
+        <input id="studentName" type="text" maxlength="35" placeholder="نامت را اینجا بنویس" autocomplete="off">
+        <button id="startButton" class="primary-button">شروع بازی 🚀</button>
       </div>
     </section>
 
@@ -50,9 +34,7 @@
         <div class="stage-counter" id="stageCounter">۱ از ۵</div>
       </header>
 
-      <div class="progress-track">
-        <div id="progressBar"></div>
-      </div>
+      <div class="progress-track"><div id="progressBar"></div></div>
 
       <section class="question-area">
         <h1 id="questionTitle">الگو را ادامه بده</h1>
@@ -64,21 +46,14 @@
       <section id="boardArea" class="board-area">
         <div id="boardLabel" class="board-label">الگوی اصلی</div>
         <div id="mainBoard" class="board"></div>
-
-        <div id="copyLabel" class="board-label copy-label hidden">
-          حالا الگوی اصلی را یک بار اینجا تکرار کن
-        </div>
+        <div id="copyLabel" class="board-label copy-label hidden">حالا الگوی اصلی را یک بار اینجا تکرار کن</div>
         <div id="copyBoard" class="board copy-board hidden"></div>
       </section>
 
       <div id="feedback" class="feedback" aria-live="polite"></div>
 
       <footer class="game-footer">
-        <img class="signature"
-             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-             alt="امضای مرضیه محمدی"
-             onerror="this.style.display='none'">
-
+        <img class="signature" src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png" alt="امضای مرضیه محمدی" onerror="this.style.display='none'">
         <div class="nav-buttons">
           <button id="prevButton" class="nav-button">قبلی</button>
           <button id="checkButton" class="primary-button">بررسی پاسخ</button>
@@ -94,21 +69,13 @@
         <h1 id="finishTitle">آفرین قهرمان!</h1>
         <p id="finishMessage">تو الگوها را با دقت پیدا کردی.</p>
         <div id="finalScore" class="final-score"></div>
-
-        <img class="signature finish-signature"
-             src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-             alt="امضای مرضیه محمدی"
-             onerror="this.style.display='none'">
-
-        <button id="restartButton" class="primary-button">
-          دوباره بازی کنیم
-        </button>
+        <img class="signature finish-signature" src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png" alt="امضای مرضیه محمدی" onerror="this.style.display='none'">
+        <button id="restartButton" class="primary-button">دوباره بازی کنیم</button>
       </div>
     </section>
   </main>
 
   <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
-
   <script src="script.js"></script>
 </body>
 </html>
