@@ -1,130 +1,679 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="theme-color" content="#e9dcff">
-  <title>الگوی منظم | ریاضی پایه اول</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <main id="app">
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    <section id="welcome" class="screen welcome">
-      <div class="welcome-card">
-        <img
-          class="teacher-photo"
-          src="IMG_4332.jpeg"
-          alt="عکس آموزگار"
-          onerror="this.style.display='none'"
-        >
+:root {
+  --purple: #8b63d9;
+  --purple-dark: #6845b5;
+  --pink: #ff83b6;
+  --green: #45bf66;
+  --red: #f05262;
+  --blue: #4399f2;
+  --yellow: #ffd84d;
+  --ink: #45365d;
+  --border: #554b63;
+}
 
-        <h1 class="welcome-title">الگوی منظم</h1>
-        <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
 
-        <p class="welcome-message">
-          بچه‌های گلم، الگوخوانی خیلی مهم است.
-          پس اول الگو را بخوانید.
-        </p>
+body {
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(135deg, #f5eeff, #e5f4ff, #fff1f7);
+  overflow-x: hidden;
+}
 
-        <label for="studentName">نام دانش‌آموز:</label>
-        <input
-          id="studentName"
-          type="text"
-          maxlength="35"
-          placeholder="نامت را اینجا بنویس"
-          autocomplete="off"
-        >
+button,
+input {
+  font: inherit;
+}
 
-        <button id="startButton" class="primary-button">
-          شروع بازی 🚀
-        </button>
-      </div>
-    </section>
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
 
-    <section id="game" class="screen game-screen hidden">
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
-      <header class="game-header">
-        <div class="game-brand">
-          <span class="brand-icon">🌈</span>
-          <div>
-            <strong>الگوی منظم</strong>
-            <small id="studentGreeting">آفرین، آماده‌ای؟</small>
-          </div>
-        </div>
+.hidden {
+  display: none !important;
+}
 
-        <div class="stage-counter" id="stageCounter">۱ از ۵</div>
-      </header>
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
 
-      <div class="progress-track">
-        <div id="progressBar"></div>
-      </div>
+.screen {
+  min-height: 100vh;
+}
 
-      <section class="question-area">
-        <h1 id="questionTitle">الگو را ادامه بده</h1>
-        <p id="questionText"></p>
-      </section>
+/* صفحه شروع */
 
-      <div id="palette" class="palette"></div>
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
 
-      <div class="tool-hint">
-        اول رنگ یا شکل را انتخاب کن، بعد خانهٔ جدول را لمس کن.
-      </div>
+.welcome-card {
+  width: min(100%, 520px);
+  padding: 28px 24px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 45px rgba(96, 65, 148, 0.17);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
 
-      <div class="nav-buttons">
-        <button id="prevButton" class="nav-button">قبلی</button>
-        <button id="checkButton" class="primary-button">بررسی پاسخ</button>
-        <button id="nextButton" class="nav-button">بعدی</button>
-        <button id="exitButton" class="nav-button exit-button">خروج</button>
-      </div>
+.teacher-photo {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e5d8ff;
+  box-shadow: 0 5px 18px rgba(94, 63, 145, 0.18);
+}
 
-      <section id="boardArea" class="board-area">
-        <div id="boardLabel" class="board-label">الگوی اصلی</div>
-        <div id="mainBoard" class="board"></div>
+.welcome-title {
+  margin: 14px 0 5px;
+  font-size: clamp(28px, 5vw, 42px);
+  color: var(--purple-dark);
+}
 
-        <div id="copyLabel" class="board-label copy-label hidden">
-          الگو را اینجا تکرار کن
-        </div>
-        <div id="copyBoard" class="board copy-board hidden"></div>
-      </section>
+.welcome-subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6b5a84;
+}
 
-      <div id="feedback" class="feedback" aria-live="polite"></div>
+.welcome-message {
+  margin: 24px 0;
+  line-height: 2;
+  font-size: 16px;
+}
 
-      <footer class="game-footer">
-        <img
-          class="signature"
-          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-          alt="امضای مرضیه محمدی"
-          onerror="this.style.display='none'"
-        >
-      </footer>
-    </section>
+.welcome-card label {
+  display: block;
+  margin-bottom: 9px;
+  font-weight: bold;
+}
 
-    <section id="finish" class="screen finish-screen hidden">
-      <div class="finish-card">
-        <div class="finish-star">🌟</div>
-        <h1 id="finishTitle">آفرین قهرمان!</h1>
-        <p id="finishMessage">تو الگوها را با دقت پیدا کردی.</p>
-        <div id="finalScore" class="final-score"></div>
+#studentName {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  border: 2px solid #ded0f7;
+  border-radius: 13px;
+  padding: 10px 13px;
+  outline: none;
+  background: #fff;
+  text-align: right;
+}
 
-        <img
-          class="signature finish-signature"
-          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-          alt="امضای مرضیه محمدی"
-          onerror="this.style.display='none'"
-        >
+#studentName:focus {
+  border-color: var(--purple);
+}
 
-        <button id="restartButton" class="primary-button">
-          دوباره بازی کنیم
-        </button>
-      </div>
-    </section>
+/* دکمه‌ها */
 
-  </main>
+.primary-button,
+.nav-button {
+  border: 0;
+  border-radius: 13px;
+  padding: 11px 16px;
+  min-height: 43px;
+  font-weight: bold;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
 
-  <canvas id="fireworks" class="fireworks-canvas"></canvas>
-  <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
+.primary-button {
+  color: white;
+  background: linear-gradient(135deg, #9872e6, #7953c8);
+  box-shadow: 0 4px 12px rgba(116, 77, 190, 0.2);
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.welcome-card .primary-button {
+  width: 100%;
+  margin-top: 15px;
+  min-height: 52px;
+  font-size: 17px;
+}
+
+.nav-button {
+  color: #57486f;
+  background: #eee7fb;
+  border: 1px solid #dfd3f6;
+}
+
+.exit-button {
+  background: #ffe5e9;
+  border-color: #ffcbd3;
+  color: #a43b4b;
+}
+
+.primary-button:active,
+.nav-button:active,
+.palette-button:active {
+  transform: scale(0.97);
+}
+
+/* صفحه بازی */
+
+.game-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10px clamp(8px, 2vw, 22px) 0;
+  gap: 7px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand-icon {
+  font-size: 30px;
+}
+
+.game-brand strong {
+  display: block;
+  font-size: 17px;
+  color: var(--purple-dark);
+}
+
+.game-brand small {
+  display: block;
+  margin-top: 4px;
+  color: #746785;
+  font-size: 12px;
+}
+
+.stage-counter {
+  background: white;
+  border: 1px solid #e3d6f7;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.progress-track {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  background: #e4d9f7;
+  border-radius: 10px;
+}
+
+#progressBar {
+  height: 100%;
+  width: 20%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff8ab8, #8d6ae0);
+  transition: width 0.3s ease;
+}
+
+.question-area {
+  text-align: center;
+  padding: 1px 0;
+}
+
+.question-area h1 {
+  margin: 3px 0;
+  font-size: clamp(18px, 3.5vw, 25px);
+  color: #6547a5;
+}
+
+.question-area p {
+  margin: 5px 0;
+  font-size: clamp(12px, 2.3vw, 15px);
+  line-height: 1.8;
+}
+
+/* انتخاب شکل و رنگ و پاک‌کن */
+
+.palette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 48px;
+  padding: 4px 0;
+}
+
+.palette-button {
+  width: 43px;
+  height: 43px;
+  padding: 5px;
+  border-radius: 12px;
+  border: 2px solid #e6dcf3;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(75, 56, 105, 0.07);
+  touch-action: manipulation;
+}
+
+.palette-button.selected {
+  border: 3px solid var(--purple-dark);
+  background: #f0e8ff;
+  box-shadow: 0 0 0 3px rgba(139, 99, 217, 0.16);
+}
+
+.palette-button.eraser-button {
+  width: auto;
+  min-width: 52px;
+  padding: 5px 9px;
+  font-size: 22px;
+}
+
+.palette-button.eraser-button.selected {
+  border-color: #e14c63;
+  background: #fff0f2;
+  box-shadow: 0 0 0 3px rgba(225, 76, 99, 0.12);
+}
+
+.tool-hint {
+  text-align: center;
+  color: #756587;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* شکل‌ها */
+
+.shape {
+  display: block;
+  width: 64%;
+  height: 64%;
+  flex-shrink: 0;
+}
+
+.shape.circle {
+  border-radius: 50%;
+}
+
+.shape.square {
+  border-radius: 3px;
+}
+
+.shape.diamond {
+  transform: rotate(45deg) scale(0.76);
+  border-radius: 2px;
+}
+
+.shape.triangle {
+  width: 0;
+  height: 0;
+  background: transparent !important;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 18px solid currentColor;
+}
+
+/* دکمه‌های حرکت */
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.nav-buttons button {
+  font-size: 13px;
+  padding: 9px 12px;
+  min-height: 38px;
+}
+
+/* جدول‌ها */
+
+.board-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  padding: 3px 0;
+}
+
+.board-label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #68518e;
+  text-align: center;
+}
+
+.board {
+  display: grid;
+  direction: ltr;
+  gap: 0 !important;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-top: 2px solid var(--border);
+  border-left: 2px solid var(--border);
+  background: white;
+  touch-action: manipulation;
+}
+
+.board .cell {
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-right: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.board .cell:active {
+  background-color: #f7f1ff;
+}
+
+.board .cell .shape {
+  max-width: 86%;
+  max-height: 86%;
+}
+
+.pattern-18 .cell {
+  aspect-ratio: 1 / 1;
+}
+
+.pattern-12 .cell {
+  aspect-ratio: 1 / 1;
+}
+
+.pattern-21 .cell {
+  aspect-ratio: 1 / 1;
+}
+
+.pattern-6 .cell {
+  aspect-ratio: 1 / 1;
+}
+
+.board .cell.empty-cell {
+  background: #fff;
+}
+
+.board .cell.filled {
+  background: white;
+}
+
+.copy-label {
+  margin-top: 2px;
+}
+
+/* مرحله خط‌ها */
+
+.line-board .cell {
+  aspect-ratio: 1.25 / 1;
+}
+
+.line-mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.line-mark.red {
+  background: var(--red);
+}
+
+.line-mark.blue {
+  background: var(--blue);
+}
+
+/* موش */
+
+.mouse-start {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 5vw, 37px);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.drag-mouse {
+  position: fixed;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  font-size: 42px;
+}
+
+.feedback {
+  min-height: 25px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #62469d;
+  padding: 0 3px;
+}
+
+.game-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 3px 0 5px;
+}
+
+.signature {
+  display: block;
+  width: clamp(100px, 16vw, 160px);
+  max-height: 48px;
+  object-fit: contain;
+  object-position: center;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* پایان بازی */
+
+.finish-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.finish-card {
+  width: min(100%, 470px);
+  text-align: center;
+  padding: 30px 22px;
+  background: white;
+  border-radius: 26px;
+  box-shadow: 0 14px 40px rgba(96, 65, 148, 0.15);
+}
+
+.finish-star {
+  font-size: 65px;
+}
+
+.finish-card h1 {
+  color: var(--purple-dark);
+}
+
+.finish-card p {
+  line-height: 1.9;
+}
+
+.final-score {
+  margin: 18px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #6448a1;
+}
+
+.finish-signature {
+  margin: 14px auto;
+}
+
+/* آتش‌بازی */
+
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 900;
+}
+
+/* موبایل */
+
+@media (max-width: 600px) {
+  .game-screen {
+    gap: 5px;
+    padding: 7px 6px 0;
+  }
+
+  .game-header {
+    min-height: 39px;
+  }
+
+  .brand-icon {
+    font-size: 25px;
+  }
+
+  .game-brand strong {
+    font-size: 15px;
+  }
+
+  .stage-counter {
+    padding: 7px 9px;
+    font-size: 12px;
+  }
+
+  .palette {
+    gap: 5px;
+  }
+
+  .palette-button {
+    width: 39px;
+    height: 39px;
+  }
+
+  .palette-button.eraser-button {
+    min-width: 43px;
+    padding: 4px;
+  }
+
+  .nav-buttons {
+    gap: 5px;
+  }
+
+  .nav-buttons button {
+    font-size: 12px;
+    padding: 8px 9px;
+  }
+
+  .board-area {
+    gap: 5px;
+  }
+
+  .board .cell {
+    border-right-width: 1.5px;
+    border-bottom-width: 1.5px;
+  }
+
+  .line-board .cell {
+    aspect-ratio: 1.1 / 1;
+  }
+
+  .feedback {
+    font-size: 12px;
+  }
+
+  .signature {
+    width: 105px;
+    max-height: 39px;
+  }
+}
+
+/* نمایشگرهای کوتاه */
+
+@media (max-height: 650px) {
+  .game-screen {
+    gap: 3px;
+  }
+
+  .teacher-photo {
+    width: 85px;
+    height: 85px;
+  }
+
+  .question-area h1 {
+    font-size: 18px;
+  }
+
+  .question-area p {
+    margin: 2px 0;
+    line-height: 1.5;
+  }
+
+  .palette-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nav-buttons button {
+    min-height: 33px;
+    padding: 6px 9px;
+  }
+
+  .board-area {
+    gap: 3px;
+  }
+
+  .game-footer {
+    min-height: 33px;
+  }
+}
