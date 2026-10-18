@@ -1,54 +1,130 @@
-:root{--lilac:#e9dcff;--lilac-deep:#c9a9ff;--purple:#7040a8;--purple-dark:#4b287c;--white:#fff;--green:#45bf66;--red:#f05262;--blue:#4399f2;--yellow:#ffd84d;--line:#393047;--text:#342547}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{font-family:Tahoma,Arial,sans-serif;color:var(--text);background:var(--lilac);touch-action:manipulation}
-button,input{font:inherit}
-button{cursor:pointer;touch-action:manipulation}
-#app{width:100%;height:100%;height:100dvh;overflow:hidden;background:radial-gradient(circle at 10% 10%,#ffffff8a,transparent 28%),linear-gradient(145deg,#f0e7ff,#dfccff)}
-.screen{width:100%;height:100%;height:100dvh;overflow:hidden}
-.hidden{display:none!important}
-.welcome{display:flex;align-items:center;justify-content:center;padding:14px}
-.welcome-card{width:min(100%,470px);max-height:96%;overflow:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(7px,1.5vh,15px);padding:clamp(15px,3vh,28px);border:2px solid #fff;border-radius:28px;background:#ffffffd9;box-shadow:0 12px 30px #7752a526;text-align:center}
-.teacher-photo{display:block;width:clamp(105px,22vh,175px);height:clamp(105px,22vh,175px);max-width:48vw;object-fit:cover;object-position:center;border-radius:22px;border:3px solid #c4a0ff;background:#f2e9ff}
-.welcome-title{color:var(--purple-dark);font-size:clamp(25px,5vw,38px);font-weight:900}
-.welcome-subtitle{font-size:clamp(14px,2.5vw,19px);font-weight:bold;color:#8755c2}
-.welcome-message{max-width:350px;margin:2px 0;font-size:clamp(13px,2.3vw,17px);line-height:1.9}
-.welcome-card label{font-size:14px;font-weight:bold}
-#studentName{width:min(100%,320px);padding:12px;border:2px solid #d3baff;border-radius:14px;background:#fbf8ff;text-align:center;outline:none}
-#studentName:focus{border-color:var(--purple)}
-.primary-button{min-height:38px;padding:8px 15px;color:#fff;background:linear-gradient(135deg,#9864e7,#7040a8);border:0;border-radius:12px;font-weight:bold;box-shadow:0 3px 0 #4e2b7a}
-.primary-button:active{transform:translateY(2px);box-shadow:0 1px 0 #4e2b7a}
-.primary-button:disabled{opacity:.55;cursor:not-allowed}
-.game-screen{display:flex;flex-direction:column;gap:clamp(3px,.65vh,7px);padding:clamp(5px,1.2vw,12px)}
-.game-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:35px}
-.game-brand{display:flex;align-items:center;gap:8px;min-width:0}
-.brand-icon{font-size:25px}
-.game-brand strong,.game-brand small{display:block}
-.game-brand strong{font-size:clamp(13px,2vw,18px);color:var(--purple-dark)}
-.game-brand small{margin-top:2px;font-size:clamp(10px,1.5vw,13px)}
-.stage-counter{flex-shrink:0;padding:6px 10px;border-radius:12px;background:#ffffffc9;font-size:12px;font-weight:bold}
-.progress-track{flex:0 0 4px;width:100%;overflow:hidden;border-radius:20px;background:#ffffffb0}
-#progressBar{width:20%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#45bf66,#36a5f4);transition:width .25s}
-.question-area{flex:0 0 auto;text-align:center}
-.question-area h1{margin:2px 0;color:var(--purple-dark);font-size:clamp(15px,2.7vw,22px)}
-.question-area p{margin:3px 0;font-size:clamp(10px,1.9vw,15px);line-height:1.5}
-.palette{flex:0 0 auto;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:5px;min-height:31px}
-.palette-button{min-width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #fff;border-radius:9px;background:#ffffffb5;font-size:19px;box-shadow:0 2px 0 #bca5d6}
-.palette-button.selected{border-color:var(--purple-dark);background:#fff;box-shadow:0 0 0 3px #b28be9,0 3px 7px #7040a833;transform:translateY(-2px) scale(1.04)}
-.eraser-area{flex:0 0 auto;display:flex;justify-content:center;align-items:center;min-height:31px;margin-top:-2px}
-.eraser-button{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;gap:4px;min-width:0;min-height:30px;padding:6px 10px;border:1px solid #d8a6b5;border-radius:9px;background:#fff0f3;box-shadow:0 2px 0 #e6c2cd;color:#9a3048;font-weight:bold;font-size:12px;white-space:nowrap}
-.eraser-button.selected{border:2px solid #b53c58;background:#ffdce4;box-shadow:0 0 0 2px #f3a4b5}
-.top-nav{flex:0 0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px;padding:1px 0}
-.nav-button{min-height:30px;padding:6px 10px;border:1px solid #b99ce4;border-radius:9px;background:#ffffffd9;color:#59367f;font-size:12px;font-weight:bold}
-.nav-button:disabled{opacity:.35;cursor:not-allowed}
-.exit-button{color:#a33448}
-.board-area{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(3px,.6vh,7px);width:100%;overflow:hidden}
-.board-label{flex:0 0 auto;text-align:center;font-size:clamp(10px,1.8vw,15px);font-weight:bold;color:#5b397f}
-.board{direction:ltr;display:grid;width:100%;max-width:100%;flex:0 1 auto;min-height:0;margin:0 auto;gap:0;border:2px solid var(--line);background:#fff;overflow:hidden;touch-action:manipulation}
-.board.rows-1{grid-template-rows:minmax(0,1fr)}
-.board.rows-2{grid-template-rows:repeat(2,minmax(0,1fr))}
-.board.rows-3{grid-template-rows:repeat(3,minmax(0,1fr))}
-.cell{position:relative;display:flex;min-width:0;min-height:0;align-items:center;justify-content:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;overflow:hidden;cursor:pointer;user-select:none}
-.cell.filled,.cell.empty-cell{background:#fff}
-.cell.correct-cell{box-shadow:inset 0 0 0 3px #43c66c}
-.cell.wrong-cell{box
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#e9dcff">
+  <title>الگوی منظم | ریاضی پایه اول</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+
+    <section id="welcome" class="screen welcome">
+      <div class="welcome-card">
+        <img
+          class="teacher-photo"
+          src="IMG_4332.jpeg"
+          alt="عکس آموزگار"
+          onerror="this.style.display='none'"
+        >
+
+        <h1 class="welcome-title">الگوی منظم</h1>
+        <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
+
+        <p class="welcome-message">
+          بچه‌های گلم، الگوخوانی خیلی مهم است.
+          پس اول الگو را بخوانید.
+        </p>
+
+        <label for="studentName">نام دانش‌آموز:</label>
+        <input
+          id="studentName"
+          type="text"
+          maxlength="35"
+          placeholder="نامت را اینجا بنویس"
+          autocomplete="off"
+        >
+
+        <button id="startButton" class="primary-button">
+          شروع بازی 🚀
+        </button>
+      </div>
+    </section>
+
+    <section id="game" class="screen game-screen hidden">
+
+      <header class="game-header">
+        <div class="game-brand">
+          <span class="brand-icon">🌈</span>
+          <div>
+            <strong>الگوی منظم</strong>
+            <small id="studentGreeting">آفرین، آماده‌ای؟</small>
+          </div>
+        </div>
+
+        <div class="stage-counter" id="stageCounter">۱ از ۵</div>
+      </header>
+
+      <div class="progress-track">
+        <div id="progressBar"></div>
+      </div>
+
+      <section class="question-area">
+        <h1 id="questionTitle">الگو را ادامه بده</h1>
+        <p id="questionText"></p>
+      </section>
+
+      <div id="palette" class="palette"></div>
+
+      <div class="tool-hint">
+        اول رنگ یا شکل را انتخاب کن، بعد خانهٔ جدول را لمس کن.
+      </div>
+
+      <div class="nav-buttons">
+        <button id="prevButton" class="nav-button">قبلی</button>
+        <button id="checkButton" class="primary-button">بررسی پاسخ</button>
+        <button id="nextButton" class="nav-button">بعدی</button>
+        <button id="exitButton" class="nav-button exit-button">خروج</button>
+      </div>
+
+      <section id="boardArea" class="board-area">
+        <div id="boardLabel" class="board-label">الگوی اصلی</div>
+        <div id="mainBoard" class="board"></div>
+
+        <div id="copyLabel" class="board-label copy-label hidden">
+          الگو را اینجا تکرار کن
+        </div>
+        <div id="copyBoard" class="board copy-board hidden"></div>
+      </section>
+
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+
+      <footer class="game-footer">
+        <img
+          class="signature"
+          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+          alt="امضای مرضیه محمدی"
+          onerror="this.style.display='none'"
+        >
+      </footer>
+    </section>
+
+    <section id="finish" class="screen finish-screen hidden">
+      <div class="finish-card">
+        <div class="finish-star">🌟</div>
+        <h1 id="finishTitle">آفرین قهرمان!</h1>
+        <p id="finishMessage">تو الگوها را با دقت پیدا کردی.</p>
+        <div id="finalScore" class="final-score"></div>
+
+        <img
+          class="signature finish-signature"
+          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+          alt="امضای مرضیه محمدی"
+          onerror="this.style.display='none'"
+        >
+
+        <button id="restartButton" class="primary-button">
+          دوباره بازی کنیم
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <canvas id="fireworks" class="fireworks-canvas"></canvas>
+  <div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
