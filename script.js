@@ -672,38 +672,93 @@ function renderStage() {
     renderLineStage();
   }
 }
-/* مرحله اول: ادامه و تکرار الگو */
-
 function renderCopyStage() {
-  // نمایش شکل‌ها و رنگ‌های قابل انتخاب
   renderPalette();
+
+  if (copyState.top.length !== 18) {
+    copyState.top = [
+      ...repeatPattern(patternSix, 2),
+      ...Array(6).fill(null)
+    ];
+  }
+
+  if (copyState.bottom.length !== 6) {
+    copyState.bottom = Array(6).fill(null);
+  }
 
   $("boardLabel").textContent = "الگوی اصلی را ادامه بده";
 
-  // جدول بالایی: الگوی اصلی
-  makeBoard(
-    $("mainBoard"),
-    1,
-    18,
-    copyState.top,
-    {
-      className: "pattern-18",
+  // جدول بالایی مرحلهٔ اول
+  makeBoard($("mainBoard"), 1, 18, copyState.top, {
+    className: "pattern-18",
 
-      onCell: index => {
-        // ۱۲ خانه اول الگوی اصلی قابل تغییر نیستند.
-        if (index < 12) return;
+    onCell: (index, row, col, cell) => {
+      // ۱۲ خانهٔ اول الگوی نمونه هستند و نباید تغییر کنند.
+      if (index < 12) return;
 
-        // ثبت شکل انتخاب‌شده در خانه
-        copyState.top[index] = state.eraser
-          ? null
-          : cloneItem(state.selected);
+      // پاک کردن خانه
+      if (state.eraser) {
+        copyState.top[index] = null;
+        cell.innerHTML = "";
+        cell.classList.remove("filled");
+        cell.style.backgroundColor = "#fff";
 
-        // بازسازی جدول با حفظ انتخاب کاربر
-        renderCopyStage();
         playClick();
+        return;
       }
+
+      // قرار دادن شکل انتخاب‌شده در خانه
+      if (!state.selected) return;
+
+      const selectedItem = cloneItem(state.selected);
+
+      // ذخیرهٔ پاسخ دانش‌آموز
+      copyState.top[index] = selectedItem;
+
+      // نمایش فوری شکل و رنگ انتخاب‌شده
+      cell.innerHTML = shapeElement(selectedItem);
+      cell.classList.add("filled");
+      cell.style.backgroundColor = "#fff";
+
+      playClick();
     }
-  );
+  });
+
+  // جدول پایینی برای تکرار الگو
+  $("copyLabel").classList.remove("hidden");
+  $("copyBoard").classList.remove("hidden");
+
+  makeBoard($("copyBoard"), 1, 6, copyState.bottom, {
+    className: "pattern-6",
+    board: "copy",
+
+    onCell: (index, row, col, cell) => {
+      // پاک کردن خانه
+      if (state.eraser) {
+        copyState.bottom[index] = null;
+        cell.innerHTML = "";
+        cell.classList.remove("filled");
+        cell.style.backgroundColor = "#fff";
+
+        playClick();
+        return;
+      }
+
+      // ثبت و نمایش شکل انتخاب‌شده
+      if (!state.selected) return;
+
+      const selectedItem = cloneItem(state.selected);
+
+      copyState.bottom[index] = selectedItem;
+
+      cell.innerHTML = shapeElement(selectedItem);
+      cell.classList.add("filled");
+      cell.style.backgroundColor = "#fff";
+
+      playClick();
+    }
+  });
+}
 
   // نمایش جدول پایین
   $("copyLabel").classList.remove("hidden");
