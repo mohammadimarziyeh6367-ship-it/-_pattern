@@ -135,7 +135,9 @@ button:disabled {
   padding: 11px 16px;
   min-height: 43px;
   font-weight: bold;
-  transition: transform 0.15s ease, filter 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
 }
 
 .primary-button {
@@ -251,7 +253,7 @@ button:disabled {
   line-height: 1.8;
 }
 
-/* انتخاب شکل و رنگ و پاک‌کن */
+/* انتخاب شکل و رنگ */
 
 .palette {
   display: flex;
@@ -350,6 +352,21 @@ button:disabled {
   min-height: 38px;
 }
 
+/* پاک‌کن در پایین صفحه */
+
+.eraser-nav-button {
+  color: #a43b4b;
+  background: #fff0f2;
+  border: 1px solid #ffcbd3;
+  white-space: nowrap;
+}
+
+.eraser-nav-button.eraser-active {
+  background: #ffdce3;
+  border: 2px solid #e14c63;
+  box-shadow: 0 0 0 3px rgba(225, 76, 99, 0.12);
+}
+
 /* جدول‌ها */
 
 .board-area {
@@ -405,31 +422,14 @@ button:disabled {
   background-color: #f7f1ff;
 }
 
-.board .cell .shape {
-  max-width: 86%;
-  max-height: 86%;
-}
-
-.pattern-18 .cell {
-  aspect-ratio: 1 / 1;
-}
-
-.pattern-12 .cell {
-  aspect-ratio: 1 / 1;
-}
-
-.pattern-21 .cell {
-  aspect-ratio: 1 / 1;
-}
-
+.pattern-18 .cell,
+.pattern-12 .cell,
+.pattern-21 .cell,
 .pattern-6 .cell {
   aspect-ratio: 1 / 1;
 }
 
-.board .cell.empty-cell {
-  background: #fff;
-}
-
+.board .cell.empty-cell,
 .board .cell.filled {
   background: white;
 }
@@ -438,7 +438,7 @@ button:disabled {
   margin-top: 2px;
 }
 
-/* مرحله خط‌ها */
+/* خط‌های رنگی */
 
 .line-board .cell {
   aspect-ratio: 1.25 / 1;
@@ -485,6 +485,8 @@ button:disabled {
   font-size: 42px;
 }
 
+/* پیام پاسخ */
+
 .feedback {
   min-height: 25px;
   text-align: center;
@@ -495,19 +497,21 @@ button:disabled {
   padding: 0 3px;
 }
 
+/* امضا: بالاتر از لبه پایین */
+
 .game-footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 46px;
-  margin-top: auto;
-  padding: 3px 0 5px;
+  min-height: 55px;
+  margin-top: 0;
+  padding: 8px 0 16px;
 }
 
 .signature {
   display: block;
-  width: clamp(100px, 16vw, 160px);
-  max-height: 48px;
+  width: clamp(120px, 18vw, 175px);
+  max-height: 55px;
   object-fit: contain;
   object-position: center;
   border: none;
@@ -515,7 +519,7 @@ button:disabled {
   background: transparent;
 }
 
-/* پایان بازی */
+/* صفحه پایان */
 
 .finish-screen {
   display: flex;
@@ -601,11 +605,6 @@ button:disabled {
     height: 39px;
   }
 
-  .palette-button.eraser-button {
-    min-width: 43px;
-    padding: 4px;
-  }
-
   .nav-buttons {
     gap: 5px;
   }
@@ -632,9 +631,15 @@ button:disabled {
     font-size: 12px;
   }
 
+  .game-footer {
+    min-height: 55px;
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+
   .signature {
-    width: 105px;
-    max-height: 39px;
+    width: 125px;
+    max-height: 45px;
   }
 }
 
@@ -674,6 +679,8 @@ button:disabled {
   }
 
   .game-footer {
-    min-height: 33px;
+    min-height: 43px;
+    padding-top: 5px;
+    padding-bottom: 10px;
   }
 }
