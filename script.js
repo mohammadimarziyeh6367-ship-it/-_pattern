@@ -49,7 +49,9 @@ const state = {
 const cloneItem = item => item ? { ...item } : null;
 
 const repeatPattern = (pattern, count) =>
-  Array.from({ length: count }, (_, i) => cloneItem(pattern[i % pattern.length]));
+  Array.from({ length: count }, (_, i) =>
+    cloneItem(pattern[i % pattern.length])
+  );
 
 function sameItem(a, b) {
   return (!a && !b) ||
@@ -64,7 +66,7 @@ function colorItem(color) {
   return { shape: "square", color };
 }
 
-/* الگوی مرحله اول */
+/* مرحله اول */
 
 const patternSix = [
   { shape: "circle", color: "red" },
@@ -109,7 +111,6 @@ const mouseQuestions = [
     6,
     { shape: "triangle", color: "red" }
   ),
-
   makePatternQuestion(
     [
       { shape: "triangle", color: "blue" },
@@ -123,7 +124,7 @@ const mouseQuestions = [
   )
 ];
 
-/* الگوی سه‌ردیفی */
+/* جدول سه‌ردیفی */
 
 const greenWhite = Array.from(
   { length: 21 },
@@ -146,7 +147,7 @@ const threeRowsState = {
   bottom: Array(18).fill(null)
 };
 
-/* الگوی خطی */
+/* جدول خطی */
 
 const lineState = {
   marks: Array(30).fill(null)
@@ -154,15 +155,13 @@ const lineState = {
 
 function seedLineMarks() {
   lineState.marks = Array(30).fill(null);
-
   lineState.marks[1] = "red";
   lineState.marks[3] = "red";
-
   lineState.marks[12] = "blue";
   lineState.marks[14] = "blue";
 }
 
-/* مراحل بازی */
+/* مراحل */
 
 const stages = [
   {
@@ -192,11 +191,13 @@ const stages = [
   }
 ];
 
-/* صداها */
+/* صدا */
 
 function playTone(frequency = 660, duration = 0.12) {
   try {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    const AudioContextClass =
+      window.AudioContext || window.webkitAudioContext;
+
     if (!AudioContextClass) return;
 
     if (!state.audio) {
@@ -225,7 +226,7 @@ function playTone(frequency = 660, duration = 0.12) {
     oscillator.start();
     oscillator.stop(state.audio.currentTime + duration);
   } catch (error) {
-    // بازی بدون صدا هم باید کار کند.
+    // بازی بدون صدا هم اجرا می‌شود.
   }
 }
 
@@ -246,8 +247,9 @@ let fireworksFrame = null;
 
 function launchFireworks() {
   const canvas = $("fireworks");
-  const ctx = canvas.getContext("2d");
+  if (!canvas) return;
 
+  const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -294,7 +296,6 @@ function launchFireworks() {
 
   function animate() {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
     fireworksParticles = fireworksParticles.filter(p => p.life > 0);
 
     fireworksParticles.forEach(p => {
@@ -325,7 +326,7 @@ function launchFireworks() {
   animate();
 }
 
-/* ساخت شکل */
+/* شکل‌ها */
 
 function shapeElement(item) {
   if (!item) return "";
@@ -334,48 +335,45 @@ function shapeElement(item) {
 
   if (item.shape === "triangle") {
     return `
-      <span
-        class="shape triangle"
-        style="color:${color};border-bottom-color:${color}"
-      ></span>
+      <span class="shape triangle"
+        style="color:${color};border-bottom-color:${color}">
+      </span>
     `;
   }
 
   return `
-    <span
-      class="shape ${item.shape}"
-      style="background:${color}"
-    ></span>
+    <span class="shape ${item.shape}"
+      style="background:${color}">
+    </span>
   `;
 }
 
 function cellElement(item, index, boardName = "main") {
   return `
-    <div
-      class="cell ${item ? "filled" : "empty-cell"}"
+    <div class="cell ${item ? "filled" : "empty-cell"}"
       data-index="${index}"
       data-board="${boardName}"
       role="button"
-      aria-label="خانه ${toPersianNumber(index + 1)}"
-    >
+      aria-label="خانه ${toPersianNumber(index + 1)}">
       ${shapeElement(item)}
     </div>
   `;
 }
 
-/* ساخت جدول با امکان کلیک روی خانه‌ها */
+/* ساخت جدول */
 
 function makeBoard(container, rows, columns, cells, options = {}) {
   container.innerHTML = "";
-  container.className = `board rows-${rows} ${options.className || ""}`.trim();
-  container.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
+  container.className =
+    `board rows-${rows} ${options.className || ""}`.trim();
+
+  container.style.gridTemplateColumns =
+    `repeat(${columns}, minmax(0, 1fr))`;
 
   for (let i = 0; i < rows * columns; i++) {
-    const item = cells[i] || null;
-
     container.insertAdjacentHTML(
       "beforeend",
-      cellElement(item, i, options.board || "main")
+      cellElement(cells[i] || null, i, options.board || "main")
     );
 
     const cell = container.lastElementChild;
@@ -383,7 +381,12 @@ function makeBoard(container, rows, columns, cells, options = {}) {
     if (options.onCell) {
       cell.addEventListener("click", event => {
         event.preventDefault();
-        options.onCell(i, cell);
+        options.onCell(
+          i,
+          Math.floor(i / columns),
+          i % columns,
+          cell
+        );
       });
     }
   }
@@ -392,7 +395,7 @@ function makeBoard(container, rows, columns, cells, options = {}) {
   container.dataset.columns = columns;
 }
 
-/* انتخاب شکل، رنگ و پاک‌کن */
+/* انتخاب شکل و رنگ */
 
 function renderPalette(items = PALETTE_ITEMS) {
   const palette = $("palette");
@@ -402,7 +405,6 @@ function renderPalette(items = PALETTE_ITEMS) {
 
   items.forEach(item => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "palette-button";
 
@@ -416,14 +418,9 @@ function renderPalette(items = PALETTE_ITEMS) {
       `${SHAPES[item.shape]} ${item.color}`
     );
 
-    button.addEventListener("click", event => {
-      event.preventDefault();
-
-      // ذخیره شکل و رنگ انتخاب‌شده
+    button.addEventListener("click", () => {
       state.selected = cloneItem(item);
       state.eraser = false;
-
-      // نمایش انتخاب فعلی
       renderPalette(items);
       playClick();
     });
@@ -434,730 +431,4 @@ function renderPalette(items = PALETTE_ITEMS) {
   addEraserButton(palette, () => renderPalette(items));
 }
 
-function renderColorPalette() {
-  const items = [
-    colorItem("green"),
-    colorItem("white"),
-    colorItem("red")
-  ];
-
-  const palette = $("palette");
-  palette.innerHTML = "";
-
-  items.forEach(item => {
-    const button = document.createElement("button");
-
-    button.type = "button";
-    button.className = "palette-button";
-
-    if (!state.eraser && state.selected.color === item.color) {
-      button.classList.add("selected");
-    }
-
-    button.innerHTML = `
-      <span
-        style="
-          display:block;
-          width:25px;
-          height:25px;
-          border-radius:3px;
-          background:${COLORS[item.color]};
-          border:1px solid #6d5d7d;
-        "
-      ></span>
-    `;
-
-    button.setAttribute("aria-label", `رنگ ${item.color}`);
-
-    button.addEventListener("click", () => {
-      state.selected = cloneItem(item);
-      state.eraser = false;
-      renderColorPalette();
-      playClick();
-    });
-
-    palette.appendChild(button);
-  });
-
-  addEraserButton(palette, renderColorPalette);
-}
-
-function renderLinePalette() {
-  const palette = $("palette");
-  palette.innerHTML = "";
-
-  ["red", "blue"].forEach(color => {
-    const button = document.createElement("button");
-
-    button.type = "button";
-    button.className = "palette-button";
-
-    if (!state.eraser &&
-        state.selected.shape === "line" &&
-        state.selected.color === color) {
-      button.classList.add("selected");
-    }
-
-    button.innerHTML = `
-      <span
-        style="
-          display:block;
-          width:27px;
-          height:6px;
-          background:${COLORS[color]};
-          border-radius:5px;
-        "
-      ></span>
-    `;
-
-    button.setAttribute("aria-label", `خط ${color}`);
-
-    button.addEventListener("click", () => {
-      state.selected = { shape: "line", color };
-      state.eraser = false;
-      renderLinePalette();
-      playClick();
-    });
-
-    palette.appendChild(button);
-  });
-
-  addEraserButton(palette, renderLinePalette);
-}
-
-function addEraserButton(palette, rerender) {
-  const button = document.createElement("button");
-
-  button.type = "button";
-  button.className = "palette-button eraser-button";
-  button.textContent = "🧽";
-  button.title = "پاک‌کن";
-  button.setAttribute("aria-label", "پاک‌کن");
-
-  if (state.eraser) {
-    button.classList.add("selected");
-  }
-
-  button.addEventListener("click", () => {
-    state.eraser = true;
-    rerender();
-    playClick();
-  });
-
-  palette.appendChild(button);
-}
-
-/* پاک کردن یا رنگ‌آمیزی خانه */
-
-function applySelectedItem(currentItem) {
-  if (state.eraser) {
-    return null;
-  }
-
-  return cloneItem(state.selected);
-}
-
-/* شروع و راه‌اندازی مجدد */
-
-$("startButton").addEventListener("click", startGame);
-$("restartButton").addEventListener("click", startGame);
-
-$("studentName").addEventListener("keydown", event => {
-  if (event.key === "Enter") {
-    startGame();
-  }
-});
-
-function resetGameData() {
-  copyState.top = [
-    ...repeatPattern(patternSix, 2),
-    ...Array(6).fill(null)
-  ];
-
-  copyState.bottom = Array(6).fill(null);
-
-  threeRowsState.top = threeRowExpected.map((row, rowIndex) =>
-    row.map((color, colIndex) => {
-      if (colIndex < 8) {
-        return colorItem(color);
-      }
-      return null;
-    })
-  );
-
-  threeRowsState.bottom = Array(18).fill(null);
-
-  seedLineMarks();
-
-  mouseQuestions.forEach(question => {
-    question.cells = question.expected.map(cloneItem);
-    question.cells[question.wrongIndex] = cloneItem(question.wrongItem);
-    question.eaten = false;
-  });
-
-  state.selected = cloneItem(PALETTE_ITEMS[0]);
-  state.eraser = false;
-  state.dragging = false;
-  state.dragStage = null;
-  state.mouseArmed = false;
-
-  $("dragMouse").classList.add("hidden");
-}
-
-function startGame() {
-  state.name = $("studentName").value.trim() || "دانش‌آموز عزیز";
-  state.stage = 0;
-  state.score = 0;
-  state.completed.clear();
-
-  resetGameData();
-
-  $("welcome").classList.add("hidden");
-  $("finish").classList.add("hidden");
-  $("game").classList.remove("hidden");
-
-  $("studentGreeting").textContent = `${state.name} جان، آماده‌ای؟`;
-
-  renderStage();
-  playClick();
-}
-
-function finishGame() {
-  $("game").classList.add("hidden");
-  $("finish").classList.remove("hidden");
-
-  $("finishTitle").textContent = `آفرین ${state.name} جان!`;
-  $("finishMessage").textContent = "با دقت الگوها را پیدا کردی و ادامه دادی.";
-  $("finalScore").textContent =
-    `امتیاز تو: ${toPersianNumber(state.score)} از ${toPersianNumber(stages.length)}`;
-
-  playSuccess();
-  launchFireworks();
-}
-
-/* نمایش مرحله */
-
-function renderStage() {
-  state.mouseArmed = false;
-
-  const stage = stages[state.stage];
-
-  $("stageCounter").textContent =
-    `${toPersianNumber(state.stage + 1)} از ${toPersianNumber(stages.length)}`;
-
-  $("progressBar").style.width =
-    `${((state.stage + 1) / stages.length) * 100}%`;
-
-  $("questionTitle").textContent = stage.title;
-  $("questionText").textContent = `${state.name} جان، ${stage.description}`;
-
-  $("feedback").textContent = "";
-  $("mainBoard").innerHTML = "";
-  $("copyBoard").innerHTML = "";
-
-  $("copyLabel").classList.add("hidden");
-  $("copyBoard").classList.add("hidden");
-
-  $("boardLabel").textContent = "الگوی اصلی";
-  $("checkButton").disabled = false;
-  $("prevButton").disabled = state.stage === 0;
-
-  if (stage.type === "copy") {
-    renderCopyStage();
-  } else if (stage.type === "mouse") {
-    renderMouseStage();
-  } else if (stage.type === "threeRows") {
-    renderThreeRowsStage();
-  } else {
-    renderLineStage();
-  }
-}
-function renderCopyStage() {
-  renderPalette();
-
-  if (copyState.top.length !== 18) {
-    copyState.top = [
-      ...repeatPattern(patternSix, 2),
-      ...Array(6).fill(null)
-    ];
-  }
-
-  if (copyState.bottom.length !== 6) {
-    copyState.bottom = Array(6).fill(null);
-  }
-
-  $("boardLabel").textContent = "الگوی اصلی را ادامه بده";
-
-  // جدول بالایی مرحلهٔ اول
-  makeBoard($("mainBoard"), 1, 18, copyState.top, {
-    className: "pattern-18",
-
-    onCell: (index, row, col, cell) => {
-      // ۱۲ خانهٔ اول الگوی نمونه هستند و نباید تغییر کنند.
-      if (index < 12) return;
-
-      // پاک کردن خانه
-      if (state.eraser) {
-        copyState.top[index] = null;
-        cell.innerHTML = "";
-        cell.classList.remove("filled");
-        cell.style.backgroundColor = "#fff";
-
-        playClick();
-        return;
-      }
-
-      // قرار دادن شکل انتخاب‌شده در خانه
-      if (!state.selected) return;
-
-      const selectedItem = cloneItem(state.selected);
-
-      // ذخیرهٔ پاسخ دانش‌آموز
-      copyState.top[index] = selectedItem;
-
-      // نمایش فوری شکل و رنگ انتخاب‌شده
-      cell.innerHTML = shapeElement(selectedItem);
-      cell.classList.add("filled");
-      cell.style.backgroundColor = "#fff";
-
-      playClick();
-    }
-  });
-
-  // جدول پایینی برای تکرار الگو
-  $("copyLabel").classList.remove("hidden");
-  $("copyBoard").classList.remove("hidden");
-
-  makeBoard($("copyBoard"), 1, 6, copyState.bottom, {
-    className: "pattern-6",
-    board: "copy",
-
-    onCell: (index, row, col, cell) => {
-      // پاک کردن خانه
-      if (state.eraser) {
-        copyState.bottom[index] = null;
-        cell.innerHTML = "";
-        cell.classList.remove("filled");
-        cell.style.backgroundColor = "#fff";
-
-        playClick();
-        return;
-      }
-
-      // ثبت و نمایش شکل انتخاب‌شده
-      if (!state.selected) return;
-
-      const selectedItem = cloneItem(state.selected);
-
-      copyState.bottom[index] = selectedItem;
-
-      cell.innerHTML = shapeElement(selectedItem);
-      cell.classList.add("filled");
-      cell.style.backgroundColor = "#fff";
-
-      playClick();
-    }
-  });
-}
-
-  // نمایش جدول پایین
-  $("copyLabel").classList.remove("hidden");
-  $("copyBoard").classList.remove("hidden");
-
-  $("copyLabel").textContent =
-    "حالا الگوی اصلی را اینجا تکرار کن";
-
-  // جدول پایینی: دانش‌آموز الگو را تکرار می‌کند.
-  makeBoard(
-    $("copyBoard"),
-    1,
-    6,
-    copyState.bottom,
-    {
-      className: "pattern-6",
-      board: "copy",
-
-      onCell: index => {
-        // ثبت مستقیم شکل و رنگ انتخاب‌شده
-        copyState.bottom[index] = state.eraser
-          ? null
-          : cloneItem(state.selected);
-
-        // به‌روزرسانی جدول بدون حذف انتخاب فعلی
-        renderCopyStage();
-        playClick();
-      }
-    }
-  );
-}
-
-/* مراحل موش */
-
-function renderMouseStage() {
-  const question = mouseQuestions[state.stage - 1];
-
-  renderPalette();
-
-  $("boardLabel").textContent = "موش را روی شکل اشتباه ببر";
-
-  makeBoard(
-    $("mainBoard"),
-    1,
-    question.columns,
-    question.cells,
-    {
-      className: "pattern-12",
-      onCell: index => {
-        if (state.mouseArmed) {
-          eatShape(index);
-        }
-      }
-    }
-  );
-
-  addMouseToFirstCell();
-}
-
-function addMouseToFirstCell() {
-  const firstCell = $("mainBoard").querySelector(".cell");
-
-  if (!firstCell) return;
-
-  const mouse = document.createElement("span");
-
-  mouse.className = "mouse-start";
-  mouse.textContent = "🐭";
-  mouse.setAttribute("role", "button");
-  mouse.setAttribute("aria-label", "موش را بکش");
-  mouse.setAttribute("tabindex", "0");
-
-  firstCell.appendChild(mouse);
-
-  mouse.addEventListener("click", event => {
-    event.stopPropagation();
-
-    state.mouseArmed = true;
-
-    $("feedback").textContent =
-      "حالا روی شکل اشتباه بزن یا موش را بکش.";
-
-    playClick();
-  });
-
-  mouse.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      state.mouseArmed = true;
-    }
-  });
-
-  mouse.addEventListener("pointerdown", startMouseDrag);
-}
-
-function startMouseDrag(event) {
-  if (state.dragging) return;
-
-  event.preventDefault();
-
-  state.dragging = true;
-  state.dragStage = state.stage;
-  state.mouseArmed = true;
-
-  const dragMouse = $("dragMouse");
-
-  dragMouse.classList.remove("hidden");
-  dragMouse.style.left = `${event.clientX}px`;
-  dragMouse.style.top = `${event.clientY}px`;
-
-  const move = e => {
-    dragMouse.style.left = `${e.clientX}px`;
-    dragMouse.style.top = `${e.clientY}px`;
-  };
-
-  const end = e => {
-    document.removeEventListener("pointermove", move);
-    document.removeEventListener("pointerup", end);
-    document.removeEventListener("pointercancel", end);
-
-    dragMouse.classList.add("hidden");
-
-    const startedStage = state.dragStage;
-
-    state.dragging = false;
-    state.dragStage = null;
-
-    if (startedStage !== state.stage) return;
-
-    const target = document.elementFromPoint(e.clientX, e.clientY);
-    const cell = target && target.closest("#mainBoard .cell");
-
-    if (cell) {
-      eatShape(Number(cell.dataset.index));
-    }
-  };
-
-  document.addEventListener("pointermove", move);
-  document.addEventListener("pointerup", end);
-  document.addEventListener("pointercancel", end);
-}
-
-function eatShape(index) {
-  if (state.stage !== 1 && state.stage !== 2) return;
-
-  const question = mouseQuestions[state.stage - 1];
-
-  if (question.eaten) return;
-
-  if (index !== question.wrongIndex) {
-    $("feedback").textContent = "یک بار دیگر الگو را با دقت بخوان. 🧐";
-    playTone(240, 0.12);
-    return;
-  }
-
-  question.eaten = true;
-  question.cells[index] = cloneItem(question.expected[index]);
-  state.mouseArmed = false;
-
-  $("feedback").textContent = "آفرین! شکل اشتباه پیدا شد. 🐭🌟";
-
-  completeStage();
-  renderMouseStage();
-
-  $("feedback").textContent = "آفرین! حالا الگو دوباره منظم شد.";
-
-  playSuccess();
-  launchFireworks();
-}
-
-/* مرحله چهارم: جدول سه‌ردیفی */
-
-function renderThreeRowsStage() {
-  renderColorPalette();
-
-  $("boardLabel").textContent = "جدول اصلی: خانه‌های خالی را کامل کن";
-
-  const visibleTop = threeRowsState.top.flat();
-
-  makeBoard(
-    $("mainBoard"),
-    3,
-    21,
-    visibleTop,
-    {
-      className: "pattern-21",
-      onCell: index => {
-        const row = Math.floor(index / 21);
-        const col = index % 21;
-
-        // هشت خانه اول هر ردیف نمونه هستند.
-        if (col < 8) return;
-
-        threeRowsState.top[row][col] =
-          state.eraser ? null : colorItem(state.selected.color);
-
-        renderThreeRowsStage();
-        playClick();
-      }
-    }
-  );
-
-  $("copyLabel").classList.remove("hidden");
-  $("copyBoard").classList.remove("hidden");
-  $("copyLabel").textContent = "الگوی بالا را در جدول پایین یک بار تکرار کن";
-
-  makeBoard(
-    $("copyBoard"),
-    3,
-    6,
-    threeRowsState.bottom,
-    {
-      className: "pattern-21",
-      board: "copy",
-      onCell: index => {
-        threeRowsState.bottom[index] =
-          state.eraser ? null : colorItem(state.selected.color);
-
-        renderThreeRowsStage();
-        playClick();
-      }
-    }
-  );
-}
-
-/* مرحله پنجم: خط‌های رنگی */
-
-function renderLineStage() {
-  renderLinePalette();
-
-  const board = $("mainBoard");
-
-  board.innerHTML = "";
-  board.className = "board rows-3 line-board";
-  board.style.gridTemplateColumns = "repeat(10, minmax(0, 1fr))";
-
-  for (let i = 0; i < 30; i++) {
-    const cell = document.createElement("div");
-
-    cell.className = "cell line-cell";
-    cell.dataset.index = i;
-
-    if (lineState.marks[i]) {
-      const mark = document.createElement("span");
-
-      mark.className = `line-mark ${lineState.marks[i]}`;
-      cell.appendChild(mark);
-    }
-
-    cell.addEventListener("click", () => {
-      const row = Math.floor(i / 10);
-      const col = i % 10;
-
-      // خط‌های نمونه قابل تغییر نیستند.
-      const fixed =
-        (row === 0 && [1, 3].includes(col)) ||
-        (row === 1 && [2, 4].includes(col));
-
-      if (fixed) return;
-
-      if (state.eraser) {
-        lineState.marks[i] = null;
-      } else if (state.selected.shape === "line") {
-        lineState.marks[i] = state.selected.color;
-      } else {
-        $("feedback").textContent = "اول رنگ خط قرمز یا آبی را انتخاب کن.";
-        return;
-      }
-
-      renderLineStage();
-      playClick();
-    });
-
-    board.appendChild(cell);
-  }
-}
-
-/* بررسی پاسخ‌ها */
-
-$("checkButton").addEventListener("click", checkAnswer);
-
-function checkAnswer() {
-  const type = stages[state.stage].type;
-  let correct = false;
-
-  if (type === "copy") {
-    correct = checkCopyAnswer();
-  } else if (type === "mouse") {
-    correct = mouseQuestions[state.stage - 1].eaten;
-  } else if (type === "threeRows") {
-    correct = checkThreeRowsAnswer();
-  } else {
-    correct = checkLineAnswer();
-  }
-
-  if (!correct) {
-    $("feedback").textContent =
-      "هنوز پاسخ کامل نیست. خانه‌های خالی را بررسی کن. 💜";
-
-    playTone(260, 0.12);
-    return;
-  }
-
-  if (!state.completed.has(state.stage)) {
-    completeStage();
-    playSuccess();
-    launchFireworks();
-  } else {
-    $("feedback").textContent = "آفرین! پاسخ این مرحله درست است. 🌟";
-  }
-
-  $("checkButton").disabled = true;
-}
-
-function completeStage() {
-  if (!state.completed.has(state.stage)) {
-    state.completed.add(state.stage);
-    state.score = state.completed.size;
-  }
-
-  $("feedback").textContent = "آفرین! پاسخ تو درست است. 🌟";
-}
-
-/* پاسخ مرحله اول */
-
-function checkCopyAnswer() {
-  const topOK = copyState.top.every((item, index) =>
-    sameItem(item, patternSix[index % 6])
-  );
-
-  const bottomOK = copyState.bottom.every((item, index) =>
-    sameItem(item, patternSix[index])
-  );
-
-  return topOK && bottomOK;
-}
-
-/* پاسخ مرحله چهارم */
-
-function checkThreeRowsAnswer() {
-  const topOK = threeRowsState.top.every((row, rowIndex) =>
-    row.every((item, colIndex) =>
-      !!item && item.color === threeRowExpected[rowIndex][colIndex]
-    )
-  );
-
-  const bottomOK = threeRowsState.bottom.every((item, index) => {
-    const row = Math.floor(index / 6);
-    const col = index % 6;
-
-    return !!item &&
-      item.color === threeRowExpected[row][col];
-  });
-
-  return topOK && bottomOK;
-}
-
-/* پاسخ مرحله پنجم */
-
-function checkLineAnswer() {
-  const expected = Array(30).fill(null);
-
-  for (const col of [1, 3, 5, 7, 9]) {
-    expected[col] = "red";
-  }
-
-  for (const col of [2, 4, 6, 8]) {
-    expected[10 + col] = "blue";
-  }
-
-  return lineState.marks.every((mark, index) =>
-    mark === expected[index]
-  );
-}
-
-/* دکمه‌های حرکت بین مراحل */
-
-$("prevButton").addEventListener("click", () => {
-  if (state.stage <= 0) return;
-
-  state.stage--;
-  renderStage();
-  playClick();
-});
-
-$("nextButton").addEventListener("click", () => {
-  if (state.stage < stages.length - 1) {
-    state.stage++;
-    renderStage();
-    playClick();
-  } else {
-    finishGame();
-  }
-});
-
-$("exitButton").addEventListener("click", () => {
-  $("game").classList.add("hidden");
-  $("finish").classList.add("hidden");
-  $("welcome").classList.remove("hidden");
-
-  playClick();
-});
+function
