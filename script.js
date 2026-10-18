@@ -396,6 +396,8 @@ function makeBoard(container, rows, columns, cells, options = {}) {
 
 function renderPalette(items = PALETTE_ITEMS) {
   const palette = $("palette");
+  if (!palette) return;
+
   palette.innerHTML = "";
 
   items.forEach(item => {
@@ -414,10 +416,14 @@ function renderPalette(items = PALETTE_ITEMS) {
       `${SHAPES[item.shape]} ${item.color}`
     );
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", event => {
+      event.preventDefault();
+
+      // ذخیره شکل و رنگ انتخاب‌شده
       state.selected = cloneItem(item);
       state.eraser = false;
 
+      // نمایش انتخاب فعلی
       renderPalette(items);
       playClick();
     });
@@ -666,14 +672,15 @@ function renderStage() {
     renderLineStage();
   }
 }
-
-/* مرحله اول: الگوهای شکلی */
+/* مرحله اول: ادامه و تکرار الگو */
 
 function renderCopyStage() {
+  // نمایش شکل‌ها و رنگ‌های قابل انتخاب
   renderPalette();
 
   $("boardLabel").textContent = "الگوی اصلی را ادامه بده";
 
+  // جدول بالایی: الگوی اصلی
   makeBoard(
     $("mainBoard"),
     1,
@@ -681,22 +688,31 @@ function renderCopyStage() {
     copyState.top,
     {
       className: "pattern-18",
+
       onCell: index => {
-        // ۱۲ خانه اول الگوی اصلی هستند و قابل تغییر نیستند.
+        // ۱۲ خانه اول الگوی اصلی قابل تغییر نیستند.
         if (index < 12) return;
 
-        copyState.top[index] = applySelectedItem(copyState.top[index]);
+        // ثبت شکل انتخاب‌شده در خانه
+        copyState.top[index] = state.eraser
+          ? null
+          : cloneItem(state.selected);
 
+        // بازسازی جدول با حفظ انتخاب کاربر
         renderCopyStage();
         playClick();
       }
     }
   );
 
+  // نمایش جدول پایین
   $("copyLabel").classList.remove("hidden");
   $("copyBoard").classList.remove("hidden");
-  $("copyLabel").textContent = "حالا الگوی اصلی را اینجا تکرار کن";
 
+  $("copyLabel").textContent =
+    "حالا الگوی اصلی را اینجا تکرار کن";
+
+  // جدول پایینی: دانش‌آموز الگو را تکرار می‌کند.
   makeBoard(
     $("copyBoard"),
     1,
@@ -705,9 +721,14 @@ function renderCopyStage() {
     {
       className: "pattern-6",
       board: "copy",
-      onCell: index => {
-        copyState.bottom[index] = applySelectedItem(copyState.bottom[index]);
 
+      onCell: index => {
+        // ثبت مستقیم شکل و رنگ انتخاب‌شده
+        copyState.bottom[index] = state.eraser
+          ? null
+          : cloneItem(state.selected);
+
+        // به‌روزرسانی جدول بدون حذف انتخاب فعلی
         renderCopyStage();
         playClick();
       }
