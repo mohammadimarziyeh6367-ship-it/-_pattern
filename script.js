@@ -766,7 +766,6 @@ function renderStage() {
 }
 
 /* مرحله اول: ادامه و تکرار الگو */
-
 function renderCopyStage() {
   renderPalette();
 
@@ -791,11 +790,9 @@ function renderCopyStage() {
     {
       className: "pattern-18",
       onCell: index => {
-        if (state.eraser) {
-          copyState.top[index] = null;
-        } else {
-          copyState.top[index] = cloneItem(state.selected);
-        }
+        copyState.top[index] = state.eraser
+          ? null
+          : cloneItem(state.selected);
 
         renderCopyStage();
         playClick();
@@ -815,11 +812,9 @@ function renderCopyStage() {
       className: "pattern-6",
       board: "copy",
       onCell: index => {
-        if (state.eraser) {
-          copyState.bottom[index] = null;
-        } else {
-          copyState.bottom[index] = cloneItem(state.selected);
-        }
+        copyState.bottom[index] = state.eraser
+          ? null
+          : cloneItem(state.selected);
 
         renderCopyStage();
         playClick();
