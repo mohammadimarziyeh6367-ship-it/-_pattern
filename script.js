@@ -770,10 +770,19 @@ function renderStage() {
 function renderCopyStage() {
   renderPalette();
 
-  $("boardLabel").textContent =
-    "الگوی اصلی را ادامه بده";
+  if (copyState.top.length !== 18) {
+    copyState.top = [
+      ...repeatPattern(patternSix, 2),
+      ...Array(6).fill(null)
+    ];
+  }
 
-  // جدول بالایی
+  if (copyState.bottom.length !== 6) {
+    copyState.bottom = Array(6).fill(null);
+  }
+
+  $("boardLabel").textContent = "الگوی اصلی را ادامه بده";
+
   makeBoard(
     $("mainBoard"),
     1,
@@ -781,20 +790,43 @@ function renderCopyStage() {
     copyState.top,
     {
       className: "pattern-18",
-
       onCell: index => {
-        // ۱۲ خانه اول ثابت هستند.
-        if (index < 12) return;
-
-        copyState.top[index] =
-          applySelectedItem(copyState.top[index]);
+        if (state.eraser) {
+          copyState.top[index] = null;
+        } else {
+          copyState.top[index] = cloneItem(state.selected);
+        }
 
         renderCopyStage();
-
         playClick();
       }
     }
   );
+
+  $("copyLabel").classList.remove("hidden");
+  $("copyBoard").classList.remove("hidden");
+
+  makeBoard(
+    $("copyBoard"),
+    1,
+    6,
+    copyState.bottom,
+    {
+      className: "pattern-6",
+      board: "copy",
+      onCell: index => {
+        if (state.eraser) {
+          copyState.bottom[index] = null;
+        } else {
+          copyState.bottom[index] = cloneItem(state.selected);
+        }
+
+        renderCopyStage();
+        playClick();
+      }
+    }
+  );
+}
 
   // جدول پایینی
   $("copyLabel").classList.remove("hidden");
