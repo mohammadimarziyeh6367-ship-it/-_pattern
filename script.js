@@ -828,36 +828,6 @@ function renderCopyStage() {
   );
 }
 
-  // جدول پایینی
-  $("copyLabel").classList.remove("hidden");
-  $("copyBoard").classList.remove("hidden");
-
-  $("copyLabel").textContent =
-    "حالا الگوی اصلی را اینجا تکرار کن";
-
-  makeBoard(
-    $("copyBoard"),
-    1,
-    6,
-    copyState.bottom,
-    {
-      className: "pattern-6",
-      board: "copy",
-
-      onCell: index => {
-        copyState.bottom[index] =
-          applySelectedItem(copyState.bottom[index]);
-
-        renderCopyStage();
-
-        playClick();
-      }
-    }
-  );
-
-  updateEraserButton();
-}
-
 /* مراحل موش */
 
 function renderMouseStage() {
