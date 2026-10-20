@@ -790,6 +790,7 @@ function renderCopyStage() {
     {
       className: "pattern-18",
       onCell: index => {
+         alert("خانه جدول لمس شد!");
         copyState.top[index] = state.eraser
           ? null
           : cloneItem(state.selected);
