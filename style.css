@@ -1,686 +1,428 @@
+/* تنظیمات کلی */
 * {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-  --purple: #8b63d9;
-  --purple-dark: #6845b5;
-  --pink: #ff83b6;
-  --green: #45bf66;
-  --red: #f05262;
-  --blue: #4399f2;
-  --yellow: #ffd84d;
-  --ink: #45365d;
-  --border: #554b63;
+    --background: #fff8ed;
+    --panel: #ffffff;
+    --text: #25334a;
+    --muted: #68778b;
+    --orange: #e7793b;
+    --orange-dark: #c85b27;
+    --grid: #b9dce9;
+    --green: #42a35a;
+    --red: #d8323c;
+    --blue: #169dcc;
+    --yellow: #f2c638;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
+    width: 100%;
+    height: 100%;
+    font-family: Tahoma, Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, #fff8ed, #effaff);
 }
 
 body {
-  font-family: Tahoma, Arial, sans-serif;
-  color: var(--ink);
-  background: linear-gradient(135deg, #f5eeff, #e5f4ff, #fff1f7);
-  overflow-x: hidden;
+    overflow: hidden;
 }
 
 button,
 input {
-  font: inherit;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 button {
-  cursor: pointer;
-  touch-action: manipulation;
+    border: none;
+    border-radius: 12px;
+    padding: 11px 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+button:active {
+    transform: scale(0.97);
 }
 
 button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ساختار اصلی بازی */
+.app {
+    width: 100%;
+    max-width: 1440px;
+    height: 100vh;
+    height: 100dvh;
+    margin: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* سربرگ */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.topbar h1 {
+    font-size: clamp(19px, 2.2vw, 30px);
+    font-weight: 800;
+}
+
+#stageLabel {
+    background: white;
+    padding: 9px 14px;
+    border-radius: 12px;
+    font-size: clamp(12px, 1.2vw, 16px);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* پنل‌ها */
+.panel {
+    background: var(--panel);
+    border: 1px solid #f0e6d8;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(45, 63, 83, 0.09);
 }
 
 .hidden {
-  display: none !important;
-}
-
-#app {
-  width: 100%;
-  min-height: 100vh;
-}
-
-.screen {
-  min-height: 100vh;
+    display: none !important;
 }
 
 /* صفحه شروع */
-
 .welcome {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
+    width: min(520px, 100%);
+    margin: auto;
+    padding: 35px;
+    text-align: center;
 }
 
-.welcome-card {
-  width: min(100%, 520px);
-  padding: 28px 24px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 45px rgba(96, 65, 148, 0.17);
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+.welcome h2 {
+    font-size: clamp(23px, 3vw, 34px);
+    margin-bottom: 15px;
 }
 
-.teacher-photo {
-  width: 112px;
-  height: 112px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid #e5d8ff;
-  box-shadow: 0 5px 18px rgba(94, 63, 145, 0.18);
+.welcome p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 15px;
 }
 
-.welcome-title {
-  margin: 14px 0 5px;
-  font-size: clamp(28px, 5vw, 42px);
-  color: var(--purple-dark);
+.welcome input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
 }
 
-.welcome-subtitle {
-  font-size: 18px;
-  font-weight: bold;
-  color: #6b5a84;
+.welcome input:focus {
+    border-color: var(--orange);
 }
 
-.welcome-message {
-  margin: 24px 0;
-  line-height: 2;
-  font-size: 16px;
+.welcome button {
+    width: 100%;
+    margin-top: 15px;
 }
 
-.welcome-card label {
-  display: block;
-  margin-bottom: 9px;
-  font-weight: bold;
+/* دکمه اصلی */
+#startButton,
+#restartButton,
+#checkButton,
+#nextButton {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 4px 0 var(--orange-dark);
 }
 
-#studentName {
-  display: block;
-  width: 100%;
-  min-height: 48px;
-  border: 2px solid #ded0f7;
-  border-radius: 13px;
-  padding: 10px 13px;
-  outline: none;
-  background: #fff;
-  text-align: right;
+/* عنوان مرحله */
+.stage-heading {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
-#studentName:focus {
-  border-color: var(--purple);
+.stage-heading h2 {
+    font-size: clamp(18px, 2vw, 26px);
+}
+
+.stage-heading p {
+    max-width: 55%;
+    text-align: left;
+    line-height: 1.7;
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: var(--muted);
+}
+
+/* دو جدول اصلی */
+.work-area {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.board-card {
+    min-width: 0;
+    min-height: 0;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.board-card h3 {
+    font-size: clamp(14px, 1.5vw, 20px);
+    margin-bottom: 9px;
+    flex-shrink: 0;
+}
+
+/* جدول نمونه */
+.grid-board {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(0, 1fr));
+    background: white;
+    border-top: 2px solid var(--orange);
+    border-right: 2px solid var(--orange);
+    overflow: hidden;
+}
+
+.grid-cell {
+    min-width: 0;
+    min-height: 0;
+    border-left: 1.5px solid var(--grid);
+    border-bottom: 1.5px solid var(--grid);
+}
+
+.grid-cell.marked {
+    background: var(--cell-color);
+}
+
+/* جدول رسم */
+.drawing-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    border: 2px solid var(--orange);
+    border-radius: 5px;
+    background: white;
+    overflow: hidden;
+    touch-action: none;
+}
+
+.drawing-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+/* جدول تمرین پایین صفحه */
+.bottom-practice {
+    flex-shrink: 0;
+    padding: 10px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    max-height: 23%;
+    overflow: hidden;
+}
+
+.bottom-practice h3 {
+    font-size: clamp(13px, 1.5vw, 19px);
+}
+
+.bottom-practice .drawing-wrap {
+    height: clamp(45px, 8vh, 90px);
+    flex: none;
 }
 
 /* دکمه‌ها */
-
-.primary-button,
-.nav-button {
-  border: 0;
-  border-radius: 13px;
-  padding: 11px 16px;
-  min-height: 43px;
-  font-weight: bold;
-  transition:
-    transform 0.15s ease,
-    filter 0.15s ease;
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
-.primary-button {
-  color: white;
-  background: linear-gradient(135deg, #9872e6, #7953c8);
-  box-shadow: 0 4px 12px rgba(116, 77, 190, 0.2);
+.controls button {
+    font-size: clamp(11px, 1.1vw, 15px);
+    padding: 10px 15px;
+    white-space: nowrap;
 }
 
-.welcome-card .primary-button {
-  width: 100%;
-  margin-top: 15px;
-  min-height: 52px;
-  font-size: 17px;
-}
-
-.nav-button {
-  color: #57486f;
-  background: #eee7fb;
-  border: 1px solid #dfd3f6;
-}
-
-.exit-button {
-  background: #ffe5e9;
-  border-color: #ffcbd3;
-  color: #a43b4b;
-}
-
-.primary-button:active,
-.nav-button:active,
-.palette-button:active {
-  transform: scale(0.97);
-}
-
-/* صفحه بازی */
-
-.game-screen {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 10px clamp(8px, 2vw, 22px) 0;
-  gap: 7px;
-}
-
-.game-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.game-brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.brand-icon {
-  font-size: 30px;
-}
-
-.game-brand strong {
-  display: block;
-  font-size: 17px;
-  color: var(--purple-dark);
-}
-
-.game-brand small {
-  display: block;
-  margin-top: 4px;
-  color: #746785;
-  font-size: 12px;
-}
-
-.stage-counter {
-  background: white;
-  border: 1px solid #e3d6f7;
-  border-radius: 12px;
-  padding: 8px 12px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.progress-track {
-  width: 100%;
-  height: 7px;
-  overflow: hidden;
-  background: #e4d9f7;
-  border-radius: 10px;
-}
-
-#progressBar {
-  height: 100%;
-  width: 20%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #ff8ab8, #8d6ae0);
-  transition: width 0.3s ease;
-}
-
-.question-area {
-  text-align: center;
-  padding: 1px 0;
-}
-
-.question-area h1 {
-  margin: 3px 0;
-  font-size: clamp(18px, 3.5vw, 25px);
-  color: #6547a5;
-}
-
-.question-area p {
-  margin: 5px 0;
-  font-size: clamp(12px, 2.3vw, 15px);
-  line-height: 1.8;
-}
-
-/* انتخاب شکل و رنگ */
-
-.palette {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  min-height: 48px;
-  padding: 4px 0;
-}
-
-.palette-button {
-  width: 43px;
-  height: 43px;
-  padding: 5px;
-  border-radius: 12px;
-  border: 2px solid #e6dcf3;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 5px rgba(75, 56, 105, 0.07);
-  touch-action: manipulation;
-}
-
-.palette-button.selected {
-  border: 3px solid var(--purple-dark);
-  background: #f0e8ff;
-  box-shadow: 0 0 0 3px rgba(139, 99, 217, 0.16);
-}
-
-.palette-button.eraser-button {
-  width: auto;
-  min-width: 52px;
-  padding: 5px 9px;
-  font-size: 22px;
-}
-
-.palette-button.eraser-button.selected {
-  border-color: #e14c63;
-  background: #fff0f2;
-  box-shadow: 0 0 0 3px rgba(225, 76, 99, 0.12);
-}
-
-.tool-hint {
-  text-align: center;
-  color: #756587;
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-/* شکل‌ها */
-
-.shape {
-  display: block;
-  width: 64%;
-  height: 64%;
-  flex-shrink: 0;
-}
-
-.shape.circle {
-  border-radius: 50%;
-}
-
-.shape.square {
-  border-radius: 3px;
-}
-
-.shape.diamond {
-  transform: rotate(45deg) scale(0.76);
-  border-radius: 2px;
-}
-
-.shape.triangle {
-  width: 0;
-  height: 0;
-  background: transparent !important;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 18px solid currentColor;
-}
-
-/* دکمه‌های حرکت */
-
-.nav-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.nav-buttons button {
-  font-size: 13px;
-  padding: 9px 12px;
-  min-height: 38px;
-}
-
-/* پاک‌کن در پایین صفحه */
-
-.eraser-nav-button {
-  color: #a43b4b;
-  background: #fff0f2;
-  border: 1px solid #ffcbd3;
-  white-space: nowrap;
-}
-
-.eraser-nav-button.eraser-active {
-  background: #ffdce3;
-  border: 2px solid #e14c63;
-  box-shadow: 0 0 0 3px rgba(225, 76, 99, 0.12);
-}
-
-/* جدول‌ها */
-
-.board-area {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 7px;
-  padding: 3px 0;
-}
-
-.board-label {
-  font-size: 13px;
-  font-weight: bold;
-  color: #68518e;
-  text-align: center;
-}
-
-.board {
-  display: grid;
-  direction: ltr;
-  gap: 0 !important;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  overflow: hidden;
-  border-top: 2px solid var(--border);
-  border-left: 2px solid var(--border);
-  background: white;
-  touch-action: manipulation;
-}
-
-.board .cell {
-  min-width: 0;
-  min-height: 0;
-  aspect-ratio: 1 / 1;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-right: 2px solid var(--border);
-  border-bottom: 2px solid var(--border);
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.board .cell:active {
-  background-color: #f7f1ff;
-}
-
-.pattern-18 .cell,
-.pattern-12 .cell,
-.pattern-21 .cell,
-.pattern-6 .cell {
-  aspect-ratio: 1 / 1;
-}
-
-.board .cell.empty-cell,
-.board .cell.filled {
-  background: white;
-}
-
-.copy-label {
-  margin-top: 2px;
-}
-
-/* خط‌های رنگی */
-
-.line-board .cell {
-  aspect-ratio: 1.25 / 1;
-}
-
-.line-mark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 5px;
-  border-radius: 0;
-  pointer-events: none;
-}
-
-.line-mark.red {
-  background: var(--red);
-}
-
-.line-mark.blue {
-  background: var(--blue);
-}
-
-/* موش */
-
-.mouse-start {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(20px, 5vw, 37px);
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-}
-
-.drag-mouse {
-  position: fixed;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  font-size: 42px;
+#prevButton,
+#clearButton {
+    background: #edf3f7;
+    color: var(--text);
 }
 
 /* پیام پاسخ */
-
-.feedback {
-  min-height: 25px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #62469d;
-  padding: 0 3px;
+#feedback {
+    flex-shrink: 0;
+    min-height: 20px;
+    text-align: center;
+    font-size: clamp(12px, 1.1vw, 15px);
+    font-weight: bold;
 }
 
-/* امضا: بالاتر از لبه پایین */
-
-.game-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 55px;
-  margin-top: 0;
-  padding: 8px 0 16px;
+#feedback.good {
+    color: #218348;
 }
 
-.signature {
-  display: block;
-  width: clamp(120px, 18vw, 175px);
-  max-height: 55px;
-  object-fit: contain;
-  object-position: center;
-  border: none;
-  outline: none;
-  background: transparent;
+#feedback.try {
+    color: #b45d18;
 }
 
-/* صفحه پایان */
+/* نمایشگرهای کوچک و گوشی */
+@media (max-width: 650px) {
+    .app {
+        padding: 7px;
+        gap: 6px;
+    }
 
-.finish-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+    .topbar {
+        gap: 6px;
+    }
+
+    .topbar h1 {
+        font-size: clamp(16px, 4vw, 21px);
+    }
+
+    #stageLabel {
+        font-size: 11px;
+        padding: 7px 9px;
+    }
+
+    .stage-heading {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .stage-heading h2 {
+        font-size: 16px;
+    }
+
+    .stage-heading p {
+        font-size: 10px;
+        max-width: 48%;
+    }
+
+    .work-area {
+        gap: 6px;
+    }
+
+    .board-card {
+        padding: 6px;
+        border-radius: 12px;
+    }
+
+    .board-card h3 {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .grid-board {
+        border-width: 1px;
+    }
+
+    .grid-cell {
+        border-left-width: 1px;
+        border-bottom-width: 1px;
+    }
+
+    .bottom-practice {
+        padding: 6px 9px;
+        gap: 5px;
+        border-radius: 12px;
+        max-height: 22%;
+    }
+
+    .bottom-practice h3 {
+        font-size: 12px;
+    }
+
+    .bottom-practice .drawing-wrap {
+        height: clamp(38px, 7vh, 60px);
+    }
+
+    .controls {
+        gap: 5px;
+    }
+
+    .controls button {
+        font-size: 10px;
+        padding: 8px;
+        border-radius: 9px;
+    }
+
+    #feedback {
+        font-size: 10px;
+        min-height: 15px;
+    }
 }
 
-.finish-card {
-  width: min(100%, 470px);
-  text-align: center;
-  padding: 30px 22px;
-  background: white;
-  border-radius: 26px;
-  box-shadow: 0 14px 40px rgba(96, 65, 148, 0.15);
-}
-
-.finish-star {
-  font-size: 65px;
-}
-
-.finish-card h1 {
-  color: var(--purple-dark);
-}
-
-.finish-card p {
-  line-height: 1.9;
-}
-
-.final-score {
-  margin: 18px 0;
-  font-size: 22px;
-  font-weight: bold;
-  color: #6448a1;
-}
-
-.finish-signature {
-  margin: 14px auto;
-}
-
-/* آتش‌بازی */
-
-.fireworks-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 900;
-}
-
-/* موبایل */
-
-@media (max-width: 600px) {
-  .game-screen {
-    gap: 5px;
-    padding: 7px 6px 0;
-  }
-
-  .game-header {
-    min-height: 39px;
-  }
-
-  .brand-icon {
-    font-size: 25px;
-  }
-
-  .game-brand strong {
-    font-size: 15px;
-  }
-
-  .stage-counter {
-    padding: 7px 9px;
-    font-size: 12px;
-  }
-
-  .palette {
-    gap: 5px;
-  }
-
-  .palette-button {
-    width: 39px;
-    height: 39px;
-  }
-
-  .nav-buttons {
-    gap: 5px;
-  }
-
-  .nav-buttons button {
-    font-size: 12px;
-    padding: 8px 9px;
-  }
-
-  .board-area {
-    gap: 5px;
-  }
-
-  .board .cell {
-    border-right-width: 1.5px;
-    border-bottom-width: 1.5px;
-  }
-
-  .line-board .cell {
-    aspect-ratio: 1.1 / 1;
-  }
-
-  .feedback {
-    font-size: 12px;
-  }
-
-  .game-footer {
-    min-height: 55px;
-    padding-top: 8px;
-    padding-bottom: 16px;
-  }
-
-  .signature {
-    width: 125px;
-    max-height: 45px;
-  }
-}
-
-/* نمایشگرهای کوتاه */
-
+/* لپ‌تاپ با ارتفاع کم */
 @media (max-height: 650px) {
-  .game-screen {
-    gap: 3px;
-  }
+    .app {
+        padding: 6px;
+        gap: 5px;
+    }
 
-  .teacher-photo {
-    width: 85px;
-    height: 85px;
-  }
+    .stage-heading {
+        padding: 6px 10px;
+    }
 
-  .question-area h1 {
-    font-size: 18px;
-  }
+    .board-card {
+        padding: 7px;
+    }
 
-  .question-area p {
-    margin: 2px 0;
-    line-height: 1.5;
-  }
+    .bottom-practice {
+        padding: 5px 10px;
+        max-height: 20%;
+    }
 
-  .palette-button {
-    width: 35px;
-    height: 35px;
-  }
+    .bottom-practice .drawing-wrap {
+        height: 40px;
+    }
 
-  .nav-buttons button {
-    min-height: 33px;
-    padding: 6px 9px;
-  }
+    .controls button {
+        padding: 7px 10px;
+    }
+}
 
-  .board-area {
-    gap: 3px;
-  }
-
-  .game-footer {
-    min-height: 43px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-  }
+/* دسترسی‌پذیری */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
 }
