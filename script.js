@@ -107,15 +107,17 @@ const stages = [
 // ========================================
 // شروع بازی
 // ========================================
-
 startButton.addEventListener("click", () => {
-    currentName = studentName.value.trim();
+    currentName = studentName.value.trim() || "دانش‌آموز";
 
-    if (!currentName) {
-        studentName.focus();
-        studentName.placeholder = "اول نامت را بنویس!";
-        return;
-    }
+    welcome.classList.add("hidden");
+    finish.classList.add("hidden");
+    game.classList.remove("hidden");
+
+    currentStage = 0;
+    showStage();
+});
+
 
     welcome.classList.add("hidden");
     finish.classList.add("hidden");
