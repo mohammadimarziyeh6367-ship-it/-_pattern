@@ -1,428 +1,339 @@
-/* تنظیمات کلی */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
-
 :root {
-    --background: #fff8ed;
-    --panel: #ffffff;
-    --text: #25334a;
-    --muted: #68778b;
-    --orange: #e7793b;
-    --orange-dark: #c85b27;
-    --grid: #b9dce9;
-    --green: #42a35a;
-    --red: #d8323c;
-    --blue: #169dcc;
-    --yellow: #f2c638;
+  --background: #fff8ed;
+  --panel: #ffffff;
+  --text: #25334a;
+  --muted: #68778b;
+  --orange: #e7793b;
+  --orange-dark: #c85b27;
+  --grid: #cbd5e1;
 }
-
 html,
 body {
-    width: 100%;
-    height: 100%;
-    font-family: Tahoma, Arial, sans-serif;
-    color: var(--text);
-    background: linear-gradient(135deg, #fff8ed, #effaff);
+  margin: 0;
+  min-height: 100%;
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #fff8ed, #effaff);
 }
-
 body {
-    overflow: hidden;
+  min-height: 100vh;
 }
-
 button,
 input {
-    font-family: inherit;
-    font-size: inherit;
+  font: inherit;
 }
-
 button {
-    border: none;
-    border-radius: 12px;
-    padding: 11px 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.15s ease;
+  border: 0;
+  border-radius: 11px;
+  padding: 10px 14px;
+  cursor: pointer;
+  touch-action: manipulation;
 }
-
 button:active {
-    transform: scale(0.97);
+  transform: scale(.98);
 }
-
 button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
+  opacity: .45;
+  cursor: not-allowed;
 }
-
-/* ساختار اصلی بازی */
-.app {
-    width: 100%;
-    max-width: 1440px;
-    height: 100vh;
-    height: 100dvh;
-    margin: auto;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow: hidden;
-}
-
-/* سربرگ */
-.topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-shrink: 0;
-}
-
-.topbar h1 {
-    font-size: clamp(19px, 2.2vw, 30px);
-    font-weight: 800;
-}
-
-#stageLabel {
-    background: white;
-    padding: 9px 14px;
-    border-radius: 12px;
-    font-size: clamp(12px, 1.2vw, 16px);
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-/* پنل‌ها */
-.panel {
-    background: var(--panel);
-    border: 1px solid #f0e6d8;
-    border-radius: 18px;
-    box-shadow: 0 7px 22px rgba(45, 63, 83, 0.09);
-}
-
 .hidden {
-    display: none !important;
+  display: none !important;
 }
-
-/* صفحه شروع */
+.app {
+  width: min(1200px, 100%);
+  min-height: 100vh;
+  margin: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid #f0e6d8;
+  border-radius: 17px;
+  padding: 14px;
+  box-shadow: 0 5px 18px #25334a12;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(20px, 3vw, 30px);
+}
+#stageLabel {
+  background: white;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: bold;
+  white-space: nowrap;
+}
 .welcome {
-    width: min(520px, 100%);
-    margin: auto;
-    padding: 35px;
-    text-align: center;
+  width: min(520px, 100%);
+  margin: auto;
+  text-align: center;
+  padding: 25px;
 }
-
 .welcome h2 {
-    font-size: clamp(23px, 3vw, 34px);
-    margin-bottom: 15px;
+  margin: 12px 0;
 }
-
 .welcome p {
-    color: var(--muted);
-    line-height: 1.8;
-    margin-bottom: 15px;
+  color: var(--muted);
 }
-
-.welcome input {
-    display: block;
-    width: 100%;
-    padding: 13px;
-    margin-top: 12px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    outline: none;
+.teacher-photo {
+  display: block;
+  width: min(220px, 65%);
+  max-height: 250px;
+  object-fit: contain;
+  margin: 0 auto 15px;
+  border-radius: 15px;
 }
-
-.welcome input:focus {
-    border-color: var(--orange);
+label {
+  display: block;
+  margin: 12px 0 6px;
 }
-
-.welcome button {
-    width: 100%;
-    margin-top: 15px;
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
 }
-
-/* دکمه اصلی */
-#startButton,
-#restartButton,
-#checkButton,
-#nextButton {
-    background: var(--orange);
-    color: white;
-    box-shadow: 0 4px 0 var(--orange-dark);
+.primary {
+  background: var(--orange);
+  color: white;
+  box-shadow: 0 3px 0 var(--orange-dark);
 }
-
-/* عنوان مرحله */
+.secondary {
+  background: #edf3f7;
+  color: var(--text);
+}
+#welcome #startButton,
+#finish #restartButton {
+  width: 100%;
+  margin-top: 14px;
+}
 .stage-heading {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
-
-.stage-heading h2 {
-    font-size: clamp(18px, 2vw, 26px);
-}
-
+.stage-heading h2,
 .stage-heading p {
-    max-width: 55%;
-    text-align: left;
-    line-height: 1.7;
-    font-size: clamp(12px, 1.2vw, 16px);
-    color: var(--muted);
+  margin: 4px 0;
 }
-
-/* دو جدول اصلی */
-.work-area {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+.stage-heading p {
+  color: var(--muted);
+  line-height: 1.8;
 }
-
-.board-card {
-    min-width: 0;
-    min-height: 0;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+.legend {
+  font-size: 13px;
+  text-align: left;
 }
-
+.palette-panel {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.palette {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.palette-button {
+  width: 48px;
+  height: 48px;
+  padding: 5px;
+  border: 2px solid #dbe3ed;
+  background: white;
+  display: grid;
+  place-items: center;
+}
+.palette-button.selected {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+.shape {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  flex-shrink: 0;
+}
+.shape.circle {
+  border-radius: 50%;
+}
+.shape.square {
+  border-radius: 3px;
+}
+.shape.triangle {
+  width: 0;
+  height: 0;
+  background: transparent !important;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 27px solid var(--shape-color);
+}
+.shape.star {
+  width: 30px;
+  height: 30px;
+  background: transparent !important;
+  color: var(--shape-color);
+  font-size: 30px;
+  line-height: 30px;
+}
+.boards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
 .board-card h3 {
-    font-size: clamp(14px, 1.5vw, 20px);
-    margin-bottom: 9px;
-    flex-shrink: 0;
+  margin: 0 0 10px;
+  font-size: 16px;
 }
-
-/* جدول نمونه */
-.grid-board {
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: repeat(6, minmax(0, 1fr));
-    background: white;
-    border-top: 2px solid var(--orange);
-    border-right: 2px solid var(--orange);
-    overflow: hidden;
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-top: 2px solid var(--orange);
+  border-right: 2px solid var(--orange);
+  background: white;
 }
-
-.grid-cell {
-    min-width: 0;
-    min-height: 0;
-    border-left: 1.5px solid var(--grid);
-    border-bottom: 1.5px solid var(--grid);
+.cell {
+  min-width: 0;
+  min-height: 50px;
+  padding: 3px;
+  border: 0;
+  border-left: 1px solid var(--grid);
+  border-bottom: 1px solid var(--grid);
+  border-radius: 0;
+  background: white;
+  display: grid;
+  place-items: center;
+  touch-action: manipulation;
 }
-
-.grid-cell.marked {
-    background: var(--cell-color);
+.cell.fixed-cell {
+  background: #fff9e9;
+  cursor: default;
 }
-
-/* جدول رسم */
-.drawing-wrap {
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    border: 2px solid var(--orange);
-    border-radius: 5px;
-    background: white;
-    overflow: hidden;
-    touch-action: none;
+.cell:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: -3px;
 }
-
-.drawing-wrap canvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-    touch-action: none;
+.cell .shape {
+  width: min(27px, 80%);
+  height: min(27px, 80%);
 }
-
-/* جدول تمرین پایین صفحه */
-.bottom-practice {
-    flex-shrink: 0;
-    padding: 10px 13px;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    max-height: 23%;
-    overflow: hidden;
+.cell .shape.triangle {
+  width: 0;
+  height: 0;
+  border-left-width: 13px;
+  border-right-width: 13px;
+  border-bottom-width: 23px;
 }
-
-.bottom-practice h3 {
-    font-size: clamp(13px, 1.5vw, 19px);
-}
-
-.bottom-practice .drawing-wrap {
-    height: clamp(45px, 8vh, 90px);
-    flex: none;
-}
-
-/* دکمه‌ها */
 .controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
-
-.controls button {
-    font-size: clamp(11px, 1.1vw, 15px);
-    padding: 10px 15px;
-    white-space: nowrap;
-}
-
-#prevButton,
-#clearButton {
-    background: #edf3f7;
-    color: var(--text);
-}
-
-/* پیام پاسخ */
 #feedback {
-    flex-shrink: 0;
-    min-height: 20px;
-    text-align: center;
-    font-size: clamp(12px, 1.1vw, 15px);
-    font-weight: bold;
+  min-height: 8px;
+  text-align: center;
 }
-
-#feedback.good {
-    color: #218348;
+.signature-footer {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0;
 }
-
-#feedback.try {
-    color: #b45d18;
+.signature {
+  width: 150px;
+  height: 55px;
+  object-fit: contain;
 }
-
-/* نمایشگرهای کوچک و گوشی */
-@media (max-width: 650px) {
-    .app {
-        padding: 7px;
-        gap: 6px;
-    }
-
-    .topbar {
-        gap: 6px;
-    }
-
-    .topbar h1 {
-        font-size: clamp(16px, 4vw, 21px);
-    }
-
-    #stageLabel {
-        font-size: 11px;
-        padding: 7px 9px;
-    }
-
-    .stage-heading {
-        padding: 8px 10px;
-        gap: 8px;
-    }
-
-    .stage-heading h2 {
-        font-size: 16px;
-    }
-
-    .stage-heading p {
-        font-size: 10px;
-        max-width: 48%;
-    }
-
-    .work-area {
-        gap: 6px;
-    }
-
-    .board-card {
-        padding: 6px;
-        border-radius: 12px;
-    }
-
-    .board-card h3 {
-        font-size: 12px;
-        margin-bottom: 5px;
-    }
-
-    .grid-board {
-        border-width: 1px;
-    }
-
-    .grid-cell {
-        border-left-width: 1px;
-        border-bottom-width: 1px;
-    }
-
-    .bottom-practice {
-        padding: 6px 9px;
-        gap: 5px;
-        border-radius: 12px;
-        max-height: 22%;
-    }
-
-    .bottom-practice h3 {
-        font-size: 12px;
-    }
-
-    .bottom-practice .drawing-wrap {
-        height: clamp(38px, 7vh, 60px);
-    }
-
-    .controls {
-        gap: 5px;
-    }
-
-    .controls button {
-        font-size: 10px;
-        padding: 8px;
-        border-radius: 9px;
-    }
-
-    #feedback {
-        font-size: 10px;
-        min-height: 15px;
-    }
+.finish-signature {
+  display: block;
+  margin: 18px auto 0;
 }
-
-/* لپ‌تاپ با ارتفاع کم */
-@media (max-height: 650px) {
-    .app {
-        padding: 6px;
-        gap: 5px;
-    }
-
-    .stage-heading {
-        padding: 6px 10px;
-    }
-
-    .board-card {
-        padding: 7px;
-    }
-
-    .bottom-practice {
-        padding: 5px 10px;
-        max-height: 20%;
-    }
-
-    .bottom-practice .drawing-wrap {
-        height: 40px;
-    }
-
-    .controls button {
-        padding: 7px 10px;
-    }
+.fireworks {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
 }
-
-/* دسترسی‌پذیری */
+.firework-particle {
+  position: absolute;
+  width: 9px;
+  height: 15px;
+  border-radius: 3px;
+  animation: burst 1.8s ease-out forwards;
+}
+@keyframes burst {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(720deg);
+    opacity: 0;
+  }
+}
+@media (min-width: 760px) {
+  .boards {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .cell {
+    min-height: 62px;
+  }
+}
+@media (max-width: 480px) {
+  .app {
+    padding: 7px;
+    gap: 8px;
+  }
+  .panel {
+    padding: 10px;
+  }
+  .topbar h1 {
+    font-size: 18px;
+  }
+  .stage-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .palette-panel {
+    align-items: flex-start;
+  }
+  .palette-button {
+    width: 42px;
+    height: 42px;
+  }
+  .cell {
+    min-height: 43px;
+  }
+  .shape {
+    width: 23px;
+    height: 23px;
+  }
+  .controls button {
+    padding: 9px;
+    font-size: 12px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        transition: none !important;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }
