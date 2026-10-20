@@ -443,3 +443,81 @@ input {
     transition-duration: .01ms !important;
   }
 }
+/* ========================================
+   جدول‌های یکپارچه و بدون فاصله
+======================================== */
+
+.board {
+  display: grid;
+  gap: 0 !important;
+  direction: ltr;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.board .cell {
+  box-sizing: border-box;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  padding: 0;
+}
+
+/* تمرین اول: ۱۲ خانه در یک ردیف */
+
+.board:not(.flower-main):not(.flower-copy) {
+  grid-template-columns: repeat(var(--columns), 44px);
+}
+
+.board:not(.flower-main):not(.flower-copy) .cell {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+}
+
+/* جدول گل: ۲۱ ستون */
+
+.board.flower-main {
+  grid-template-columns: repeat(21, 36px) !important;
+}
+
+.board.flower-main .cell {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+}
+
+/* جدول الگوی رئیس گل: ۶ ستون */
+
+.board.flower-copy {
+  grid-template-columns: repeat(6, 44px) !important;
+}
+
+.board.flower-copy .cell {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+}
+
+/* پیمایش جدول در موبایل */
+
+.board-card {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* انتخاب رنگ در تمرین گل */
+
+.flower-color-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.flower-color-swatch {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border: 1px solid #777;
+  border-radius: 4px;
+}
