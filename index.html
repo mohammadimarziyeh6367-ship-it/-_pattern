@@ -9,120 +9,36 @@
 </head>
 <body>
   <main class="app">
-
     <header class="topbar">
       <h1>🎨 بازی الگوی منظم</h1>
       <span id="stageLabel">آمادهٔ شروع</span>
     </header>
-
-    <!-- صفحهٔ شروع -->
     <section id="welcome" class="panel welcome">
       <img
         id="teacherPhoto"
         class="teacher-photo"
-        src="src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png""
+        src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
         alt="تصویر مدرس"
         onerror="this.style.display='none'"
       >
-
       <h2>بازی الگوی منظم</h2>
       <p>ریاضی پایهٔ اول دبستان</p>
-
+      <p class="welcome-note">
+        بچه‌های گلم، الگوخوانی خیلی مهم است؛
+         
+       اول الگو را بخوانید🗣️سپس ادامه دهید👌
+      </p>
       <label for="studentName">نام دانش‌آموز</label>
       <input
         id="studentName"
         type="text"
-        placeholder="نامت را بنویس"
+        placeholder="📝نام زیبایت را بنویس"
         maxlength="40"
+        autocomplete="given-name"
       >
-
       <button id="startButton" class="primary" type="button">
         شروع بازی 🚀
       </button>
-    </section>
-
-    <!-- صفحهٔ تمرین‌ها -->
-    <section id="game" class="hidden">
-
-      <div class="panel stage-heading">
-        <div>
-          <h2 id="stageTitle"></h2>
-          <p id="stageInstruction"></p>
-        </div>
-
-        <div id="patternLegend" class="legend"></div>
-      </div>
-
-      <!-- انتخاب شکل و رنگ -->
-      <div class="palette-panel panel">
-        <strong>شکل موردنظر را انتخاب کن:</strong>
-
-        <div id="palette" class="palette"></div>
-
-        <button
-          id="eraserButton"
-          class="secondary"
-          type="button"
-        >
-          پاک‌کن
-        </button>
-      </div>
-
-      <!-- جدول‌ها -->
-      <div class="boards">
-
-        <section class="panel board-card">
-          <h3 id="mainLabel">الگوی اصلی</h3>
-          <div id="mainBoard" class="board"></div>
-        </section>
-
-        <section class="panel board-card">
-          <h3 id="copyLabel">الگوی رئیس را یک بار تکرار کن</h3>
-          <div id="copyBoard" class="board"></div>
-        </section>
-
-      </div>
-
-      <!-- دکمه‌ها -->
-      <div class="controls">
-
-        <button
-          id="prevButton"
-          class="secondary"
-          type="button"
-        >
-          مرحلهٔ قبل
-        </button>
-
-        <button
-          id="clearButton"
-          class="secondary"
-          type="button"
-        >
-          پاک کردن پاسخ‌ها
-        </button>
-
-        <button
-          id="checkButton"
-          class="primary"
-          type="button"
-        >
-          بررسی پاسخ
-        </button>
-
-        <button
-          id="nextButton"
-          class="primary"
-          type="button"
-        >
-          مرحلهٔ بعد
-        </button>
-
-      </div>
-
-      <div id="feedback" aria-live="polite"></div>
-
-      <!-- امضای مدرس -->
       <footer class="signature-footer">
         <img
           src="IMG_4332.jpeg"
@@ -131,42 +47,69 @@
           onerror="this.style.display='none'"
         >
       </footer>
-
     </section>
-
-    <!-- صفحهٔ پایان -->
+    <section id="game" class="hidden">
+      <div class="panel stage-heading">
+        <h2 id="stageTitle"></h2>
+        <p id="stageInstruction"></p>
+        <div id="patternLegend" class="legend"></div>
+      </div>
+      <div class="panel palette-panel">
+        <strong>شکل و رنگ را انتخاب کن:</strong>
+        <div id="palette" class="palette"></div>
+        <button id="eraserButton" class="secondary" type="button">
+          پاک‌کن 🧽
+        </button>
+      </div>
+      <section class="panel board-card">
+        <h3 id="mainLabel">نام دانش‌آموز: الگو را ادامه بده.</h3>
+        <div id="mainBoard" class="board"></div>
+      </section>
+      <section class="panel board-card">
+        <h3 id="copyLabel">یک بار الگوی رئیس را تکرار کن</h3>
+        <div id="copyBoard" class="board"></div>
+      </section>
+      <div class="controls">
+        <button id="prevButton" class="secondary" type="button">
+          ◀ مرحلهٔ قبل
+        </button>
+        <button id="clearButton" class="secondary" type="button">
+          پاک کردن پاسخ‌ها
+        </button>
+        <button id="checkButton" class="primary" type="button">
+          بررسی پاسخ ✓
+        </button>
+        <button id="nextButton" class="primary" type="button">
+          مرحلهٔ بعد ▶
+        </button>
+      </div>
+      <div id="feedback" aria-live="polite"></div>
+      <footer class="signature-footer">
+        <img
+          src="IMG_4332.jpeg"
+          alt="امضای مدرس"
+          class="signature"
+          onerror="this.style.display='none'"
+        >
+      </footer>
+    </section>
     <section id="finish" class="panel welcome hidden">
-
-      <h2>🏆 پایان تمرین‌ها</h2>
-
+      <h2>🏆 آفرین! تمرین‌ها تمام شد.</h2>
       <p id="finishMessage"></p>
-
-      <button
-        id="restartButton"
-        class="primary"
-        type="button"
-      >
-        شروع دوباره
+      <button id="restartButton" class="primary" type="button">
+        شروع دوباره 🔄
       </button>
-
-      <img
-        src="IMG_4332.jpeg"
-        alt="امضای مدرس"
-        class="signature finish-signature"
-        onerror="this.style.display='none'"
-      >
-
+      <footer class="signature-footer">
+        <img
+          src="IMG_4332.jpeg"
+          alt="امضای مدرس"
+          class="signature"
+          onerror="this.style.display='none'"
+        >
+      </footer>
     </section>
-
   </main>
-
-  <!-- فشفشه‌های رنگی -->
-  <div
-    id="fireworks"
-    class="fireworks hidden"
-    aria-hidden="true"
-  ></div>
-
+  <div id="fireworks" class="fireworks hidden" aria-hidden="true"></div>
   <script src="script.js"></script>
 </body>
 </html>
