@@ -1,27 +1,35 @@
+/* ========================================
+   الگوی منظم | ریاضی پایه اول
+   آموزگار: مرضیه محمدی
+======================================== */
+
+:root {
+  --red: #ef5350;
+  --blue: #42a5f5;
+  --green: #43b96b;
+  --yellow: #ffd54f;
+  --purple: #ab78df;
+  --ink: #344054;
+  --cream: #fff8ed;
+  --white: #ffffff;
+  --border: #8b96a5;
+}
+
 * {
   box-sizing: border-box;
 }
 
-:root {
-  --background: #fff8ed;
-  --text: #25334a;
-  --muted: #68778b;
-  --orange: #f28c45;
-  --orange-dark: #d96b2b;
-  --grid: #b9c9d9;
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
 }
 
-html,
 body {
   margin: 0;
-  min-height: 100%;
-  font-family: Tahoma, Arial, sans-serif;
-  color: var(--text);
-  background: linear-gradient(135deg, #fff8ed, #e8f7ff, #f9edff);
-}
-
-body {
   min-height: 100vh;
+  background: linear-gradient(140deg, #fff8ed, #f0f7ff);
+  color: var(--ink);
+  font-family: Tahoma, Arial, sans-serif;
 }
 
 button,
@@ -31,11 +39,8 @@ input {
 
 button {
   border: 0;
-  border-radius: 13px;
-  padding: 11px 15px;
   cursor: pointer;
-  touch-action: manipulation;
-  transition: transform .15s, filter .15s;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 button:hover {
@@ -43,12 +48,13 @@ button:hover {
 }
 
 button:active {
-  transform: scale(.97);
+  transform: scale(0.97);
 }
 
-button:disabled {
-  opacity: .45;
-  cursor: not-allowed;
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #6c8cff;
+  outline-offset: 3px;
 }
 
 .hidden {
@@ -56,174 +62,353 @@ button:disabled {
 }
 
 .app {
-  width: min(1200px, 100%);
+  width: 100%;
   min-height: 100vh;
-  margin: auto;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
+  padding: 16px;
 }
 
-.panel {
-  background: rgba(255, 255, 255, .96);
-  border: 2px solid #ffffff;
-  border-radius: 20px;
-  padding: 15px;
-  box-shadow: 0 6px 22px #25334a12;
+.screen {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.topbar {
+/* صفحه شروع */
+
+.welcome-screen,
+.finish-screen {
+  min-height: 90vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.topbar h1 {
-  margin: 0;
-  font-size: clamp(20px, 3vw, 30px);
-  color: #6550a5;
-}
-
-#stageLabel {
-  background: #fff0cc;
-  border: 1px solid #ffe0a0;
-  border-radius: 12px;
-  padding: 9px 13px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.welcome {
-  width: min(540px, 100%);
-  margin: 10px auto;
+.welcome-card,
+.finish-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 28px 22px;
   text-align: center;
-  padding: 24px;
+  background: var(--white);
+  border: 2px solid #e7eaf0;
+  border-radius: 24px;
+  box-shadow: 0 12px 32px #34405412;
 }
 
-.welcome h2 {
-  margin: 12px 0;
-  color: #6651a4;
-  font-size: clamp(22px, 4vw, 30px);
-}
-
-.welcome p {
-  color: var(--muted);
-  line-height: 1.9;
-}
-
-.welcome-note {
-  background: #fff4d8;
-  padding: 10px;
-  border-radius: 13px;
+.welcome-decoration {
+  font-size: 34px;
+  margin-bottom: 12px;
 }
 
 .teacher-photo {
   display: block;
-  width: min(220px, 68%);
-  max-height: 250px;
-  object-fit: contain;
-  margin: 0 auto 15px;
+  width: 115px;
+  height: 115px;
+  margin: 0 auto 14px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #f3c969;
+}
+
+.welcome-card h1 {
+  margin: 10px 0;
+  font-size: clamp(28px, 5vw, 42px);
+  color: #e46b43;
+}
+
+.welcome-card h2 {
+  margin: 10px 0 20px;
+  font-size: 21px;
+}
+
+.welcome-message {
+  line-height: 2;
+  font-size: 17px;
+}
+
+.welcome-card label {
+  display: block;
+  margin: 22px 0 8px;
+  font-weight: bold;
+}
+
+.welcome-card input {
+  width: 100%;
+  max-width: 360px;
+  padding: 13px;
+  border: 2px solid #d8deea;
+  border-radius: 12px;
+  text-align: center;
+  background: #fbfcff;
+}
+
+.start-button {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin: 18px auto;
+  padding: 14px 18px;
+  color: #fff;
+  background: #38a66b;
+  border-radius: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 0 #267a4c;
+}
+
+.teacher-name {
+  margin-top: 24px;
+  font-weight: bold;
+}
+
+/* سربرگ بازی */
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  background: #fff;
+  border: 1px solid #e7eaf0;
   border-radius: 18px;
 }
 
-label {
-  display: block;
-  margin: 12px 0 6px;
-  font-weight: bold;
-}
-
-input {
-  width: 100%;
-  padding: 13px;
-  border: 2px solid #dce5f0;
-  border-radius: 12px;
-  background: #fbfdff;
-  outline-color: #a48bea;
-}
-
-.primary {
-  background: linear-gradient(135deg, #ffad56, #f27b45);
-  color: white;
-  font-weight: bold;
-  box-shadow: 0 4px 0 var(--orange-dark);
-}
-
-.secondary {
-  background: #eaf2fb;
-  color: var(--text);
-  font-weight: bold;
-}
-
-#welcome #startButton,
-#finish #restartButton {
-  width: 100%;
-  margin-top: 15px;
-}
-
-.stage-heading {
+.header-title {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 15px;
+  gap: 12px;
 }
 
-.stage-heading h2,
-.stage-heading p {
-  margin: 3px 0;
+.header-icon {
+  font-size: 34px;
 }
 
-.stage-heading h2 {
-  color: #6550a5;
+.header-title h1 {
+  margin: 0;
+  font-size: 24px;
 }
 
-.stage-heading p {
-  line-height: 1.8;
+.header-title p {
+  margin: 6px 0 0;
+  font-size: 14px;
 }
 
-.legend {
-  font-size: 13px;
-  text-align: right;
+.stage-counter {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fff0cf;
+  color: #775216;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.palette-panel {
+.progress-track {
+  height: 10px;
+  margin: 14px 0;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: #48b878;
+  border-radius: 20px;
+  transition: width 0.25s ease;
+}
+
+/* عنوان تمرین */
+
+.question-area {
+  margin: 12px 0;
+  padding: 16px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+}
+
+.question-area h2 {
+  margin: 0 0 10px;
+  color: #365d9c;
+  font-size: clamp(21px, 4vw, 28px);
+}
+
+.question-area p {
+  margin: 0;
+  line-height: 1.9;
+}
+
+/* ابزارها و گزینه‌ها */
+
+.tools-area {
+  margin: 14px 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+}
+
+.section-title {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.palette {
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.palette {
+.palette-item {
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 2px solid #e0e5ed;
+  border-radius: 14px;
+  box-shadow: 0 3px 0 #e8ebf0;
+}
+
+.palette-item.selected {
+  border: 3px solid #263b60;
+  background: #f0f5ff;
+  box-shadow: 0 0 0 3px #dce7ff;
+}
+
+.palette-item .shape {
+  width: 30px;
+  height: 30px;
+}
+
+.tool-buttons {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 10px;
+  margin-top: 16px;
 }
 
-.palette-button {
-  width: 49px;
-  height: 49px;
-  padding: 5px;
-  border: 2px solid #dbe3ed;
-  background: white;
+.eraser-button,
+.clear-button {
+  padding: 11px 16px;
+  border-radius: 11px;
+  font-weight: bold;
+}
+
+.eraser-button {
+  color: #344054;
+  background: #e8edf5;
+}
+
+.eraser-button.active {
+  background: #c8d9ff;
+  outline: 2px solid #6384d6;
+}
+
+.clear-button {
+  color: #fff;
+  background: #e69b35;
+}
+
+/* کارت جدول */
+
+.board-card {
+  width: 100%;
+  margin: 16px 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px #34405408;
+}
+
+.board-heading {
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.board-heading h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+}
+
+.board-hint {
+  color: #667085;
+  font-size: 13px;
+}
+
+.board-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 3px 0 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* جدول‌ها: خانه‌ها کاملاً به هم متصل‌اند */
+
+.board {
   display: grid;
-  place-items: center;
-  border-radius: 13px;
+  direction: ltr;
+  gap: 0;
+  width: max-content;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
 }
 
-.palette-button.selected {
-  outline: 3px solid #ffad56;
-  outline-offset: 2px;
-  background: #fff7e6;
+.cell {
+  width: var(--cell-size, 42px);
+  height: var(--cell-size, 42px);
+  min-width: var(--cell-size, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.cell.fixed {
+  background: #f7faff;
+}
+
+.cell.answer-cell {
+  cursor: pointer;
+  background: #fffdf7;
+}
+
+.cell.answer-cell:hover {
+  background: #f1f7ff;
+}
+
+.cell.correct-cell {
+  background: #e6f8eb;
+}
+
+.cell.wrong-cell {
+  background: #fff0ef;
 }
 
 .shape {
-  display: inline-block;
-  width: 27px;
-  height: 27px;
+  display: block;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 
@@ -232,114 +417,140 @@ input {
 }
 
 .shape.square {
-  border-radius: 4px;
+  border-radius: 1px;
 }
 
 .shape.triangle {
   width: 0;
   height: 0;
-  background: transparent !important;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 27px solid var(--shape-color);
+  border-bottom: 29px solid var(--shape-color, #43b96b);
 }
 
 .shape.star {
   width: 30px;
   height: 30px;
-  background: transparent !important;
-  color: var(--shape-color);
-  font-size: 30px;
-  line-height: 30px;
-}
-
-.board-card h3 {
-  margin: 0 0 12px;
-  font-size: clamp(14px, 2.5vw, 18px);
-  color: #6550a5;
-}
-
-.board {
-  display: grid;
-  grid-template-columns: repeat(var(--columns, 6), minmax(0, 1fr));
-  direction: ltr;
-  border-top: 2px solid #f3a14c;
-  border-right: 2px solid #f3a14c;
-  background: white;
-  width: 100%;
-  overflow: hidden;
-}
-
-.cell {
-  min-width: 0;
-  min-height: 55px;
-  padding: 2px;
-  border: 0;
-  border-left: 1px solid var(--grid);
-  border-bottom: 1px solid var(--grid);
-  border-radius: 0;
-  background: #ffffff;
-  display: grid;
-  place-items: center;
-  touch-action: manipulation;
-}
-
-.cell.fixed-cell {
-  background: #fff7e3;
-  cursor: default;
-}
-
-.cell.answer-cell {
-  background: #f5fbff;
-}
-
-.cell:focus-visible {
-  outline: 3px solid #f28c45;
-  outline-offset: -3px;
-}
-
-.cell .shape {
-  max-width: 90%;
-  max-height: 90%;
+  background: var(--shape-color, #ffd54f);
+  clip-path: polygon(
+    50% 0%,
+    62% 35%,
+    100% 35%,
+    70% 57%,
+    82% 95%,
+    50% 72%,
+    18% 95%,
+    30% 57%,
+    0% 35%,
+    38% 35%
+  );
 }
 
 .cell .shape.triangle {
-  width: 0;
-  height: 0;
-  border-left-width: 13px;
-  border-right-width: 13px;
-  border-bottom-width: 23px;
+  background: transparent;
+  border-radius: 0;
 }
 
-.controls {
+.cell .shape.circle,
+.cell .shape.square {
+  background: var(--shape-color, #ef5350);
+}
+
+/* پیام پاسخ */
+
+.feedback {
+  min-height: 32px;
+  margin: 12px 0;
+  padding: 8px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.8;
+}
+
+.feedback.success {
+  color: #218348;
+}
+
+.feedback.error {
+  color: #c43b35;
+}
+
+/* دکمه‌های پایین جدول */
+
+.answer-buttons,
+.navigation-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 14px 0;
 }
 
-#feedback {
-  min-height: 8px;
+.check-button,
+.prev-button,
+.next-button,
+.exit-button {
+  min-height: 46px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.check-button {
+  min-width: 190px;
+  background: #328dce;
+}
+
+.prev-button {
+  background: #64748b;
+}
+
+.next-button {
+  background: #299d65;
+}
+
+.exit-button {
+  background: #dc5555;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+/* امضای پایین صفحه */
+
+.game-footer {
+  padding: 18px 0 8px;
   text-align: center;
 }
 
-.signature-footer {
-  display: flex;
-  justify-content: center;
-  padding: 7px 0 2px;
+.teacher-signature {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #475467;
 }
 
-.signature {
-  width: 155px;
-  height: 58px;
-  object-fit: contain;
-  mix-blend-mode: multiply;
+/* صفحه پایان */
+
+.finish-emoji {
+  font-size: 52px;
 }
 
-.finish-signature {
-  display: block;
-  margin: 18px auto 0;
+.finish-card h1 {
+  color: #2b9a60;
 }
+
+.finish-card p {
+  line-height: 2;
+}
+
+/* فشفشه‌ها */
 
 .fireworks {
   position: fixed;
@@ -352,86 +563,90 @@ input {
 .firework-particle {
   position: absolute;
   width: 9px;
-  height: 15px;
-  border-radius: 3px;
-  animation: burst 1.8s ease-out forwards;
+  height: 9px;
+  border-radius: 50%;
+  animation: burst 1.2s ease-out forwards;
 }
 
 @keyframes burst {
   0% {
-    transform: translate(0, 0) rotate(0);
     opacity: 1;
+    transform: translate(0, 0) scale(1);
   }
 
   100% {
-    transform: translate(var(--dx), var(--dy)) rotate(720deg);
     opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.2);
   }
 }
 
-@media (min-width: 760px) {
+/* نمایشگر کوچک */
+
+@media (max-width: 600px) {
   .app {
-    padding: 18px;
-    gap: 15px;
-  }
-
-  .cell {
-    min-height: 62px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app {
-    padding: 7px;
-    gap: 9px;
-  }
-
-  .panel {
-    padding: 10px;
-    border-radius: 15px;
-  }
-
-  .topbar h1 {
-    font-size: 18px;
-  }
-
-  .palette-panel {
-    align-items: flex-start;
-  }
-
-  .palette-button {
-    width: 42px;
-    height: 42px;
-  }
-
-  .cell {
-    min-height: 39px;
-    padding: 1px;
-  }
-
-  .cell .shape {
-    width: 21px;
-    height: 21px;
-  }
-
-  .cell .shape.triangle {
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 18px;
-  }
-
-  .cell .shape.star {
-    font-size: 22px;
-    line-height: 22px;
-  }
-
-  .controls button {
     padding: 9px;
-    font-size: 12px;
   }
 
-  .signature {
-    width: 140px;
+  .welcome-card,
+  .finish-card {
+    padding: 22px 15px;
+  }
+
+  .game-header {
+    padding: 12px;
+  }
+
+  .header-title h1 {
+    font-size: 20px;
+  }
+
+  .header-icon {
+    font-size: 27px;
+  }
+
+  .stage-counter {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  .board-card {
+    padding: 12px 8px;
+  }
+
+  .cell {
+    --cell-size: 36px;
+  }
+
+  .shape {
+    width: 24px;
+    height: 24px;
+  }
+
+  .shape.triangle {
+    border-left-width: 12px;
+    border-right-width: 12px;
+    border-bottom-width: 23px;
+  }
+
+  .palette-item {
+    width: 55px;
+    height: 55px;
+  }
+
+  .palette-item .shape {
+    width: 27px;
+    height: 27px;
+  }
+
+  .navigation-buttons {
+    gap: 8px;
+  }
+
+  .prev-button,
+  .next-button,
+  .exit-button {
+    padding: 11px 13px;
+    font-size: 14px;
   }
 }
 
@@ -439,85 +654,11 @@ input {
   *,
   *::before,
   *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
   }
-}
-/* ========================================
-   جدول‌های یکپارچه و بدون فاصله
-======================================== */
 
-.board {
-  display: grid;
-  gap: 0 !important;
-  direction: ltr;
-  width: max-content;
-  margin: 0 auto;
-}
-
-.board .cell {
-  box-sizing: border-box;
-  margin: 0 !important;
-  border-radius: 0 !important;
-  padding: 0;
-}
-
-/* تمرین اول: ۱۲ خانه در یک ردیف */
-
-.board:not(.flower-main):not(.flower-copy) {
-  grid-template-columns: repeat(var(--columns), 44px);
-}
-
-.board:not(.flower-main):not(.flower-copy) .cell {
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-}
-
-/* جدول گل: ۲۱ ستون */
-
-.board.flower-main {
-  grid-template-columns: repeat(21, 36px) !important;
-}
-
-.board.flower-main .cell {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-}
-
-/* جدول الگوی رئیس گل: ۶ ستون */
-
-.board.flower-copy {
-  grid-template-columns: repeat(6, 44px) !important;
-}
-
-.board.flower-copy .cell {
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-}
-
-/* پیمایش جدول در موبایل */
-
-.board-card {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-/* انتخاب رنگ در تمرین گل */
-
-.flower-color-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.flower-color-swatch {
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  border: 1px solid #777;
-  border-radius: 4px;
+  .firework-particle {
+    animation-duration: 0.01ms;
+  }
 }
