@@ -11,55 +11,35 @@ const COLORS = {
   red: "#ef5350",
   blue: "#42a5f5",
   green: "#58c86b",
-  yellow: "#ffd84d",
-  purple: "#ab78e8"
+  yellow: "#ffd84d"
 };
 
+/* فقط چهار رنگ و چهار شکل انتخابی */
 const ITEMS = [
   { shape: "circle", color: COLORS.red, name: "دایره قرمز" },
   { shape: "square", color: COLORS.blue, name: "مربع آبی" },
   { shape: "triangle", color: COLORS.green, name: "مثلث سبز" },
-  { shape: "star", color: COLORS.yellow, name: "ستاره زرد" },
-  { shape: "circle", color: COLORS.purple, name: "دایره بنفش" },
-  { shape: "square", color: COLORS.red, name: "مربع قرمز" },
-  { shape: "triangle", color: COLORS.blue, name: "مثلث آبی" },
-  { shape: "star", color: COLORS.green, name: "ستاره سبز" }
+  { shape: "star", color: COLORS.yellow, name: "ستاره زرد" }
 ];
-
-function item(shape, color) {
-  return ITEMS.find(x =>
-    x.shape === shape && x.color === color
-  );
-}
 
 const C = ITEMS[0];
 const S = ITEMS[1];
 const T = ITEMS[2];
 const Y = ITEMS[3];
-const P = ITEMS[4];
-const R = ITEMS[5];
-const B = ITEMS[6];
-const G = ITEMS[7];
 
 /* ========================================
-   الگوهای تمرین سیزدهم
+   تمرین سه‌ردیفی گل
 ======================================== */
 
-// null یعنی خانه باید کاملاً خالی باشد.
 const FLOWER_EXPECTED = [
-  Array.from(
-    { length: 21 },
-    (_, col) => col % 2 === 0 ? "green" : null
+  Array.from({ length: 21 }, (_, c) =>
+    c % 2 === 0 ? "green" : null
   ),
-
-  Array.from(
-    { length: 21 },
-    (_, col) => [null, "green", null, "red"][col % 4]
+  Array.from({ length: 21 }, (_, c) =>
+    [null, "green", null, "red"][c % 4]
   ),
-
-  Array.from(
-    { length: 21 },
-    (_, col) => col % 2 === 0 ? "green" : null
+  Array.from({ length: 21 }, (_, c) =>
+    c % 2 === 0 ? "green" : null
   )
 ];
 
@@ -70,14 +50,17 @@ const FLOWER_COPY_EXPECTED = [
 ];
 
 /* ========================================
-   فهرست مراحل
+   فهرست تمرین‌ها
 ======================================== */
 
 const STAGES = [
   {
-    title: "الگوی دو شکلی",
+    title: "الگوی دوشکلی",
     pattern: [C, S],
-    repeats: 3
+    repeats: 2,
+    mainColumns: 12,
+    fixedItems: [C, S, C, S],
+    copyColumns: 6
   },
   {
     title: "الگوی رنگی",
@@ -85,8 +68,8 @@ const STAGES = [
     repeats: 2
   },
   {
-    title: "الگوی سه شکلی",
-    pattern: [P, S, T],
+    title: "الگوی سه‌شکلی",
+    pattern: [C, S, T],
     repeats: 2
   },
   {
@@ -101,7 +84,7 @@ const STAGES = [
   },
   {
     title: "الگوی سبز",
-    pattern: [G, T, G, T],
+    pattern: [T, C, T, C],
     repeats: 2
   },
   {
@@ -116,12 +99,12 @@ const STAGES = [
   },
   {
     title: "الگوی ترکیبی",
-    pattern: [P, P, B],
+    pattern: [C, C, S],
     repeats: 3
   },
   {
     title: "الگوی قرمز و آبی",
-    pattern: [R, B, R, B],
+    pattern: [C, S, C, S],
     repeats: 2
   },
   {
@@ -131,7 +114,7 @@ const STAGES = [
   },
   {
     title: "الگوی پایانی",
-    pattern: [G, S, P, Y],
+    pattern: [T, S, C, Y],
     repeats: 2
   },
   {
@@ -155,11 +138,11 @@ let copyAnswers = [];
 let flowerMainAnswers = Array(39).fill(null);
 let flowerCopyAnswers = Array(18).fill(null);
 
-let fireworksTimer = null;
 let audioContext = null;
+let fireworksTimer = null;
 
 /* ========================================
-   ابزارهای عمومی
+   ابزارهای کمکی
 ======================================== */
 
 function cloneItem(value) {
@@ -172,35 +155,21 @@ function sameItem(a, b) {
     a.color === b.color;
 }
 
-function repeatedPattern(pattern, count) {
-  const result = [];
-
-  for (let i = 0; i < count; i++) {
-    pattern.forEach(value => {
-      result.push(cloneItem(value));
-    });
-  }
-
-  return result;
-}
-
 function shapeHTML(value) {
   if (!value) return "";
 
   if (value.shape === "star") {
     return `<span class="shape star"
-      style="--shape-color:${value.color};color:${value.color}">★</span>`;
+      style="color:${value.color}">★</span>`;
   }
 
   if (value.shape === "triangle") {
     return `<span class="shape triangle"
-      style="--shape-color:${value.color};
-      border-bottom-color:${value.color}"></span>`;
+      style="border-bottom-color:${value.color}"></span>`;
   }
 
   return `<span class="shape ${value.shape}"
-    style="background:${value.color};
-    --shape-color:${value.color}"></span>`;
+      style="background:${value.color}"></span>`;
 }
 
 function playTone(frequency = 660, duration = 0.12) {
@@ -232,12 +201,12 @@ function playTone(frequency = 660, duration = 0.12) {
 
     oscillator.stop(audioContext.currentTime + duration);
   } catch (error) {
-    // بازی بدون صدا هم اجرا می‌شود.
+    // بازی بدون صدا نیز اجرا می‌شود.
   }
 }
 
 /* ========================================
-   انتخاب شکل‌ها در تمرین‌های معمولی
+   انتخاب شکل‌ها
 ======================================== */
 
 function renderPalette() {
@@ -249,14 +218,13 @@ function renderPalette() {
 
     button.type = "button";
     button.className = "palette-button";
-
     button.classList.toggle(
       "selected",
       !eraseMode && sameItem(selectedItem, value)
     );
 
-    button.setAttribute("aria-label", value.name);
     button.title = value.name;
+    button.setAttribute("aria-label", value.name);
     button.innerHTML = shapeHTML(value);
 
     button.addEventListener("click", () => {
@@ -273,20 +241,14 @@ function renderPalette() {
   });
 }
 
-/* ========================================
-   انتخاب رنگ در تمرین سیزدهم
-======================================== */
-
 function renderFlowerPalette() {
   const palette = $("palette");
   palette.innerHTML = "";
 
-  const options = [
+  [
     { name: "سبز", color: COLORS.green },
     { name: "قرمز", color: COLORS.red }
-  ];
-
-  options.forEach(option => {
+  ].forEach(option => {
     const button = document.createElement("button");
 
     button.type = "button";
@@ -294,16 +256,8 @@ function renderFlowerPalette() {
 
     button.classList.toggle(
       "selected",
-      !eraseMode &&
-      selectedFlowerColor === option.color
+      !eraseMode && selectedFlowerColor === option.color
     );
-
-    button.setAttribute(
-      "aria-label",
-      `رنگ ${option.name}`
-    );
-
-    button.title = option.name;
 
     button.innerHTML = `
       <span class="flower-color-swatch"
@@ -326,10 +280,52 @@ function renderFlowerPalette() {
 }
 
 /* ========================================
-   ساخت خانه‌های تمرین‌های معمولی
+   تمرین‌های معمولی
 ======================================== */
 
-function makeCell(value, index, fixed, boardName) {
+function getMainPattern(stage) {
+  if (stage.fixedItems) {
+    return stage.fixedItems.map(cloneItem);
+  }
+
+  const result = [];
+
+  for (let i = 0; i < stage.repeats; i++) {
+    stage.pattern.forEach(value => {
+      result.push(cloneItem(value));
+    });
+  }
+
+  return result;
+}
+
+function initialiseAnswers() {
+  const stage = STAGES[stageIndex];
+
+  if (stage.type === "flower") {
+    flowerMainAnswers = Array(39).fill(null);
+    flowerCopyAnswers = Array(18).fill(null);
+    mainAnswers = [];
+    copyAnswers = [];
+    return;
+  }
+
+  const mainPattern = getMainPattern(stage);
+
+  const mainCount = stage.mainColumns || mainPattern.length + 6;
+  const copyCount = stage.copyColumns || 6;
+
+  mainAnswers = Array(
+    Math.max(0, mainCount - mainPattern.length)
+  ).fill(null);
+
+  copyAnswers = Array(copyCount).fill(null);
+
+  flowerMainAnswers = Array(39).fill(null);
+  flowerCopyAnswers = Array(18).fill(null);
+}
+
+function createRegularCell(value, index, fixed, boardName) {
   const cell = document.createElement("button");
 
   cell.type = "button";
@@ -341,25 +337,14 @@ function makeCell(value, index, fixed, boardName) {
   } else {
     cell.classList.add("answer-cell");
 
-    cell.setAttribute(
-      "aria-label",
-      `خانه ${index + 1}`
-    );
-
     cell.addEventListener("click", () => {
-      if (eraseMode) {
-        if (boardName === "main") {
-          mainAnswers[index] = null;
-        } else {
-          copyAnswers[index] = null;
-        }
-      } else {
-        if (boardName === "main") {
-          mainAnswers[index] = cloneItem(selectedItem);
-        } else {
-          copyAnswers[index] = cloneItem(selectedItem);
-        }
+      const answers =
+        boardName === "main" ? mainAnswers : copyAnswers;
 
+      if (eraseMode) {
+        answers[index] = null;
+      } else {
+        answers[index] = cloneItem(selectedItem);
         playTone(590, 0.06);
       }
 
@@ -368,21 +353,16 @@ function makeCell(value, index, fixed, boardName) {
   }
 
   cell.innerHTML = shapeHTML(value);
-
   return cell;
 }
 
-function renderBoard(container, values, fixedCount, boardName) {
+function renderRegularBoard(container, values, fixedCount, boardName) {
   container.innerHTML = "";
-
-  container.style.setProperty(
-    "--columns",
-    values.length
-  );
+  container.style.setProperty("--columns", values.length);
 
   values.forEach((value, index) => {
     container.appendChild(
-      makeCell(
+      createRegularCell(
         value,
         index,
         index < fixedCount,
@@ -395,26 +375,23 @@ function renderBoard(container, values, fixedCount, boardName) {
 function renderBoards() {
   const stage = STAGES[stageIndex];
 
-  if (!stage || stage.type === "flower") return;
+  if (stage.type === "flower") return;
 
-  const fixedMain = repeatedPattern(
-    stage.pattern,
-    stage.repeats
-  );
+  const fixedMain = getMainPattern(stage);
 
   const fullMain = [
     ...fixedMain,
     ...mainAnswers.map(cloneItem)
   ];
 
-  renderBoard(
+  renderRegularBoard(
     $("mainBoard"),
     fullMain,
     fixedMain.length,
     "main"
   );
 
-  renderBoard(
+  renderRegularBoard(
     $("copyBoard"),
     copyAnswers.map(cloneItem),
     0,
@@ -423,31 +400,7 @@ function renderBoards() {
 }
 
 /* ========================================
-   مقداردهی اولیهٔ پاسخ‌ها
-======================================== */
-
-function initialiseAnswers() {
-  const stage = STAGES[stageIndex];
-
-  if (stage.type === "flower") {
-    flowerMainAnswers = Array(39).fill(null);
-    flowerCopyAnswers = Array(18).fill(null);
-
-    mainAnswers = [];
-    copyAnswers = [];
-
-    return;
-  }
-
-  mainAnswers = Array(stage.pattern.length).fill(null);
-  copyAnswers = Array(stage.pattern.length).fill(null);
-
-  flowerMainAnswers = Array(39).fill(null);
-  flowerCopyAnswers = Array(18).fill(null);
-}
-
-/* ========================================
-   خانه‌های رنگی تمرین سیزدهم
+   تمرین سیزدهم: جدول سه‌ردیفی
 ======================================== */
 
 function createFlowerCell(row, col, boardName) {
@@ -457,9 +410,9 @@ function createFlowerCell(row, col, boardName) {
   cell.className = "cell flower-cell";
 
   let expected;
-  let answerIndex;
+  let actual;
   let fixed = false;
-  let actual = null;
+  let answerIndex;
 
   if (boardName === "main") {
     expected = FLOWER_EXPECTED[row][col];
@@ -468,7 +421,7 @@ function createFlowerCell(row, col, boardName) {
       fixed = true;
       actual = expected;
     } else {
-      answerIndex = row * 13 + (col - 8);
+      answerIndex = row * 13 + col - 8;
       actual = flowerMainAnswers[answerIndex];
     }
   } else {
@@ -478,34 +431,22 @@ function createFlowerCell(row, col, boardName) {
   }
 
   if (fixed) {
-    cell.classList.add("fixed-cell");
     cell.disabled = true;
+    cell.classList.add("fixed-cell");
   } else {
     cell.classList.add("answer-cell");
 
-    cell.setAttribute(
-      "aria-label",
-      `ردیف ${row + 1}، ستون ${col + 1}`
-    );
-
     cell.addEventListener("click", () => {
-      if (eraseMode) {
-        if (boardName === "main") {
-          flowerMainAnswers[answerIndex] = null;
-        } else {
-          flowerCopyAnswers[answerIndex] = null;
-        }
-      } else {
-        if (boardName === "main") {
-          flowerMainAnswers[answerIndex] =
-            selectedFlowerColor;
-        } else {
-          flowerCopyAnswers[answerIndex] =
-            selectedFlowerColor;
-        }
+      const answers =
+        boardName === "main"
+          ? flowerMainAnswers
+          : flowerCopyAnswers;
 
-        playTone(590, 0.06);
-      }
+      answers[answerIndex] = eraseMode
+        ? null
+        : selectedFlowerColor;
+
+      if (!eraseMode) playTone(590, 0.06);
 
       renderFlowerStage();
     });
@@ -513,20 +454,13 @@ function createFlowerCell(row, col, boardName) {
 
   if (actual) {
     cell.style.backgroundColor =
-      typeof actual === "string" &&
-      actual.startsWith("#")
-        ? actual
-        : COLORS[actual];
+      actual.startsWith("#") ? actual : COLORS[actual];
   } else {
     cell.style.backgroundColor = "#ffffff";
   }
 
   return cell;
 }
-
-/* ========================================
-   رسم جدول اصلی و جدول تکرار گل
-======================================== */
 
 function renderFlowerStage() {
   const mainBoard = $("mainBoard");
@@ -576,12 +510,12 @@ function renderStage() {
   $("mainLabel").textContent =
     stage.type === "flower"
       ? "الگو را در خانه‌های بعدی ادامه بده."
-      : "نام دانش‌آموز: الگو را ادامه بده.";
+      : "الگوی اصلی را ادامه بده.";
 
   $("copyLabel").textContent =
     stage.type === "flower"
       ? "الگوی رئیس را در جدول پایین یک بار تکرار کن."
-      : "یک بار الگوی رئیس را تکرار کن";
+      : "الگوی رئیس را یک بار تکرار کن.";
 
   $("prevButton").disabled = stageIndex === 0;
 
@@ -592,13 +526,8 @@ function renderStage() {
 
   $("feedback").textContent = "";
 
-  $("mainBoard").classList.remove(
-    "flower-main"
-  );
-
-  $("copyBoard").classList.remove(
-    "flower-copy"
-  );
+  $("mainBoard").classList.remove("flower-main");
+  $("copyBoard").classList.remove("flower-copy");
 
   if (stage.type === "flower") {
     renderFlowerPalette();
@@ -610,72 +539,34 @@ function renderStage() {
 }
 
 /* ========================================
-   شروع بازی
-======================================== */
-
-function startGame() {
-  const name = $("studentName").value.trim();
-
-  if (!name) {
-    $("studentName").focus();
-
-    $("studentName").setCustomValidity(
-      "لطفاً نام دانش‌آموز را بنویس."
-    );
-
-    $("studentName").reportValidity();
-    $("studentName").setCustomValidity("");
-
-    return;
-  }
-
-  stageIndex = 0;
-  selectedItem = ITEMS[0];
-  selectedFlowerColor = COLORS.green;
-  eraseMode = false;
-
-  $("eraserButton").textContent = "پاک‌کن 🧽";
-
-  initialiseAnswers();
-
-  $("welcome").classList.add("hidden");
-  $("finish").classList.add("hidden");
-  $("game").classList.remove("hidden");
-
-  renderStage();
-}
-
-/* ========================================
    بررسی پاسخ‌ها
 ======================================== */
 
 function isFlowerCorrect() {
-  // بررسی ۳۹ خانهٔ قابل پاسخ در جدول اصلی
   for (let row = 0; row < 3; row++) {
     for (let col = 8; col < 21; col++) {
-      const answerIndex = row * 13 + (col - 8);
+      const index = row * 13 + col - 8;
       const expected = FLOWER_EXPECTED[row][col];
-      const actual = flowerMainAnswers[answerIndex];
+      const actual = flowerMainAnswers[index];
 
       if (expected === null) {
         if (actual !== null) return false;
-      } else {
-        if (actual !== COLORS[expected]) return false;
+      } else if (actual !== COLORS[expected]) {
+        return false;
       }
     }
   }
 
-  // بررسی همهٔ ۱۸ خانهٔ جدول پایین
   for (let row = 0; row < 3; row++) {
     for (let col = 0; col < 6; col++) {
-      const answerIndex = row * 6 + col;
+      const index = row * 6 + col;
       const expected = FLOWER_COPY_EXPECTED[row][col];
-      const actual = flowerCopyAnswers[answerIndex];
+      const actual = flowerCopyAnswers[index];
 
       if (expected === null) {
         if (actual !== null) return false;
-      } else {
-        if (actual !== COLORS[expected]) return false;
+      } else if (actual !== COLORS[expected]) {
+        return false;
       }
     }
   }
@@ -709,7 +600,7 @@ function isCorrect() {
 }
 
 /* ========================================
-   فشفشهٔ رنگی
+   فشفشه
 ======================================== */
 
 function showFireworks() {
@@ -719,12 +610,10 @@ function showFireworks() {
   container.classList.remove("hidden");
 
   const colors = [
-    "#ef5350",
-    "#42a5f5",
-    "#58c86b",
-    "#ffd84d",
-    "#ab78e8",
-    "#ff75b5"
+    COLORS.red,
+    COLORS.blue,
+    COLORS.green,
+    COLORS.yellow
   ];
 
   for (let burst = 0; burst < 5; burst++) {
@@ -738,14 +627,11 @@ function showFireworks() {
       const distance = 70 + Math.random() * 150;
 
       particle.className = "firework-particle";
-
       particle.style.left = `${centerX}%`;
       particle.style.top = `${centerY}%`;
 
       particle.style.background =
-        colors[
-          Math.floor(Math.random() * colors.length)
-        ];
+        colors[Math.floor(Math.random() * colors.length)];
 
       particle.style.setProperty(
         "--dx",
@@ -757,8 +643,7 @@ function showFireworks() {
         `${Math.sin(angle) * distance}px`
       );
 
-      particle.style.animationDelay =
-        `${burst * 0.16}s`;
+      particle.style.animationDelay = `${burst * 0.16}s`;
 
       container.appendChild(particle);
     }
@@ -772,79 +657,95 @@ function showFireworks() {
   }, 2600);
 
   playTone(660, 0.12);
-
   setTimeout(() => playTone(830, 0.14), 130);
   setTimeout(() => playTone(990, 0.18), 270);
 }
 
 function checkAnswers() {
   if (isCorrect()) {
-    $("feedback").textContent = "آفرین! همهٔ پاسخ‌ها درست هستند. 🌟";
+    $("feedback").textContent =
+      "آفرین! همهٔ پاسخ‌ها درست هستند. 🌟";
+
     showFireworks();
   } else {
     $("feedback").textContent =
-      "یک بار دیگر با دقت الگو را بررسی کن. 💚";
+      "دوباره تلاش کن و الگو را با دقت ادامه بده. 💚";
 
     playTone(220, 0.12);
   }
 }
 
 /* ========================================
-   پاک کردن پاسخ‌ها
+   پاک کردن و جابه‌جایی
 ======================================== */
 
 function clearAnswers() {
   initialiseAnswers();
-
   $("feedback").textContent = "";
 
-  const stage = STAGES[stageIndex];
-
-  if (stage.type === "flower") {
+  if (STAGES[stageIndex].type === "flower") {
     renderFlowerStage();
   } else {
     renderBoards();
   }
 }
 
-/* ========================================
-   جابه‌جایی میان مراحل
-======================================== */
-
 function nextStage() {
   if (stageIndex < STAGES.length - 1) {
     stageIndex++;
-
     initialiseAnswers();
     renderStage();
-
-    return;
+  } else {
+    finishGame();
   }
-
-  finishGame();
 }
 
 function previousStage() {
   if (stageIndex > 0) {
     stageIndex--;
-
     initialiseAnswers();
     renderStage();
   }
 }
 
-/* ========================================
-   پایان و شروع دوباره
-======================================== */
+function startGame() {
+  const name = $("studentName").value.trim();
+
+  if (!name) {
+    $("studentName").focus();
+
+    $("studentName").setCustomValidity(
+      "لطفاً نام دانش‌آموز را بنویس."
+    );
+
+    $("studentName").reportValidity();
+    $("studentName").setCustomValidity("");
+
+    return;
+  }
+
+  stageIndex = 0;
+  selectedItem = ITEMS[0];
+  selectedFlowerColor = COLORS.green;
+  eraseMode = false;
+
+  $("eraserButton").textContent = "پاک‌کن 🧽";
+
+  initialiseAnswers();
+
+  $("welcome").classList.add("hidden");
+  $("finish").classList.add("hidden");
+  $("game").classList.remove("hidden");
+
+  renderStage();
+}
 
 function finishGame() {
   $("game").classList.add("hidden");
   $("finish").classList.remove("hidden");
 
-  const name = $("studentName").value.trim();
-
   $("finishMessage").textContent =
-    `${name} جان، به پایان ${STAGES.length} تمرین رسیدی!`;
+    `${$("studentName").value.trim()} جان، به پایان ${STAGES.length} تمرین رسیدی!`;
 }
 
 function restartGame() {
@@ -855,66 +756,32 @@ function restartGame() {
 }
 
 /* ========================================
-   رویدادهای دکمه‌ها
+   دکمه‌ها
 ======================================== */
 
-$("startButton").addEventListener(
-  "click",
-  startGame
-);
+$("startButton").addEventListener("click", startGame);
 
-$("studentName").addEventListener(
-  "keydown",
-  event => {
-    if (event.key === "Enter") {
-      startGame();
-    }
+$("studentName").addEventListener("keydown", event => {
+  if (event.key === "Enter") startGame();
+});
+
+$("eraserButton").addEventListener("click", () => {
+  eraseMode = !eraseMode;
+
+  $("eraserButton").textContent =
+    eraseMode ? "پاک‌کن فعال است ✓" : "پاک‌کن 🧽";
+
+  if (STAGES[stageIndex].type === "flower") {
+    renderFlowerPalette();
+  } else {
+    renderPalette();
   }
-);
+});
 
-$("eraserButton").addEventListener(
-  "click",
-  () => {
-    eraseMode = !eraseMode;
-
-    $("eraserButton").textContent =
-      eraseMode
-        ? "پاک‌کن فعال است ✓"
-        : "پاک‌کن 🧽";
-
-    const stage = STAGES[stageIndex];
-
-    if (stage && stage.type === "flower") {
-      renderFlowerPalette();
-    } else {
-      renderPalette();
-    }
-  }
-);
-
-$("clearButton").addEventListener(
-  "click",
-  clearAnswers
-);
-
-$("checkButton").addEventListener(
-  "click",
-  checkAnswers
-);
-
-$("nextButton").addEventListener(
-  "click",
-  nextStage
-);
-
-$("prevButton").addEventListener(
-  "click",
-  previousStage
-);
-
-$("restartButton").addEventListener(
-  "click",
-  restartGame
-);
+$("clearButton").addEventListener("click", clearAnswers);
+$("checkButton").addEventListener("click", checkAnswers);
+$("nextButton").addEventListener("click", nextStage);
+$("prevButton").addEventListener("click", previousStage);
+$("restartButton").addEventListener("click", restartGame);
 
 renderPalette();
