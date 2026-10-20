@@ -56,13 +56,14 @@
           autocomplete="off"
           enterkeyhint="go"
         >
-        <button
-          id="startButton"
-          class="start-button"
-          type="button"
-        >
-          شروع بازی 🚀
-        </button>
+      <button
+  id="startButton"
+  class="start-button"
+  type="button"
+  onclick="startGameFix()"
+>
+  شروع بازی 🚀
+</button>
         <p class="teacher-name">
           آموزگار: مرضیه محمدی
         </p>
@@ -295,5 +296,38 @@
       aria-hidden="true"
     ></div>
   </main>
+  <script>
+function startGameFix() {
+  const welcome = document.getElementById("welcome");
+  const game = document.getElementById("game");
+  const nameInput = document.getElementById("studentName");
+  const greeting = document.getElementById("studentGreeting");
+
+  if (!welcome || !game) {
+    alert("صفحه‌های بازی پیدا نشدند. لطفاً کد HTML را بررسی کن.");
+    return;
+  }
+
+  const studentName = nameInput ? nameInput.value.trim() : "";
+
+  if (greeting) {
+    greeting.textContent = studentName
+      ? `آفرین ${studentName} جان! آماده‌ای؟ 🌈`
+      : "آفرین قهرمان! آماده‌ای؟ 🌈";
+  }
+
+  welcome.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  if (typeof renderStage === "function") {
+    renderStage();
+  }
+
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
 </body>
 </html>
