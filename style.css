@@ -2,6 +2,7 @@
    الگوی منظم | ریاضی پایه اول
    آموزگار: مرضیه محمدی
 ======================================== */
+
 :root {
   --red: #ef5350;
   --blue: #42a5f5;
@@ -13,13 +14,16 @@
   --white: #ffffff;
   --border: #8b96a5;
 }
+
 * {
   box-sizing: border-box;
 }
+
 html {
   min-height: 100%;
   scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -27,40 +31,50 @@ body {
   color: var(--ink);
   font-family: Tahoma, Arial, sans-serif;
 }
+
 button,
 input {
   font: inherit;
 }
+
 button {
   border: 0;
   cursor: pointer;
   transition: transform 0.15s ease, filter 0.15s ease;
 }
+
 button:hover {
   filter: brightness(1.04);
 }
+
 button:active {
   transform: scale(0.97);
 }
+
 button:focus-visible,
 input:focus-visible {
   outline: 3px solid #6c8cff;
   outline-offset: 3px;
 }
+
 .hidden {
   display: none !important;
 }
+
 .app {
   width: 100%;
   min-height: 100vh;
   padding: 16px;
 }
+
 .screen {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
 }
+
 /* صفحه شروع */
+
 .welcome-screen,
 .finish-screen {
   min-height: 90vh;
@@ -68,6 +82,7 @@ input:focus-visible {
   align-items: center;
   justify-content: center;
 }
+
 .welcome-card,
 .finish-card {
   width: 100%;
@@ -79,10 +94,12 @@ input:focus-visible {
   border-radius: 24px;
   box-shadow: 0 12px 32px #34405412;
 }
+
 .welcome-decoration {
   font-size: 34px;
   margin-bottom: 12px;
 }
+
 .teacher-photo {
   display: block;
   width: 115px;
@@ -92,24 +109,29 @@ input:focus-visible {
   border-radius: 50%;
   border: 3px solid #f3c969;
 }
+
 .welcome-card h1 {
   margin: 10px 0;
   font-size: clamp(28px, 5vw, 42px);
   color: #e46b43;
 }
+
 .welcome-card h2 {
   margin: 10px 0 20px;
   font-size: 21px;
 }
+
 .welcome-message {
   line-height: 2;
   font-size: 17px;
 }
+
 .welcome-card label {
   display: block;
   margin: 22px 0 8px;
   font-weight: bold;
 }
+
 .welcome-card input {
   width: 100%;
   max-width: 360px;
@@ -119,6 +141,7 @@ input:focus-visible {
   text-align: center;
   background: #fbfcff;
 }
+
 .start-button {
   display: block;
   width: 100%;
@@ -131,11 +154,14 @@ input:focus-visible {
   font-weight: bold;
   box-shadow: 0 4px 0 #267a4c;
 }
+
 .teacher-name {
   margin-top: 24px;
   font-weight: bold;
 }
+
 /* سربرگ بازی */
+
 .game-header {
   display: flex;
   justify-content: space-between;
@@ -147,22 +173,27 @@ input:focus-visible {
   border: 1px solid #e7eaf0;
   border-radius: 18px;
 }
+
 .header-title {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .header-icon {
   font-size: 34px;
 }
+
 .header-title h1 {
   margin: 0;
   font-size: 24px;
 }
+
 .header-title p {
   margin: 6px 0 0;
   font-size: 14px;
 }
+
 .stage-counter {
   padding: 10px 14px;
   border-radius: 12px;
@@ -171,6 +202,7 @@ input:focus-visible {
   font-weight: bold;
   white-space: nowrap;
 }
+
 .progress-track {
   height: 10px;
   margin: 14px 0;
@@ -178,6 +210,7 @@ input:focus-visible {
   border-radius: 20px;
   overflow: hidden;
 }
+
 .progress-bar {
   height: 100%;
   width: 0;
@@ -185,7 +218,9 @@ input:focus-visible {
   border-radius: 20px;
   transition: width 0.25s ease;
 }
+
 /* عنوان تمرین */
+
 .question-area {
   margin: 12px 0;
   padding: 16px;
@@ -194,16 +229,20 @@ input:focus-visible {
   border: 1px solid #e7eaf0;
   border-radius: 16px;
 }
+
 .question-area h2 {
   margin: 0 0 10px;
   color: #365d9c;
   font-size: clamp(21px, 4vw, 28px);
 }
+
 .question-area p {
   margin: 0;
   line-height: 1.9;
 }
+
 /* ابزارها و گزینه‌ها */
+
 .tools-area {
   margin: 14px 0;
   padding: 16px;
@@ -211,11 +250,13 @@ input:focus-visible {
   border: 1px solid #e7eaf0;
   border-radius: 16px;
 }
+
 .section-title {
   margin: 0 0 14px;
   text-align: center;
   font-size: 16px;
 }
+
 .palette {
   display: flex;
   justify-content: center;
@@ -223,6 +264,7 @@ input:focus-visible {
   flex-wrap: wrap;
   gap: 12px;
 }
+
 .palette-item {
   width: 64px;
   height: 64px;
@@ -234,15 +276,18 @@ input:focus-visible {
   border-radius: 14px;
   box-shadow: 0 3px 0 #e8ebf0;
 }
+
 .palette-item.selected {
   border: 3px solid #263b60;
   background: #f0f5ff;
   box-shadow: 0 0 0 3px #dce7ff;
 }
+
 .palette-item .shape {
   width: 30px;
   height: 30px;
 }
+
 .tool-buttons {
   display: flex;
   justify-content: center;
@@ -250,25 +295,31 @@ input:focus-visible {
   gap: 10px;
   margin-top: 16px;
 }
+
 .eraser-button,
 .clear-button {
   padding: 11px 16px;
   border-radius: 11px;
   font-weight: bold;
 }
+
 .eraser-button {
   color: #344054;
   background: #e8edf5;
 }
+
 .eraser-button.active {
   background: #c8d9ff;
   outline: 2px solid #6384d6;
 }
+
 .clear-button {
   color: #fff;
   background: #e69b35;
 }
+
 /* کارت جدول */
+
 .board-card {
   width: 100%;
   margin: 16px 0;
@@ -278,18 +329,22 @@ input:focus-visible {
   border-radius: 16px;
   box-shadow: 0 4px 12px #34405408;
 }
+
 .board-heading {
   margin-bottom: 14px;
   text-align: center;
 }
+
 .board-heading h3 {
   margin: 0 0 8px;
   font-size: 19px;
 }
+
 .board-hint {
   color: #667085;
   font-size: 13px;
 }
+
 .board-scroll {
   width: 100%;
   max-width: 100%;
@@ -297,7 +352,9 @@ input:focus-visible {
   padding: 3px 0 8px;
   -webkit-overflow-scrolling: touch;
 }
+
 /* جدول‌ها: خانه‌ها کاملاً به هم متصل‌اند */
+
 .board {
   display: grid;
   direction: ltr;
@@ -307,6 +364,7 @@ input:focus-visible {
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
 }
+
 .cell {
   width: var(--cell-size, 42px);
   height: var(--cell-size, 42px);
@@ -325,34 +383,43 @@ input:focus-visible {
   overflow: hidden;
   box-shadow: none;
 }
+
 .cell.fixed {
   background: #f7faff;
 }
+
 .cell.answer-cell {
   cursor: pointer;
   background: #fffdf7;
 }
+
 .cell.answer-cell:hover {
   background: #f1f7ff;
 }
+
 .cell.correct-cell {
   background: #e6f8eb;
 }
+
 .cell.wrong-cell {
   background: #fff0ef;
 }
+
 .shape {
   display: block;
   width: 28px;
   height: 28px;
   flex-shrink: 0;
 }
+
 .shape.circle {
   border-radius: 50%;
 }
+
 .shape.square {
   border-radius: 1px;
 }
+
 .shape.triangle {
   width: 0;
   height: 0;
@@ -360,6 +427,7 @@ input:focus-visible {
   border-right: 15px solid transparent;
   border-bottom: 29px solid var(--shape-color, #43b96b);
 }
+
 .shape.star {
   width: 30px;
   height: 30px;
@@ -377,15 +445,19 @@ input:focus-visible {
     38% 35%
   );
 }
+
 .cell .shape.triangle {
   background: transparent;
   border-radius: 0;
 }
+
 .cell .shape.circle,
 .cell .shape.square {
   background: var(--shape-color, #ef5350);
 }
+
 /* پیام پاسخ */
+
 .feedback {
   min-height: 32px;
   margin: 12px 0;
@@ -394,13 +466,17 @@ input:focus-visible {
   font-weight: bold;
   line-height: 1.8;
 }
+
 .feedback.success {
   color: #218348;
 }
+
 .feedback.error {
   color: #c43b35;
 }
+
 /* دکمه‌های پایین جدول */
+
 .answer-buttons,
 .navigation-buttons {
   display: flex;
@@ -410,6 +486,7 @@ input:focus-visible {
   gap: 12px;
   margin: 14px 0;
 }
+
 .check-button,
 .prev-button,
 .next-button,
@@ -420,47 +497,61 @@ input:focus-visible {
   color: #fff;
   font-weight: bold;
 }
+
 .check-button {
   min-width: 190px;
   background: #328dce;
 }
+
 .prev-button {
   background: #64748b;
 }
+
 .next-button {
   background: #299d65;
 }
+
 .exit-button {
   background: #dc5555;
 }
+
 button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   filter: none;
   transform: none;
 }
+
 /* امضای پایین صفحه */
+
 .game-footer {
   padding: 18px 0 8px;
   text-align: center;
 }
+
 .teacher-signature {
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
   color: #475467;
 }
+
 /* صفحه پایان */
+
 .finish-emoji {
   font-size: 52px;
 }
+
 .finish-card h1 {
   color: #2b9a60;
 }
+
 .finish-card p {
   line-height: 2;
 }
+
 /* فشفشه‌ها */
+
 .fireworks {
   position: fixed;
   inset: 0;
@@ -468,6 +559,7 @@ button:disabled {
   pointer-events: none;
   overflow: hidden;
 }
+
 .firework-particle {
   position: absolute;
   width: 9px;
@@ -475,64 +567,81 @@ button:disabled {
   border-radius: 50%;
   animation: burst 1.2s ease-out forwards;
 }
+
 @keyframes burst {
   0% {
     opacity: 1;
     transform: translate(0, 0) scale(1);
   }
+
   100% {
     opacity: 0;
     transform: translate(var(--dx), var(--dy)) scale(0.2);
   }
 }
+
 /* نمایشگر کوچک */
+
 @media (max-width: 600px) {
   .app {
     padding: 9px;
   }
+
   .welcome-card,
   .finish-card {
     padding: 22px 15px;
   }
+
   .game-header {
     padding: 12px;
   }
+
   .header-title h1 {
     font-size: 20px;
   }
+
   .header-icon {
     font-size: 27px;
   }
+
   .stage-counter {
     font-size: 13px;
     padding: 8px 10px;
   }
+
   .board-card {
     padding: 12px 8px;
   }
+
   .cell {
     --cell-size: 36px;
   }
+
   .shape {
     width: 24px;
     height: 24px;
   }
+
   .shape.triangle {
     border-left-width: 12px;
     border-right-width: 12px;
     border-bottom-width: 23px;
   }
+
   .palette-item {
     width: 55px;
     height: 55px;
   }
+
   .palette-item .shape {
     width: 27px;
     height: 27px;
   }
+
   .navigation-buttons {
     gap: 8px;
   }
+
   .prev-button,
   .next-button,
   .exit-button {
@@ -540,6 +649,7 @@ button:disabled {
     font-size: 14px;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -547,6 +657,7 @@ button:disabled {
     scroll-behavior: auto !important;
     transition: none !important;
   }
+
   .firework-particle {
     animation-duration: 0.01ms;
   }
