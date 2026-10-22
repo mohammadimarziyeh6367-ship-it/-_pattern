@@ -2,333 +2,244 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#7851b8">
   <meta
     name="description"
-    content="بازی آموزشی الگوی منظم، ریاضی پایه اول دبستان، طراحی‌شده توسط آموزگار مرضیه محمدی"
+    content="بازی تعاملی الگوی منظم برای دانش‌آموزان پایه اول دبستان"
   >
-  <title>الگوی منظم | ریاضی پایه اول</title>
+
+  <title>بازی الگوی منظم | ریاضی پایه اول</title>
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
+
   <main class="app">
-    <!-- =========================================
-         صفحه آغاز بازی
-    ========================================== -->
-    <section
-      id="welcome"
-      class="screen welcome-screen"
-      aria-labelledby="welcomeTitle"
-    >
+
+    <!-- صفحه شروع -->
+    <section id="welcome" class="screen welcome-screen">
+
       <div class="welcome-card">
+
         <div class="welcome-decoration" aria-hidden="true">
-       
+          ⭐ 🌈 ⭐
         </div>
+
+        <h1>بازی الگوی منظم</h1>
+        <p class="subtitle">ریاضی پایهٔ اول دبستان</p>
+
         <img
+          id="teacherPhoto"
           class="teacher-photo"
-          src="IMG_4332.jpeg"
-          alt="عکس آموزگار مرضیه محمدی"
+          src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+          alt="تصویر آموزگار"
           onerror="this.style.display='none'"
         >
-        <h1 id="welcomeTitle">
-          الگوی منظم
-        </h1>
-        <h2>
-          بازی ریاضی پایهٔ اول
-        </h2>
-        <p class="welcome-message">
-          بچه‌های گلم، الگوخوانی خیلی مهم است.
-          پس اول الگو را بخوانید. 🌈
-        </p>
-        <label for="studentName">
-          نام دانش‌آموز:
-        </label>
+
+        <label for="studentName">نام دانش‌آموز:</label>
+
         <input
           id="studentName"
           type="text"
-          maxlength="35"
-          placeholder="نام زیبایت را اینجا بنویس"
-          autocomplete="off"
-          enterkeyhint="go"
+          maxlength="40"
+          autocomplete="given-name"
+          placeholder="نامت را اینجا بنویس"
         >
-      <button
-<button
-  id="startButton"
-  class="start-button"
-  type="button"
->
-  شروع بازی 🚀
-</button>
-</button>
-        <p class="teacher-name">
+
+        <button id="startButton" class="primary-button" type="button">
+          شروع بازی 🚀
+        </button>
+
+        <p class="teacher-credit">
           آموزگار: مرضیه محمدی
         </p>
+
+        <p class="school-credit">
+          مدرسه دخترانه شریعتی
+        </p>
+
       </div>
     </section>
-    <!-- =========================================
-         صفحه اصلی بازی
-    ========================================== -->
-    <section
-      id="game"
-      class="screen game-screen hidden"
-      aria-label="صفحه تمرین‌های الگوی منظم"
-    >
-      <!-- سربرگ -->
+
+
+    <!-- صفحه تمرین‌ها -->
+    <section id="game" class="screen game-screen" hidden>
+
       <header class="game-header">
+
         <div class="header-title">
-          <span
-            class="header-icon"
-            aria-hidden="true"
+          <h1>🌈 الگوی منظم</h1>
+          <p id="studentGreeting">آماده‌ای؟</p>
+        </div>
+
+        <div class="stage-progress">
+          <span id="stageLabel">تمرین ۱ از ۱۳</span>
+
+          <div
+            id="progressTrack"
+            class="progress-track"
+            role="progressbar"
+            aria-label="پیشرفت تمرین‌ها"
+            aria-valuemin="0"
+            aria-valuemax="13"
+            aria-valuenow="1"
           >
-            🌈
-          </span>
-          <div>
-            <h1>
-              الگوی منظم
-            </h1>
-            <p id="studentGreeting">
-              آفرین! آماده‌ای؟
-            </p>
+            <div id="progressBar" class="progress-bar"></div>
           </div>
         </div>
-        <div
-          id="stageLabel"
-          class="stage-counter"
-          aria-live="polite"
-        >
-          تمرین ۱ از ۱۳
-        </div>
+
       </header>
-      <!-- نوار پیشرفت -->
-      <div
-        class="progress-track"
-        role="progressbar"
-        aria-label="پیشرفت تمرین‌ها"
-        aria-valuemin="0"
-        aria-valuemax="13"
-        aria-valuenow="0"
-      >
-        <div
-          id="progressBar"
-          class="progress-bar"
-        ></div>
-      </div>
-      <!-- عنوان و توضیحات تمرین -->
-      <section
-        class="question-area"
-        aria-labelledby="stageTitle"
-      >
-        <h2 id="stageTitle">
-          الگوی دوشکلی
-        </h2>
-        <p id="stageInstruction">
-          الگو را بخوان و آن را ادامه بده.
+
+
+      <section class="exercise-card">
+
+        <h2 id="stageTitle">الگوی رئیس را ادامه بده</h2>
+
+        <p id="stageInstruction" class="instruction">
+          الگو را با دقت ادامه بده.
         </p>
-      </section>
-      <!-- ابزار انتخاب شکل و رنگ -->
-      <section
-        class="tools-area"
-        aria-label="انتخاب ابزار"
-      >
-        <h3 class="section-title">
-          شکل یا رنگ موردنظرت را انتخاب کن
-        </h3>
-        <div
-          id="palette"
-          class="palette"
-          aria-label="رنگ‌ها و شکل‌های قابل انتخاب"
-        ></div>
-        <div class="tool-buttons">
-          <button
-            id="eraserButton"
-            class="eraser-button"
-            type="button"
-            aria-pressed="false"
-          >
-            🧽 پاک‌کن
-          </button>
-          <button
-            id="clearButton"
-            class="clear-button"
-            type="button"
-          >
-            پاک‌کردن پاسخ‌ها
-          </button>
+
+
+        <!-- ابزار انتخاب شکل و رنگ -->
+        <div class="tool-area">
+
+          <div id="palette" class="palette" aria-label="انتخاب شکل یا رنگ">
+          </div>
+
+          <div class="tool-buttons">
+
+            <button
+              id="eraserButton"
+              class="tool-button eraser-button"
+              type="button"
+              aria-pressed="false"
+            >
+              🧽 پاک‌کن
+            </button>
+
+            <button
+              id="clearButton"
+              class="tool-button clear-button"
+              type="button"
+            >
+              پاک‌کردن پاسخ‌ها
+            </button>
+
+          </div>
+
         </div>
-      </section>
-      <!-- جدول اصلی -->
-      <section
-        class="board-card"
-        aria-labelledby="mainLabel"
-      >
-        <div class="board-heading">
-          <h3 id="mainLabel">
+
+
+        <!-- جدول اصلی -->
+        <section class="board-section">
+
+          <h3 class="board-heading">
             الگوی اصلی را ادامه بده
           </h3>
-          <span class="board-hint">
-            با دقت به ترتیب شکل‌ها و رنگ‌ها نگاه کن.
-          </span>
-        </div>
-        <div class="board-scroll">
-          <div
-            id="mainBoard"
-            class="board main-board"
-            aria-label="جدول اصلی الگو"
-          ></div>
-        </div>
-      </section>
-      <!-- جدول تکرار الگوی رئیس -->
-      <section
-        class="board-card copy-card"
-        aria-labelledby="copyLabel"
-      >
-        <div class="board-heading">
-          <h3 id="copyLabel">
-            الگوی رئیس را یک بار تکرار کن
+
+          <div class="board-container">
+            <div
+              id="mainBoard"
+              class="board"
+              aria-label="جدول اصلی الگو"
+            ></div>
+          </div>
+
+        </section>
+
+
+        <!-- جدول پایین -->
+        <section class="board-section copy-section">
+
+          <h3 class="board-heading">
+            یک بار الگوی رئیس را تکرار کن
           </h3>
-          <span class="board-hint">
-            خانه‌ها را به ترتیب کامل کن.
-          </span>
+
+          <div class="board-container">
+            <div
+              id="copyBoard"
+              class="board"
+              aria-label="جدول تکرار الگوی رئیس"
+            ></div>
+          </div>
+
+        </section>
+
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+
+
+        <!-- بررسی پاسخ‌ها -->
+        <div class="check-area">
+
+          <button id="checkButton" class="check-button" type="button">
+            بررسی پاسخ‌ها ✓
+          </button>
+
         </div>
-        <div class="board-scroll">
-          <div
-            id="copyBoard"
-            class="board copy-board"
-            aria-label="جدول تکرار الگو"
-          ></div>
-        </div>
+
+
+        <!-- دکمه‌های جابه‌جایی -->
+        <nav class="navigation" aria-label="حرکت بین تمرین‌ها">
+
+          <button id="prevButton" class="nav-button" type="button">
+            مرحله قبل
+          </button>
+
+          <button id="nextButton" class="nav-button next-button" type="button">
+            مرحله بعدی
+          </button>
+
+          <button id="exitButton" class="nav-button exit-button" type="button">
+            خروج
+          </button>
+
+        </nav>
+
       </section>
-      <!-- پیام راهنما و نتیجه -->
-      <div
-        id="feedback"
-        class="feedback"
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      ></div>
-      <!-- بررسی پاسخ -->
-      <div class="answer-buttons">
-        <button
-          id="checkButton"
-          class="check-button"
-          type="button"
-        >
-          بررسی پاسخ ✅
-        </button>
-      </div>
-      <!-- دکمه‌های جابه‌جایی -->
-      <nav
-        class="navigation-buttons"
-        aria-label="حرکت بین تمرین‌ها"
-      >
-        <button
-          id="prevButton"
-          class="prev-button"
-          type="button"
-        >
-          مرحله قبل
-        </button>
-        <button
-          id="nextButton"
-          class="next-button"
-          type="button"
-        >
-          مرحله بعدی
-        </button>
-        <button
-          id="exitButton"
-          class="exit-button"
-          type="button"
-        >
-          خروج
-        </button>
-      </nav>
-      <!-- امضای آموزگار -->
+
+
       <footer class="game-footer">
-        <span class="teacher-signature">
-          آموزگار: مرضیه محمدی
-        </span>
+        <span>آموزگار: مرضیه محمدی</span>
+        <span>مدرسه دخترانه شریعتی</span>
       </footer>
+
     </section>
-    <!-- =========================================
-         صفحه پایان بازی
-    ========================================== -->
-    <section
-      id="finish"
-      class="screen finish-screen hidden"
-      aria-labelledby="finishTitle"
-    >
+
+
+    <!-- صفحه پایان -->
+    <section id="finish" class="screen finish-screen" hidden>
+
       <div class="finish-card">
-        <div
-          class="finish-emoji"
-          aria-hidden="true"
-        >
-          🏆 🌟 🎉
-        </div>
-        <h1 id="finishTitle">
-          آفرین قهرمان!
-        </h1>
+
+        <div class="finish-star" aria-hidden="true">🏆</div>
+
+        <h1>بازی به پایان رسید!</h1>
+
         <p id="finishMessage">
-          تو تمرین‌ها را به پایان رساندی.
+          همهٔ تمرین‌ها را دیدی. آفرین!
         </p>
-        <button
-          id="restartButton"
-          class="start-button"
-          type="button"
-        >
+
+        <button id="restartButton" class="primary-button" type="button">
           بازی دوباره 🔄
         </button>
-        <p class="teacher-name">
+
+        <p class="teacher-credit">
           آموزگار: مرضیه محمدی
         </p>
+
       </div>
+
     </section>
-    <!-- =========================================
-         لایه فشفشه‌های رنگی
-    ========================================== -->
-    <div
-      id="fireworks"
-      class="fireworks hidden"
-      aria-hidden="true"
-    ></div>
+
   </main>
-  <script>
-function startGameFix() {
-  const welcome = document.getElementById("welcome");
-  const game = document.getElementById("game");
-  const nameInput = document.getElementById("studentName");
-  const greeting = document.getElementById("studentGreeting");
 
-  if (!welcome || !game) {
-    alert("صفحه‌های بازی پیدا نشدند. لطفاً کد HTML را بررسی کن.");
-    return;
-  }
 
-  const studentName = nameInput ? nameInput.value.trim() : "";
+  <!-- محل نمایش فشفشه‌ها -->
+  <div id="fireworks" class="fireworks" aria-hidden="true"></div>
 
-  if (greeting) {
-    greeting.textContent = studentName
-      ? `آفرین ${studentName} جان! آماده‌ای؟ 🌈`
-      : "آفرین قهرمان! آماده‌ای؟ 🌈";
-  }
-
-  welcome.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  if (typeof renderStage === "function") {
-    renderStage();
-  }
-
-  window.scrollTo(0, 0);
-}
-</script>
-
-</body>
-</html>
 </body>
 </html>
