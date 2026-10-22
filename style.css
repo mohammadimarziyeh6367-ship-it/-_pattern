@@ -625,7 +625,36 @@ button:disabled {
 
   pointer-events: none;
 }
+/* ---------- خط‌های مورب تمرین چهارم ---------- */
 
+.cell:has(.diagonal-mark) {
+  display: block;
+}
+
+.diagonal-mark {
+  position: absolute;
+
+  top: 50%;
+  left: 0;
+
+  display: block;
+
+  width: 141.5%;
+  height: 3px;
+
+  background: var(--line-color);
+
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.diagonal-down {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.diagonal-up {
+  transform: translateY(-50%) rotate(-45deg);
+}
 .palette-line {
   display: block;
 
