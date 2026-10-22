@@ -58,17 +58,17 @@ const STAGES = [
     palette: ["C", "S"]
   },
 
-  {
-    id: 2,
-    type: "shape",
-    title: "الگوی چهارشکلی",
-    instruction: "الگو را با دقت ادامه بده و در جدول پایین یک بار الگوی رئیس را تکرار کن.",
-    pattern: ["T", "Y", "S", "C"],
-    columns: 16,
-    fixedCount: 8,
-    copyColumns: 8,
-    palette: ["T", "Y", "S", "C"]
-  },
+{
+  id: 2,
+  type: "color",
+  title: "الگوی مربع‌های سبز و قرمز",
+  instruction: "الگو را ادامه بده و در جدول پایین یک بار الگوی رئیس را تکرار کن.",
+  pattern: ["G", "G", "R", "R", "R"],
+  columns: 15,
+  fixedCount: 8,
+  copyColumns: 10,
+  palette: ["G", "R"]
+},
 
   {
     id: 3,
