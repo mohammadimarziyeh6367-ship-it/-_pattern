@@ -83,17 +83,16 @@ const STAGES = [
   },
 
   {
-    id: 4,
-    type: "line",
-    title: "الگوی خطی دوم",
-    instruction: "ترتیب رنگ‌ها را با دقت ادامه بده.",
-    pattern: ["B", "R"],
-    columns: 12,
-    fixedCount: 4,
-    copyColumns: 6,
-    palette: ["B", "R"]
-  },
-
+  id: 4,
+  type: "diagonal",
+  title: "الگوی خط‌های مورب",
+  instruction: "الگوی خط‌های زرد و سبز را ادامه بده و در جدول پایین یک بار الگوی رئیس را تکرار کن.",
+  pattern: ["Y", "G"],
+  columns: 12,
+  fixedCount: 4,
+  copyColumns: 2,
+  palette: ["Y", "G"]
+},
   {
     id: 5,
     type: "line",
