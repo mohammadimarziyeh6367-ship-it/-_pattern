@@ -375,18 +375,34 @@ function cellContent(id, type) {
   }
 
   if (type === "line") {
-    const color = COLOR_ITEMS[id]?.color;
+  const color = COLOR_ITEMS[id]?.color;
 
-    if (!color) return "";
+  if (!color) return "";
 
-    return `
-      <span
-        class="line-mark"
-        style="--line-color:${COLORS[color]}"
-        aria-hidden="true"
-      ></span>
-    `;
-  }
+  return `
+    <span
+      class="line-mark"
+      style="--line-color:${COLORS[color]}"
+      aria-hidden="true"
+    ></span>
+  `;
+}
+
+if (type === "diagonal") {
+  const color = COLOR_ITEMS[id]?.color;
+
+  if (!color) return "";
+
+  const direction = color === "yellow" ? "down" : "up";
+
+  return `
+    <span
+      class="diagonal-mark diagonal-${direction}"
+      style="--line-color:${COLORS[color]}"
+      aria-hidden="true"
+    ></span>
+  `;
+}
 
   return makeColorHTML(id);
 }
