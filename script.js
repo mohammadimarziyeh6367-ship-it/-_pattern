@@ -944,31 +944,18 @@ function clearAnswers() {
 function checkRegularStage() {
   const stage = getStage();
 
-  /*
-    خانه‌های ثابت، الگوی نشان‌داده‌شده هستند.
-    تمام خانه‌های باقی‌ماندهٔ جدول بالا باید درست باشند.
-  */
-
   const expectedMain = [];
 
   for (let col = 0; col < stage.columns; col++) {
     expectedMain.push(patternValue(stage.pattern, col));
   }
 
-  const mainIsCorrect = mainAnswers.every(
-    (answer, index) => {
+  const mainIsCorrect =
+    mainAnswers.length === stage.columns &&
+    mainAnswers.every((answer, index) => {
       if (index < stage.fixedCount) return true;
-
       return answer === expectedMain[index];
-    }
-  ) && mainAnswers.length === stage.columns;
-
-
-  /*
-    جدول پایین:
-    فقط یک مرتبه الگوی اصلی را وارد می‌کند.
-    بقیهٔ خانه‌ها باید خالی بمانند.
-  */
+    });
 
   const expectedCopy = Array(stage.copyColumns).fill(null);
 
@@ -987,7 +974,6 @@ function checkRegularStage() {
 
   return mainIsCorrect && copyIsCorrect;
 }
-
 
 /* ---------- بررسی تمرین موش ---------- */
 
