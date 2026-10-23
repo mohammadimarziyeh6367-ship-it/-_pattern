@@ -403,7 +403,25 @@ if (type === "diagonal") {
     ></span>
   `;
 }
+if (type === "diagonal") {
+  const item = COLOR_ITEMS[id];
+  const color = item?.color;
 
+  if (!item || !color || !COLORS[color]) {
+    console.error("شناسهٔ خط مورب در COLOR_ITEMS پیدا نشد:", id);
+    return "";
+  }
+
+  const direction = color === "yellow" ? "down" : "up";
+
+  return `
+    <span
+      class="diagonal-mark diagonal-${direction}"
+      style="--line-color:${COLORS[color]}"
+      aria-hidden="true"
+    ></span>
+  `;
+}
   return makeColorHTML(id);
 }
 
