@@ -399,23 +399,23 @@ function cellContent(id, type) {
     `;
   }
   /* خطوط مشکی روی لبه‌های خانه در تمرین پنجم */
-  if (type === "edgePattern") {
-    if (id === "NONE") {
-      return "";
-    }
-    if (id === "TOP_RIGHT") {
-      return `
-        <span class="edge-mark edge-top" aria-hidden="true"></span>
-        <span class="edge-mark edge-right" aria-hidden="true"></span>
-      `;
-    }
-    if (id === "BOTTOM") {
-      return `
-        <span class="edge-mark edge-bottom" aria-hidden="true"></span>
-      `;
-    }
-    return "";
+ /* خطوط مشکی روی لبه‌های خانه در تمرین پنجم */
+if (type === "edgePattern") {
+  if (id === "TOP_RIGHT") {
+    return `
+      <span class="edge-mark edge-top" aria-hidden="true"></span>
+      <span class="edge-mark edge-right" aria-hidden="true"></span>
+    `;
   }
+
+  if (id === "BOTTOM") {
+    return `
+      <span class="edge-mark edge-bottom" aria-hidden="true"></span>
+    `;
+  }
+
+  return "";
+}
   /* سایر تمرین‌های رنگی */
   return makeColorHTML(id);
 }
