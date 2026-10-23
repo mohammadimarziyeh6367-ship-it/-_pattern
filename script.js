@@ -366,62 +366,60 @@ function makeColorHTML(id) {
 
 
 /* ---------- محتوای خانه ---------- */
-
 function cellContent(id, type) {
   if (!id) return "";
-
+  /* شکل‌ها و تمرین موش */
   if (type === "shape" || type === "mouse") {
     return makeShapeHTML(id);
   }
-
+  /* خط افقی رنگی */
   if (type === "line") {
-  const color = COLOR_ITEMS[id]?.color;
-
-  if (!color) return "";
-
-  return `
-    <span
-      class="line-mark"
-      style="--line-color:${COLORS[color]}"
-      aria-hidden="true"
-    ></span>
-  `;
-}
-
-if (type === "diagonal") {
-  const color = COLOR_ITEMS[id]?.color;
-
-  if (!color) return "";
-
-  const direction = color === "yellow" ? "down" : "up";
-
-  return `
-    <span
-      class="diagonal-mark diagonal-${direction}"
-      style="--line-color:${COLORS[color]}"
-      aria-hidden="true"
-    ></span>
-  `;
-}
-if (type === "diagonal") {
-  const item = COLOR_ITEMS[id];
-  const color = item?.color;
-
-  if (!item || !color || !COLORS[color]) {
-    console.error("شناسهٔ خط مورب در COLOR_ITEMS پیدا نشد:", id);
+    const color = COLOR_ITEMS[id]?.color;
+    if (!color || !COLORS[color]) return "";
+    return `
+      <span
+        class="line-mark"
+        style="--line-color:${COLORS[color]}"
+        aria-hidden="true"
+      ></span>
+    `;
+  }
+  /* خط مورب تمرین چهارم */
+  if (type === "diagonal") {
+    const item = COLOR_ITEMS[id];
+    const color = item?.color;
+    if (!color || !COLORS[color]) return "";
+    const direction = color === "yellow" ? "down" : "up";
+    return `
+      <span
+        class="diagonal-mark diagonal-${direction}"
+        style="--line-color:${COLORS[color]}"
+        aria-hidden="true"
+      ></span>
+    `;
+  }
+  /* خطوط مشکی روی لبه‌های خانه در تمرین پنجم */
+  if (type === "edgePattern") {
+    if (id === "NONE") {
+      return "";
+    }
+    if (id === "TOP_RIGHT") {
+      return `
+        <span class="edge-mark edge-top" aria-hidden="true"></span>
+        <span class="edge-mark edge-right" aria-hidden="true"></span>
+      `;
+    }
+    if (id === "BOTTOM") {
+      return `
+        <span class="edge-mark edge-bottom" aria-hidden="true"></span>
+      `;
+    }
     return "";
   }
-
-  const direction = color === "yellow" ? "down" : "up";
-
-  return `
-    <span
-      class="diagonal-mark diagonal-${direction}"
-      style="--line-color:${COLORS[color]}"
-      aria-hidden="true"
-    ></span>
-  `;
+  /* سایر تمرین‌های رنگی */
+  return makeColorHTML(id);
 }
+
   return makeColorHTML(id);
 }
 
