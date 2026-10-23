@@ -495,18 +495,29 @@ function renderPalette() {
     if (stage.type === "shape" || stage.type === "mouse") {
       button.innerHTML = makeShapeHTML(id);
       label = SHAPES[id].label;
-    } else if (stage.type === "line") {
-      const color = COLOR_ITEMS[id].color;
+
+    } else if (
+      stage.type === "line" ||
+      stage.type === "diagonal"
+    ) {
+      const item = COLOR_ITEMS[id];
+      const color = item?.color;
+
+      if (!item || !color || !COLORS[color]) {
+        console.error("شناسهٔ رنگ در COLOR_ITEMS پیدا نشد:", id);
+        return;
+      }
 
       button.innerHTML = `
         <span
-          class="palette-line"
+          class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
           style="--line-color:${COLORS[color]}"
           aria-hidden="true"
         ></span>
       `;
 
-      label = COLOR_ITEMS[id].label;
+      label = item.label;
+
     } else {
       button.innerHTML = makeColorHTML(id);
       label = COLOR_ITEMS[id].label;
@@ -534,7 +545,6 @@ function renderPalette() {
     palette.appendChild(button);
   });
 }
-
 
 /* ---------- جدول اصلی تمرین‌های معمولی ---------- */
 
