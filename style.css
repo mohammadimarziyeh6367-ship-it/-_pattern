@@ -1068,3 +1068,49 @@ button:disabled {
 .palette-item:has(.palette-diagonal) {
   overflow: hidden;
 }
+/* =====================================
+   تمرین پنجم: الگوی خط‌های مرزی
+===================================== */
+.cell:has(.edge-mark) {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+/* خط‌های مشکی روی لبه‌ها */
+.edge-mark {
+  position: absolute;
+  display: block;
+  background: #000;
+  pointer-events: none;
+  z-index: 2;
+}
+/* ضلع افقی بالا */
+.edge-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+/* ضلع عمودی راست */
+.edge-right {
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+}
+/* ضلع افقی پایین */
+.edge-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+@media (max-width: 599px) {
+  .edge-top,
+  .edge-bottom {
+    height: 2px;
+  }
+  .edge-right {
+    width: 2px;
+  }
+}
