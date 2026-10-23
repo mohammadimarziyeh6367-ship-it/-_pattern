@@ -97,12 +97,12 @@ const STAGES = [
   id: 5,
   type: "edgePattern",
   title: "الگوی خط‌های مرزی",
-  instruction: "به خط‌های مشکی دقت کن، الگو را کشف کن و ادامه بده. سپس یک بار آن را در جدول پایین تکرار کن.",
-  pattern: ["TOP_RIGHT", "BOTTOM", "NONE"],
+  instruction: "الگو را کشف کن، خط‌ها را رسم کن و در جدول پایین یک بار آن را تکرار کن.",
+  pattern: ["TOP_RIGHT", "BOTTOM", null],
   columns: 12,
   fixedCount: 6,
   copyColumns: 3,
-  palette: ["TOP_RIGHT", "BOTTOM", "NONE"]
+  palette: ["TOP_RIGHT", "BOTTOM"]
 },
 
   {
