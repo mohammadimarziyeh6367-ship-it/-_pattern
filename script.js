@@ -497,33 +497,22 @@ function setupBoard(board, columns, rows = 1) {
 function renderPalette() {
   const stage = getStage();
   const palette = $("palette");
-
   palette.replaceChildren();
-
   stage.palette.forEach(id => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "palette-item";
-
     let label = id;
-
     if (stage.type === "shape" || stage.type === "mouse") {
       button.innerHTML = makeShapeHTML(id);
       label = SHAPES[id].label;
-
     } else if (
       stage.type === "line" ||
       stage.type === "diagonal"
     ) {
       const item = COLOR_ITEMS[id];
       const color = item?.color;
-
-      if (!item || !color || !COLORS[color]) {
-        console.error("شناسهٔ رنگ در COLOR_ITEMS پیدا نشد:", id);
-        return;
-      }
-
+      if (!item || !color || !COLORS[color]) return;
       button.innerHTML = `
         <span
           class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
@@ -531,37 +520,47 @@ function renderPalette() {
           aria-hidden="true"
         ></span>
       `;
-
       label = item.label;
-
+    } else if (stage.type === "edgePattern") {
+      if (id === "TOP_RIGHT") {
+        button.innerHTML = `
+          <span class="palette-edge-preview" aria-hidden="true">
+            <span class="edge-preview-top"></span>
+            <span class="edge-preview-right"></span>
+          </span>
+        `;
+        label = "خط بالا و خط راست";
+      } else if (id === "BOTTOM") {
+        button.innerHTML = `
+          <span class="palette-edge-preview" aria-hidden="true">
+            <span class="edge-preview-bottom"></span>
+          </span>
+        `;
+        label = "خط پایین";
+      } else {
+        return;
+      }
     } else {
       button.innerHTML = makeColorHTML(id);
-      label = COLOR_ITEMS[id].label;
+      label = COLOR_ITEMS[id]?.label || id;
     }
-
     button.setAttribute("aria-label", label);
     button.title = label;
-
     if (selectedItem === id && !eraseMode) {
       button.classList.add("selected");
     }
-
     button.addEventListener("click", () => {
       selectedItem = id;
       eraseMode = false;
-
       $("eraserButton").classList.remove("active");
       $("eraserButton").setAttribute("aria-pressed", "false");
-
       renderPalette();
       setFeedback("شکل یا رنگ انتخاب شد.", "");
       playPlaceSound();
     });
-
     palette.appendChild(button);
   });
 }
-
 /* ---------- جدول اصلی تمرین‌های معمولی ---------- */
 
 function renderRegularBoards() {
