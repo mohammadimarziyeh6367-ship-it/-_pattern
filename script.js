@@ -93,18 +93,17 @@ const STAGES = [
   copyColumns: 2,
   palette: ["R", "G", "Y", "B"]
 },
-
-  {
-    id: 5,
-    type: "line",
-    title: "الگوی سه‌تایی",
-    instruction: "الگوی سه‌تایی را ادامه بده.",
-    pattern: ["R", "R", "B"],
-    columns: 12,
-    fixedCount: 6,
-    copyColumns: 6,
-    palette: ["R", "B"]
-  },
+{
+  id: 5,
+  type: "edgePattern",
+  title: "الگوی خط‌های مرزی",
+  instruction: "به خط‌های مشکی دقت کن، الگو را کشف کن و ادامه بده. سپس یک بار آن را در جدول پایین تکرار کن.",
+  pattern: ["TOP_RIGHT", "BOTTOM", "NONE"],
+  columns: 12,
+  fixedCount: 6,
+  copyColumns: 3,
+  palette: ["TOP_RIGHT", "BOTTOM", "NONE"]
+},
 
   {
     id: 6,
