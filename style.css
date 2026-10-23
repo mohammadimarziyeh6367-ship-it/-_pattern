@@ -1027,3 +1027,44 @@ button:disabled {
     transition-duration: 0.01ms !important;
   }
 }
+/* ---------- خط‌های مورب تمرین چهارم ---------- */
+
+.cell:has(.diagonal-mark) {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.diagonal-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 141.5%;
+  height: 3px;
+  background: var(--line-color);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.diagonal-down {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.diagonal-up {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* نمایش انتخاب خط مورب در پالت */
+
+.palette-diagonal {
+  display: block;
+  width: 75%;
+  height: 3px;
+  margin: auto;
+  background: var(--line-color);
+}
+
+.palette-item:has(.palette-diagonal) {
+  overflow: hidden;
+}
