@@ -977,22 +977,27 @@ function clearAnswers() {
 
 function checkRegularStage() {
   const stage = getStage();
-
+  /* بررسی جدول اصلی */
   const expectedMain = [];
-
   for (let col = 0; col < stage.columns; col++) {
     expectedMain.push(patternValue(stage.pattern, col));
   }
-
   const mainIsCorrect =
     mainAnswers.length === stage.columns &&
     mainAnswers.every((answer, index) => {
       if (index < stage.fixedCount) return true;
-      return answer === expectedMain[index];
+      const expected = expectedMain[index];
+      /*
+        در تمرین پنجم، خانه‌هایی که الگو برایشان
+        null تعیین کرده، باید بدون کلیک خالی بمانند.
+      */
+      if (stage.type === "edgePattern" && expected === null) {
+        return answer === null;
+      }
+      return answer === expected;
     });
-
+  /* بررسی جدول پایین */
   const expectedCopy = Array(stage.copyColumns).fill(null);
-
   for (
     let col = 0;
     col < Math.min(stage.pattern.length, stage.copyColumns);
@@ -1000,12 +1005,14 @@ function checkRegularStage() {
   ) {
     expectedCopy[col] = stage.pattern[col];
   }
-
-  const copyIsCorrect = isCorrectArray(
-    copyAnswers,
-    expectedCopy
-  );
-
+  const copyIsCorrect =
+    copyAnswers.length === expectedCopy.length &&
+    expectedCopy.every((expected, index) => {
+      if (stage.type === "edgePattern" && expected === null) {
+        return copyAnswers[index] === null;
+      }
+      return copyAnswers[index] === expected;
+    });
   return mainIsCorrect && copyIsCorrect;
 }
 
