@@ -835,42 +835,40 @@ function renderStage() {
 /* ---------- قرار دادن پاسخ ---------- */
 function putAnswer(boardType, index) {
   if (stageChecked) return;
-
   const stage = getStage();
-
   const answers =
     boardType === "main"
       ? mainAnswers
       : copyAnswers;
-
-  /* خانهٔ سوم و خانه‌های متناظر آن باید دست‌نخورده بمانند. */
   const patternIndex = index % stage.pattern.length;
-
+  /* تمرین پنجم: خانه‌های مشخص‌شده باید خالی بمانند */
   if (
     stage.type === "edgePattern" &&
     stage.pattern[patternIndex] === null
   ) {
     return;
   }
-
+  /* تمرین ششم: خانه‌های خالی الگو قابل پرکردن نیستند */
+  if (
+    currentStage === 5 &&
+    stage.pattern[patternIndex] === null
+  ) {
+    return;
+  }
   if (eraseMode) {
     answers[index] = null;
     playPlaceSound();
     renderStagePreservingAnswers();
     return;
   }
-
   if (!selectedItem) {
     setFeedback("ابتدا نوع خط را انتخاب کن.", "warning");
     return;
   }
-
   answers[index] = selectedItem;
-
   playPlaceSound();
   renderStagePreservingAnswers();
 }
-
 
 /* ---------- حفظ پاسخ‌ها هنگام رسم دوباره ---------- */
 
