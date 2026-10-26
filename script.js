@@ -984,30 +984,41 @@ function checkRegularStage() {
   const mainIsCorrect =
     mainAnswers.length === stage.columns &&
     mainAnswers.every((answer, index) => {
+      /* خانه‌های از پیش تکمیل‌شده */
       if (index < stage.fixedCount) return true;
       const expected = expectedMain[index];
-      /*
-        در تمرین پنجم، خانه‌هایی که الگو برایشان
-        null تعیین کرده، باید بدون کلیک خالی بمانند.
-      */
+      /* تمرین پنجم: خانه‌های مشخص‌شده باید خالی بمانند */
       if (stage.type === "edgePattern" && expected === null) {
+        return answer === null;
+      }
+      /* تمرین ششم: خانه‌های خالی نباید پر شوند */
+      if (currentStage === 5 && expected === null) {
         return answer === null;
       }
       return answer === expected;
     });
   /* بررسی جدول پایین */
   const expectedCopy = Array(stage.copyColumns).fill(null);
-  for (
-    let col = 0;
-    col < Math.min(stage.pattern.length, stage.copyColumns);
-    col++
-  ) {
-    expectedCopy[col] = stage.pattern[col];
+  /* تمرین ششم: فقط خانهٔ دوم باید الگوی زرد را داشته باشد */
+  if (currentStage === 5) {
+    expectedCopy[1] = "YELLOW_U";
+  } else {
+    for (
+      let col = 0;
+      col < Math.min(stage.pattern.length, stage.copyColumns);
+      col++
+    ) {
+      expectedCopy[col] = stage.pattern[col];
+    }
   }
   const copyIsCorrect =
     copyAnswers.length === expectedCopy.length &&
     expectedCopy.every((expected, index) => {
-      if (stage.type === "edgePattern" && expected === null) {
+      if (
+        (stage.type === "edgePattern" ||
+          currentStage === 5) &&
+        expected === null
+      ) {
         return copyAnswers[index] === null;
       }
       return copyAnswers[index] === expected;
