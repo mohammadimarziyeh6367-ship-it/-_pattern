@@ -833,21 +833,20 @@ function renderStage() {
 function putAnswer(boardType, index) {
   if (stageChecked) return;
   const stage = getStage();
+  const isStage6 = currentStage === 5;
   const answers =
     boardType === "main"
       ? mainAnswers
       : copyAnswers;
-  const patternIndex = index % stage.pattern.length;
-  /* تمرین پنجم: خانه‌های مشخص‌شده باید خالی بمانند */
-  if (
-    stage.type === "edgePattern" &&
-    stage.pattern[patternIndex] === null
-  ) {
+  /* تمرین ۶: در جدول پایین فقط خانهٔ دوم مجاز است */
+  if (isStage6 && boardType === "copy" && index !== 1) {
     return;
   }
-  /* تمرین ششم: خانه‌های خالی الگو قابل پرکردن نیستند */
+  const patternIndex = index % stage.pattern.length;
+  /* خانه‌های خالی الگو در تمرین پنجم و ششم قابل پرکردن نیستند */
   if (
-    currentStage === 5 &&
+    (stage.type === "edgePattern" || isStage6) &&
+    boardType === "main" &&
     stage.pattern[patternIndex] === null
   ) {
     return;
@@ -866,7 +865,6 @@ function putAnswer(boardType, index) {
   playPlaceSound();
   renderStagePreservingAnswers();
 }
-
 /* ---------- حفظ پاسخ‌ها هنگام رسم دوباره ---------- */
 
 function renderStagePreservingAnswers() {
