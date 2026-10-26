@@ -576,32 +576,46 @@ function renderRegularBoards() {
   }
   for (let col = 0; col < mainLength; col++) {
     const expected = patternValue(pattern, col);
-    /* در تمرین ۶ فقط خانه‌های دوم و چهارم از قبل نمایش داده می‌شوند */
-    const isFixed = isStage6
-      ? col < 4
-      : col < fixedCount;
-    const answer = isFixed ? null : mainAnswers[col];
+    if (isStage6) {
+      /*
+        تمرین ۶:
+        خانه‌های اول تا چهارم، بخش نمایشی الگو هستند.
+        خانه‌های اول و سوم عمداً خالی و غیرقابل‌انتخاب‌اند.
+      */
+      const isFixed = col < 4;
+      const cell = createCell({
+        value: expected,
+        type: stage.type,
+        fixed: isFixed,
+        answer: isFixed ? null : mainAnswers[col],
+        onClick: isFixed
+          ? null
+          : () => putAnswer("main", col)
+      });
+      mainBoard.appendChild(cell);
+      continue;
+    }
+    const isFixed = col < fixedCount;
     const cell = createCell({
       value: isFixed ? expected : null,
       type: stage.type,
       fixed: isFixed,
-      answer,
+      answer: isFixed ? null : mainAnswers[col],
       onClick: isFixed
         ? null
         : () => putAnswer("main", col)
     });
     mainBoard.appendChild(cell);
   }
-  /* جدول پایین */
+  /* جدول پایین: تعداد خانه‌ها از مشخصات مرحله گرفته می‌شود */
   setupBoard(copyBoard, stage.copyColumns, 1);
   if (copyAnswers.length !== stage.copyColumns) {
     copyAnswers = Array(stage.copyColumns).fill(null);
   }
   for (let col = 0; col < stage.copyColumns; col++) {
-    const answer = copyAnswers[col];
     const cell = createCell({
       type: stage.type,
-      answer,
+      answer: copyAnswers[col],
       onClick: () => putAnswer("copy", col)
     });
     copyBoard.appendChild(cell);
