@@ -368,6 +368,17 @@ function cellContent(id, type) {
   if (type === "shape" || type === "mouse") {
     return makeShapeHTML(id);
   }
+  /* تمرین ششم: سه خط زرد روی لبه‌های خانه */
+  if (type === "line" && id === "YELLOW_U") {
+    return `
+      <span class="edge-mark edge-top" aria-hidden="true"
+        style="border-color:#ffd54f;"></span>
+      <span class="edge-mark edge-right" aria-hidden="true"
+        style="border-color:#ffd54f;"></span>
+      <span class="edge-mark edge-bottom" aria-hidden="true"
+        style="border-color:#ffd54f;"></span>
+    `;
+  }
   /* خط افقی رنگی */
   if (type === "line") {
     const color = COLOR_ITEMS[id]?.color;
@@ -395,23 +406,20 @@ function cellContent(id, type) {
     `;
   }
   /* خطوط مشکی روی لبه‌های خانه در تمرین پنجم */
- /* خطوط مشکی روی لبه‌های خانه در تمرین پنجم */
-if (type === "edgePattern") {
-  if (id === "TOP_RIGHT") {
-    return `
-      <span class="edge-mark edge-top" aria-hidden="true"></span>
-      <span class="edge-mark edge-right" aria-hidden="true"></span>
-    `;
+  if (type === "edgePattern") {
+    if (id === "TOP_RIGHT") {
+      return `
+        <span class="edge-mark edge-top" aria-hidden="true"></span>
+        <span class="edge-mark edge-right" aria-hidden="true"></span>
+      `;
+    }
+    if (id === "BOTTOM") {
+      return `
+        <span class="edge-mark edge-bottom" aria-hidden="true"></span>
+      `;
+    }
+    return "";
   }
-
-  if (id === "BOTTOM") {
-    return `
-      <span class="edge-mark edge-bottom" aria-hidden="true"></span>
-    `;
-  }
-
-  return "";
-}
   /* سایر تمرین‌های رنگی */
   return makeColorHTML(id);
 }
