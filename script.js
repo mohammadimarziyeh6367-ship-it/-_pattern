@@ -103,18 +103,15 @@ const STAGES = [
   copyColumns: 3,
   palette: ["TOP_RIGHT", "BOTTOM"]
 },
-
-  {
-    id: 6,
-    type: "line",
-    title: "الگوی یکی‌درمیان",
-    instruction: "رنگ‌ها را به ترتیب درست در خانه‌ها قرار بده.",
-    pattern: ["B", "R", "B", "R"],
-    columns: 16,
-    fixedCount: 8,
-    copyColumns: 8,
-    palette: ["B", "R"]
-  },
+{
+  type: "line",
+  title: "الگوی خطی",
+  pattern: ["EMPTY", "YELLOW_U", "EMPTY", "YELLOW_U"],
+  columns: 16,
+  fixedCount: 4,
+  copyColumns: 8,
+  palette: ["YELLOW_U"]
+}
 
   {
     id: 7,
