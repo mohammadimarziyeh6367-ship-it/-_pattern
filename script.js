@@ -562,29 +562,25 @@ function renderPalette() {
   });
 }
 /* ---------- جدول اصلی تمرین‌های معمولی ---------- */
-
 function renderRegularBoards() {
   const stage = getStage();
-
   const mainBoard = $("mainBoard");
   const copyBoard = $("copyBoard");
-
   const mainLength = stage.columns;
   const fixedCount = stage.fixedCount || 0;
   const pattern = stage.pattern;
-
+  const isStage6 = currentStage === 5;
   setupBoard(mainBoard, mainLength, 1);
-
   if (mainAnswers.length !== mainLength) {
     mainAnswers = Array(mainLength).fill(null);
   }
-
   for (let col = 0; col < mainLength; col++) {
-    const isFixed = col < fixedCount;
-
     const expected = patternValue(pattern, col);
+    /* در تمرین ۶ فقط خانه‌های دوم و چهارم از قبل نمایش داده می‌شوند */
+    const isFixed = isStage6
+      ? col < 4
+      : col < fixedCount;
     const answer = isFixed ? null : mainAnswers[col];
-
     const cell = createCell({
       value: isFixed ? expected : null,
       type: stage.type,
@@ -594,36 +590,23 @@ function renderRegularBoards() {
         ? null
         : () => putAnswer("main", col)
     });
-
     mainBoard.appendChild(cell);
   }
-
-  /*
-    جدول پایین:
-    فقط یک بار الگوی اصلی در آن وارد می‌شود.
-    خانه‌های باقی‌مانده باید خالی بمانند.
-  */
-
+  /* جدول پایین */
   setupBoard(copyBoard, stage.copyColumns, 1);
-
   if (copyAnswers.length !== stage.copyColumns) {
     copyAnswers = Array(stage.copyColumns).fill(null);
   }
-
   for (let col = 0; col < stage.copyColumns; col++) {
     const answer = copyAnswers[col];
-
     const cell = createCell({
       type: stage.type,
       answer,
       onClick: () => putAnswer("copy", col)
     });
-
     copyBoard.appendChild(cell);
   }
 }
-
-
 /* ---------- تمرین موش ---------- */
 
 function renderMouseBoards() {
