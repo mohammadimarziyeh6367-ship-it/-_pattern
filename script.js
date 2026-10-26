@@ -106,7 +106,7 @@ const STAGES = [
 {
   type: "line",
   title: "الگوی خطی",
-  pattern: ["EMPTY", "YELLOW_U", "EMPTY", "YELLOW_U"],
+  pattern: [null, "YELLOW_U", null, "YELLOW_U"],
   columns: 16,
   fixedCount: 4,
   copyColumns: 8,
