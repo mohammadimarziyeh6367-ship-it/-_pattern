@@ -89,7 +89,7 @@ const STAGES = [
   pattern: ["Y", "G"],
   columns: 12,
   fixedCount: 4,
-  copyColumns: 2,
+  copyColumns: 4,
   palette: ["R", "G", "Y", "B"]
 },
 {
