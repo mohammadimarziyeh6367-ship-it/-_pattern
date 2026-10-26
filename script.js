@@ -969,6 +969,7 @@ function clearAnswers() {
 
 function checkRegularStage() {
   const stage = getStage();
+  const isStage6 = currentStage === 5;
   /* بررسی جدول اصلی */
   const expectedMain = [];
   for (let col = 0; col < stage.columns; col++) {
@@ -977,23 +978,27 @@ function checkRegularStage() {
   const mainIsCorrect =
     mainAnswers.length === stage.columns &&
     mainAnswers.every((answer, index) => {
-      /* خانه‌های از پیش تکمیل‌شده */
+      if (isStage6) {
+        /* چهار خانهٔ اول، بخش نمایشی الگو هستند */
+        if (index < 4) return true;
+        const expected = expectedMain[index];
+        /* خانه‌هایی که الگو برایشان خالی است باید خالی بمانند */
+        if (expected === null) {
+          return answer === null;
+        }
+        return answer === expected;
+      }
       if (index < stage.fixedCount) return true;
       const expected = expectedMain[index];
-      /* تمرین پنجم: خانه‌های مشخص‌شده باید خالی بمانند */
       if (stage.type === "edgePattern" && expected === null) {
-        return answer === null;
-      }
-      /* تمرین ششم: خانه‌های خالی نباید پر شوند */
-      if (currentStage === 5 && expected === null) {
         return answer === null;
       }
       return answer === expected;
     });
   /* بررسی جدول پایین */
   const expectedCopy = Array(stage.copyColumns).fill(null);
-  /* تمرین ششم: فقط خانهٔ دوم باید الگوی زرد را داشته باشد */
-  if (currentStage === 5) {
+  if (isStage6) {
+    /* فقط خانهٔ دوم باید الگوی سه‌خطی زرد را داشته باشد */
     expectedCopy[1] = "YELLOW_U";
   } else {
     for (
@@ -1008,8 +1013,7 @@ function checkRegularStage() {
     copyAnswers.length === expectedCopy.length &&
     expectedCopy.every((expected, index) => {
       if (
-        (stage.type === "edgePattern" ||
-          currentStage === 5) &&
+        (stage.type === "edgePattern" || isStage6) &&
         expected === null
       ) {
         return copyAnswers[index] === null;
