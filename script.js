@@ -104,15 +104,19 @@ const STAGES = [
   palette: ["TOP_RIGHT", "BOTTOM"]
 },
 {
+  id: 6,
   type: "line",
   title: "الگوی خطی",
+  instruction: "سه خط زرد را مطابق الگو ادامه بده و در جدول پایین یک بار الگوی رئیس را تکرار کن.",
   pattern: [null, "YELLOW_U", null, "YELLOW_U"],
   columns: 16,
   fixedCount: 4,
   copyColumns: 8,
   palette: ["YELLOW_U"]
-}
+},
 
+{
+  id: 7,
   {
     id: 7,
     type: "mouse",
