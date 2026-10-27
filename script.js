@@ -501,43 +501,61 @@ function setupBoard(board, columns, rows = 1) {
 function renderPalette() {
   const stage = getStage();
   const palette = $("palette");
+
   palette.replaceChildren();
+
   stage.palette.forEach(id => {
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "palette-item";
+
     let label = id;
+
     if (stage.type === "shape" || stage.type === "mouse") {
       button.innerHTML = makeShapeHTML(id);
-      label = SHAPES[id].label;
-    } } else if (
-  stage.type === "line" ||
-  stage.type === "diagonal"
-) {
-  if (id === "YELLOW_U" && stage.type === "line") {
-    button.innerHTML = `
-      <span class="edge-mark edge-top"
-        style="border-color:#ffd54f;" aria-hidden="true"></span>
-      <span class="edge-mark edge-right"
-        style="border-color:#ffd54f;" aria-hidden="true"></span>
-      <span class="edge-mark edge-bottom"
-        style="border-color:#ffd54f;" aria-hidden="true"></span>
-    `;
-    label = "سه خط زرد";
-  } else {
-    const item = COLOR_ITEMS[id];
-    const color = item?.color;
-    if (!item || !color || !COLORS[color]) return;
-    button.innerHTML = `
-      <span
-        class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
-        style="--line-color:${COLORS[color]}"
-        aria-hidden="true"
-      ></span>
-    `;
-    label = item.label;
-  }
-}
+      label = SHAPES[id]?.label || id;
+
+    } else if (
+      stage.type === "line" ||
+      stage.type === "diagonal"
+    ) {
+      if (id === "YELLOW_U" && stage.type === "line") {
+        button.innerHTML = `
+          <span class="edge-mark edge-top"
+            style="border-color:#ffd54f;"
+            aria-hidden="true"></span>
+          <span class="edge-mark edge-right"
+            style="border-color:#ffd54f;"
+            aria-hidden="true"></span>
+          <span class="edge-mark edge-bottom"
+            style="border-color:#ffd54f;"
+            aria-hidden="true"></span>
+        `;
+
+        label = "سه خط زرد";
+
+      } else {
+        const item = COLOR_ITEMS[id];
+        const color = item?.color;
+
+        if (!item || !color || !COLORS[color]) {
+          return;
+        }
+
+        button.innerHTML = `
+          <span
+            class="palette-line ${
+              stage.type === "diagonal" ? "palette-diagonal" : ""
+            }"
+            style="--line-color:${COLORS[color]}"
+            aria-hidden="true"
+          ></span>
+        `;
+
+        label = item.label;
+      }
+
     } else if (stage.type === "edgePattern") {
       if (id === "TOP_RIGHT") {
         button.innerHTML = `
@@ -546,35 +564,47 @@ function renderPalette() {
             <span class="edge-preview-right"></span>
           </span>
         `;
+
         label = "خط بالا و خط راست";
+
       } else if (id === "BOTTOM") {
         button.innerHTML = `
           <span class="palette-edge-preview" aria-hidden="true">
             <span class="edge-preview-bottom"></span>
           </span>
         `;
+
         label = "خط پایین";
+
       } else {
         return;
       }
+
     } else {
       button.innerHTML = makeColorHTML(id);
       label = COLOR_ITEMS[id]?.label || id;
     }
+
     button.setAttribute("aria-label", label);
     button.title = label;
+
     if (selectedItem === id && !eraseMode) {
       button.classList.add("selected");
     }
+
     button.addEventListener("click", () => {
       selectedItem = id;
       eraseMode = false;
+
       $("eraserButton").classList.remove("active");
       $("eraserButton").setAttribute("aria-pressed", "false");
+
       renderPalette();
+
       setFeedback("شکل یا رنگ انتخاب شد.", "");
       playPlaceSound();
     });
+
     palette.appendChild(button);
   });
 }
