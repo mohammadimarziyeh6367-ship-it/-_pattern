@@ -506,21 +506,34 @@ function renderPalette() {
     if (stage.type === "shape" || stage.type === "mouse") {
       button.innerHTML = makeShapeHTML(id);
       label = SHAPES[id].label;
-    } else if (
-      stage.type === "line" ||
-      stage.type === "diagonal"
-    ) {
-      const item = COLOR_ITEMS[id];
-      const color = item?.color;
-      if (!item || !color || !COLORS[color]) return;
-      button.innerHTML = `
-        <span
-          class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
-          style="--line-color:${COLORS[color]}"
-          aria-hidden="true"
-        ></span>
-      `;
-      label = item.label;
+    } } else if (
+  stage.type === "line" ||
+  stage.type === "diagonal"
+) {
+  if (id === "YELLOW_U" && stage.type === "line") {
+    button.innerHTML = `
+      <span class="edge-mark edge-top"
+        style="border-color:#ffd54f;" aria-hidden="true"></span>
+      <span class="edge-mark edge-right"
+        style="border-color:#ffd54f;" aria-hidden="true"></span>
+      <span class="edge-mark edge-bottom"
+        style="border-color:#ffd54f;" aria-hidden="true"></span>
+    `;
+    label = "سه خط زرد";
+  } else {
+    const item = COLOR_ITEMS[id];
+    const color = item?.color;
+    if (!item || !color || !COLORS[color]) return;
+    button.innerHTML = `
+      <span
+        class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
+        style="--line-color:${COLORS[color]}"
+        aria-hidden="true"
+      ></span>
+    `;
+    label = item.label;
+  }
+}
     } else if (stage.type === "edgePattern") {
       if (id === "TOP_RIGHT") {
         button.innerHTML = `
