@@ -1140,7 +1140,6 @@ function renderStage() {
 } else if (stage.type === "edgePattern") {
   edgeMainDrawings = [null, null];
   edgeCopyDrawings = [null];
-
   renderEdgePatternBoards();
 } else {
   renderRegularBoards();
