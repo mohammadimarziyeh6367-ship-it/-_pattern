@@ -1467,6 +1467,13 @@ function clearAnswers() {
   if (stageChecked) return;
 
   const stage = getStage();
+   if (stage.type === "edgePattern") {
+  edgeMainDrawings = [null, null];
+  edgeCopyDrawings = [null];
+  setFeedback("", "");
+  renderStagePreservingAnswers();
+  return;
+}
 
    if (stage.type === "edgePattern") {
   edgeMainDrawings = [null, null];
