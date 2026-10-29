@@ -218,6 +218,9 @@ let copyAnswers = [];
 let flowerMainAnswers = [];
 let flowerCopyAnswers = [];
 
+let edgeMainDrawings = [];
+let edgeCopyDrawings = [];
+
 let audioContext = null;
 let fireworksTimer = null;
 
