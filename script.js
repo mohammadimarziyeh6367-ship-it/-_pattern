@@ -198,7 +198,7 @@ const STAGES = [
     fixedColumns: 8,
     copyColumns: 6,
     palette: ["G", "R"]
-  },
+  }
 
 ];
 
