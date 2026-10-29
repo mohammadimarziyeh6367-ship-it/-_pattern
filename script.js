@@ -1084,6 +1084,211 @@ function checkEdgePatternStage() {
     isCorrectEdgeDrawing(edgeCopyDrawings[0])
   );
 }
+
+function renderEdgePatternBoards() {
+  const stage = getStage();
+  const mainBoard = $("mainBoard");
+  const copyBoard = $("copyBoard");
+
+  setupBoard(mainBoard, stage.columns, 1);
+  setupBoard(copyBoard, stage.copyColumns, 1);
+
+  for (let col = 0; col < stage.columns; col++) {
+    const fixed = col < stage.fixedCount;
+    const value = fixed ? stage.pattern[col % stage.pattern.length] : null;
+
+    mainBoard.appendChild(createCell({
+      value,
+      type: "edgePattern",
+      fixed,
+      answer: null
+    }));
+  }
+
+  for (let col = 0; col < stage.copyColumns; col++) {
+    copyBoard.appendChild(createCell({
+      value: null,
+      type: "edgePattern",
+      fixed: false,
+      answer: null
+    }));
+  }
+
+  createEdgeDrawingLayer(mainBoard, "main");
+  createEdgeDrawingLayer(copyBoard, "copy");
+}
+
+function createEdgeDrawingLayer(board, boardType) {
+  const isMain = boardType === "main";
+  const width = isMain ? 12 : 3;
+
+  const svg = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg"
+  );
+
+  svg.setAttribute("viewBox", `0 0 ${width} 1`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.classList.add("edge-drawing-layer");
+
+  const hitArea = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "rect"
+  );
+
+  hitArea.setAttribute("x", isMain ? 6 : 0);
+  hitArea.setAttribute("y", 0);
+  hitArea.setAttribute("width", isMain ? 6 : 3);
+  hitArea.setAttribute("height", 1);
+  hitArea.setAttribute("fill", "transparent");
+
+  svg.appendChild(hitArea);
+  board.appendChild(svg);
+
+  let drawing = false;
+  let currentPoints = [];
+  let groupStart = 0;
+
+  function position(event) {
+    const rect = svg.getBoundingClientRect();
+
+    return {
+      x: (event.clientX - rect.left) / rect.width * width,
+      y: (event.clientY - rect.top) / rect.height
+    };
+  }
+
+  function redraw() {
+    svg.querySelectorAll("polyline").forEach(line => line.remove());
+
+    const drawings = isMain ? edgeMainDrawings : edgeCopyDrawings;
+
+    drawings.forEach((points, index) => {
+      if (!points || points.length < 2) return;
+
+      const start = isMain ? (index === 0 ? 6 : 9) : 0;
+      addLine(points, start);
+    });
+
+    if (currentPoints.length > 1) {
+      addLine(currentPoints, groupStart);
+    }
+  }
+
+  function addLine(points, start) {
+    const line = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "polyline"
+    );
+
+    line.setAttribute(
+      "points",
+      points.map(p => `${p.x + start},${p.y}`).join(" ")
+    );
+
+    svg.appendChild(line);
+  }
+
+  svg.addEventListener("pointerdown", event => {
+    event.preventDefault();
+
+    const p = position(event);
+
+    if (isMain) {
+      groupStart = p.x < 9 ? 6 : 9;
+    } else {
+      groupStart = 0;
+    }
+
+    if (eraseMode) {
+      const drawings = isMain ? edgeMainDrawings : edgeCopyDrawings;
+      const index = isMain ? (groupStart === 6 ? 0 : 1) : 0;
+      drawings[index] = null;
+      redraw();
+      return;
+    }
+
+    drawing = true;
+    currentPoints = [{
+      x: p.x - groupStart,
+      y: p.y
+    }];
+
+    svg.setPointerCapture(event.pointerId);
+  });
+
+  svg.addEventListener("pointermove", event => {
+    if (!drawing) return;
+
+    event.preventDefault();
+    const p = position(event);
+
+    currentPoints.push({
+      x: p.x - groupStart,
+      y: p.y
+    });
+
+    redraw();
+  });
+
+  function finishDrawing() {
+    if (!drawing) return;
+
+    drawing = false;
+
+    const drawings = isMain ? edgeMainDrawings : edgeCopyDrawings;
+    const index = isMain ? (groupStart === 6 ? 0 : 1) : 0;
+
+    drawings[index] = currentPoints.slice();
+
+    currentPoints = [];
+    redraw();
+    playTone(660);
+  }
+
+  svg.addEventListener("pointerup", finishDrawing);
+  svg.addEventListener("pointercancel", finishDrawing);
+}
+
+function isCorrectEdgeDrawing(points) {
+  if (!points || points.length < 4) return false;
+
+  const targets = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 1, y: 1 },
+    { x: 2, y: 1 }
+  ];
+
+  let lastIndex = -1;
+
+  for (const target of targets) {
+    let found = false;
+
+    for (let i = lastIndex + 1; i < points.length; i++) {
+      const dx = points[i].x - target.x;
+      const dy = points[i].y - target.y;
+
+      if (Math.sqrt(dx * dx + dy * dy) <= 0.4) {
+        lastIndex = i;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) return false;
+  }
+
+  return true;
+}
+
+function checkEdgePatternStage() {
+  return (
+    isCorrectEdgeDrawing(edgeMainDrawings[0]) &&
+    isCorrectEdgeDrawing(edgeMainDrawings[1]) &&
+    isCorrectEdgeDrawing(edgeCopyDrawings[0])
+  );
+}
 /* ---------- رسم مرحله ---------- */
 
 function renderStage() {
