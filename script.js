@@ -1262,6 +1262,15 @@ function clearAnswers() {
 
   const stage = getStage();
 
+   if (stage.type === "edgePattern") {
+  edgeMainDrawings = [null, null];
+  edgeCopyDrawings = [null];
+
+  setFeedback("", "");
+  renderStagePreservingAnswers();
+  return;
+}
+
   if (stage.type === "flower") {
     flowerMainAnswers = Array(
       stage.columns * stage.rows
