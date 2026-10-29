@@ -217,6 +217,8 @@ let copyAnswers = [];
 
 let flowerMainAnswers = [];
 let flowerCopyAnswers = [];
+let edgeMainDrawings = [];
+let edgeCopyDrawings = [];
 
 let edgeMainDrawings = [];
 let edgeCopyDrawings = [];
