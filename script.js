@@ -504,6 +504,10 @@ function renderPalette() {
 
   palette.replaceChildren();
 
+  if (stage.type === "edgePattern") {
+    return;
+  }
+
   stage.palette.forEach(id => {
     const button = document.createElement("button");
 
