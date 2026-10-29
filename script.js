@@ -1132,12 +1132,16 @@ function renderStage() {
   renderPalette();
 
   if (stage.type === "flower") {
-    renderFlowerBoards();
-  } else if (stage.type === "mouse") {
-    renderMouseBoards();
-  } else {
-    renderRegularBoards();
-  }
+  renderFlowerBoards();
+} else if (stage.type === "mouse") {
+  renderMouseBoards();
+} else if (stage.type === "edgePattern") {
+  edgeMainDrawings = [null, null];
+  edgeCopyDrawings = [null];
+
+  renderEdgePatternBoards();
+} else {
+  renderRegularBoards();
 }
 
 
