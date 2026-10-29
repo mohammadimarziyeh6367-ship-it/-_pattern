@@ -1423,12 +1423,14 @@ function checkAnswers() {
   let correct = false;
 
   if (stage.type === "flower") {
-    correct = checkFlowerStage();
-  } else if (stage.type === "mouse") {
-    correct = checkMouseStage();
-  } else {
-    correct = checkRegularStage();
-  }
+  correct = checkFlowerStage();
+} else if (stage.type === "mouse") {
+  correct = checkMouseStage();
+} else if (stage.type === "edgePattern") {
+  correct = checkEdgePatternStage();
+} else {
+  correct = checkRegularStage();
+}
 
   if (!correct) {
     playWrongSound();
