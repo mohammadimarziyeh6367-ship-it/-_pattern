@@ -1192,6 +1192,8 @@ function renderStagePreservingAnswers() {
     renderFlowerBoards();
   } else if (stage.type === "mouse") {
     renderMouseBoards();
+  } else if (stage.type === "edgePattern") {
+    renderEdgePatternBoards();
   } else {
     renderRegularBoards();
   }
