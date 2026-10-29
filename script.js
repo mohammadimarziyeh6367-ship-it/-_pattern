@@ -820,7 +820,268 @@ function renderFlowerBoards() {
   }
 }
 
+/* ---------- رسم مدادی تمرین پنجم ---------- */
 
+function renderEdgePatternBoards() {
+  const stage = getStage();
+  const mainBoard = $("mainBoard");
+  const copyBoard = $("copyBoard");
+
+  setupBoard(mainBoard, stage.columns, 1);
+
+  if (mainAnswers.length !== stage.columns) {
+    mainAnswers = Array(stage.columns).fill(null);
+  }
+
+  if (edgeMainDrawings.length !== 2) {
+    edgeMainDrawings = [null, null];
+  }
+
+  for (let col = 0; col < stage.columns; col++) {
+    const fixed = col < stage.fixedCount;
+
+    let value = null;
+
+    if (fixed) {
+      value = stage.pattern[col % stage.pattern.length];
+    }
+
+    mainBoard.appendChild(createCell({
+      value,
+      type: "edgePattern",
+      fixed,
+      answer: null
+    }));
+  }
+
+  setupBoard(copyBoard, stage.copyColumns, 1);
+
+  if (edgeCopyDrawings.length !== 1) {
+    edgeCopyDrawings = [null];
+  }
+
+  for (let col = 0; col < stage.copyColumns; col++) {
+    copyBoard.appendChild(createCell({
+      type: "edgePattern",
+      fixed: false,
+      answer: null
+    }));
+  }
+
+  createEdgeDrawingLayer(mainBoard, "main");
+  createEdgeDrawingLayer(copyBoard, "copy");
+}
+
+
+function createEdgeDrawingLayer(board, boardType) {
+  const columns = boardType === "main" ? 12 : 3;
+
+  const svg = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg"
+  );
+
+  svg.classList.add("edge-drawing-layer");
+  svg.setAttribute("viewBox", `0 0 ${columns} 1`);
+  svg.setAttribute("preserveAspectRatio", "none");
+
+  const hitArea = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "rect"
+  );
+
+  hitArea.setAttribute(
+    "x",
+    boardType === "main" ? "6" : "0"
+  );
+
+  hitArea.setAttribute("y", "0");
+
+  hitArea.setAttribute(
+    "width",
+    boardType === "main" ? "6" : "3"
+  );
+
+  hitArea.setAttribute("height", "1");
+  hitArea.setAttribute("fill", "transparent");
+  hitArea.style.pointerEvents = "all";
+
+  svg.appendChild(hitArea);
+  board.appendChild(svg);
+
+  let activeGroup = null;
+  let activePoints = [];
+
+  function getPosition(event) {
+    const rect = svg.getBoundingClientRect();
+
+    const x =
+      ((event.clientX - rect.left) / rect.width) * columns;
+
+    const y =
+      (event.clientY - rect.top) / rect.height;
+
+    return {
+      x: Math.max(0, Math.min(columns, x)),
+      y: Math.max(0, Math.min(1, y))
+    };
+  }
+
+  function getDrawings() {
+    return boardType === "main"
+      ? edgeMainDrawings
+      : edgeCopyDrawings;
+  }
+
+  function drawAll() {
+    svg.querySelectorAll(".student-edge-line").forEach(line => {
+      line.remove();
+    });
+
+    getDrawings().forEach((points, index) => {
+      if (!points || points.length < 2) return;
+
+      const start = boardType === "main"
+        ? 6 + index * 3
+        : 0;
+
+      const line = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "polyline"
+      );
+
+      line.classList.add("student-edge-line");
+
+      line.setAttribute(
+        "points",
+        points.map(point =>
+          `${point.x + start},${point.y}`
+        ).join(" ")
+      );
+
+      svg.appendChild(line);
+    });
+  }
+
+  hitArea.addEventListener("pointerdown", event => {
+    if (stageChecked) return;
+
+    const position = getPosition(event);
+
+    const group = Math.floor(position.x / 3) * 3;
+
+    if (boardType === "main" && group < 6) return;
+
+    if (boardType === "main" && group !== 6 && group !== 9) {
+      return;
+    }
+
+    if (boardType === "copy" && group !== 0) return;
+
+    activeGroup = boardType === "main"
+      ? (group - 6) / 3
+      : 0;
+
+    activePoints = [{
+      x: position.x - group,
+      y: position.y
+    }];
+
+    svg.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+
+  svg.addEventListener("pointermove", event => {
+    if (activeGroup === null) return;
+
+    const position = getPosition(event);
+
+    const groupStart = boardType === "main"
+      ? 6 + activeGroup * 3
+      : 0;
+
+    activePoints.push({
+      x: Math.max(
+        0,
+        Math.min(3, position.x - groupStart)
+      ),
+      y: position.y
+    });
+
+    const drawings = getDrawings();
+    drawings[activeGroup] = [...activePoints];
+
+    drawAll();
+    event.preventDefault();
+  });
+
+  function finishDrawing() {
+    if (activeGroup === null) return;
+
+    const drawings = getDrawings();
+
+    drawings[activeGroup] =
+      activePoints.length > 1
+        ? [...activePoints]
+        : null;
+
+    activeGroup = null;
+    activePoints = [];
+
+    drawAll();
+    playPlaceSound();
+  }
+
+  svg.addEventListener("pointerup", finishDrawing);
+  svg.addEventListener("pointercancel", finishDrawing);
+
+  drawAll();
+}
+
+
+/* بررسی اینکه مسیر دانش‌آموز درست رسم شده باشد */
+
+function isCorrectEdgeDrawing(points) {
+  if (!points || points.length < 4) return false;
+
+  const targets = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 1, y: 1 },
+    { x: 2, y: 1 }
+  ];
+
+  let lastIndex = -1;
+
+  for (const target of targets) {
+    let found = false;
+
+    for (let i = lastIndex + 1; i < points.length; i++) {
+      const dx = points[i].x - target.x;
+      const dy = points[i].y - target.y;
+
+      if (Math.sqrt(dx * dx + dy * dy) <= 0.3) {
+        lastIndex = i;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) return false;
+  }
+
+  return true;
+}
+
+
+function checkEdgePatternStage() {
+  return (
+    edgeMainDrawings.length === 2 &&
+    edgeMainDrawings.every(isCorrectEdgeDrawing) &&
+    edgeCopyDrawings.length === 1 &&
+    isCorrectEdgeDrawing(edgeCopyDrawings[0])
+  );
+}
 /* ---------- رسم مرحله ---------- */
 
 function renderStage() {
