@@ -1994,6 +1994,8 @@ function showFinish() {
 
 /* ---------- خروج ---------- */
 
+/* ---------- خروج ---------- */
+
 function exitGame() {
   const confirmed = window.confirm(
     "آیا می‌خواهی از بازی خارج شوی؟"
@@ -2007,7 +2009,98 @@ function exitGame() {
 
   if (fireworksTimer) {
     clearTimeout(fireworksTimer);
+    fireworksTimer = null;
+  }
+
+  const fireworks = $("fireworks");
+
+  fireworks.classList.remove("active");
+  fireworks.replaceChildren();
+
+  setFeedback("", "");
+}
+
+
+/* ---------- شروع دوباره ---------- */
+
+function restartGame() {
+  currentStage = 0;
+  studentName = "";
+
+  mainAnswers = [];
+  copyAnswers = [];
+
+  flowerMainAnswers = [];
+  flowerCopyAnswers = [];
+
+  edgeMainDrawings = [null, null];
+  edgeCopyDrawings = [null];
+
+  mouseEaten = false;
+  stageChecked = false;
+  selectedItem = null;
+  eraseMode = false;
+
+  if (fireworksTimer) {
+    clearTimeout(fireworksTimer);
+    fireworksTimer = null;
   }
 
   $("fireworks").classList.remove("active");
-  $("
+  $("fireworks").replaceChildren();
+
+  $("studentName").value = "";
+
+  $("game").hidden = true;
+  $("finish").hidden = true;
+  $("welcome").hidden = false;
+
+  setFeedback("", "");
+}
+
+
+/* ---------- اتصال دکمه‌ها ---------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  $("startButton").addEventListener(
+    "click",
+    startGame
+  );
+
+  $("prevButton").addEventListener(
+    "click",
+    previousStage
+  );
+
+  $("nextButton").addEventListener(
+    "click",
+    nextStage
+  );
+
+  $("checkButton").addEventListener(
+    "click",
+    checkAnswers
+  );
+
+  $("eraserButton").addEventListener(
+    "click",
+    toggleEraser
+  );
+
+  $("exitButton").addEventListener(
+    "click",
+    exitGame
+  );
+
+  $("clearButton")?.addEventListener(
+    "click",
+    clearAnswers
+  );
+
+  $("restartButton")?.addEventListener(
+    "click",
+    restartGame
+  );
+
+});
