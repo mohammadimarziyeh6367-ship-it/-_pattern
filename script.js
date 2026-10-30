@@ -1350,6 +1350,8 @@ function renderStage() {
   renderRegularBoards();
 }
 
+}
+
 
 /* ---------- قرار دادن پاسخ ---------- */
 function putAnswer(boardType, index) {
