@@ -1182,3 +1182,31 @@ button:disabled {
 .edge-drawing-layer rect {
   cursor: crosshair;
 }
+/* رسم مدادی تمرین پنجم */
+#mainBoard,
+#copyBoard {
+  position: relative;
+}
+
+.edge-drawing-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  overflow: visible;
+  touch-action: none;
+}
+
+.edge-drawing-layer polyline {
+  fill: none;
+  stroke: #222;
+  stroke-width: 0.035;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.edge-drawing-layer rect {
+  cursor: crosshair;
+}
