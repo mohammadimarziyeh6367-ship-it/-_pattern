@@ -1331,10 +1331,22 @@ function renderStage() {
     renderRegularBoards();
   }
 }
-
 function renderStagePreservingAnswers() {
   saveCurrentStage();
-  renderStage();
+
+  const stage = getStage();
+
+  if (stage.type === "mouse") {
+    renderMouseBoards();
+  } else if (stage.type === "flower") {
+    renderFlowerBoards();
+  } else if (stage.type === "edgePattern") {
+    renderEdgePatternBoards();
+  } else {
+    renderRegularBoards();
+  }
+
+  renderPalette();
 }
 
 /* شروع بازی */
