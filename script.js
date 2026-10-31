@@ -442,12 +442,9 @@ function renderPalette() {
     } else if (stage.type === "line" || stage.type === "diagonal") {
       if (id === "YELLOW_U") {
         button.innerHTML = `
-          <span class="edge-mark edge-top"
-            style="border-color:#ffd54f"></span>
-          <span class="edge-mark edge-right"
-            style="border-color:#ffd54f"></span>
-          <span class="edge-mark edge-bottom"
-            style="border-color:#ffd54f"></span>
+          <span class="edge-mark edge-top" style="background:#ffd54f"></span>
+<span class="edge-mark edge-right" style="background:#ffd54f"></span>
+<span class="edge-mark edge-bottom" style="background:#ffd54f"></span>
         `;
         label = "سه خط زرد";
       } else {
