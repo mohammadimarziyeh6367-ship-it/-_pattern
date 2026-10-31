@@ -399,10 +399,38 @@ function renderPalette() {
 
   palette.replaceChildren();
 
-  if (stage.type === "edgePattern") return;
+  // ابزارهای مخصوص تمرین پنجم
+  if (stage.type === "edgePattern") {
+    const pencilButton = document.createElement("button");
+
+    pencilButton.type = "button";
+    pencilButton.className = "palette-item";
+    pencilButton.textContent = "✏️";
+    pencilButton.title = "مداد";
+    pencilButton.setAttribute("aria-label", "انتخاب مداد");
+
+    if (selectedItem === "PENCIL") {
+      pencilButton.classList.add("selected");
+    }
+
+    pencilButton.addEventListener("click", () => {
+      selectedItem = "PENCIL";
+      eraseMode = false;
+
+      $("eraserButton").classList.remove("active");
+      $("eraserButton").setAttribute("aria-pressed", "false");
+
+      renderPalette();
+      setFeedback("مداد را بردار و مسیر الگو را رسم کن.");
+    });
+
+    palette.appendChild(pencilButton);
+    return;
+  }
 
   stage.palette.forEach(id => {
     const button = document.createElement("button");
+
     button.type = "button";
     button.className = "palette-item";
 
@@ -414,9 +442,12 @@ function renderPalette() {
     } else if (stage.type === "line" || stage.type === "diagonal") {
       if (id === "YELLOW_U") {
         button.innerHTML = `
-          <span class="edge-mark edge-top" style="border-color:#ffd54f"></span>
-          <span class="edge-mark edge-right" style="border-color:#ffd54f"></span>
-          <span class="edge-mark edge-bottom" style="border-color:#ffd54f"></span>
+          <span class="edge-mark edge-top"
+            style="border-color:#ffd54f"></span>
+          <span class="edge-mark edge-right"
+            style="border-color:#ffd54f"></span>
+          <span class="edge-mark edge-bottom"
+            style="border-color:#ffd54f"></span>
         `;
         label = "سه خط زرد";
       } else {
@@ -424,9 +455,12 @@ function renderPalette() {
         if (!color) return;
 
         button.innerHTML = `
-          <span class="palette-line ${stage.type === "diagonal" ? "palette-diagonal" : ""}"
-            style="--line-color:${COLORS[color]}"></span>
+          <span class="palette-line ${
+            stage.type === "diagonal" ? "palette-diagonal" : ""
+          }"
+          style="--line-color:${COLORS[color]}"></span>
         `;
+
         label = COLOR_ITEMS[id].label;
       }
     } else {
@@ -449,7 +483,7 @@ function renderPalette() {
       $("eraserButton").setAttribute("aria-pressed", "false");
 
       renderPalette();
-      setFeedback("شکل یا رنگ انتخاب شد.");
+      setFeedback("انتخاب شد.");
       playPlaceSound();
     });
 
