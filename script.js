@@ -1071,12 +1071,15 @@ function toggleEraser() {
 
   if (eraseMode) {
     selectedItem = null;
+
     $("eraserButton").classList.add("active");
     $("eraserButton").setAttribute("aria-pressed", "true");
-    setFeedback("پاک‌کن فعال شد.");
+
+    setFeedback("پاک‌کن فعال است. روی خانه یا مسیر موردنظر بزن.");
   } else {
     $("eraserButton").classList.remove("active");
     $("eraserButton").setAttribute("aria-pressed", "false");
+
     setFeedback("پاک‌کن غیرفعال شد.");
   }
 
