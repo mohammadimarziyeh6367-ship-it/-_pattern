@@ -1237,16 +1237,13 @@ function showFireworks() {
   const canvas = $("fireworks");
   if (!canvas) return;
 
-  canvas.hidden = false;
+  if (fireworksTimer) {
+    cancelAnimationFrame(fireworksTimer);
+    fireworksTimer = null;
+  }
 
-  Object.assign(canvas.style, {
-    position: "fixed",
-    inset: "0",
-    width: "100vw",
-    height: "100vh",
-    zIndex: "99999",
-    pointerEvents: "none"
-  });
+  canvas.hidden = false;
+  canvas.classList.add("active");
 
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
@@ -1260,31 +1257,26 @@ function showFireworks() {
 
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+  const colors = Object.values(COLORS);
   const particles = [];
 
-  for (let burst = 0; burst < 5; burst++) {
+  for (let burst = 0; burst < 6; burst++) {
     const centerX = Math.random() * width;
-    const centerY = Math.random() * height * 0.65;
+    const centerY = 60 + Math.random() * height * 0.55;
 
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 45; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 1.5 + Math.random() * 4;
+      const speed = 2 + Math.random() * 4;
 
       particles.push({
         x: centerX,
         y: centerY,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
-        life: 70,
-        color: Object.values(COLORS)[
-          Math.floor(Math.random() * Object.values(COLORS).length)
-        ]
+        life: 85,
+        color: colors[Math.floor(Math.random() * colors.length)]
       });
     }
-  }
-
-  if (fireworksTimer) {
-    cancelAnimationFrame(fireworksTimer);
   }
 
   let frame = 0;
@@ -1295,10 +1287,10 @@ function showFireworks() {
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.035;
+      p.vy += 0.025;
       p.life--;
 
-      ctx.globalAlpha = Math.max(0, p.life / 70);
+      ctx.globalAlpha = Math.max(0, p.life / 85);
       ctx.fillStyle = p.color;
 
       ctx.beginPath();
@@ -1309,10 +1301,11 @@ function showFireworks() {
     ctx.globalAlpha = 1;
     frame++;
 
-    if (frame < 75) {
+    if (frame < 85) {
       fireworksTimer = requestAnimationFrame(animate);
     } else {
       ctx.clearRect(0, 0, width, height);
+      canvas.classList.remove("active");
       canvas.hidden = true;
       fireworksTimer = null;
     }
