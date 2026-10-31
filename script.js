@@ -879,14 +879,19 @@ function createEdgeDrawingLayer(board, boardType) {
     const index = getGroupIndex(position);
 
     if (index === null) return;
+if (eraseMode) {
+  getDrawings()[index] = null;
+  saveCurrentStage();
+  drawAll();
+  playPlaceSound();
+  return;
+}
 
-    if (eraseMode) {
-      getDrawings()[index] = null;
-      saveCurrentStage();
-      drawAll();
-      playPlaceSound();
-      return;
-    }
+if (selectedItem !== "PENCIL") {
+  setFeedback("ابتدا مداد را از ابزارها انتخاب کن.");
+  return;
+}
+    
 
     activeGroup = index;
     const start = groupStart(index);
