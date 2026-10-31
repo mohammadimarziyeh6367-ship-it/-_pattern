@@ -1239,28 +1239,53 @@ function showFireworks() {
 
   canvas.hidden = false;
 
+  Object.assign(canvas.style, {
+    position: "fixed",
+    inset: "0",
+    width: "100vw",
+    height: "100vh",
+    zIndex: "99999",
+    pointerEvents: "none"
+  });
+
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const width = canvas.width = window.innerWidth;
-  const height = canvas.height = window.innerHeight;
+  const dpr = window.devicePixelRatio || 1;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   const particles = [];
 
-  for (let i = 0; i < 100; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height * 0.6,
-      vx: (Math.random() - 0.5) * 7,
-      vy: (Math.random() - 0.5) * 7,
-      life: 60 + Math.random() * 30,
-      color: Object.values(COLORS)[
-        Math.floor(Math.random() * Object.values(COLORS).length)
-      ]
-    });
+  for (let burst = 0; burst < 5; burst++) {
+    const centerX = Math.random() * width;
+    const centerY = Math.random() * height * 0.65;
+
+    for (let i = 0; i < 35; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1.5 + Math.random() * 4;
+
+      particles.push({
+        x: centerX,
+        y: centerY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 70,
+        color: Object.values(COLORS)[
+          Math.floor(Math.random() * Object.values(COLORS).length)
+        ]
+      });
+    }
   }
 
-  if (fireworksTimer) cancelAnimationFrame(fireworksTimer);
+  if (fireworksTimer) {
+    cancelAnimationFrame(fireworksTimer);
+  }
 
   let frame = 0;
 
@@ -1270,24 +1295,26 @@ function showFireworks() {
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.04;
+      p.vy += 0.035;
       p.life--;
 
-      ctx.globalAlpha = Math.max(0, p.life / 80);
+      ctx.globalAlpha = Math.max(0, p.life / 70);
       ctx.fillStyle = p.color;
+
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
       ctx.fill();
     });
 
     ctx.globalAlpha = 1;
     frame++;
 
-    if (frame < 85) {
+    if (frame < 75) {
       fireworksTimer = requestAnimationFrame(animate);
     } else {
       ctx.clearRect(0, 0, width, height);
       canvas.hidden = true;
+      fireworksTimer = null;
     }
   }
 
