@@ -1021,3 +1021,217 @@ function checkEdgePatternStage() {
     isCorrectEdgeDrawing(edgeCopyDrawings[0])
   );
 }
+/* ذخیره مسیرهای رسم‌شده */
+
+function saveEdgeDrawings() {
+  if (currentStage !== 5) return;
+
+  savedStages[5] = savedStages[5] || {};
+
+  savedStages[5].edgeMainDrawings =
+    JSON.parse(JSON.stringify(edgeMainDrawings));
+
+  savedStages[5].edgeCopyDrawings =
+    JSON.parse(JSON.stringify(edgeCopyDrawings));
+}
+
+/* پاک کردن مسیرهای رسم‌شده */
+
+function clearEdgeDrawings() {
+  edgeMainDrawings = [[], []];
+  edgeCopyDrawings = [[]];
+
+  activeDrawing = null;
+  saveEdgeDrawings();
+  renderStage();
+}
+
+/* پاک کردن مسیر یک بخش */
+
+function eraseEdgeDrawing(board, index) {
+  if (board === "main") {
+    edgeMainDrawings[index] = [];
+  } else {
+    edgeCopyDrawings[index] = [];
+  }
+
+  saveEdgeDrawings();
+  renderStage();
+}
+
+/* بررسی پاسخ تمرین پنجم */
+
+function checkEdgeStage() {
+  const correct = checkEdgePatternStage();
+
+  if (correct) {
+    playCorrectSound();
+    showFeedback("آفرین! الگو را درست رسم کردی 🌟", true);
+    stageChecked = true;
+    saveCurrentStage();
+    showFireworks();
+  } else {
+    playWrongSound();
+    showFeedback("مسیر الگو را با دقت بیشتری رسم کن.", false);
+  }
+
+  return correct;
+}
+
+/* بررسی پاسخ تمرین‌های معمولی */
+
+function checkRegularStage() {
+  const stage = STAGES[currentStage - 1];
+
+  if (currentStage === 5) {
+    return checkEdgeStage();
+  }
+
+  if (currentStage === 7 || currentStage === 8) {
+    return checkMouseStage();
+  }
+
+  if (currentStage === 13) {
+    return checkFlowerStage();
+  }
+
+  let correct = true;
+
+  for (let i = stage.fixed; i < stage.columns; i++) {
+    if (mainAnswers[i] !== stage.pattern[i % stage.pattern.length]) {
+      correct = false;
+      break;
+    }
+  }
+
+  if (correct) {
+    for (let i = 0; i < stage.copy; i++) {
+      if (copyAnswers[i] !== stage.pattern[i % stage.pattern.length]) {
+        correct = false;
+        break;
+      }
+    }
+  }
+
+  if (correct) {
+    playCorrectSound();
+    showFeedback("آفرین! پاسخ‌ها درست هستند 🌟", true);
+    stageChecked = true;
+    saveCurrentStage();
+    showFireworks();
+  } else {
+    playWrongSound();
+    showFeedback("هنوز چند خانه باقی مانده است. دوباره تلاش کن.", false);
+  }
+
+  return correct;
+}
+
+/* رفتن به مرحله بعد */
+
+function nextStage() {
+  saveCurrentStage();
+
+  if (currentStage < STAGES.length) {
+    currentStage++;
+    renderStage();
+  } else {
+    showFinish();
+  }
+}
+
+/* برگشت به مرحله قبل */
+
+function previousStage() {
+  saveCurrentStage();
+
+  if (currentStage > 1) {
+    currentStage--;
+    renderStage();
+  }
+}
+
+/* پایان بازی */
+
+function showFinish() {
+  saveCurrentStage();
+
+  document.getElementById("game").hidden = true;
+  document.getElementById("welcome").hidden = true;
+  document.getElementById("finish").hidden = false;
+
+  const name = studentName || "دانش‌آموز عزیز";
+
+  document.getElementById("finishMessage").textContent =
+    `آفرین ${name}! بازی را به پایان رساندی. 🌸`;
+
+  showFireworks();
+}
+
+/* خروج از بازی */
+
+function exitGame() {
+  saveCurrentStage();
+
+  document.getElementById("game").hidden = true;
+  document.getElementById("finish").hidden = true;
+  document.getElementById("welcome").hidden = false;
+}
+
+/* شروع دوباره */
+
+function restartGame() {
+  currentStage = 1;
+  mainAnswers = [];
+  copyAnswers = [];
+  mouseEaten = false;
+  stageChecked = false;
+
+  edgeMainDrawings = [[], []];
+  edgeCopyDrawings = [[]];
+
+  savedStages = {};
+
+  document.getElementById("finish").hidden = true;
+  document.getElementById("game").hidden = true;
+  document.getElementById("welcome").hidden = false;
+
+  document.getElementById("studentName").value = "";
+  document.getElementById("studentGreeting").textContent = "";
+}
+
+/* اتصال دکمه‌ها */
+
+function attachEvents() {
+  document.getElementById("startButton").addEventListener("click", startGame);
+
+  document.getElementById("nextButton").addEventListener("click", nextStage);
+
+  document.getElementById("prevButton").addEventListener("click", previousStage);
+
+  document.getElementById("checkButton").addEventListener("click", checkRegularStage);
+
+  document.getElementById("clearButton").addEventListener("click", clearAnswers);
+
+  document.getElementById("eraserButton").addEventListener("click", toggleEraser);
+
+  document.getElementById("exitButton").addEventListener("click", exitGame);
+
+  document.getElementById("restartButton").addEventListener("click", restartGame);
+}
+
+/* راه‌اندازی بازی */
+
+function initializeGame() {
+  attachEvents();
+
+  document.getElementById("welcome").hidden = false;
+  document.getElementById("game").hidden = true;
+  document.getElementById("finish").hidden = true;
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeGame);
+} else {
+  initializeGame();
+}
