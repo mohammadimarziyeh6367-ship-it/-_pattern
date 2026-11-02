@@ -1,1212 +1,260 @@
-/* ==========================================
-   الگوی منظم | ریاضی پایه اول
-   طراحی واکنش‌گرا برای موبایل و رایانه
-========================================== */
+* { box-sizing: border-box; }
 
 :root {
-  --purple: #7851b8;
-  --purple-dark: #59358f;
-  --purple-light: #f0e8ff;
-
-  --orange: #ff9f43;
-  --orange-light: #fff0dc;
-
-  --green: #43b96b;
-  --red: #ef5350;
-  --blue: #42a5f5;
-  --yellow: #ffd54f;
-
-  --text: #39304a;
-  --muted: #786f88;
-  --white: #ffffff;
-  --page-bg: #fff9f1;
-
-  --cell-size: 43px;
-  --board-border: #d9c9ed;
-
-  --radius: 20px;
-  --shadow: 0 8px 24px rgba(85, 55, 130, 0.12);
+  --ink: #263454;
+  --muted: #687792;
+  --paper: #fffdf8;
+  --line: #d7e0ed;
+  --pink: #ff77a8;
+  --pink-dark: #e65085;
+  --orange: #ffad45;
+  --blue: #55b8f4;
+  --green: #5dcc9a;
+  --purple: #9b83f6;
 }
 
-
-/* ---------- تنظیم عمومی ---------- */
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: clip;
-}
-
+html, body { margin: 0; min-height: 100%; }
 body {
-  margin: 0;
-  width: 100%;
   min-height: 100vh;
-  overflow-x: clip;
-
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--ink);
   background:
-    radial-gradient(
-      circle at top left,
-      #f1e7ff 0,
-      transparent 32%
-    ),
-    var(--page-bg);
-
-  color: var(--text);
-
-  font-family:
-    Tahoma,
-    Arial,
-    sans-serif;
-
-  line-height: 1.8;
+    radial-gradient(circle at 8% 8%, #ffe0eb 0, transparent 22rem),
+    radial-gradient(circle at 92% 22%, #d9f4ff 0, transparent 25rem),
+    linear-gradient(145deg, #fff9ed, #f3f6ff 65%, #f2fff9);
 }
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:disabled {
-  cursor: default;
-  opacity: 0.6;
-}
-
-[hidden] {
-  display: none !important;
-}
+button, input { font: inherit; }
+button { border: 0; border-radius: 14px; padding: 11px 15px; cursor: pointer; touch-action: manipulation; transition: transform .12s ease, box-shadow .12s ease; }
+button:active { transform: translateY(2px) scale(.985); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.hidden { display: none !important; }
 
 .app {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  width: min(1220px, 100%);
+  min-height: 100vh;
+  margin: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.panel {
+  position: relative;
+  background: rgba(255,255,255,.94);
+  border: 1px solid rgba(216,225,240,.9);
+  border-radius: 22px;
   padding: 16px;
+  box-shadow: 0 8px 24px rgba(48,65,105,.08);
 }
-
-
-/* ---------- صفحه‌ها ---------- */
-
-.screen {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-
-/* ---------- صفحه شروع ---------- */
-
-.welcome-screen,
-.finish-screen {
-  min-height: 90vh;
-
+.topbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  padding: 4px 3px 7px;
 }
-
-.welcome-card,
-.finish-card {
-  width: min(100%, 520px);
-
-  padding: 28px 22px;
-
+.brand-mark {
+  width: 52px; height: 52px; flex: 0 0 52px;
+  display: grid; place-items: center;
+  border-radius: 18px;
+  color: white; font-size: 31px;
+  background: linear-gradient(135deg, var(--pink), var(--orange));
+  box-shadow: 0 5px 0 #f2c8b6;
+}
+.brand-title { min-width: 0; flex: 1; }
+.brand-title h1 { margin: 0; font-size: clamp(20px, 3vw, 29px); font-weight: 900; }
+.brand-title p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+.stage-badge {
+  background: #fff; color: #5b54ad; border: 1px solid #e0dcff;
+  border-radius: 13px; padding: 9px 12px; font-weight: bold; white-space: nowrap;
+  box-shadow: 0 3px 0 #efedff;
+}
+.welcome {
+  width: min(540px, 100%);
+  margin: auto;
   text-align: center;
-
-  background: var(--white);
-
-  border: 2px solid #eadcfb;
-  border-radius: 28px;
-
-  box-shadow: var(--shadow);
+  padding: 24px clamp(16px, 5vw, 34px) 25px;
+  overflow: hidden;
 }
-
-.welcome-decoration {
-  font-size: 30px;
-  margin-bottom: 6px;
-}
-
-.welcome-card h1,
-.finish-card h1 {
-  color: var(--purple-dark);
-  font-size: clamp(24px, 5vw, 34px);
-  margin: 4px 0;
-}
-
-.subtitle {
-  color: var(--muted);
-  margin: 0 0 18px;
-}
-
 .teacher-photo {
   display: block;
-
-  width: min(180px, 55%);
-  aspect-ratio: 1;
-
-  object-fit: cover;
-
-  margin: 18px auto;
-
-  border-radius: 50%;
-  border: 5px solid var(--purple-light);
-
-  box-shadow: 0 5px 15px rgba(85, 55, 130, 0.15);
-}
-
-.welcome-card label {
-  display: block;
-  margin: 14px 0 6px;
-  font-weight: bold;
-}
-
-.welcome-card input {
-  display: block;
-
-  width: 100%;
-  max-width: 360px;
-
-  margin: 0 auto;
-
-  padding: 12px 14px;
-
-  color: var(--text);
-  background: #fffdfb;
-
-  border: 2px solid #ddcbed;
-  border-radius: 13px;
-
-  outline: none;
-}
-
-.welcome-card input:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 3px rgba(120, 81, 184, 0.12);
-}
-
-.primary-button {
-  display: block;
-
-  width: 100%;
-  max-width: 360px;
-
-  margin: 20px auto 10px;
-  padding: 12px 20px;
-
-  color: var(--white);
-  background: linear-gradient(135deg, var(--purple), #9a6be0);
-
-  border: 0;
-  border-radius: 14px;
-
-  font-weight: bold;
-  font-size: 17px;
-
-  box-shadow: 0 5px 0 #59358f;
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-.primary-button:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 #59358f;
-}
-
-.teacher-credit {
-  margin: 18px 0 0;
-  color: var(--purple-dark);
-  font-weight: bold;
-}
-
-.school-credit {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-
-/* ---------- سرصفحه بازی ---------- */
-
-.game-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-
-  width: 100%;
-  max-width: 900px;
-
-  margin: 0 auto 16px;
-}
-
-.header-title h1 {
-  margin: 0;
-
-  color: var(--purple-dark);
-
-  font-size: clamp(19px, 4vw, 28px);
-}
-
-.header-title p {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.stage-progress {
-  flex: 0 1 260px;
-  min-width: 110px;
-}
-
-#stageLabel {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: var(--purple-dark);
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.progress-track {
-  width: 100%;
-  height: 9px;
-
-  overflow: hidden;
-
-  background: #e9def8;
+  width: min(180px, 52%);
+  max-height: 190px;
+  object-fit: contain;
+  margin: 0 auto 13px;
   border-radius: 20px;
 }
-
-.progress-bar {
-  width: 7.7%;
-  height: 100%;
-
-  background: linear-gradient(90deg, var(--orange), var(--purple));
-
-  border-radius: inherit;
-
-  transition: width 0.25s ease;
-}
-
-
-/* ---------- کارت تمرین ---------- */
-
-.exercise-card {
-  width: 100%;
-  max-width: 900px;
-
-  margin: 0 auto;
-
-  padding: clamp(12px, 3vw, 24px);
-
-  background: var(--white);
-
-  border: 1px solid #eadcfb;
-  border-radius: var(--radius);
-
-  box-shadow: var(--shadow);
-}
-
-.exercise-card h2 {
-  margin: 0;
-  text-align: center;
-
-  color: var(--purple-dark);
-
-  font-size: clamp(19px, 4vw, 26px);
-}
-
-.instruction {
-  margin: 5px 0 16px;
-
-  color: var(--muted);
-  text-align: center;
-
-  font-size: 14px;
-}
-
-
-/* ---------- ابزارها ---------- */
-
-.tool-area {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.palette {
-  display: flex;
-  flex-wrap: wrap;
-
-  justify-content: center;
-  align-items: center;
-
-  gap: 8px;
-
-  width: 100%;
-  margin: 0 auto 12px;
-}
-
-.palette-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 48px;
-  height: 48px;
-
-  padding: 5px;
-
-  background: #fffdfb;
-
-  border: 2px solid #e8d9f8;
-  border-radius: 13px;
-
-  transition:
-    border-color 0.15s ease,
-    background 0.15s ease,
-    transform 0.15s ease;
-}
-
-.palette-item.selected {
-  border-color: var(--purple);
-  background: var(--purple-light);
-
-  transform: translateY(-2px);
-
-  box-shadow: 0 3px 0 rgba(120, 81, 184, 0.18);
-}
-
-.tool-buttons {
-  display: flex;
-  flex-wrap: wrap;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-}
-
-.tool-button {
-  padding: 8px 12px;
-
-  border: 0;
-  border-radius: 11px;
-
-  font-size: 13px;
+.welcome-kicker {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #fff0f5;
+  color: #bd3f73;
   font-weight: bold;
+  font-size: 13px;
 }
-
-.eraser-button {
-  color: #74461d;
-  background: #ffe3bd;
+.welcome h2 { margin: 13px 0 8px; font-size: clamp(21px, 4vw, 28px); }
+.welcome-text { color: var(--muted); line-height: 1.9; margin: 0 auto 12px; }
+.welcome label { display: block; text-align: right; margin: 15px 0 7px; font-weight: bold; }
+input {
+  width: 100%; padding: 13px 14px; border: 2px solid #e2e9f5;
+  border-radius: 13px; outline: none; background: #fff; color: var(--ink);
 }
+input:focus { border-color: var(--blue); box-shadow: 0 0 0 4px #55b8f426; }
+.primary { color: white; background: linear-gradient(135deg, #ff8eb6, #f16d9a); box-shadow: 0 4px 0 #d94f80; font-weight: bold; }
+.secondary { color: #39496b; background: #f0f4fb; box-shadow: 0 3px 0 #dbe3f1; font-weight: bold; }
+.start-button { width: 100%; margin-top: 15px; padding: 14px; font-size: 17px; }
+.welcome-credit { color: var(--muted); font-size: 12px; margin-top: 18px; }
+.welcome-decoration { position: absolute; pointer-events: none; opacity: .18; }
+.decoration-one { top: 24px; left: 18px; color: var(--pink); font-size: 36px; }
+.decoration-two { top: 90px; right: 18px; color: var(--orange); font-size: 32px; }
 
-.eraser-button.active {
-  color: white;
-  background: #d87822;
+.game-intro { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.student-chip { display: inline-flex; align-items: center; gap: 7px; background: #fff4d9; color: #83531b; padding: 9px 13px; border-radius: 999px; font-weight: bold; white-space: nowrap; }
+.instruction { margin: 0; font-size: clamp(17px, 2.5vw, 23px); font-weight: 900; line-height: 1.7; }
+.palette-panel { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.palette-heading { display: flex; align-items: center; gap: 7px; }
+.palette-heading-icon { font-size: 22px; }
+.palette { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }
+.palette-button {
+  width: 52px; height: 52px; padding: 4px; border: 2px solid #e0e7f1;
+  border-radius: 15px; background: white; display: grid; place-items: center;
+  box-shadow: 0 3px 0 #edf0f6;
 }
+.palette-button.selected { border-color: var(--pink-dark); outline: 3px solid #ff77a84d; outline-offset: 1px; background: #fff2f7; }
+.palette-button:focus-visible, .cell:focus-visible { outline: 3px solid #7165db; outline-offset: -3px; }
+.eraser-button { margin-inline-start: auto; white-space: nowrap; }
 
-.clear-button {
-  color: var(--purple-dark);
-  background: var(--purple-light);
-}
+.shape { display: inline-block; width: 28px; height: 28px; flex-shrink: 0; }
+.shape.circle { border-radius: 50%; }
+.shape.square { border-radius: 5px; }
+.shape.triangle { width: 0; height: 0; background: transparent !important; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 27px solid var(--shape-color); }
+.shape.star { width: 30px; height: 30px; background: transparent !important; color: var(--shape-color); font-size: 31px; line-height: 30px; text-align: center; }
+.shape.diamond { width: 23px; height: 23px; transform: rotate(45deg); border-radius: 3px; }
 
-
-/* ---------- بخش جدول ---------- */
-
-.board-section {
-  width: 100%;
-  margin: 20px auto 0;
-}
-
-.board-heading {
-  margin: 0 0 9px;
-
-  text-align: center;
-
-  color: var(--purple-dark);
-  font-size: clamp(14px, 3vw, 18px);
-}
-
-.board-container {
-  width: 100%;
-  max-width: 100%;
-
-  margin: 0 auto;
-
-  /*
-    هیچ اسکرول افقی در این بخش ایجاد نمی‌شود.
-    اندازه خانه‌ها با تعداد ستون‌ها هماهنگ است.
-  */
-
-  overflow: visible;
-}
-
-
-/* ---------- خود جدول ---------- */
-
+.boards { display: grid; grid-template-columns: 1fr; gap: 13px; }
+.board-card { min-width: 0; padding: 14px; }
+.board-card h3 { margin: 0 0 12px; font-size: 16px; line-height: 1.8; }
+.main-board-card { border-top: 5px solid var(--blue); }
+.copy-board-card { border-top: 5px solid var(--green); }
+.board-scroll { width: 100%; overflow-x: auto; overscroll-behavior-x: contain; padding: 3px 2px 8px; }
 .board {
   display: grid;
-
   direction: ltr;
-
+  grid-template-columns: repeat(var(--columns, 6), minmax(48px, 1fr));
   width: 100%;
-  max-width: 100%;
-
-  margin: 0 auto;
-  padding: 0;
-
-  gap: 0;
-
-  /*
-    خانه‌ها به یکدیگر چسبیده‌اند.
-    اندازه ستون‌ها از عرض موجود محاسبه می‌شود.
-  */
-
-  border-top: 1px solid var(--board-border);
-  border-left: 1px solid var(--board-border);
-
-  overflow: hidden;
+  min-width: max-content;
+  border-top: 2px solid #8fa6c6;
+  border-right: 2px solid #8fa6c6;
+  background: #fff;
 }
-
-
-/* ---------- خانه‌ها ---------- */
-
 .cell {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-width: 0;
-
-  aspect-ratio: 1 / 1;
-
-  margin: 0;
-  padding: 0;
-
-  border: 0;
-  border-right: 1px solid var(--board-border);
-  border-bottom: 1px solid var(--board-border);
-
-  border-radius: 0;
-
-  background: #ffffff;
-
-  overflow: hidden;
-  appearance: none;
-  -webkit-appearance: none;
-
-  box-shadow: none;
+  min-width: 0; width: 100%; min-height: 57px; padding: 4px;
+  border: 0; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  border-radius: 0; background: #fff; display: grid; place-items: center;
+  touch-action: manipulation;
 }
-
-.cell:focus-visible {
-  z-index: 2;
-  outline: 2px solid var(--purple);
-  outline-offset: -3px;
+.cell:nth-child(odd) { background-color: #fcfdff; }
+.cell.fixed-cell { background: #fff7df; cursor: default; }
+.cell.answer-cell { background: #f4fff9; cursor: pointer; }
+.cell.answer-cell:hover { background: #e9fbf3; }
+.cell .shape { max-width: 100%; }
+.cell .shape.triangle { border-left-width: 13px; border-right-width: 13px; border-bottom-width: 23px; }
+.cell .shape.star { font-size: 27px; line-height: 27px; }
+.cell .shape.diamond { width: 21px; height: 21px; }
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.controls button { min-height: 43px; }
+#feedback { min-height: 4px; text-align: center; }
+.signature-footer { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px 16px; padding: 5px 0 8px; color: var(--muted); font-size: 12px; }
+.signature { display: block; width: 130px; height: 49px; object-fit: contain; }
+.finish-signature { margin: 17px auto 0; }
+.finish-medal { font-size: 55px; }
+.fireworks { position: fixed; inset: 0; z-index: 1000; pointer-events: none; overflow: hidden; }
+.firework-particle { position: absolute; width: 9px; height: 15px; border-radius: 3px; animation: burst 1.7s ease-out forwards; }
+@keyframes burst {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx),var(--dy)) rotate(720deg) scale(.5); opacity: 0; }
 }
-
-.cell.fixed-cell {
-  background: #fffdf9;
+@media (min-width: 900px) {
+  .boards { grid-template-columns: 1fr; }
+  .cell { min-height: 64px; }
+  .board { grid-template-columns: repeat(var(--columns, 6), minmax(54px, 1fr)); }
 }
-
-.cell.answer-cell {
-  background: #ffffff;
+@media (max-width: 600px) {
+  .app { padding: 8px; gap: 10px; }
+  .panel { padding: 12px; border-radius: 17px; }
+  .topbar { gap: 8px; }
+  .brand-mark { width: 42px; height: 42px; flex-basis: 42px; border-radius: 14px; font-size: 26px; }
+  .brand-title h1 { font-size: 18px; }
+  .brand-title p { font-size: 11px; }
+  .stage-badge { font-size: 11px; padding: 7px 8px; }
+  .game-intro { align-items: flex-start; flex-direction: column; }
+  .instruction { font-size: 18px; }
+  .palette-panel { align-items: flex-start; gap: 10px; }
+  .palette-heading { width: 100%; }
+  .palette { gap: 7px; }
+  .palette-button { width: 43px; height: 43px; border-radius: 12px; }
+  .shape { width: 24px; height: 24px; }
+  .shape.triangle { border-left-width: 13px; border-right-width: 13px; border-bottom-width: 23px; }
+  .shape.star { width: 26px; height: 26px; font-size: 27px; line-height: 26px; }
+  .eraser-button { margin-inline-start: 0; }
+  .board-card h3 { font-size: 14px; }
+  .board { grid-template-columns: repeat(var(--columns, 6), minmax(43px, 1fr)); }
+  .cell { min-height: 49px; }
+  .controls button { flex: 1 1 42%; padding: 10px 8px; font-size: 12px; }
 }
-
-.cell.empty-cell {
-  background: #ffffff;
-}
-
-.cell.has-answer {
-  background: #ffffff;
-}
-
-
-/* ---------- شکل‌ها ---------- */
-
-.shape {
-  display: block;
-
-  width: 66%;
-  height: 66%;
-
-  background: var(--shape-color);
-
-  flex: 0 0 auto;
-}
-
-.shape.circle {
-  border-radius: 50%;
-}
-
-.shape.square {
-  border-radius: 4px;
-}
-
-.shape.triangle {
-  width: 0;
-  height: 0;
-
-  background: transparent;
-
-  border-left: 35% solid transparent;
-  border-right: 35% solid transparent;
-  border-bottom: 65% solid var(--shape-color);
-}
-
-.shape.star {
-  width: 86%;
-  height: auto;
-
-  background: transparent;
-
-  color: var(--shape-color);
-
-  font-size: clamp(14px, 3vw, 30px);
-  line-height: 1;
-  text-align: center;
-}
-
-
-/* ---------- رنگ‌ها ---------- */
-
-.color-dot {
-  display: block;
-
-  width: 76%;
-  height: 76%;
-
-  background: var(--dot-color);
-
-  border-radius: 2px;
-}
-
-
-/* ---------- خط‌های رنگی ---------- */
-
-/* ---------- خط رنگی در پایین خانه‌های جدول ---------- */
-
-.cell:has(.line-mark) {
-  display: block;
-}
-
-.line-mark {
-  position: absolute;
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  display: block;
-
-  width: 100%;
-  height: 4px;
-  min-height: 4px;
-
-  margin: 0;
-  padding: 0;
-
-  background: var(--line-color);
-
-  border-radius: 0;
-
-  pointer-events: none;
-}
-/* ---------- خط‌های مورب تمرین چهارم ---------- */
-
-.cell:has(.diagonal-mark) {
-  display: block;
-}
-
-.diagonal-mark {
-  position: absolute;
-
-  top: 50%;
-  left: 0;
-
-  display: block;
-
-  width: 141.5%;
-  height: 3px;
-
-  background: var(--line-color);
-
-  transform-origin: center;
-  pointer-events: none;
-}
-
-.diagonal-down {
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.diagonal-up {
-  transform: translateY(-50%) rotate(-45deg);
-}
-.palette-line {
-  display: block;
-
-  width: 80%;
-  height: 7px;
-
-  background: var(--line-color);
-
-  border-radius: 5px;
-}
-
-/* ---------- تمرین موش ---------- */
-
-.mouse-target {
-  cursor: pointer;
-}
-
-.mouse-found {
-  background: #fff2d9 !important;
-}
-
-.mouse-emoji {
-  display: block;
-
-  font-size: clamp(14px, 3vw, 26px);
-  line-height: 1;
-}
-
-
-/* ---------- خانه‌های خالی الگوی گل ---------- */
-
-/*
-  خانه‌ای که باید خالی باشد سفید می‌ماند.
-  هیچ مربع رنگی یا شکل اضافه‌ای نمایش داده نمی‌شود.
-*/
-
-.expected-blank {
-  background: #ffffff;
-}
-
-
-/* ---------- بازخورد ---------- */
-
-.feedback {
-  min-height: 24px;
-
-  margin: 13px 0 4px;
-
-  text-align: center;
-
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.feedback.warning {
-  color: #b55d20;
-  font-weight: bold;
-}
-
-.feedback.success {
-  color: var(--green);
-  font-weight: bold;
-}
-
-
-/* ---------- دکمه بررسی ---------- */
-
-.check-area {
-  display: flex;
-  justify-content: center;
-
-  margin-top: 12px;
-}
-
-.check-button {
-  min-width: 190px;
-
-  padding: 11px 20px;
-
-  color: white;
-  background: linear-gradient(135deg, #36aa63, #58c87e);
-
-  border: 0;
-  border-radius: 13px;
-
-  font-weight: bold;
-
-  box-shadow: 0 4px 0 #258348;
-}
-
-.check-button:active:not(:disabled) {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #258348;
-}
-
-
-/* ---------- دکمه‌های جابه‌جایی ---------- */
-
-.navigation {
-  display: flex;
-  flex-wrap: wrap;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 9px;
-
-  margin-top: 22px;
-}
-
-.nav-button {
-  flex: 1 1 110px;
-
-  min-width: 0;
-  max-width: 190px;
-
-  padding: 9px 12px;
-
-  color: var(--purple-dark);
-  background: var(--purple-light);
-
-  border: 0;
-  border-radius: 12px;
-
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.next-button {
-  color: white;
-  background: var(--purple);
-}
-
-.exit-button {
-  color: #9b3737;
-  background: #ffe5e5;
-}
-
-
-/* ---------- پایین صفحه ---------- */
-
-.game-footer {
-  display: flex;
-  flex-wrap: wrap;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 4px 18px;
-
-  max-width: 900px;
-
-  margin: 14px auto 0;
-  padding: 8px;
-
-  color: var(--purple-dark);
-
-  font-size: 12px;
-  text-align: center;
-}
-
-
-/* ---------- پایان بازی ---------- */
-
-.finish-star {
-  font-size: 66px;
-  margin-bottom: 10px;
-}
-
-.finish-card p {
-  color: var(--muted);
-}
-
-
-/* ---------- فشفشه‌ها ---------- */
-
-.fireworks {
-  position: fixed;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  z-index: 9999;
-
-  overflow: hidden;
-  pointer-events: none;
-
-  display: none;
-}
-
-.fireworks.active {
-  display: block;
-}
-
-.firework-particle {
-  position: absolute;
-
-  width: 9px;
-  height: 14px;
-
-  background: var(--particle-color);
-
-  border-radius: 3px;
-
-  opacity: 0;
-
-  animation: firework-burst 1.6s ease-out forwards;
-}
-
-@keyframes firework-burst {
-  0% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform:
-      translate3d(var(--dx), var(--dy), 0)
-      rotate(540deg)
-      scale(0.5);
-  }
-}
-
-
-/* ---------- تبلت ---------- */
-
-@media (min-width: 600px) {
-  .app {
-    padding: 22px;
-  }
-
-  .exercise-card {
-    padding: 22px;
-  }
-
-  .palette-item {
-    width: 52px;
-    height: 52px;
-  }
-
-  .board-section {
-    margin-top: 24px;
-  }
-}
-
-
-/* ---------- موبایل ---------- */
-
-@media (max-width: 599px) {
-  .app {
-    padding: 10px;
-  }
-
-  .game-header {
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .header-title h1 {
-    font-size: 19px;
-  }
-
-  .header-title p {
-    font-size: 11px;
-  }
-
-  .stage-progress {
-    flex-basis: 135px;
-  }
-
-  #stageLabel {
-    font-size: 11px;
-  }
-
-  .exercise-card {
-    padding: 11px 8px 16px;
-    border-radius: 15px;
-  }
-
-  .instruction {
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-
-  .palette {
-    gap: 6px;
-  }
-
-  .palette-item {
-    width: 42px;
-    height: 42px;
-  }
-
-  .tool-button {
-    font-size: 12px;
-    padding: 7px 9px;
-  }
-
-  .board-section {
-    margin-top: 18px;
-  }
-
-  .board-heading {
-    margin-bottom: 7px;
-  }
-
-  /*
-    جدول‌های معمولی و جدول ۲۱ستونی گل
-    همگی در عرض صفحه جا می‌گیرند.
-  */
-
-  .board {
-    width: 100%;
-  }
-
-  .shape.star {
-    font-size: clamp(10px, 3.4vw, 20px);
-  }
-
-  .shape.circle,
-  .shape.square {
-    width: 68%;
-    height: 68%;
-  }
-
-  .color-dot {
-    width: 72%;
-    height: 72%;
-  }
-
-  .line-mark {
-  height: 3px;
-  min-height: 3px;
-}
-
-  .navigation {
-    gap: 6px;
-    margin-top: 18px;
-  }
-
-  .nav-button {
-    flex: 1 1 28%;
-    padding: 9px 5px;
-    font-size: 11px;
-  }
-
-  .check-button {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .game-footer {
-    font-size: 11px;
-    gap: 3px 10px;
-  }
-}
-
-
-/* ---------- کاهش حرکت برای دسترس‌پذیری ---------- */
-
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-/* ---------- خط‌های مورب تمرین چهارم ---------- */
-
-.cell:has(.diagonal-mark) {
-  position: relative;
-  overflow: hidden;
-  padding: 0;
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-.diagonal-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: block;
-  width: 141.5%;
-  height: 3px;
-  background: var(--line-color);
-  transform-origin: center;
-  pointer-events: none;
-}
-
-.diagonal-down {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.diagonal-up {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* نمایش انتخاب خط مورب در پالت */
-
-.palette-diagonal {
-  display: block;
-  width: 75%;
-  height: 3px;
-  margin: auto;
-  background: var(--line-color);
-}
-
-.palette-item:has(.palette-diagonal) {
-  overflow: hidden;
-}
-/* =====================================
-   تمرین پنجم: الگوی خط‌های مرزی
-===================================== */
-.cell:has(.edge-mark) {
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-}
-/* خط‌های مشکی روی لبه‌ها */
-.edge-mark {
-  position: absolute;
-  display: block;
-  background: #000;
-  pointer-events: none;
-  z-index: 2;
-}
-/* ضلع افقی بالا */
-.edge-top {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-}
-/* ضلع عمودی راست */
-.edge-right {
-  top: 0;
-  right: 0;
-  width: 3px;
-  height: 100%;
-}
-/* ضلع افقی پایین */
-.edge-bottom {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-}
-@media (max-width: 599px) {
-  .edge-top,
-  .edge-bottom {
-    height: 2px;
-  }
-  .edge-right {
-    width: 2px;
-  }
-}
-/* پیش‌نمایش خطوط مرزی در پالت تمرین پنجم */
-.palette-edge-preview {
-  position: relative;
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin: auto;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-}
-
-.edge-preview-top,
-.edge-preview-right,
-.edge-preview-bottom {
-  position: absolute;
-  display: block;
-  background: #000;
-}
-
-.edge-preview-top {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-}
-
-.edge-preview-right {
-  top: 0;
-  right: 0;
-  width: 3px;
-  height: 100%;
-}
-
-.edge-preview-bottom {
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-}
-/* رسم مدادی تمرین پنجم */
-
-#mainBoard,
-#copyBoard {
-  position: relative;
-}
-
-.edge-drawing-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  overflow: visible;
-  touch-action: none;
-}
-
-.edge-drawing-layer polyline {
-  fill: none;
-  stroke: #222;
-  stroke-width: 0.035;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-
-.edge-drawing-layer rect {
-  cursor: crosshair;
-}
-/* رسم مدادی تمرین پنجم */
-#mainBoard,
-#copyBoard {
-  position: relative;
-}
-
-.edge-drawing-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  overflow: visible;
-  touch-action: none;
-}
-
-.edge-drawing-layer polyline {
-  fill: none;
-  stroke: #222;
-  stroke-width: 0.035;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-
-.edge-drawing-layer rect {
-  cursor: crosshair;
-}
+/* تکمیل ظاهر نسخهٔ ۱۱ مرحله‌ای */
+[hidden], .hidden { display:none !important; }
+.welcome-screen,.finish-screen { width:min(540px,100%); margin:7vh auto; text-align:center; padding:25px clamp(16px,5vw,34px); }
+.welcome-decoration { font-size:30px; margin-bottom:8px; }
+.welcome-kicker { display:inline-block; padding:7px 13px; border-radius:999px; background:#fff0f5; color:#bd3f73; font-weight:bold; }
+.welcome-screen h1,.finish-screen h1 { color:var(--ink); }
+.welcome-credit { color:var(--muted); margin-top:16px; }
+.progress-panel { display:flex; align-items:center; justify-content:space-between; gap:15px; }
+.progress-track { flex:1; height:10px; background:#e9e5f5; border-radius:20px; overflow:hidden; }
+.progress-bar { width:9.09%; height:100%; background:linear-gradient(90deg,#ffad45,#9b83f6); border-radius:inherit; transition:width .25s ease; }
+.game-intro { display:block; }
+.game-intro h2 { margin:0 0 6px; }
+.palette-panel { display:flex; align-items:center; flex-wrap:wrap; }
+.palette-heading { display:flex; align-items:center; gap:8px; }
+.tool-buttons { display:flex; flex-wrap:wrap; gap:8px; }
+.palette-item { display:grid; place-items:center; }
+.palette-item.selected { border-color:var(--pink-dark); outline:3px solid #ff77a84d; background:#fff2f7; }
+.shape.circle { border-radius:50%; }
+.shape.square { border-radius:4px; }
+.shape.triangle { width:0; height:0; background:transparent!important; border-left:15px solid transparent; border-right:15px solid transparent; border-bottom:27px solid var(--shape-color); }
+.shape.star { width:30px; height:30px; color:var(--shape-color); background:transparent!important; font-size:31px; line-height:30px; text-align:center; }
+.color-dot { display:block; width:28px; height:28px; background:var(--dot-color); border-radius:3px; }
+.board { grid-template-columns:repeat(var(--columns,6),minmax(0,1fr)); }
+.cell { position:relative; display:flex; align-items:center; justify-content:center; }
+.line-mark { position:absolute; left:0; right:0; bottom:0; height:4px; background:var(--line-color); }
+.diagonal-mark { position:absolute; top:50%; left:50%; width:142%; height:3px; background:var(--line-color); transform-origin:center; }
+.diagonal-down { transform:translate(-50%,-50%) rotate(45deg); }
+.diagonal-up { transform:translate(-50%,-50%) rotate(-45deg); }
+.edge-mark { position:absolute; display:block; background:#000; pointer-events:none; }
+.edge-top { top:0; left:0; width:100%; height:3px; }
+.edge-right { top:0; right:0; width:3px; height:100%; }
+.edge-bottom { bottom:0; left:0; width:100%; height:3px; }
+.cell:has(.edge-mark) { position:relative; overflow:hidden; }
+.mouse-target { cursor:pointer; }
+.mouse-found { background:#fff2d9!important; }
+.mouse-emoji { font-size:25px; }
+.expected-blank { background:#fff!important; }
+.feedback { min-height:24px; text-align:center; color:#b55d20; font-weight:bold; }
+.feedback.warning { color:#b55d20; }
+.signature { width:clamp(150px,24vw,220px); height:65px; object-fit:contain; }
+.signature-footer { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 16px; color:var(--muted); font-size:12px; }
+.finish-signature { margin:15px auto 0; }
+.fireworks { position:fixed; inset:0; z-index:1000; pointer-events:none; overflow:hidden; }
+.fireworks.hidden { display:none!important; }
+.fireworks.active { display:block; }
+.firework-particle { position:absolute; width:9px; height:15px; border-radius:3px; background:var(--particle-color); animation:burst 1.7s ease-out forwards; }
+@keyframes burst { 0%{transform:translate(0,0) rotate(0) scale(1);opacity:1} 100%{transform:translate(var(--dx),var(--dy)) rotate(720deg) scale(.5);opacity:0} }
+.controls { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
+.controls button { min-height:43px; }
+.next-button { background:linear-gradient(135deg,#55b8f4,#6b8df0); color:white; }
+.exit-button { color:#9b3737; background:#ffe5e5; }
+@media(max-width:600px){ .progress-panel{align-items:stretch;flex-direction:column}.board{grid-template-columns:repeat(var(--columns,6),minmax(43px,1fr))}.cell{min-height:46px}.controls button{flex:1 1 40%;font-size:12px}.signature{width:160px;height:52px} }
