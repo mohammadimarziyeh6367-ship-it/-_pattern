@@ -828,3 +828,62 @@ input:focus {
     transition-duration: .01ms !important;
   }
 }
+/* style.css */
+/* تمام کد CSS که فرستادی را نگه دار.
+   این قسمت را در انتهای همان فایل اضافه کن. */
+
+.cell.expected-blank {
+  background: #fff !important;
+}
+
+.cell.mouse-target {
+  cursor: pointer;
+  border: 3px dashed #ff9f43;
+  background: #fff5df !important;
+}
+
+.cell.mouse-found {
+  background: #eafff1 !important;
+}
+
+.mouse-emoji {
+  font-size: 30px;
+  position: absolute;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.palette-panel[hidden],
+.copy-board-card[hidden] {
+  display: none !important;
+}
+
+.cell.correct-answer {
+  background: #eafff1;
+}
+
+.edge-hint {
+  text-align: center;
+  font-weight: bold;
+  color: #687792;
+}
+
+.firework-particle {
+  position: absolute;
+  width: 9px;
+  height: 15px;
+  border-radius: 3px;
+  background: var(--particle-color);
+  animation: burst 1.7s ease-out forwards;
+}
+
+@keyframes burst {
+  from {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy)) rotate(720deg);
+    opacity: 0;
+  }
+}
