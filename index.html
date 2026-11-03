@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -11,66 +12,76 @@
 </head>
 <body>
 <main class="app">
+
   <section id="welcome" class="panel welcome-screen">
-    <div class="welcome-decoration" aria-hidden="true">⭐ 🌈 ⭐</div>
-    <img id="teacherPhoto" class="teacher-photo" src="IMG_4332.jpeg" alt="تصویر آموزگار" onerror="this.style.display='none'">
+    <div class="welcome-decoration">⭐ 🌈 ⭐</div>
+    <img id="teacherPhoto" class="teacher-photo" src="IMG_4332.jpeg"
+         alt="تصویر آموزگار" onerror="this.style.display='none'">
     <p class="welcome-kicker">بازی کن، فکر کن، یاد بگیر!</p>
     <h1>بازی الگوی منظم</h1>
     <p class="welcome-text">ریاضی پایهٔ اول دبستان</p>
     <label for="studentName">نام دانش‌آموز:</label>
-    <input id="studentName" type="text" maxlength="40" autocomplete="given-name" placeholder="نامت را اینجا بنویس">
-    <button id="startButton" class="primary start-button" type="button">شروع بازی 🚀</button>
+    <input id="studentName" type="text" maxlength="40"
+           placeholder="نامت را اینجا بنویس">
+    <button id="startButton" class="primary start-button" type="button">
+      شروع بازی 🚀
+    </button>
     <p class="welcome-credit">آموزگار: مرضیه محمدی</p>
   </section>
 
   <section id="game" class="game-screen" hidden>
     <header class="topbar">
-      <div class="brand-mark" aria-hidden="true">✿</div>
+      <div class="brand-mark">✿</div>
       <div class="brand-title">
         <h1>بازی الگوی منظم</h1>
         <p>ریاضی پایهٔ اول دبستان</p>
       </div>
-      <span id="stageLabel" class="stage-badge">تمرین ۱ از ۱۱</span>
+      <span id="stageLabel" class="stage-badge"></span>
     </header>
 
     <section class="panel progress-panel">
       <div class="student-chip">
-        <span aria-hidden="true">🌟</span>
-        <span id="studentGreeting">دانش‌آموز عزیز</span>
+        <span>🌟</span>
+        <span id="studentGreeting"></span>
       </div>
-      <div id="progressTrack" class="progress-track" role="progressbar" aria-label="پیشرفت تمرین‌ها" aria-valuemin="1" aria-valuemax="11" aria-valuenow="1">
+      <div id="progressTrack" class="progress-track"
+           role="progressbar" aria-valuemin="1" aria-valuemax="13"
+           aria-valuenow="1">
         <div id="progressBar" class="progress-bar"></div>
       </div>
     </section>
 
     <section class="panel game-intro">
-      <h2 id="stageTitle">الگوی منظم</h2>
-      <p id="stageInstruction" class="instruction">الگو را ادامه بده.</p>
+      <h2 id="stageTitle"></h2>
+      <p id="stageInstruction" class="instruction"></p>
     </section>
 
-    <section class="panel palette-panel" aria-label="ابزار انتخاب شکل و رنگ">
+    <section class="panel palette-panel" id="palettePanel">
       <div class="palette-heading">
-        <span aria-hidden="true">🖍️</span>
+        <span>🖍️</span>
         <strong>شکل یا رنگ را انتخاب کن</strong>
       </div>
       <div id="palette" class="palette"></div>
       <div class="tool-buttons">
-        <button id="eraserButton" class="secondary eraser-button" type="button" aria-pressed="false">پاک‌کن 🧽</button>
-        <button id="clearButton" class="secondary" type="button">پاک‌کردن پاسخ‌ها</button>
+        <button id="eraserButton" class="secondary eraser-button"
+                type="button" aria-pressed="false">پاک‌کن 🧽</button>
+        <button id="clearButton" class="secondary" type="button">
+          پاک‌کردن پاسخ‌ها
+        </button>
       </div>
     </section>
 
     <section class="panel board-card main-board-card">
       <h3 id="mainLabel">نام دانش‌آموز: الگو را ادامه بده</h3>
       <div class="board-scroll">
-        <div id="mainBoard" class="board" aria-label="جدول اصلی الگو"></div>
+        <div id="mainBoard" class="board"></div>
       </div>
     </section>
 
     <section class="panel board-card copy-board-card">
       <h3 id="copyLabel">یک بار الگوی رئیس را تکرار کن</h3>
       <div class="board-scroll">
-        <div id="copyBoard" class="board" aria-label="جدول تکرار الگو"></div>
+        <div id="copyBoard" class="board"></div>
       </div>
     </section>
 
@@ -85,20 +96,26 @@
 
     <footer class="signature-footer">
       <span>آموزگار: مرضیه محمدی</span>
-      <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png" alt="امضای آموزگار" class="signature" onerror="this.style.display='none'">
-      <span>مدرسه دخترانه شریعتی</span>
+      <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+           alt="امضای آموزگار" class="signature"
+           onerror="this.style.display='none'">
+      
     </footer>
   </section>
 
   <section id="finish" class="panel finish-screen" hidden>
-    <div class="finish-medal" aria-hidden="true">🏆</div>
+    <div class="finish-medal">🏆</div>
     <h1>بازی به پایان رسید!</h1>
     <p id="finishMessage"></p>
-    <button id="restartButton" class="primary start-button" type="button">بازی دوباره 🔄</button>
-    <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png" alt="امضای آموزگار" class="signature finish-signature" onerror="this.style.display='none'">
+    <button id="restartButton" class="primary start-button" type="button">
+      بازی دوباره 🔄
+    </button>
+    <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+         alt="امضای آموزگار" class="signature finish-signature"
+         onerror="this.style.display='none'">
   </section>
-</main>
 
+</main>
 <div id="fireworks" class="fireworks hidden" aria-hidden="true"></div>
 </body>
 </html>
