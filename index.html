@@ -1,121 +1,124 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fff8ed">
-  <meta name="description" content="بازی آموزشی الگوی منظم برای ریاضی پایه اول دبستان">
-  <title>بازی الگوی منظم | ریاضی پایه اول</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#e9dcff">
+  <title>الگوی منظم | ریاضی پایه اول</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
 </head>
 <body>
-<main class="app">
+<main id="app">
 
-  <section id="welcome" class="panel welcome-screen">
-    <div class="welcome-decoration">⭐ 🌈 ⭐</div>
-    <img id="teacherPhoto" class="teacher-photo" src="IMG_4332.jpeg"
-         alt="تصویر آموزگار" onerror="this.style.display='none'">
-    <p class="welcome-kicker">بازی کن، فکر کن، یاد بگیر!</p>
-    <h1>بازی الگوی منظم</h1>
-    <p class="welcome-text">ریاضی پایهٔ اول دبستان</p>
-    <label for="studentName">نام دانش‌آموز:</label>
-    <input id="studentName" type="text" maxlength="40"
-           placeholder="نامت را اینجا بنویس">
-    <button id="startButton" class="primary start-button" type="button">
-      شروع بازی 🚀
-    </button>
-    <p class="welcome-credit">آموزگار: مرضیه محمدی</p>
+  <section id="welcome" class="screen welcome">
+    <div class="welcome-card">
+      <img class="teacher-photo" src="IMG_4332.jpeg" alt="عکس آموزگار"
+           onerror="this.style.display='none'">
+      <div class="welcome-title">الگوی منظم</div>
+      <div class="welcome-subtitle">بازی ریاضی پایهٔ اول</div>
+      <p class="welcome-message">بچه‌های گلم، با دقت به الگو نگاه کن و آن را ادامه بده.</p>
+
+      <label for="studentName">نام دانش‌آموز:</label>
+      <input id="studentName" type="text" maxlength="35"
+             placeholder="نامت را اینجا بنویس" autocomplete="off">
+
+      <button id="startButton" class="primary-button" type="button">
+        شروع بازی 🚀
+      </button>
+    </div>
   </section>
 
-  <section id="game" class="game-screen" hidden>
-    <header class="topbar">
-      <div class="brand-mark">✿</div>
-      <div class="brand-title">
-        <h1>بازی الگوی منظم</h1>
-        <p>ریاضی پایهٔ اول دبستان</p>
+  <section id="game" class="screen game-screen hidden">
+    <header class="game-header">
+      <div class="game-brand">
+        <span class="brand-icon">🌈</span>
+        <div>
+          <strong>الگوی منظم</strong>
+          <small id="studentGreeting">آماده‌ای؟</small>
+        </div>
       </div>
-      <span id="stageLabel" class="stage-badge"></span>
+      <div class="stage-counter" id="stageCounter">۱ از ۱۳</div>
     </header>
 
-    <section class="panel progress-panel">
-      <div class="student-chip">
-        <span>🌟</span>
-        <span id="studentGreeting"></span>
-      </div>
-      <div id="progressTrack" class="progress-track"
-           role="progressbar" aria-valuemin="1" aria-valuemax="13"
-           aria-valuenow="1">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
+    <div class="progress-track">
+      <div id="progressBar"></div>
+    </div>
+
+    <section class="question-area">
+      <h1 id="questionTitle">الگو را ادامه بده</h1>
+      <p id="questionText"></p>
     </section>
 
-    <section class="panel game-intro">
-      <h2 id="stageTitle"></h2>
-      <p id="stageInstruction" class="instruction"></p>
-    </section>
-
-    <section class="panel palette-panel" id="palettePanel">
-      <div class="palette-heading">
-        <span>🖍️</span>
-        <strong>شکل یا رنگ را انتخاب کن</strong>
-      </div>
+    <section class="palette-panel">
       <div id="palette" class="palette"></div>
+
       <div class="tool-buttons">
-        <button id="eraserButton" class="secondary eraser-button"
-                type="button" aria-pressed="false">پاک‌کن 🧽</button>
-        <button id="clearButton" class="secondary" type="button">
+        <button id="pencilButton" class="tool-button" type="button"
+                aria-pressed="false">✏️ مداد</button>
+        <button id="eraserButton" class="tool-button" type="button"
+                aria-pressed="false">🧽 پاک‌کن</button>
+        <button id="clearButton" class="tool-button" type="button">
           پاک‌کردن پاسخ‌ها
         </button>
       </div>
     </section>
 
-    <section class="panel board-card main-board-card">
-      <h3 id="mainLabel">نام دانش‌آموز: الگو را ادامه بده</h3>
-      <div class="board-scroll">
+    <section id="boardArea" class="board-area">
+      <div id="boardLabel" class="board-label">
+        نام دانش‌آموز: الگو را ادامه بده
+      </div>
+
+      <div class="board-wrap">
         <div id="mainBoard" class="board"></div>
       </div>
-    </section>
 
-    <section class="panel board-card copy-board-card">
-      <h3 id="copyLabel">یک بار الگوی رئیس را تکرار کن</h3>
-      <div class="board-scroll">
-        <div id="copyBoard" class="board"></div>
+      <div id="copyLabel" class="board-label copy-label">
+        یک بار الگوی رئیس را تکرار کن
+      </div>
+
+      <div class="board-wrap">
+        <div id="copyBoard" class="board copy-board"></div>
       </div>
     </section>
 
-    <p id="feedback" class="feedback" aria-live="polite"></p>
+    <div id="feedback" class="feedback" aria-live="polite"></div>
 
-    <div class="controls">
-      <button id="prevButton" class="secondary" type="button">مرحله قبل</button>
-      <button id="checkButton" class="primary" type="button">بررسی پاسخ‌ها ✓</button>
-      <button id="nextButton" class="secondary next-button" type="button">مرحله بعدی</button>
-      <button id="exitButton" class="secondary exit-button" type="button">خروج</button>
+    <div class="nav-buttons">
+      <button id="prevButton" class="nav-button" type="button">مرحله قبل</button>
+      <button id="checkButton" class="primary-button" type="button">بررسی پاسخ</button>
+      <button id="nextButton" class="nav-button" type="button">مرحله بعدی</button>
+      <button id="exitButton" class="nav-button exit-button" type="button">خروج</button>
     </div>
 
-    <footer class="signature-footer">
-      <span>آموزگار: مرضیه محمدی</span>
-      <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-           alt="امضای آموزگار" class="signature"
+    <footer class="game-footer">
+      <img class="signature"
+           src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+           alt="امضای آموزگار"
            onerror="this.style.display='none'">
-      
+      <div>آموزگار: مرضیه محمدی | مدرسه دخترانه شریعتی</div>
     </footer>
   </section>
 
-  <section id="finish" class="panel finish-screen" hidden>
-    <div class="finish-medal">🏆</div>
-    <h1>بازی به پایان رسید!</h1>
-    <p id="finishMessage"></p>
-    <button id="restartButton" class="primary start-button" type="button">
-      بازی دوباره 🔄
-    </button>
-    <img src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
-         alt="امضای آموزگار" class="signature finish-signature"
-         onerror="this.style.display='none'">
+  <section id="finish" class="screen finish-screen hidden">
+    <div class="finish-card">
+      <div class="finish-star">🌟</div>
+      <h1>آفرین قهرمان!</h1>
+      <p id="finishMessage"></p>
+      <img class="signature finish-signature"
+           src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
+           alt="امضای آموزگار"
+           onerror="this.style.display='none'">
+      <button id="restartButton" class="primary-button" type="button">
+        شروع دوباره
+      </button>
+    </div>
   </section>
 
 </main>
-<div id="fireworks" class="fireworks hidden" aria-hidden="true"></div>
+
+<div id="dragMouse" class="drag-mouse hidden" aria-hidden="true">🐭</div>
+<canvas id="fireworksCanvas" class="fireworks-canvas" aria-hidden="true"></canvas>
+
+<script src="script.js"></script>
 </body>
 </html>
