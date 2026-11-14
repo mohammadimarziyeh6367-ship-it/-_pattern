@@ -1,985 +1,1597 @@
 "use strict";
 
-/* بازی الگوی منظم | ریاضی پایه اول */
-
 const $ = id => document.getElementById(id);
 
 const COLORS = {
-  red: "#ef5350",
-  blue: "#42a5f5",
-  green: "#43b96b",
-  yellow: "#ffd54f",
-  purple: "#ab70df",
-  orange: "#ff9f43"
+  red: "#e53935",
+  blue: "#159ed0",
+  green: "#55ad48",
+  yellow: "#f4c62f",
+  orange: "#e9782c",
+  black: "#242424"
 };
 
-const SHAPES = {
-  C: { shape: "circle", color: "red", label: "دایره قرمز" },
-  S: { shape: "square", color: "blue", label: "مربع آبی" },
-  T: { shape: "triangle", color: "green", label: "مثلث سبز" },
-  Y: { shape: "star", color: "yellow", label: "ستاره زرد" }
-};
-
-const ITEMS = {
-  P: { color: "purple", label: "بنفش" },
-  O: { color: "orange", label: "نارنجی" },
-  G: { color: "green", label: "سبز" },
-  R: { color: "red", label: "قرمز" },
-  B: { color: "blue", label: "آبی" },
-  Y: { color: "yellow", label: "زرد" }
-};
-
-const STAGES = [
-  {
-    id: 1, type: "shape", title: "الگوی دوشکلی",
-    instruction: "الگوی اصلی را ادامه بده و یک بار الگوی رئیس را در پایین تکرار کن.",
-    pattern: ["C", "S"], columns: 12, fixed: 4, copy: 6,
-    palette: ["C", "S"]
-  },
-  {
-    id: 2, type: "color", title: "الگوی سبز و قرمز",
-    instruction: "ترتیب مربع‌های سبز و قرمز را ادامه بده.",
-    pattern: ["G", "G", "R", "R", "R"], columns: 15, fixed: 8, copy: 10,
-    palette: ["G", "R"]
-  },
-  {
-    id: 3, type: "line", title: "الگوی خط‌های رنگی",
-    instruction: "رنگ مناسب را انتخاب کن و با مداد روی خانه‌ها بکش تا خط الگو ادامه پیدا کند.",
-    pattern: ["R", "B"], columns: 12, fixed: 4, copy: 6,
-    palette: ["R", "B"]
-  },
-  {
-    id: 4, type: "diagonal", title: "الگوی خط‌های مورب",
-    instruction: "رنگ خط مورب را انتخاب کن و با کشیدن مداد الگو را ادامه بده.",
-    pattern: ["Y", "G"], columns: 12, fixed: 4, copy: 4,
-    palette: ["Y", "G"]
-  },
-  {
-    id: 5, type: "edgePattern", title: "الگوی مسیر",
-    instruction: "با مداد مسیر خط را در خانه‌های خالی ادامه بده.",
-    pattern: ["TOP_RIGHT", "BOTTOM", null], columns: 12, fixed: 6, copy: 3,
-    palette: []
-  },
-  {
-    id: 6, type: "line", title: "الگوی سه خط زرد",
-    instruction: "جای خالی‌ها را با شکل سه‌خط زرد کامل کن.",
-    pattern: [null, "YELLOW_U", null, "YELLOW_U"], columns: 16, fixed: 4, copy: 8,
-    palette: ["YELLOW_U"]
-  },
-  {
-    id: 7, type: "mouse", title: "موش کوچولو",
-    instruction: "شکل ناهماهنگ را پیدا کن تا موش کوچولو آن را بخورد.",
-    pattern: ["C", "S"], columns: 10, wrongIndex: 5,
-    palette: []
-  },
-  {
-    id: 8, type: "mouse", title: "موش و الگوی سه‌شکلی",
-    instruction: "شکلی را که با الگو هماهنگ نیست پیدا کن.",
-    pattern: ["T", "S", "C"], columns: 12, wrongIndex: 7,
-    palette: []
-  },
-  {
-    id: 9, type: "color", title: "الگوی بنفش و نارنجی",
-    instruction: "رنگ‌ها را به ترتیب ادامه بده.",
-    pattern: ["P", "O"], columns: 12, fixed: 4, copy: 6,
-    palette: ["P", "O"]
-  },
-  {
-    id: 10, type: "color", title: "الگوی رنگی سه‌تایی",
-    instruction: "الگوی رنگی را کامل کن.",
-    pattern: ["O", "O", "P"], columns: 12, fixed: 6, copy: 6,
-    palette: ["O", "P"]
-  },
-  {
-    id: 11, type: "color", title: "سه رنگ زیبا",
-    instruction: "ترتیب سه رنگ را حفظ کن.",
-    pattern: ["P", "O", "G"], columns: 12, fixed: 6, copy: 6,
-    palette: ["P", "O", "G"]
-  },
-  {
-    id: 12, type: "color", title: "الگوی چهاررنگی",
-    instruction: "چهار رنگ را به ترتیب درست قرار بده.",
-    pattern: ["P", "O", "Y", "G"], columns: 16, fixed: 8, copy: 8,
-    palette: ["P", "O", "Y", "G"]
-  },
-  {
-    id: 13, type: "flower", title: "الگوی سه‌ردیفی گل",
-    instruction: "خانه‌های خالی را کامل کن؛ خانه‌های سفید باید خالی بمانند.",
-    rows: 3, columns: 21, fixedColumns: 8, copy: 6,
-    palette: ["G", "R"]
-  }
+const PENCILS = [
+  ["red", "قرمز"],
+  ["blue", "آبی"],
+  ["green", "سبز"],
+  ["yellow", "زرد"],
+  ["orange", "نارنجی"],
+  ["black", "مشکی"]
 ];
 
-let currentStage = 0;
-let studentName = "";
-let selectedItem = null;
-let activeTool = "paint";
-let mouseEaten = false;
-let answers = {};
-let savedStages = {};
-let audioContext = null;
-let fireworksAnimation = null;
 
-/* صدا */
+/*
+هر مرحله یک فعالیت مستقل است.
 
-function playTone(frequency = 440, duration = 0.09) {
-  try {
-    const AudioClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioClass) return;
+در جدول اصلی فقط بخش آغازین الگو رنگ شده؛
+ادامه آن خالی است.
 
-    if (!audioContext) audioContext = new AudioClass();
-    if (audioContext.state === "suspended") audioContext.resume();
+جدول تکرار از ابتدا کاملاً خالی است.
+*/
 
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
 
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
+const STAGES = [
 
-    gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12, audioContext.currentTime + 0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
+  {
+    title: "خط پله‌ای قرمز",
+    kind: "line",
+    color: "red",
+    cols: 14,
+    rows: 4,
+    fixed: 6,
+    copyCols: 8,
+    points: [2,3,2,3,2,3,2,3,2]
+  },
 
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
+  {
+    title: "خط پله‌ای سبز",
+    kind: "line",
+    color: "green",
+    cols: 14,
+    rows: 4,
+    fixed: 6,
+    copyCols: 8,
+    points: [3,2,2,3,3,2,2,3,3]
+  },
 
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + duration);
-  } catch (error) {}
-}
+  {
+    title: "خط پله‌ای مشکی",
+    kind: "line",
+    color: "black",
+    cols: 14,
+    rows: 4,
+    fixed: 6,
+    copyCols: 8,
+    points: [2,3,3,3,2,2,2,3,3]
+  },
 
-function playCorrectSound() {
-  playTone(660, 0.1);
-  setTimeout(() => playTone(880, 0.13), 100);
-}
+  {
+    title: "خط پله‌ای زرد",
+    kind: "line",
+    color: "yellow",
+    cols: 14,
+    rows: 4,
+    fixed: 6,
+    copyCols: 8,
+    points: [3,2,2,3,3,2,2,3,3]
+  },
 
-function playWrongSound() {
-  playTone(220, 0.16);
-}
+  {
+    title: "گل سبز با مرکز قرمز",
+    kind: "cells",
+    cols: 12,
+    rows: 3,
+    fixedCols: 6,
+    repeatCols: 3,
 
-/* وضعیت و ابزارها */
+    motif: [
+      [0,0,"green"],
+      [0,2,"green"],
+      [1,0,"green"],
+      [1,1,"red"],
+      [1,2,"green"],
+      [2,1,"green"]
+    ]
+  },
 
-function getStage() {
-  return STAGES[currentStage];
-}
+  {
+    title: "الگوی سبز پله‌ای",
+    kind: "cells",
+    cols: 16,
+    rows: 3,
+    fixedCols: 12,
+    repeatCols: 4,
 
-function answerKey(board, index) {
-  return `${board}-${index}`;
-}
+    motif: [
+      [0,0,"green"],
+      [0,2,"green"],
+      [1,1,"green"],
+      [1,3,"green"],
+      [2,0,"green"],
+      [2,2,"green"]
+    ]
+  },
 
-function getAnswer(board, index) {
-  return answers[answerKey(board, index)] ?? null;
-}
+  {
+    title: "الگوی آبی و قرمز",
+    kind: "cells",
+    cols: 12,
+    rows: 2,
+    fixedCols: 8,
+    repeatCols: 4,
 
-function setAnswer(board, index, value) {
-  const key = answerKey(board, index);
-  if (value === null || value === undefined) {
-    delete answers[key];
-  } else {
-    answers[key] = value;
+    motif: [
+      [0,0,"blue"],
+      [0,1,"red"],
+      [0,2,"blue"],
+      [0,3,"red"],
+
+      [1,0,"red"],
+      [1,1,"blue"],
+      [1,2,"red"],
+      [1,3,"blue"]
+    ]
+  },
+
+  {
+    title: "الگوی آبی، قرمز، سبز و زرد",
+    kind: "cells",
+    cols: 16,
+    rows: 1,
+    fixedCols: 8,
+    repeatCols: 4,
+
+    motif: [
+      [0,0,"blue"],
+      [0,1,"red"],
+      [0,2,"green"],
+      [0,3,"yellow"]
+    ]
   }
+
+];
+
+
+let stageIndex = 0;
+
+let studentName = "";
+
+let selectedColor = "red";
+
+let activeTool = "pencil";
+
+let answers = {};
+
+let savedStages = {};
+
+let audioContext = null;
+
+let fireworksFrame = null;
+
+let celebratedStages = new Set();
+
+
+
+function key(board,index) {
+  return board + ":" + index;
 }
+
+
+function getAnswer(board,index) {
+  return answers[key(board,index)] || null;
+}
+
+
+function setAnswer(board,index,value) {
+
+  if(value) {
+    answers[key(board,index)] = value;
+  } else {
+    delete answers[key(board,index)];
+  }
+
+}
+
 
 function saveStage() {
-  savedStages[currentStage] = {
-    answers: { ...answers },
-    mouseEaten
+
+  savedStages[stageIndex] = {
+    answers: {...answers}
   };
+
 }
+
 
 function loadStage() {
-  const saved = savedStages[currentStage];
-  answers = saved ? { ...saved.answers } : {};
-  mouseEaten = saved ? saved.mouseEaten : false;
+
+  const saved = savedStages[stageIndex];
+
+  answers = saved ? {...saved.answers} : {};
+
 }
 
-function setFeedback(message = "", type = "") {
-  const feedback = $("feedback");
-  feedback.textContent = message;
-  feedback.className = "feedback";
-  if (type) feedback.classList.add(type);
-}
 
-/* نمایش شکل‌ها */
 
-function shapeHTML(id) {
-  const item = SHAPES[id];
-  if (!item) return "";
+/* صداهای کوتاه بازی */
 
-  if (item.shape === "star") {
-    return `<span class="shape star" style="--shape-color:${COLORS[item.color]}">★</span>`;
-  }
+function sound(freq = 520,duration = .08) {
 
-  return `<span class="shape ${item.shape}" style="--shape-color:${COLORS[item.color]}"></span>`;
-}
+  try {
 
-function colorHTML(id) {
-  const item = ITEMS[id];
-  if (!item) return "";
+    const AC = window.AudioContext || window.webkitAudioContext;
 
-  return `<span class="color-dot" style="--dot-color:${COLORS[item.color]}"></span>`;
-}
+    if(!AC) return;
 
-function cellHTML(id, type) {
-  if (!id) return "";
+    audioContext = audioContext || new AC();
 
-  if (type === "shape" || type === "mouse") {
-    return shapeHTML(id);
-  }
-
-  if (type === "color" || type === "flower") {
-    return colorHTML(id);
-  }
-
-  if (type === "line" && id === "YELLOW_U") {
-    return `
-      <i class="edge-mark edge-top" style="--line-color:#ffd54f"></i>
-      <i class="edge-mark edge-right" style="--line-color:#ffd54f"></i>
-      <i class="edge-mark edge-bottom" style="--line-color:#ffd54f"></i>
-    `;
-  }
-
-  if (type === "line") {
-    const color = ITEMS[id]?.color;
-    if (!color) return "";
-    return `<i class="line-mark" style="--line-color:${COLORS[color]}"></i>`;
-  }
-
-  if (type === "diagonal") {
-    const color = ITEMS[id]?.color;
-    if (!color) return "";
-    const direction = id === "Y" ? "diagonal-down" : "diagonal-up";
-    return `<i class="diagonal-mark ${direction}" style="--line-color:${COLORS[color]}"></i>`;
-  }
-
-  if (type === "edgePattern") {
-    if (id === "TOP_RIGHT") {
-      return '<i class="edge-mark edge-top"></i><i class="edge-mark edge-right"></i>';
-    }
-    if (id === "BOTTOM") {
-      return '<i class="edge-mark edge-bottom"></i>';
-    }
-  }
-
-  return "";
-}
-
-/* ساخت خانه */
-
-function createCell(boardName, index, value, fixed, type, extraClass = "") {
-  const cell = document.createElement("button");
-  cell.type = "button";
-  cell.className = fixed ? "cell fixed-cell" : "cell answer-cell";
-
-  if (extraClass) cell.classList.add(extraClass);
-
-  cell.innerHTML = cellHTML(value, type);
-
-  if (value) cell.classList.add("has-answer");
-
-  if (fixed) {
-    cell.disabled = true;
-  } else {
-    cell.addEventListener("click", () => handleCellClick(boardName, index));
-  }
-
-  return cell;
-}
-
-function handleCellClick(boardName, index) {
-  const stage = getStage();
-
-  if (stage.type === "mouse") return;
-
-  if (activeTool === "pencil" || activeTool === "erase") return;
-
-  if (!selectedItem) {
-    setFeedback("اول یک رنگ یا شکل انتخاب کن.");
-    return;
-  }
-
-  setAnswer(boardName, index, selectedItem);
-  playTone(520, 0.07);
-  renderBoards();
-}
-
-/* پالت */
-
-function renderPalette() {
-  const stage = getStage();
-  const palette = $("palette");
-  palette.replaceChildren();
-
-  (stage.palette || []).forEach(id => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "palette-item";
-    button.innerHTML = cellHTML(id, stage.type);
-
-    button.title =
-      SHAPES[id]?.label ||
-      ITEMS[id]?.label ||
-      "سه خط زرد";
-
-    if (selectedItem === id) {
-      button.classList.add("selected");
+    if(audioContext.state === "suspended") {
+      audioContext.resume();
     }
 
-    button.addEventListener("click", () => {
-      selectedItem = id;
-      activeTool = "paint";
-      updateToolButtons();
-      renderPalette();
-      setFeedback("انتخاب شد.");
-      playTone(540);
+    const osc = audioContext.createOscillator();
+
+    const gain = audioContext.createGain();
+
+    osc.frequency.value = freq;
+
+    osc.connect(gain);
+
+    gain.connect(audioContext.destination);
+
+    gain.gain.setValueAtTime(
+      .08,
+      audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      audioContext.currentTime + duration
+    );
+
+    osc.start();
+
+    osc.stop(
+      audioContext.currentTime + duration
+    );
+
+  } catch(e) {}
+
+}
+
+
+
+/* پیام‌های بازی */
+
+function feedback(message = "",type = "") {
+
+  $("feedback").textContent = message;
+
+  $("feedback").className = "feedback " + type;
+
+}
+
+
+
+/* نمایش مدادهای رنگی */
+
+function palette() {
+
+  const root = $("palette");
+
+  root.replaceChildren();
+
+  PENCILS.forEach(([id,label]) => {
+
+    const btn = document.createElement("button");
+
+    btn.type = "button";
+
+    btn.className =
+      "pencil-choice" +
+      (selectedColor === id ? " selected" : "");
+
+    btn.title = "مداد " + label;
+
+    btn.setAttribute(
+      "aria-label",
+      "مداد " + label
+    );
+
+    btn.innerHTML =
+      '<span class="pencil" style="--pencil:' +
+      COLORS[id] +
+      '"><i></i></span>';
+
+    btn.addEventListener("click",() => {
+
+      selectedColor = id;
+
+      activeTool = "pencil";
+
+      palette();
+
+      sound(540);
+
+      feedback("مداد " + label + " انتخاب شد.");
+
     });
 
-    palette.appendChild(button);
+    root.append(btn);
+
   });
 
-  const drawingStage = ["line", "diagonal", "edgePattern"].includes(stage.type);
 
-  $("pencilButton").classList.toggle("hidden", !drawingStage);
-  $("eraserButton").classList.toggle("hidden", stage.type === "mouse");
-  $("clearButton").classList.toggle("hidden", stage.type === "mouse");
+  $("eraserButton").classList.toggle(
+    "hidden",
+    STAGES[stageIndex].kind === "line"
+  );
 
-  updateToolButtons();
-}
-
-function updateToolButtons() {
-  $("pencilButton").classList.toggle("active", activeTool === "pencil");
-  $("eraserButton").classList.toggle("active", activeTool === "erase");
-
-  $("pencilButton").setAttribute(
-    "aria-pressed",
-    String(activeTool === "pencil")
+  $("eraserButton").classList.toggle(
+    "active",
+    activeTool === "eraser"
   );
 
   $("eraserButton").setAttribute(
     "aria-pressed",
-    String(activeTool === "erase")
+    String(activeTool === "eraser")
   );
+
 }
 
-/* ساخت جدول معمولی */
 
-function expectedValue(stage, index) {
-  return stage.pattern[index % stage.pattern.length];
+
+/* ساخت جدول */
+
+function makeBoard(id,cols,rows,small = false,line = false) {
+
+  const root = $(id);
+
+  root.replaceChildren();
+
+  root.style.setProperty("--cols",cols);
+
+  root.style.setProperty("--rows",rows);
+
+  root.classList.toggle("small-board",small);
+
+  root.classList.toggle("line-board",line);
+
+  return root;
+
 }
 
-function renderRegularBoards(stage) {
-  const main = $("mainBoard");
-  const copy = $("copyBoard");
 
-  main.replaceChildren();
-  copy.replaceChildren();
 
-  main.style.setProperty("--columns", stage.columns);
-  copy.style.setProperty("--columns", stage.copy);
+/* ساخت خانه‌های رنگی */
 
-  for (let i = 0; i < stage.columns; i++) {
-    const fixed = i < stage.fixed;
-    const value = fixed
-      ? expectedValue(stage, i)
-      : getAnswer("main", i);
+function makeCell(boardName,index,value,locked = false) {
 
-    main.appendChild(
-      createCell("main", i, value, fixed, stage.type)
-    );
+  const cell = document.createElement("button");
+
+  cell.type = "button";
+
+  cell.className =
+    "grid-cell " +
+    (locked ? "locked" : "answer-cell");
+
+  if(value) {
+
+    cell.innerHTML =
+      '<span class="paint-fill" style="--fill:' +
+      COLORS[value] +
+      '"></span>';
+
   }
 
-  /*
-    در جدول پایین فقط یک بار الگوی اصلی نمایش داده می‌شود.
-    خانه‌های بعد از الگو باید خالی بمانند.
-  */
-  for (let i = 0; i < stage.copy; i++) {
-    const belongsToPattern = i < stage.pattern.length;
-    const value = belongsToPattern
-      ? getAnswer("copy", i)
-      : null;
 
-    copy.appendChild(
-      createCell(
-        "copy",
-        i,
-        value,
-        false,
-        stage.type,
-        belongsToPattern ? "" : "expected-blank"
-      )
-    );
-  }
+  if(!locked) {
 
-  if (["line", "diagonal", "edgePattern"].includes(stage.type)) {
-    setupDrawing(main, "main", stage);
-    setupDrawing(copy, "copy", stage);
-  }
-}
+    cell.addEventListener("click",() => {
 
-/* جدول گل */
-
-function expectedFlower(row, column) {
-  if (row === 0 || row === 2) {
-    return column % 2 === 0 ? "G" : null;
-  }
-
-  if (column % 4 === 1) return "G";
-  if (column % 4 === 3) return "R";
-
-  return null;
-}
-
-function renderFlower(stage) {
-  const main = $("mainBoard");
-  const copy = $("copyBoard");
-
-  main.replaceChildren();
-  copy.replaceChildren();
-
-  main.style.setProperty("--columns", stage.columns);
-  main.style.gridTemplateRows = "repeat(3, 51px)";
-
-  copy.style.setProperty("--columns", stage.copy);
-  copy.style.gridTemplateRows = "repeat(3, 45px)";
-
-  for (let row = 0; row < 3; row++) {
-    for (let column = 0; column < stage.columns; column++) {
-      const index = row * stage.columns + column;
-      const fixed = column < stage.fixedColumns;
-      const expected = expectedFlower(row, column);
-      const value = fixed ? expected : getAnswer("main", index);
-
-      main.appendChild(
-        createCell("main", index, value, fixed, "flower")
+      setAnswer(
+        boardName,
+        index,
+        activeTool === "eraser" ? null : selectedColor
       );
-    }
+
+      if(activeTool !== "eraser") {
+        sound(490);
+      } else {
+        sound(260,.06);
+      }
+
+      renderCurrentBoards();
+
+      saveStage();
+
+    });
+
   }
 
-  for (let row = 0; row < 3; row++) {
-    for (let column = 0; column < stage.copy; column++) {
-      const index = row * stage.copy + column;
-      const expected = column < 4
-        ? expectedFlower(row, column)
-        : null;
+  return cell;
 
-      const value = getAnswer("copy", index);
+}
 
-      copy.appendChild(
-        createCell(
-          "copy",
+
+
+/* الگوی تکرارشونده */
+
+function motifMap(stage) {
+
+  const map = new Map();
+
+  stage.motif.forEach(([r,c,color]) => {
+
+    map.set(r + ":" + c,color);
+
+  });
+
+  return map;
+
+}
+
+
+
+/* ساخت جدول‌های رنگی */
+
+function renderCellStage(stage) {
+
+  const main = makeBoard(
+    "mainBoard",
+    stage.cols,
+    stage.rows
+  );
+
+  const copy = makeBoard(
+    "copyBoard",
+    stage.repeatCols,
+    stage.rows,
+    true
+  );
+
+  const motif = motifMap(stage);
+
+  const fixedPatternWidth = stage.fixedCols;
+
+
+  for(let r = 0; r < stage.rows; r++) {
+
+    for(let c = 0; c < stage.cols; c++) {
+
+      const index = r * stage.cols + c;
+
+      const locked = c < fixedPatternWidth;
+
+      const expected =
+        motif.get(r + ":" + (c % stage.repeatCols)) || null;
+
+      const value = locked
+        ? expected
+        : getAnswer("main",index);
+
+      main.append(
+        makeCell(
+          "main",
           index,
           value,
-          false,
-          "flower",
-          expected === null ? "expected-blank" : ""
+          locked
         )
       );
+
     }
+
   }
+
+
+  // همه خانه‌های جدول تکرار در شروع خالی هستند.
+
+  for(let r = 0; r < stage.rows; r++) {
+
+    for(let c = 0; c < stage.repeatCols; c++) {
+
+      copy.append(
+        makeCell(
+          "copy",
+          r * stage.repeatCols + c,
+          getAnswer(
+            "copy",
+            r * stage.repeatCols + c
+          ),
+          false
+        )
+      );
+
+    }
+
+  }
+
 }
 
-/* ابزار مداد و رسم با انگشت */
 
-function setupDrawing(board, boardName, stage) {
-  board.classList.toggle("drawing-mode", activeTool === "pencil" || activeTool === "erase");
 
-  let svg = board.querySelector(".board-svg");
+/* محاسبه مسیر خط */
 
-  if (svg) {
-    svg.remove();
+function pathY(stage,x) {
+
+  const p = stage.points;
+
+  const period = p.length - 1;
+
+  const wrapped =
+    ((x % period) + period) % period;
+
+  const segment = Math.floor(wrapped);
+
+  const fraction = wrapped - segment;
+
+  const a = p[segment];
+
+  const b = p[segment + 1];
+
+  return a + (b - a) * fraction;
+
+}
+
+
+
+/* ساخت خانه‌های جدول خطی */
+
+function addGridCells(
+  board,
+  cols,
+  rows,
+  lockedColumns = 0
+) {
+
+  for(let r = 0; r < rows; r++) {
+
+    for(let c = 0; c < cols; c++) {
+
+      const cell = document.createElement("div");
+
+      cell.className =
+        "grid-cell" +
+        (c < lockedColumns ? " locked" : "");
+
+      board.append(cell);
+
+    }
+
   }
 
-  svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.classList.add("board-svg");
+}
 
-  const width = board.scrollWidth || board.offsetWidth;
-  const height = board.offsetHeight;
 
-  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-  svg.setAttribute("preserveAspectRatio", "none");
 
-  if (activeTool === "pencil" || activeTool === "erase") {
-    svg.classList.add("active");
+/* ساخت مرحله‌های خطی */
+
+function renderLineStage(stage) {
+
+  const main = makeBoard(
+    "mainBoard",
+    stage.cols,
+    stage.rows,
+    false,
+    true
+  );
+
+  const copy = makeBoard(
+    "copyBoard",
+    stage.copyCols,
+    stage.rows,
+    true,
+    true
+  );
+
+  addGridCells(
+    main,
+    stage.cols,
+    stage.rows,
+    stage.fixed
+  );
+
+  addGridCells(
+    copy,
+    stage.copyCols,
+    stage.rows,
+    0
+  );
+
+  addLineGuide(
+    main,
+    stage,
+    0,
+    stage.fixed,
+    stage.cols
+  );
+
+  setupLineDrawing(
+    main,
+    "main",
+    stage,
+    stage.fixed,
+    stage.cols - stage.fixed,
+    false
+  );
+
+  setupLineDrawing(
+    copy,
+    "copy",
+    stage,
+    0,
+    stage.copyCols,
+    true
+  );
+
+}
+
+
+
+/* ساخت SVG */
+
+function svgElement(name) {
+
+  return document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    name
+  );
+
+}
+
+
+
+/* رسم خط راهنما */
+
+function addLineGuide(
+  board,
+  stage,
+  start,
+  end,
+  totalCols
+) {
+
+  const svg = svgElement("svg");
+
+  svg.classList.add(
+    "line-svg",
+    "line-guide"
+  );
+
+  svg.setAttribute(
+    "viewBox",
+    "0 0 " + totalCols + " " + stage.rows
+  );
+
+  svg.setAttribute(
+    "preserveAspectRatio",
+    "none"
+  );
+
+  const points = [];
+
+  for(let x = start; x <= end; x++) {
+
+    points.push(
+      x + "," + pathY(stage,x)
+    );
+
   }
 
-  board.appendChild(svg);
+  const line = svgElement("polyline");
+
+  line.setAttribute(
+    "points",
+    points.join(" ")
+  );
+
+  line.setAttribute("fill","none");
+
+  line.setAttribute(
+    "stroke",
+    COLORS[stage.color]
+  );
+
+  line.setAttribute(
+    "stroke-width",
+    ".075"
+  );
+
+  line.setAttribute(
+    "stroke-linecap",
+    "square"
+  );
+
+  line.setAttribute(
+    "stroke-linejoin",
+    "miter"
+  );
+
+  svg.append(line);
+
+  board.append(svg);
+
+}
+
+
+
+/* رسم با کشیدن انگشت روی جدول */
+
+function setupLineDrawing(
+  board,
+  boardName,
+  stage,
+  xOffset,
+  drawWidth,
+  isCopy
+) {
+
+  const svg = svgElement("svg");
+
+  svg.classList.add(
+    "line-svg",
+    "line-draw"
+  );
+
+  svg.setAttribute(
+    "viewBox",
+    "0 0 " +
+    (isCopy ? stage.copyCols : stage.cols) +
+    " " +
+    stage.rows
+  );
+
+  svg.setAttribute(
+    "preserveAspectRatio",
+    "none"
+  );
+
+  board.append(svg);
+
 
   let drawing = false;
-  let currentPath = null;
 
-  function pointFromEvent(event) {
+  let path = null;
+
+  let strokeColor = selectedColor;
+
+  const previous = answers[key(boardName,"line")];
+
+  let visited = new Set(
+    previous?.bins || []
+  );
+
+
+  function point(event) {
+
     const rect = board.getBoundingClientRect();
 
+    const total = isCopy
+      ? stage.copyCols
+      : stage.cols;
+
     return {
-      x: event.clientX - rect.left + board.scrollLeft,
-      y: event.clientY - rect.top + board.scrollTop
+
+      x:
+        (event.clientX - rect.left) /
+        rect.width *
+        total,
+
+      y:
+        (event.clientY - rect.top) /
+        rect.height *
+        stage.rows
+
     };
+
   }
 
-  function findCell(event) {
-    const element = document.elementFromPoint(event.clientX, event.clientY);
-    const cell = element?.closest(".cell");
 
-    if (!cell || !board.contains(cell)) return -1;
+  let previousLocalX = null;
 
-    return [...board.children].indexOf(cell);
-  }
 
-  function markCell(index) {
-    if (index < 0) return;
+  function markCoverage(x) {
 
-    const fixedCount = boardName === "main"
-      ? stage.fixed
-      : 0;
+    const local = Math.max(
+      0,
+      Math.min(
+        drawWidth - .001,
+        x - (isCopy ? 0 : xOffset)
+      )
+    );
 
-    if (boardName === "main" && index < fixedCount) return;
+    const currentBin = Math.floor(local * 4);
 
-    if (boardName === "copy" && index >= stage.pattern.length) return;
+    if(previousLocalX === null) {
 
-    if (activeTool === "erase") {
-      setAnswer(boardName, index, null);
+      visited.add(currentBin);
+
     } else {
-      const value = stage.pattern[index % stage.pattern.length];
-      setAnswer(boardName, index, value);
-    }
 
-    const cell = board.children[index];
+      const previousBin =
+        Math.floor(previousLocalX * 4);
 
-    if (cell) {
-      cell.innerHTML = cellHTML(
-        getAnswer(boardName, index),
-        stage.type
+      const low = Math.min(
+        previousBin,
+        currentBin
       );
-      cell.classList.toggle("has-answer", !!getAnswer(boardName, index));
+
+      const high = Math.max(
+        previousBin,
+        currentBin
+      );
+
+      for(let bin = low; bin <= high; bin++) {
+
+        visited.add(bin);
+
+      }
+
     }
+
+    previousLocalX = local;
+
   }
 
-  svg.addEventListener("pointerdown", event => {
-    if (activeTool !== "pencil" && activeTool !== "erase") return;
+
+
+  svg.addEventListener("pointerdown",event => {
+
+    if(activeTool === "eraser") return;
 
     event.preventDefault();
+
     drawing = true;
+
+    strokeColor = selectedColor;
+
     svg.setPointerCapture(event.pointerId);
 
-    const point = pointFromEvent(event);
+    const p = point(event);
 
-    currentPath = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path"
+    path = svgElement("polyline");
+
+    path.setAttribute("fill","none");
+
+    path.setAttribute(
+      "stroke",
+      COLORS[strokeColor]
     );
 
-    currentPath.classList.add("student-stroke");
-    currentPath.setAttribute("d", `M ${point.x} ${point.y}`);
+    path.setAttribute(
+      "stroke-width",
+      ".19"
+    );
 
-    if (activeTool === "erase") {
-      currentPath.style.stroke = "#ffffff";
-      currentPath.style.strokeWidth = "13";
-    } else {
-      currentPath.style.stroke = "#8c55d4";
-    }
+    path.setAttribute(
+      "stroke-linecap",
+      "round"
+    );
 
-    svg.appendChild(currentPath);
-    markCell(findCell(event));
+    path.setAttribute(
+      "stroke-linejoin",
+      "round"
+    );
+
+    path.setAttribute(
+      "points",
+      p.x + "," + p.y
+    );
+
+    svg.append(path);
+
+    markCoverage(p.x);
+
   });
 
-  svg.addEventListener("pointermove", event => {
-    if (!drawing || !currentPath) return;
+
+
+  svg.addEventListener("pointermove",event => {
+
+    if(!drawing || !path) return;
 
     event.preventDefault();
 
-    const point = pointFromEvent(event);
-    const oldPath = currentPath.getAttribute("d");
+    const p = point(event);
 
-    currentPath.setAttribute(
-      "d",
-      `${oldPath} L ${point.x} ${point.y}`
+    path.setAttribute(
+      "points",
+      path.getAttribute("points") +
+      " " +
+      p.x +
+      "," +
+      p.y
     );
 
-    markCell(findCell(event));
+    markCoverage(p.x);
+
   });
 
-  function stopDrawing() {
+
+
+  function stop() {
+
+    if(!drawing) return;
+
     drawing = false;
-    currentPath = null;
-    saveStage();
-  }
 
-  svg.addEventListener("pointerup", stopDrawing);
-  svg.addEventListener("pointercancel", stopDrawing);
-}
+    path = null;
 
-/* مرحله موش */
-
-function renderMouseBoard(stage) {
-  const main = $("mainBoard");
-
-  main.replaceChildren();
-  main.style.setProperty("--columns", stage.columns);
-
-  $("copyLabel").classList.add("hidden");
-  $("copyBoard").classList.add("hidden");
-
-  for (let i = 0; i < stage.columns; i++) {
-    const wrong = i === stage.wrongIndex;
-
-    const value = wrong
-      ? stage.pattern[(i + 1) % stage.pattern.length]
-      : expectedValue(stage, i);
-
-    const cell = createCell(
-      "main",
-      i,
-      wrong && mouseEaten ? null : value,
-      true,
-      "mouse",
-      wrong ? "mouse-target" : ""
+    const required = Math.ceil(
+      drawWidth * 4
     );
 
-    if (wrong && !mouseEaten) {
-      cell.disabled = false;
-      cell.addEventListener("click", animateMouse);
-    }
+    const all = visited.size >= required;
 
-    if (wrong && mouseEaten) {
-      cell.innerHTML = '<span class="mouse-emoji">🐭</span>';
-      cell.classList.add("mouse-found");
-    }
+    const answerKey = key(
+      boardName,
+      "line"
+    );
 
-    main.appendChild(cell);
-  }
-}
+    answers[answerKey] = {
 
-function animateMouse(event) {
-  const target = event.currentTarget.getBoundingClientRect();
-  const mouse = $("dragMouse");
+      color: strokeColor,
 
-  mouse.classList.remove("hidden");
-  mouse.style.left = `${Math.max(5, target.left - 55)}px`;
-  mouse.style.top = `${target.top - 8}px`;
+      bins: [...visited],
 
-  requestAnimationFrame(() => {
-    mouse.style.left = `${target.left + target.width / 3}px`;
-    mouse.style.top = `${target.top + target.height / 5}px`;
-  });
+      covered: visited.size,
 
-  setTimeout(() => {
-    mouseEaten = true;
-    mouse.classList.add("hidden");
+      required: required,
 
-    renderBoards();
-    playCorrectSound();
+      complete: all
+
+    };
+
     saveStage();
-    setFeedback("");
-  }, 650);
-}
 
-/* نمایش همه جدول‌ها */
+    sound(460);
 
-function renderBoards() {
-  const stage = getStage();
-
-  $("boardLabel").textContent = "نام دانش‌آموز: الگو را ادامه بده";
-  $("copyLabel").textContent = "یک بار الگوی رئیس را تکرار کن";
-
-  $("copyLabel").classList.remove("hidden");
-  $("copyBoard").classList.remove("hidden");
-
-  if (stage.type === "mouse") {
-    renderMouseBoard(stage);
-    return;
   }
 
-  if (stage.type === "flower") {
-    renderFlower(stage);
-    return;
-  }
 
-  renderRegularBoards(stage);
-}
+  svg.addEventListener("pointerup",stop);
 
-/* بررسی پاسخ‌ها */
+  svg.addEventListener("pointercancel",stop);
 
-function checkRegularBoard(stage, boardName) {
-  const count = boardName === "main"
-    ? stage.columns
-    : stage.copy;
 
-  for (let i = 0; i < count; i++) {
-    let expected;
+  board._lineState = {
 
-    if (boardName === "main") {
-      expected = expectedValue(stage, i);
-    } else {
-      expected = i < stage.pattern.length
-        ? stage.pattern[i]
-        : null;
+    get complete() {
+      return !!answers[key(boardName,"line")]?.complete;
+    },
+
+    get color() {
+      return answers[key(boardName,"line")]?.color || null;
     }
 
-    if ((getAnswer(boardName, i) ?? null) !== (expected ?? null)) {
-      return false;
-    }
-  }
+  };
 
-  return true;
 }
 
-function checkFlowerBoard(stage, boardName) {
-  const columns = boardName === "main"
-    ? stage.columns
-    : stage.copy;
 
-  const fixedColumns = boardName === "main"
-    ? stage.fixedColumns
-    : 0;
 
-  for (let row = 0; row < 3; row++) {
-    for (let column = fixedColumns; column < columns; column++) {
-      const index = row * columns + column;
+/* نمایش جدول مناسب هر مرحله */
 
-      const expected = boardName === "copy" && column >= 4
-        ? null
-        : expectedFlower(row, column);
+function renderCurrentBoards() {
 
-      if ((getAnswer(boardName, index) ?? null) !== (expected ?? null)) {
-        return false;
-      }
-    }
-  }
+  const stage = STAGES[stageIndex];
 
-  return true;
-}
+  if(stage.kind === "line") {
 
-function checkAnswers() {
-  const stage = getStage();
+    renderLineStage(stage);
 
-  if (stage.type === "mouse") {
-    if (mouseEaten) {
-      saveStage();
-      setFeedback("");
-      playCorrectSound();
-    } else {
-      playWrongSound();
-      setFeedback("شکل ناهماهنگ را پیدا کن.", "wrong");
-    }
-    return;
-  }
-
-  let correct;
-
-  if (stage.type === "flower") {
-    correct =
-      checkFlowerBoard(stage, "main") &&
-      checkFlowerBoard(stage, "copy");
   } else {
-    correct =
-      checkRegularBoard(stage, "main") &&
-      checkRegularBoard(stage, "copy");
+
+    renderCellStage(stage);
+
   }
 
-  if (correct) {
-    playCorrectSound();
-    saveStage();
-    setFeedback("", "correct");
-
-    if (currentStage === STAGES.length - 1) {
-      showFireworks();
-    }
-  } else {
-    playWrongSound();
-    setFeedback("هنوز چند خانه نیاز به اصلاح دارد. دوباره بررسی کن.", "wrong");
-  }
 }
 
-/* پاک‌کن و پاک‌کردن پاسخ‌ها */
 
-function clearAnswers() {
-  answers = {};
-  renderBoards();
-  setFeedback("پاسخ‌ها پاک شدند.");
-}
 
-function togglePencil() {
-  activeTool = activeTool === "pencil" ? "paint" : "pencil";
-  updateToolButtons();
-  renderBoards();
-}
-
-function toggleEraser() {
-  activeTool = activeTool === "erase" ? "paint" : "erase";
-  updateToolButtons();
-  renderBoards();
-}
-
-/* آتش‌بازی */
-
-function showFireworks() {
-  const canvas = $("fireworksCanvas");
-  const context = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth * devicePixelRatio;
-  canvas.height = window.innerHeight * devicePixelRatio;
-
-  context.scale(devicePixelRatio, devicePixelRatio);
-
-  let particles = [];
-
-  for (let i = 0; i < 150; i++) {
-    particles.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight * .65,
-      vx: (Math.random() - .5) * 5,
-      vy: Math.random() * -5 - 1,
-      life: 70 + Math.random() * 40,
-      hue: Math.random() * 360
-    });
-  }
-
-  let frame = 0;
-
-  function draw() {
-    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    particles.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.vy += .12;
-      particle.life--;
-
-      context.fillStyle = `hsl(${particle.hue},90%,60%)`;
-      context.fillRect(particle.x, particle.y, 5, 5);
-    });
-
-    particles = particles.filter(particle => particle.life > 0);
-
-    if (particles.length && frame++ < 150) {
-      fireworksAnimation = requestAnimationFrame(draw);
-    } else {
-      context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      showFinish();
-    }
-  }
-
-  draw();
-}
-
-/* پایان بازی */
-
-function showFinish() {
-  $("game").classList.add("hidden");
-  $("finish").classList.remove("hidden");
-  $("finishMessage").textContent = `${studentName}، همهٔ الگوها را کامل کردی!`;
-}
-
-/* شروع، جابه‌جایی و خروج */
+/* نمایش مرحله */
 
 function renderStage() {
+
   loadStage();
 
-  const stage = getStage();
+  selectedColor = "red";
 
-  selectedItem = null;
-  activeTool = "paint";
+  activeTool = "pencil";
+
+  const stage = STAGES[stageIndex];
+
 
   $("stageCounter").textContent =
-    `${currentStage + 1} از ${STAGES.length}`;
+    (stageIndex + 1) +
+    " از " +
+    STAGES.length;
+
 
   $("progressBar").style.width =
-    `${((currentStage + 1) / STAGES.length) * 100}%`;
+    ((stageIndex + 1) / STAGES.length * 100) +
+    "%";
 
-  $("questionTitle").textContent = stage.title;
-  $("questionText").textContent = stage.instruction;
 
-  $("prevButton").disabled = currentStage === 0;
-  $("nextButton").disabled = currentStage === STAGES.length - 1;
+  $("questionTitle").textContent =
+    stage.title;
 
-  renderPalette();
-  renderBoards();
-  setFeedback("");
 
-  window.scrollTo({ top: 0, behavior: "auto" });
+  $("questionText").textContent =
+    stage.kind === "line"
+
+    ? "مداد هم‌رنگ الگو را انتخاب کن و خط را روی خطوط خانه‌ها ادامه بده. سپس همین الگو را یک بار در جدول خالی پایین بکش."
+
+    : "با مدادهای رنگی، الگوی اصلی را کامل کن و یک بار همان الگو را در جدول خالی پایین بساز.";
+
+
+  $("boardLabel").textContent =
+    "الگوی اصلی";
+
+
+  $("copyLabel").textContent =
+    "یک بار الگوی تکرارشونده را در جدول خالی تکرار کن";
+
+
+  $("prevButton").disabled =
+    stageIndex === 0;
+
+
+  $("nextButton").disabled =
+    stageIndex === STAGES.length - 1;
+
+
+  palette();
+
+  renderCurrentBoards();
+
+  feedback("");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "auto"
+  });
+
 }
 
-function startGame() {
-  studentName = $("studentName").value.trim() || "دانش‌آموز عزیز";
 
-  currentStage = 0;
+
+/* بررسی پاسخ جدول‌های رنگی */
+
+function checkCellStage(stage) {
+
+  const motif = motifMap(stage);
+
+  for(let r = 0; r < stage.rows; r++) {
+
+    for(
+      let c = stage.fixedCols;
+      c < stage.cols;
+      c++
+    ) {
+
+      const expected =
+        motif.get(
+          r + ":" + (c % stage.repeatCols)
+        ) || null;
+
+      if(
+        getAnswer(
+          "main",
+          r * stage.cols + c
+        ) !== expected
+      ) {
+
+        return false;
+
+      }
+
+    }
+
+
+    for(
+      let c = 0;
+      c < stage.repeatCols;
+      c++
+    ) {
+
+      const expected =
+        motif.get(r + ":" + c) || null;
+
+      if(
+        getAnswer(
+          "copy",
+          r * stage.repeatCols + c
+        ) !== expected
+      ) {
+
+        return false;
+
+      }
+
+    }
+
+  }
+
+  return true;
+
+}
+
+
+
+/* بررسی پاسخ جدول‌های خطی */
+
+function checkLineStage(stage) {
+
+  const main = answers[
+    key("main","line")
+  ];
+
+  const copy = answers[
+    key("copy","line")
+  ];
+
+  return (
+    !!main?.complete &&
+    !!copy?.complete &&
+    main.color === stage.color &&
+    copy.color === stage.color
+  );
+
+}
+
+
+
+/* بررسی نهایی پاسخ */
+
+function checkAnswers() {
+
+  const stage = STAGES[stageIndex];
+
+  const correct =
+    stage.kind === "line"
+      ? checkLineStage(stage)
+      : checkCellStage(stage);
+
+
+  if(correct) {
+
+    sound(660);
+
+    setTimeout(() => {
+      sound(880,.12);
+    },110);
+
+    feedback(
+      "آفرین! عالی بود! الگو را درست کامل کردی. 🌟",
+      "correct"
+    );
+
+    saveStage();
+
+
+    if(!celebratedStages.has(stageIndex)) {
+
+      celebratedStages.add(stageIndex);
+
+      showFireworks();
+
+    }
+
+
+    if(stageIndex === STAGES.length - 1) {
+
+      setTimeout(() => {
+
+        $("game").classList.add("hidden");
+
+        $("finish").classList.remove("hidden");
+
+        $("finishMessage").textContent =
+          studentName +
+          "، همهٔ الگوها را با موفقیت کامل کردی!";
+
+      },2600);
+
+    }
+
+  } else {
+
+    sound(230,.14);
+
+    feedback(
+      "هنوز بخشی از الگو کامل نشده یا رنگی درست انتخاب نشده است. دوباره بررسی کن.",
+      "wrong"
+    );
+
+  }
+
+}
+
+
+
+/* پاک کردن پاسخ‌ها */
+
+function clearAnswers() {
+
   answers = {};
-  savedStages = {};
-  mouseEaten = false;
 
-  $("studentGreeting").textContent = `سلام ${studentName}`;
+  saveStage();
+
+  renderCurrentBoards();
+
+  feedback(
+    "پاسخ‌های این صفحه پاک شدند."
+  );
+
+}
+
+
+
+/* فعال کردن پاک‌کن */
+
+function toggleEraser() {
+
+  activeTool =
+    activeTool === "eraser"
+      ? "pencil"
+      : "eraser";
+
+  palette();
+
+  feedback(
+    activeTool === "eraser"
+      ? "پاک‌کن انتخاب شد."
+      : "مداد رنگی انتخاب شد."
+  );
+
+}
+
+
+
+/* رفتن به مرحله بعد */
+
+function nextStage() {
+
+  saveStage();
+
+  if(stageIndex < STAGES.length - 1) {
+
+    stageIndex++;
+
+    renderStage();
+
+  }
+
+}
+
+
+
+/* برگشت به مرحله قبل */
+
+function previousStage() {
+
+  saveStage();
+
+  if(stageIndex > 0) {
+
+    stageIndex--;
+
+    renderStage();
+
+  }
+
+}
+
+
+
+/* شروع بازی */
+
+function startGame() {
+
+  studentName =
+    $("studentName").value.trim() ||
+    "دانش‌آموز عزیز";
+
+  stageIndex = 0;
+
+  answers = {};
+
+  savedStages = {};
+
+  celebratedStages.clear();
+
+  $("studentGreeting").textContent =
+    "سلام " + studentName;
 
   $("welcome").classList.add("hidden");
+
   $("finish").classList.add("hidden");
+
   $("game").classList.remove("hidden");
 
   renderStage();
+
 }
 
-function nextStage() {
-  saveStage();
 
-  if (currentStage < STAGES.length - 1) {
-    currentStage++;
-    renderStage();
-  }
-}
 
-function previousStage() {
-  if (currentStage <= 0) return;
-
-  saveStage();
-  currentStage--;
-  renderStage();
-}
+/* خروج از بازی */
 
 function exitGame() {
-  if (!confirm("آیا می‌خواهی از بازی خارج شوی؟")) return;
+
+  if(!confirm("از بازی خارج می‌شوی؟")) {
+    return;
+  }
 
   $("game").classList.add("hidden");
-  $("finish").classList.add("hidden");
+
   $("welcome").classList.remove("hidden");
 
-  if (fireworksAnimation) {
-    cancelAnimationFrame(fireworksAnimation);
-  }
 }
 
+
+
+/* فشفشه‌های تشویقی */
+
+function showFireworks() {
+
+  const canvas = $("fireworksCanvas");
+
+  const ctx = canvas.getContext("2d");
+
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = innerWidth * dpr;
+
+  canvas.height = innerHeight * dpr;
+
+  canvas.style.display = "block";
+
+  ctx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
+
+
+  const particles = [];
+
+  const colors = [
+    "#f3c969",
+    "#8fc9b5",
+    "#a99bd5",
+    "#ef9d91",
+    "#8ebbd8",
+    "#f0b6cf"
+  ];
+
+
+  const bursts = [
+
+    {
+      x: innerWidth * .22,
+      y: innerHeight * .28
+    },
+
+    {
+      x: innerWidth * .50,
+      y: innerHeight * .20
+    },
+
+    {
+      x: innerWidth * .78,
+      y: innerHeight * .30
+    }
+
+  ];
+
+
+  bursts.forEach((burst,burstIndex) => {
+
+    for(let i = 0; i < 42; i++) {
+
+      const angle =
+        (Math.PI * 2 * i) / 42 +
+        (Math.random() - .5) * .12;
+
+      const speed =
+        1.5 + Math.random() * 3.1;
+
+      particles.push({
+
+        x: burst.x,
+
+        y: burst.y,
+
+        vx: Math.cos(angle) * speed,
+
+        vy: Math.sin(angle) * speed,
+
+        gravity: .035 + Math.random() * .025,
+
+        life: 65 + Math.random() * 25,
+
+        size: 3 + Math.random() * 3,
+
+        color: colors[
+          (i + burstIndex) % colors.length
+        ],
+
+        rotation: Math.random() * Math.PI,
+
+        spin: (Math.random() - .5) * .16
+
+      });
+
+    }
+
+  });
+
+
+  let frame = 0;
+
+
+  function draw() {
+
+    ctx.clearRect(
+      0,
+      0,
+      innerWidth,
+      innerHeight
+    );
+
+
+    particles.forEach(p => {
+
+      if(p.life <= 0) return;
+
+      p.x += p.vx;
+
+      p.y += p.vy;
+
+      p.vy += p.gravity;
+
+      p.rotation += p.spin;
+
+      p.life--;
+
+
+      ctx.save();
+
+      ctx.globalAlpha =
+        Math.min(1,p.life / 22);
+
+      ctx.translate(p.x,p.y);
+
+      ctx.rotate(p.rotation);
+
+      ctx.fillStyle = p.color;
+
+      ctx.fillRect(
+        -p.size / 2,
+        -p.size / 2,
+        p.size,
+        p.size * 1.45
+      );
+
+      ctx.restore();
+
+    });
+
+
+    frame++;
+
+
+    if(frame < 100) {
+
+      fireworksFrame =
+        requestAnimationFrame(draw);
+
+    } else {
+
+      ctx.clearRect(
+        0,
+        0,
+        innerWidth,
+        innerHeight
+      );
+
+      canvas.style.display = "none";
+
+      fireworksFrame = null;
+
+    }
+
+  }
+
+
+  draw();
+
+}
+
+
+
+/* شروع دوباره */
+
 function restartGame() {
-  currentStage = 0;
-  studentName = "";
-  answers = {};
-  savedStages = {};
-  mouseEaten = false;
-  selectedItem = null;
-  activeTool = "paint";
+
+  if(fireworksFrame) {
+
+    cancelAnimationFrame(fireworksFrame);
+
+  }
+
+  celebratedStages.clear();
+
+  $("finish").classList.add("hidden");
+
+  $("welcome").classList.remove("hidden");
 
   $("studentName").value = "";
 
-  $("finish").classList.add("hidden");
-  $("game").classList.add("hidden");
-  $("welcome").classList.remove("hidden");
 }
+
+
 
 /* اتصال دکمه‌ها */
 
-$("startButton").addEventListener("click", startGame);
+$("startButton").addEventListener(
+  "click",
+  startGame
+);
 
-$("studentName").addEventListener("keydown", event => {
-  if (event.key === "Enter") startGame();
-});
+$("studentName").addEventListener(
+  "keydown",
+  e => {
+    if(e.key === "Enter") {
+      startGame();
+    }
+  }
+);
 
-$("checkButton").addEventListener("click", checkAnswers);
-$("prevButton").addEventListener("click", previousStage);
-$("nextButton").addEventListener("click", nextStage);
-$("exitButton").addEventListener("click", exitGame);
-$("restartButton").addEventListener("click", restartGame);
-$("clearButton").addEventListener("click", clearAnswers);
-$("pencilButton").addEventListener("click", togglePencil);
-$("eraserButton").addEventListener("click", toggleEraser);
+$("prevButton").addEventListener(
+  "click",
+  previousStage
+);
 
-/* آماده‌سازی اولیه */
+$("nextButton").addEventListener(
+  "click",
+  nextStage
+);
+
+$("checkButton").addEventListener(
+  "click",
+  checkAnswers
+);
+
+$("clearButton").addEventListener(
+  "click",
+  clearAnswers
+);
+
+$("eraserButton").addEventListener(
+  "click",
+  toggleEraser
+);
+
+$("exitButton").addEventListener(
+  "click",
+  exitGame
+);
+
+$("restartButton").addEventListener(
+  "click",
+  restartGame
+);
+
 
 $("welcome").classList.remove("hidden");
+
 $("game").classList.add("hidden");
+
 $("finish").classList.add("hidden");
