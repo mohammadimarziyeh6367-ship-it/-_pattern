@@ -5,8 +5,8 @@
 
 :root {
   font-family: Tahoma, Arial, sans-serif;
-  color: #352044;
-  background: #faf7ff;
+  color: #3f4653;
+  background: #fbfaf6;
 }
 
 html,
@@ -19,9 +19,9 @@ body {
 
 body {
   background:
-    radial-gradient(circle at 10% 10%, #fff4c7 0, transparent 25%),
-    radial-gradient(circle at 90% 15%, #ffd8ef 0, transparent 25%),
-    linear-gradient(135deg, #f8f3ff, #fff);
+    radial-gradient(circle at 8% 8%, #f7eddf 0, transparent 27%),
+    radial-gradient(circle at 92% 12%, #e8f2ed 0, transparent 25%),
+    linear-gradient(135deg, #fbfaf6, #f3f2f8);
 }
 
 button,
@@ -44,46 +44,47 @@ button {
   width: 100%;
 }
 
-/* صفحه شروع و پایان */
+
+/* صفحه شروع */
 
 .welcome,
 .finish-screen {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 22px 14px;
+  padding: 20px;
 }
 
 .welcome-card,
 .finish-card {
-  width: min(620px, 96vw);
-  padding: 25px 20px;
+  width: min(600px, 96vw);
+  padding: 24px 18px;
   background: #fff;
-  border: 3px solid #f1ddff;
-  border-radius: 30px;
-  box-shadow: 0 18px 50px #7438c826;
+  border: 3px solid #e7e2d8;
+  border-radius: 28px;
+  box-shadow: 0 14px 42px #6e6a7b16;
   text-align: center;
 }
 
 .teacher-photo {
-  width: 130px;
-  height: 130px;
+  width: 125px;
+  height: 125px;
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid #f1ddff;
 }
 
 .welcome-title {
-  font-size: clamp(32px, 7vw, 52px);
+  font-size: clamp(32px, 7vw, 50px);
   font-weight: 900;
-  color: #7438c8;
+  color: #756b9b;
   margin: 10px;
 }
 
 .welcome-subtitle {
   font-size: 22px;
   font-weight: bold;
-  color: #e64e98;
+  color: #779b8d;
 }
 
 .welcome-message {
@@ -94,7 +95,7 @@ button {
 label {
   display: block;
   text-align: right;
-  color: #7438c8;
+  color: #756b9b;
   font-weight: bold;
   margin: 12px auto 6px;
   max-width: 420px;
@@ -111,19 +112,22 @@ input {
   font-size: 18px;
 }
 
+
+/* دکمه‌ها */
+
 .primary-button,
 .nav-button,
 .tool-button {
   border: 0;
-  border-radius: 14px;
+  border-radius: 13px;
   padding: 12px 17px;
   font-weight: 900;
 }
 
 .primary-button {
-  background: linear-gradient(135deg, #7438c8, #a451e0);
-  color: white;
-  box-shadow: 0 5px 0 #552296;
+  background: linear-gradient(135deg, #8d83b5, #a79bc7);
+  color: #fff;
+  box-shadow: 0 4px 0 #71678f;
 }
 
 #welcome .primary-button {
@@ -131,11 +135,12 @@ input {
   font-size: 19px;
 }
 
-/* صفحه بازی */
+
+/* سربرگ بازی */
 
 .game-screen {
   padding: 12px;
-  max-width: 1400px;
+  max-width: 1350px;
   margin: auto;
 }
 
@@ -150,7 +155,7 @@ input {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #7438c8;
+  color: #756b9b;
   font-size: 20px;
 }
 
@@ -166,16 +171,19 @@ input {
 }
 
 .stage-counter {
-  background: white;
-  border: 2px solid #eadbfa;
+  background: #fff;
+  border: 2px solid #e2e1e8;
   border-radius: 14px;
   padding: 9px 14px;
   font-weight: bold;
 }
 
+
+/* نوار پیشرفت */
+
 .progress-track {
-  height: 10px;
-  background: #eee2fa;
+  height: 9px;
+  background: #e9e8e5;
   border-radius: 20px;
   margin: 12px 0;
   overflow: hidden;
@@ -184,15 +192,18 @@ input {
 #progressBar {
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, #ff78b5, #8a54d1);
+  background: linear-gradient(90deg, #a9c7b8, #aaa1c9);
   transition: width .25s;
 }
+
+
+/* عنوان مرحله */
 
 .question-area {
   text-align: center;
   background: #fff;
   border: 2px solid #f0d8e8;
-  border-radius: 17px;
+  border-radius: 16px;
   padding: 9px 12px;
   margin: 10px auto;
   max-width: 1100px;
@@ -200,51 +211,104 @@ input {
 
 .question-area h1 {
   font-size: clamp(20px, 4vw, 28px);
-  color: #7438c8;
+  color: #756b9b;
   margin: 4px;
 }
 
 .question-area p {
-  font-size: clamp(15px, 3vw, 19px);
+  font-size: clamp(14px, 3vw, 18px);
   line-height: 1.8;
   margin: 5px;
 }
 
-/* پالت و ابزارها */
+
+/* مدادهای رنگی */
 
 .palette-panel {
   max-width: 1050px;
   margin: 10px auto;
   background: #fff;
-  border: 2px solid #eadbfa;
+  border: 2px solid #e5e5df;
   border-radius: 17px;
-  padding: 9px;
+  padding: 10px;
+}
+
+.palette-caption {
+  margin: 0 0 8px;
+  text-align: center;
+  color: #74518c;
+  font-weight: bold;
 }
 
 .palette {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 9px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-.palette-item {
-  width: 48px;
-  height: 48px;
-  border: 3px solid white;
-  border-radius: 13px;
-  box-shadow: 0 2px 8px #0002;
+.pencil-choice {
+  width: 68px;
+  height: 59px;
+  background: #fff;
+  border: 2px solid #eee2f5;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
 }
 
-.palette-item.selected {
-  outline: 3px solid #7438c8;
+.pencil-choice.selected {
+  outline: 3px solid #7543b4;
   outline-offset: 2px;
+  background: #fbf5ff;
 }
+
+.pencil {
+  position: relative;
+  display: block;
+  width: 49px;
+  height: 18px;
+  background: var(--pencil);
+  border-radius: 5px 2px 2px 5px;
+  transform: rotate(-27deg);
+  box-shadow:
+    inset 0 3px #ffffff55,
+    inset 0 -3px #00000018;
+}
+
+.pencil:before {
+  content: "";
+  position: absolute;
+  right: -13px;
+  top: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 13px solid #e8c89d;
+}
+
+.pencil:after {
+  content: "";
+  position: absolute;
+  right: -13px;
+  top: 5px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid #333;
+}
+
+.pencil i {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  height: 18px;
+  width: 3px;
+  background: #ffffff75;
+}
+
+
+/* ابزارها */
 
 .tool-buttons {
   display: flex;
@@ -255,15 +319,16 @@ input {
 }
 
 .tool-button {
-  background: #f4eaff;
-  color: #7438c8;
-  border: 2px solid #e4d0fa;
+  background: #eef2ef;
+  color: #687f75;
+  border: 2px solid #dce7df;
 }
 
 .tool-button.active {
-  background: #7438c8;
+  background: #7543b4;
   color: white;
 }
+
 
 /* جدول‌ها */
 
@@ -276,230 +341,112 @@ input {
 .board-label {
   font-size: clamp(16px, 3vw, 21px);
   font-weight: 900;
-  color: #7438c8;
+  color: #756b9b;
   margin: 12px 0 8px;
 }
 
 .board-wrap {
   width: 100%;
   overflow-x: auto;
-  padding: 2px 0 8px;
+  padding: 2px 0 10px;
   direction: ltr;
 }
 
 .board {
-  --columns: 12;
+  --cols: 12;
+  --rows: 3;
+
   display: grid;
-  grid-template-columns: repeat(var(--columns), minmax(42px, 1fr));
-  grid-auto-rows: 58px;
+
+  grid-template-columns:
+    repeat(var(--cols), minmax(34px, 1fr));
+
+  grid-template-rows:
+    repeat(var(--rows), 48px);
+
   gap: 0;
-  width: max-content;
-  min-width: min(100%, 700px);
+
+  width: min(100%, 1050px);
+  min-width: 620px;
+
   margin: 0 auto;
-  border: 3px solid #40334e;
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
-  direction: ltr;
+
+  border: 4px solid #d99a70;
+  background: #fff;
+
   position: relative;
+  direction: ltr;
+
   touch-action: pan-x pan-y;
 }
 
-.cell {
-  position: relative;
-  min-width: 42px;
-  height: 58px;
+.grid-cell {
+  min-width: 0;
+  min-height: 0;
+
   border: 0;
-  border-left: 1px solid #40334e55;
-  border-bottom: 1px solid #40334e55;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-right: 1px solid #a9d7e8;
+  border-bottom: 1px solid #a9d7e8;
+
+  background: #fff;
   padding: 0;
-  overflow: hidden;
+  position: relative;
 }
 
-.cell.fixed-cell {
-  background: #fffdfd;
-}
-
-.cell.answer-cell {
+.grid-cell.answer-cell {
   cursor: pointer;
 }
 
-.cell.has-answer {
-  background: #fff;
+.grid-cell.locked {
+  cursor: default;
 }
 
-.cell.expected-blank {
-  background: #fff;
-}
-
-/* شکل‌ها */
-
-.shape {
-  display: block;
-  width: 58%;
-  height: 58%;
-  background: var(--shape-color);
-  pointer-events: none;
-}
-
-.circle {
-  border-radius: 50%;
-}
-
-.square {
-  border-radius: 2px;
-}
-
-.triangle {
-  width: 0;
-  height: 0;
-  background: transparent;
-  border-left: 16px solid transparent;
-  border-right: 16px solid transparent;
-  border-bottom: 30px solid var(--shape-color);
-}
-
-.star {
-  background: transparent;
-  color: var(--shape-color);
-  font-size: 36px;
-  line-height: 1;
-}
-
-.color-dot {
-  width: 65%;
-  height: 65%;
-  border-radius: 5px;
-  background: var(--dot-color);
-  pointer-events: none;
-}
-
-/* خط‌ها */
-
-.line-mark {
+.grid-cell .paint-fill {
   position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 50%;
-  height: 5px;
-  border-radius: 8px;
-  background: var(--line-color);
-  transform: translateY(-50%);
-  pointer-events: none;
+  inset: 1px;
+  background: var(--fill);
 }
 
-.diagonal-mark {
-  position: absolute;
-  width: 120%;
-  height: 5px;
-  background: var(--line-color);
-  border-radius: 8px;
-  pointer-events: none;
+.small-board {
+  min-width: 300px;
+  width: min(72%, 720px);
 }
 
-.diagonal-up {
-  transform: rotate(-45deg);
-}
 
-.diagonal-down {
-  transform: rotate(45deg);
-}
+/* رسم خط با مداد */
 
-.edge-mark {
-  position: absolute;
-  background: transparent;
-  border-color: var(--line-color);
-  border-style: solid;
-  pointer-events: none;
-}
-
-.edge-top {
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 50%;
-  border-width: 4px 0 0;
-}
-
-.edge-right {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 50%;
-  border-width: 0 4px 0 0;
-}
-
-.edge-bottom {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50%;
-  border-width: 0 0 4px;
-}
-
-/* مداد و موش */
-
-.board.drawing-mode {
+.line-board {
   touch-action: none;
-  cursor: crosshair;
+  overflow: hidden;
 }
 
-.board-svg {
+.line-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 5;
-  pointer-events: none;
   overflow: visible;
 }
 
-.board-svg.active {
+.line-guide {
+  pointer-events: none;
+}
+
+.line-draw {
   pointer-events: auto;
   touch-action: none;
+  cursor: crosshair;
 }
 
-.student-stroke {
-  fill: none;
-  stroke: #8c55d4;
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
 
-.mouse-target {
-  outline: 3px dashed #ff9f43;
-  outline-offset: -5px;
-}
-
-.mouse-found {
-  background: #efffec;
-}
-
-.mouse-emoji {
-  font-size: 28px;
-}
-
-.drag-mouse {
-  position: fixed;
-  z-index: 20;
-  font-size: 42px;
-  pointer-events: none;
-  transition: left .55s ease, top .55s ease;
-}
-
-/* بازخورد و دکمه‌ها */
+/* پیام پاسخ */
 
 .feedback {
-  min-height: 30px;
+  min-height: 28px;
   text-align: center;
   font-weight: bold;
-  font-size: 17px;
-  color: #7438c8;
+  font-size: 16px;
+  color: #756b9b;
   margin: 8px;
 }
 
@@ -511,6 +458,9 @@ input {
   color: #25934a;
 }
 
+
+/* دکمه‌های مرحله */
+
 .nav-buttons {
   display: flex;
   justify-content: center;
@@ -521,19 +471,21 @@ input {
 
 .nav-button {
   background: #fff;
-  color: #7438c8;
-  border: 2px solid #eadbfa;
+  color: #756b9b;
+  border: 2px solid #e2e1e8;
 }
 
 .nav-button:disabled {
   opacity: .4;
+  cursor: not-allowed;
 }
 
 .exit-button {
   color: #bd4165;
 }
 
-/* امضا و پایان */
+
+/* امضا */
 
 .game-footer {
   text-align: center;
@@ -544,25 +496,30 @@ input {
 
 .signature {
   display: block;
-  width: 125px;
-  max-height: 65px;
+  width: min(250px, 60vw);
+  height: auto;
+  max-height: 150px;
   object-fit: contain;
   margin: 0 auto 7px;
 }
+
+
+/* صفحه پایان */
 
 .finish-star {
   font-size: 65px;
 }
 
 .finish-card h1 {
-  color: #7438c8;
+  color: #756b9b;
 }
 
 .finish-signature {
   margin: 15px auto;
 }
 
-/* آتش‌بازی */
+
+/* فشفشه‌ها */
 
 .fireworks-canvas {
   position: fixed;
@@ -571,31 +528,41 @@ input {
   height: 100%;
   pointer-events: none;
   z-index: 30;
+  display: none;
 }
 
-/* موبایل */
 
-@media (max-width: 600px) {
+/* نمایش در موبایل */
+
+@media(max-width:600px) {
+
   .game-screen {
     padding: 9px 7px;
   }
 
-  .cell {
-    min-width: 38px;
-    height: 51px;
-  }
-
   .board {
-    grid-auto-rows: 51px;
-    grid-template-columns: repeat(var(--columns), minmax(38px, 1fr));
+    grid-template-rows:
+      repeat(var(--rows), 40px);
+
+    min-width: 620px;
   }
 
-  .palette-item {
-    width: 43px;
-    height: 43px;
+  .small-board {
+    grid-template-rows:
+      repeat(var(--rows), 40px);
+  }
+
+  .pencil-choice {
+    width: 57px;
+    height: 52px;
+  }
+
+  .pencil {
+    width: 40px;
   }
 
   .welcome-card {
     padding: 20px 14px;
   }
+
 }
