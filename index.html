@@ -14,13 +14,13 @@
 
   <!-- صفحه شروع -->
   <section id="welcome" class="screen welcome">
-
     <div class="welcome-card">
 
-      <img class="teacher-photo"
-           src="IMG_4332.jpeg"
-           alt="عکس آموزگار"
-           onerror="this.hidden=true">
+      <img
+        class="teacher-photo"
+        src="IMG_4332.jpeg"
+        alt="عکس آموزگار"
+        onerror="this.hidden=true">
 
       <div class="welcome-title">الگوی منظم</div>
 
@@ -49,7 +49,6 @@
       </button>
 
     </div>
-
   </section>
 
 
@@ -59,14 +58,12 @@
     <header class="game-header">
 
       <div class="game-brand">
-
         <span class="brand-icon" aria-hidden="true">🌈</span>
 
         <div>
           <strong>الگوی منظم</strong>
           <small id="studentGreeting">آماده‌ای؟</small>
         </div>
-
       </div>
 
       <div class="stage-counter" id="stageCounter">
@@ -82,19 +79,13 @@
 
 
     <section class="question-area">
-
-      <h1 id="questionTitle">
-        الگو را ادامه بده
-      </h1>
-
+      <h1 id="questionTitle">الگو را ادامه بده</h1>
       <p id="questionText"></p>
-
     </section>
 
 
-    <!-- مدادهای رنگی -->
-
-    <section class="palette-panel" aria-label="مدادهای رنگی">
+    <!-- مدادهای رنگی و پاک‌کن -->
+    <section class="palette-panel">
 
       <p class="palette-caption">
         یک مداد رنگی انتخاب کن:
@@ -112,37 +103,37 @@
           پاک‌کن
         </button>
 
-        <button
-          id="clearButton"
-          class="tool-button"
-          type="button">
-          پاک‌کردن پاسخ‌های این صفحه
-        </button>
-
       </div>
 
     </section>
 
 
-    <!-- جدول اصلی و جدول تکرار -->
-
+    <!-- جدول‌ها -->
     <section id="boardArea" class="board-area">
 
-      <div id="boardLabel" class="board-label">
-        الگوی اصلی
+      <div class="board-card">
+
+        <div id="boardLabel" class="board-label">
+          الگوی اصلی
+        </div>
+
+        <div class="board-wrap">
+          <div id="mainBoard" class="board"></div>
+        </div>
+
       </div>
 
-      <div class="board-wrap">
-        <div id="mainBoard" class="board"></div>
-      </div>
 
+      <div class="board-card">
 
-      <div id="copyLabel" class="board-label copy-label">
-        یک بار الگوی تکرارشونده را در جدول خالی تکرار کن
-      </div>
+        <div id="copyLabel" class="board-label copy-label">
+          یک بار الگوی اصلی را در جدول خالی تکرار کن
+        </div>
 
-      <div class="board-wrap">
-        <div id="copyBoard" class="board copy-board"></div>
+        <div class="board-wrap">
+          <div id="copyBoard" class="board copy-board"></div>
+        </div>
+
       </div>
 
     </section>
@@ -152,7 +143,6 @@
 
 
     <!-- دکمه‌های حرکت -->
-
     <nav class="nav-buttons" aria-label="حرکت بین مرحله‌ها">
 
       <button
@@ -187,7 +177,6 @@
 
 
     <!-- امضای آموزگار -->
-
     <footer class="game-footer">
 
       <img
@@ -195,18 +184,24 @@
         src="34A60F59-B219-495E-B6FA-E03A85E81C3B.png"
         alt="امضای مرضیه محمدی">
 
-      <div>
-        آموزگار: مرضیه محمدی |
-        مدرسهٔ دخترانهٔ شریعتی
-      </div>
+  
 
     </footer>
 
   </section>
 
 
-  <!-- صفحه پایان بازی -->
+  <!-- پیام چرخاندن گوشی -->
+  <div id="rotateHint" class="rotate-hint">
+    <div class="rotate-card">
+      <div class="rotate-icon">📱</div>
+      <strong>گوشی را افقی بگیر</strong>
+      <span>تا همهٔ قسمت‌های بازی را یک‌جا ببینی.</span>
+    </div>
+  </div>
 
+
+  <!-- صفحه پایان -->
   <section id="finish" class="screen finish-screen hidden">
 
     <div class="finish-card">
@@ -239,7 +234,6 @@
 
 
 <!-- فشفشه‌های تشویقی -->
-
 <canvas
   id="fireworksCanvas"
   class="fireworks-canvas"
