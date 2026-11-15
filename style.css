@@ -12,8 +12,8 @@
 html,
 body {
   margin: 0;
-  min-height: 100%;
   width: 100%;
+  min-height: 100%;
   overflow-x: hidden;
 }
 
@@ -52,7 +52,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .welcome-card,
@@ -120,7 +120,7 @@ input {
 .tool-button {
   border: 0;
   border-radius: 13px;
-  padding: 12px 17px;
+  padding: 10px 16px;
   font-weight: 900;
 }
 
@@ -130,18 +130,25 @@ input {
   box-shadow: 0 4px 0 #71678f;
 }
 
+.primary-button:active,
+.nav-button:active,
+.tool-button:active {
+  transform: translateY(2px);
+}
+
 #welcome .primary-button {
   margin-top: 18px;
   font-size: 19px;
 }
 
 
-/* سربرگ بازی */
+/* سربرگ */
 
 .game-screen {
-  padding: 12px;
-  max-width: 1350px;
+  width: 100%;
+  max-width: 1500px;
   margin: auto;
+  padding: 10px 14px;
 }
 
 .game-header {
@@ -154,38 +161,39 @@ input {
 .game-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   color: #756b9b;
   font-size: 20px;
 }
 
 .game-brand small {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   color: #725f7c;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 .brand-icon {
-  font-size: 32px;
+  font-size: 30px;
 }
 
 .stage-counter {
   background: #fff;
   border: 2px solid #e2e1e8;
   border-radius: 14px;
-  padding: 9px 14px;
+  padding: 7px 13px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 
 /* نوار پیشرفت */
 
 .progress-track {
-  height: 9px;
+  height: 8px;
   background: #e9e8e5;
   border-radius: 20px;
-  margin: 12px 0;
+  margin: 9px 0;
   overflow: hidden;
 }
 
@@ -197,28 +205,28 @@ input {
 }
 
 
-/* عنوان مرحله */
+/* عنوان سؤال */
 
 .question-area {
   text-align: center;
   background: #fff;
   border: 2px solid #f0d8e8;
-  border-radius: 16px;
-  padding: 9px 12px;
-  margin: 10px auto;
+  border-radius: 15px;
+  padding: 7px 10px;
+  margin: 8px auto;
   max-width: 1100px;
 }
 
 .question-area h1 {
-  font-size: clamp(20px, 4vw, 28px);
+  font-size: clamp(18px, 3vw, 25px);
   color: #756b9b;
-  margin: 4px;
+  margin: 3px;
 }
 
 .question-area p {
-  font-size: clamp(14px, 3vw, 18px);
-  line-height: 1.8;
-  margin: 5px;
+  font-size: clamp(13px, 2vw, 16px);
+  line-height: 1.6;
+  margin: 4px;
 }
 
 
@@ -226,17 +234,18 @@ input {
 
 .palette-panel {
   max-width: 1050px;
-  margin: 10px auto;
+  margin: 8px auto;
   background: #fff;
   border: 2px solid #e5e5df;
-  border-radius: 17px;
-  padding: 10px;
+  border-radius: 15px;
+  padding: 7px 10px;
 }
 
 .palette-caption {
-  margin: 0 0 8px;
+  margin: 0 0 5px;
   text-align: center;
   color: #74518c;
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -244,16 +253,16 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 9px;
   flex-wrap: wrap;
 }
 
 .pencil-choice {
-  width: 68px;
-  height: 59px;
+  width: 58px;
+  height: 45px;
   background: #fff;
   border: 2px solid #eee2f5;
-  border-radius: 12px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,15 +270,15 @@ input {
 
 .pencil-choice.selected {
   outline: 3px solid #7543b4;
-  outline-offset: 2px;
+  outline-offset: 1px;
   background: #fbf5ff;
 }
 
 .pencil {
   position: relative;
   display: block;
-  width: 49px;
-  height: 18px;
+  width: 43px;
+  height: 15px;
   background: var(--pencil);
   border-radius: 5px 2px 2px 5px;
   transform: rotate(-27deg);
@@ -281,75 +290,89 @@ input {
 .pencil:before {
   content: "";
   position: absolute;
-  right: -13px;
+  right: -11px;
   top: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-left: 13px solid #e8c89d;
+  border-top: 7.5px solid transparent;
+  border-bottom: 7.5px solid transparent;
+  border-left: 11px solid #e8c89d;
 }
 
 .pencil:after {
   content: "";
   position: absolute;
-  right: -13px;
-  top: 5px;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  border-left: 6px solid #333;
+  right: -11px;
+  top: 4px;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-left: 5px solid #333;
 }
 
 .pencil i {
   position: absolute;
-  left: 8px;
+  left: 7px;
   top: 0;
-  height: 18px;
+  height: 15px;
   width: 3px;
   background: #ffffff75;
 }
 
 
-/* ابزارها */
+/* ابزار پاک‌کن */
 
 .tool-buttons {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .tool-button {
   background: #eef2ef;
   color: #687f75;
   border: 2px solid #dce7df;
+  padding: 7px 20px;
 }
 
 .tool-button.active {
   background: #7543b4;
   color: white;
+  border-color: #7543b4;
 }
 
 
-/* جدول‌ها */
+/* بخش جدول‌ها */
 
 .board-area {
   width: 100%;
-  margin: 14px auto;
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin: 9px auto;
+}
+
+.board-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 2px solid #e9e1ed;
+  border-radius: 13px;
+  padding: 7px;
+  overflow: hidden;
 }
 
 .board-label {
-  font-size: clamp(16px, 3vw, 21px);
+  font-size: clamp(14px, 2vw, 19px);
   font-weight: 900;
   color: #756b9b;
-  margin: 12px 0 8px;
+  text-align: center;
+  margin: 2px 0 7px;
+  min-height: 25px;
 }
 
 .board-wrap {
   width: 100%;
-  overflow-x: auto;
-  padding: 2px 0 10px;
+  overflow: hidden;
   direction: ltr;
+  padding: 1px;
 }
 
 .board {
@@ -359,25 +382,28 @@ input {
   display: grid;
 
   grid-template-columns:
-    repeat(var(--cols), minmax(34px, 1fr));
+    repeat(var(--cols), minmax(0, 1fr));
 
   grid-template-rows:
-    repeat(var(--rows), 48px);
+    repeat(var(--rows), clamp(25px, 4.2vw, 45px));
 
   gap: 0;
 
-  width: min(100%, 1050px);
-  min-width: 620px;
+  width: 100%;
+  min-width: 0;
 
   margin: 0 auto;
 
-  border: 4px solid #d99a70;
+  border: 3px solid #d99a70;
   background: #fff;
 
   position: relative;
   direction: ltr;
+}
 
-  touch-action: pan-x pan-y;
+.small-board {
+  width: 100%;
+  min-width: 0;
 }
 
 .grid-cell {
@@ -407,13 +433,8 @@ input {
   background: var(--fill);
 }
 
-.small-board {
-  min-width: 300px;
-  width: min(72%, 720px);
-}
 
-
-/* رسم خط با مداد */
+/* رسم خط */
 
 .line-board {
   touch-action: none;
@@ -425,7 +446,7 @@ input {
   inset: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .line-guide {
@@ -442,12 +463,12 @@ input {
 /* پیام پاسخ */
 
 .feedback {
-  min-height: 28px;
+  min-height: 24px;
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: #756b9b;
-  margin: 8px;
+  margin: 5px;
 }
 
 .feedback.wrong {
@@ -464,15 +485,17 @@ input {
 .nav-buttons {
   display: flex;
   justify-content: center;
-  gap: 9px;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  margin: 12px auto;
+  margin: 7px auto;
 }
 
 .nav-button {
   background: #fff;
   color: #756b9b;
   border: 2px solid #e2e1e8;
+  padding: 9px 13px;
 }
 
 .nav-button:disabled {
@@ -485,22 +508,22 @@ input {
 }
 
 
-/* امضا */
+/* امضای آموزگار */
 
 .game-footer {
   text-align: center;
   color: #7a6686;
-  font-size: 13px;
-  margin: 18px auto;
+  font-size: 12px;
+  margin: 7px auto 3px;
 }
 
 .signature {
   display: block;
-  width: min(250px, 60vw);
+  width: min(190px, 42vw);
   height: auto;
-  max-height: 150px;
+  max-height: 85px;
   object-fit: contain;
-  margin: 0 auto 7px;
+  margin: 0 auto 4px;
 }
 
 
@@ -532,37 +555,260 @@ input {
 }
 
 
-/* نمایش در موبایل */
+/* پیام چرخاندن گوشی */
 
-@media(max-width:600px) {
+.rotate-hint {
+  display: none;
+}
+
+
+/* تبلت و صفحه‌های متوسط */
+
+@media (max-width: 850px) {
 
   .game-screen {
-    padding: 9px 7px;
+    padding: 8px;
+  }
+
+  .board-area {
+    gap: 7px;
+  }
+
+  .board-card {
+    padding: 5px;
   }
 
   .board {
     grid-template-rows:
-      repeat(var(--rows), 40px);
-
-    min-width: 620px;
-  }
-
-  .small-board {
-    grid-template-rows:
-      repeat(var(--rows), 40px);
+      repeat(var(--rows), clamp(23px, 4vw, 36px));
   }
 
   .pencil-choice {
-    width: 57px;
-    height: 52px;
+    width: 51px;
+    height: 40px;
   }
 
   .pencil {
-    width: 40px;
+    width: 38px;
   }
 
-  .welcome-card {
-    padding: 20px 14px;
+}
+
+
+/* گوشی در حالت عمودی */
+
+@media (max-width: 700px) and (orientation: portrait) {
+
+  .rotate-hint {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f7f3fbf5;
+  }
+
+  .rotate-card {
+    width: min(340px, 95%);
+    padding: 28px 18px;
+    background: #fff;
+    border: 2px solid #e6d9f2;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 12px 35px #5d507322;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #756b9b;
+  }
+
+  .rotate-icon {
+    font-size: 55px;
+  }
+
+  .rotate-card strong {
+    font-size: 22px;
+  }
+
+  .rotate-card span {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+}
+
+
+/* گوشی افقی */
+
+@media (max-height: 520px) and (orientation: landscape) {
+
+  .game-screen {
+    padding: 4px 8px;
+  }
+
+  .game-header {
+    min-height: 29px;
+  }
+
+  .game-brand {
+    font-size: 16px;
+  }
+
+  .brand-icon {
+    font-size: 22px;
+  }
+
+  .game-brand small {
+    font-size: 10px;
+  }
+
+  .stage-counter {
+    padding: 4px 9px;
+    font-size: 12px;
+  }
+
+  .progress-track {
+    height: 5px;
+    margin: 4px 0;
+  }
+
+  .question-area {
+    padding: 3px 7px;
+    margin: 4px auto;
+  }
+
+  .question-area h1 {
+    font-size: 17px;
+  }
+
+  .question-area p {
+    font-size: 11px;
+    line-height: 1.35;
+    margin: 2px;
+  }
+
+  .palette-panel {
+    padding: 4px 7px;
+    margin: 4px auto;
+  }
+
+  .palette-caption {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .palette {
+    gap: 5px;
+  }
+
+  .pencil-choice {
+    width: 40px;
+    height: 29px;
+  }
+
+  .pencil {
+    width: 31px;
+    height: 11px;
+  }
+
+  .pencil:before {
+    right: -8px;
+    border-top-width: 5.5px;
+    border-bottom-width: 5.5px;
+    border-left-width: 8px;
+  }
+
+  .pencil:after {
+    right: -8px;
+    top: 3px;
+    border-top-width: 2.5px;
+    border-bottom-width: 2.5px;
+    border-left-width: 4px;
+  }
+
+  .pencil i {
+    height: 11px;
+  }
+
+  .tool-buttons {
+    margin-top: 3px;
+  }
+
+  .tool-button {
+    padding: 3px 13px;
+    font-size: 11px;
+  }
+
+  .board-area {
+    margin: 4px auto;
+    gap: 7px;
+  }
+
+  .board-card {
+    padding: 4px;
+  }
+
+  .board-label {
+    font-size: 12px;
+    margin: 1px 0 3px;
+    min-height: 18px;
+  }
+
+  .board {
+    grid-template-rows:
+      repeat(var(--rows), clamp(17px, 5.4vh, 29px));
+    border-width: 2px;
+  }
+
+  .feedback {
+    min-height: 16px;
+    font-size: 11px;
+    margin: 2px;
+  }
+
+  .nav-buttons {
+    gap: 5px;
+    margin: 3px auto;
+  }
+
+  .nav-button,
+  .nav-buttons .primary-button {
+    padding: 5px 10px;
+    font-size: 11px;
+    border-radius: 9px;
+  }
+
+  .game-footer {
+    font-size: 9px;
+    margin: 3px auto;
+  }
+
+  .signature {
+    width: 105px;
+    max-height: 35px;
+    margin-bottom: 2px;
+  }
+
+}
+
+
+/* نمایشگرهای بزرگ */
+
+@media (min-width: 1200px) {
+
+  .game-screen {
+    padding: 12px 24px;
+  }
+
+  .board-area {
+    gap: 18px;
+  }
+
+  .board {
+    grid-template-rows:
+      repeat(var(--rows), 48px);
   }
 
 }
