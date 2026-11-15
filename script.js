@@ -2,6 +2,9 @@
 
 const $ = id => document.getElementById(id);
 
+
+/* رنگ‌ها */
+
 const COLORS = {
   red: "#e53935",
   blue: "#159ed0",
@@ -10,6 +13,7 @@ const COLORS = {
   orange: "#e9782c",
   black: "#242424"
 };
+
 
 const PENCILS = [
   ["red", "قرمز"],
@@ -21,15 +25,7 @@ const PENCILS = [
 ];
 
 
-/*
-هر مرحله یک فعالیت مستقل است.
-
-در جدول اصلی فقط بخش آغازین الگو رنگ شده؛
-ادامه آن خالی است.
-
-جدول تکرار از ابتدا کاملاً خالی است.
-*/
-
+/* مراحل بازی */
 
 const STAGES = [
 
@@ -154,41 +150,37 @@ const STAGES = [
 
 
 let stageIndex = 0;
-
 let studentName = "";
-
 let selectedColor = "red";
-
 let activeTool = "pencil";
 
 let answers = {};
-
 let savedStages = {};
 
 let audioContext = null;
-
 let fireworksFrame = null;
 
 let celebratedStages = new Set();
 
 
+/* مدیریت پاسخ‌ها */
 
-function key(board,index) {
+function key(board, index) {
   return board + ":" + index;
 }
 
 
-function getAnswer(board,index) {
-  return answers[key(board,index)] || null;
+function getAnswer(board, index) {
+  return answers[key(board, index)] || null;
 }
 
 
-function setAnswer(board,index,value) {
+function setAnswer(board, index, value) {
 
   if(value) {
-    answers[key(board,index)] = value;
+    answers[key(board, index)] = value;
   } else {
-    delete answers[key(board,index)];
+    delete answers[key(board, index)];
   }
 
 }
@@ -197,7 +189,7 @@ function setAnswer(board,index,value) {
 function saveStage() {
 
   savedStages[stageIndex] = {
-    answers: {...answers}
+    answers: JSON.parse(JSON.stringify(answers))
   };
 
 }
@@ -207,19 +199,22 @@ function loadStage() {
 
   const saved = savedStages[stageIndex];
 
-  answers = saved ? {...saved.answers} : {};
+  answers = saved
+    ? JSON.parse(JSON.stringify(saved.answers))
+    : {};
 
 }
 
 
+/* صدا */
 
-/* صداهای کوتاه بازی */
-
-function sound(freq = 520,duration = .08) {
+function sound(freq = 520, duration = .08) {
 
   try {
 
-    const AC = window.AudioContext || window.webkitAudioContext;
+    const AC =
+      window.AudioContext ||
+      window.webkitAudioContext;
 
     if(!AC) return;
 
@@ -230,13 +225,11 @@ function sound(freq = 520,duration = .08) {
     }
 
     const osc = audioContext.createOscillator();
-
     const gain = audioContext.createGain();
 
     osc.frequency.value = freq;
 
     osc.connect(gain);
-
     gain.connect(audioContext.destination);
 
     gain.gain.setValueAtTime(
@@ -260,20 +253,19 @@ function sound(freq = 520,duration = .08) {
 }
 
 
+/* پیام */
 
-/* پیام‌های بازی */
-
-function feedback(message = "",type = "") {
+function feedback(message = "", type = "") {
 
   $("feedback").textContent = message;
 
-  $("feedback").className = "feedback " + type;
+  $("feedback").className =
+    "feedback " + type;
 
 }
 
 
-
-/* نمایش مدادهای رنگی */
+/* مدادها و پاک‌کن */
 
 function palette() {
 
@@ -281,7 +273,7 @@ function palette() {
 
   root.replaceChildren();
 
-  PENCILS.forEach(([id,label]) => {
+  PENCILS.forEach(([id, label]) => {
 
     const btn = document.createElement("button");
 
@@ -303,10 +295,9 @@ function palette() {
       COLORS[id] +
       '"><i></i></span>';
 
-    btn.addEventListener("click",() => {
+    btn.addEventListener("click", () => {
 
       selectedColor = id;
-
       activeTool = "pencil";
 
       palette();
@@ -323,11 +314,6 @@ function palette() {
 
 
   $("eraserButton").classList.toggle(
-    "hidden",
-    STAGES[stageIndex].kind === "line"
-  );
-
-  $("eraserButton").classList.toggle(
     "active",
     activeTool === "eraser"
   );
@@ -340,32 +326,39 @@ function palette() {
 }
 
 
-
 /* ساخت جدول */
 
-function makeBoard(id,cols,rows,small = false,line = false) {
+function makeBoard(
+  id,
+  cols,
+  rows,
+  small = false,
+  line = false
+) {
 
   const root = $(id);
 
   root.replaceChildren();
 
-  root.style.setProperty("--cols",cols);
+  root.style.setProperty("--cols", cols);
+  root.style.setProperty("--rows", rows);
 
-  root.style.setProperty("--rows",rows);
-
-  root.classList.toggle("small-board",small);
-
-  root.classList.toggle("line-board",line);
+  root.classList.toggle("small-board", small);
+  root.classList.toggle("line-board", line);
 
   return root;
 
 }
 
 
+/* ساخت خانه رنگی */
 
-/* ساخت خانه‌های رنگی */
-
-function makeCell(boardName,index,value,locked = false) {
+function makeCell(
+  boardName,
+  index,
+  value,
+  locked = false
+) {
 
   const cell = document.createElement("button");
 
@@ -387,18 +380,20 @@ function makeCell(boardName,index,value,locked = false) {
 
   if(!locked) {
 
-    cell.addEventListener("click",() => {
+    cell.addEventListener("click", () => {
 
-      setAnswer(
-        boardName,
-        index,
-        activeTool === "eraser" ? null : selectedColor
-      );
+      if(activeTool === "eraser") {
 
-      if(activeTool !== "eraser") {
-        sound(490);
+        setAnswer(boardName, index, null);
+
+        sound(260, .06);
+
       } else {
-        sound(260,.06);
+
+        setAnswer(boardName, index, selectedColor);
+
+        sound(490);
+
       }
 
       renderCurrentBoards();
@@ -414,23 +409,21 @@ function makeCell(boardName,index,value,locked = false) {
 }
 
 
-
-/* الگوی تکرارشونده */
+/* تبدیل الگو به نقشه */
 
 function motifMap(stage) {
 
   const map = new Map();
 
-  stage.motif.forEach(([r,c,color]) => {
+  stage.motif.forEach(([r, c, color]) => {
 
-    map.set(r + ":" + c,color);
+    map.set(r + ":" + c, color);
 
   });
 
   return map;
 
 }
-
 
 
 /* ساخت جدول‌های رنگی */
@@ -452,8 +445,8 @@ function renderCellStage(stage) {
 
   const motif = motifMap(stage);
 
-  const fixedPatternWidth = stage.fixedCols;
 
+  /* جدول بالا */
 
   for(let r = 0; r < stage.rows; r++) {
 
@@ -461,14 +454,16 @@ function renderCellStage(stage) {
 
       const index = r * stage.cols + c;
 
-      const locked = c < fixedPatternWidth;
+      const locked = c < stage.fixedCols;
 
       const expected =
-        motif.get(r + ":" + (c % stage.repeatCols)) || null;
+        motif.get(
+          r + ":" + (c % stage.repeatCols)
+        ) || null;
 
       const value = locked
         ? expected
-        : getAnswer("main",index);
+        : getAnswer("main", index);
 
       main.append(
         makeCell(
@@ -484,20 +479,24 @@ function renderCellStage(stage) {
   }
 
 
-  // همه خانه‌های جدول تکرار در شروع خالی هستند.
+  /*
+  جدول پایین:
+  تمام خانه‌ها از ابتدا خالی هستند.
+  هیچ رنگ یا راهنمایی از الگوی اصلی
+  در این جدول نمایش داده نمی‌شود.
+  */
 
   for(let r = 0; r < stage.rows; r++) {
 
     for(let c = 0; c < stage.repeatCols; c++) {
 
+      const index = r * stage.repeatCols + c;
+
       copy.append(
         makeCell(
           "copy",
-          r * stage.repeatCols + c,
-          getAnswer(
-            "copy",
-            r * stage.repeatCols + c
-          ),
+          index,
+          getAnswer("copy", index),
           false
         )
       );
@@ -509,10 +508,9 @@ function renderCellStage(stage) {
 }
 
 
-
 /* محاسبه مسیر خط */
 
-function pathY(stage,x) {
+function pathY(stage, x) {
 
   const p = stage.points;
 
@@ -526,13 +524,11 @@ function pathY(stage,x) {
   const fraction = wrapped - segment;
 
   const a = p[segment];
-
   const b = p[segment + 1];
 
   return a + (b - a) * fraction;
 
 }
-
 
 
 /* ساخت خانه‌های جدول خطی */
@@ -563,71 +559,6 @@ function addGridCells(
 }
 
 
-
-/* ساخت مرحله‌های خطی */
-
-function renderLineStage(stage) {
-
-  const main = makeBoard(
-    "mainBoard",
-    stage.cols,
-    stage.rows,
-    false,
-    true
-  );
-
-  const copy = makeBoard(
-    "copyBoard",
-    stage.copyCols,
-    stage.rows,
-    true,
-    true
-  );
-
-  addGridCells(
-    main,
-    stage.cols,
-    stage.rows,
-    stage.fixed
-  );
-
-  addGridCells(
-    copy,
-    stage.copyCols,
-    stage.rows,
-    0
-  );
-
-  addLineGuide(
-    main,
-    stage,
-    0,
-    stage.fixed,
-    stage.cols
-  );
-
-  setupLineDrawing(
-    main,
-    "main",
-    stage,
-    stage.fixed,
-    stage.cols - stage.fixed,
-    false
-  );
-
-  setupLineDrawing(
-    copy,
-    "copy",
-    stage,
-    0,
-    stage.copyCols,
-    true
-  );
-
-}
-
-
-
 /* ساخت SVG */
 
 function svgElement(name) {
@@ -640,8 +571,7 @@ function svgElement(name) {
 }
 
 
-
-/* رسم خط راهنما */
+/* خط راهنمای الگوی اصلی */
 
 function addLineGuide(
   board,
@@ -670,10 +600,10 @@ function addLineGuide(
 
   const points = [];
 
-  for(let x = start; x <= end; x++) {
+  for(let x = start; x <= end; x += .1) {
 
     points.push(
-      x + "," + pathY(stage,x)
+      x + "," + pathY(stage, x)
     );
 
   }
@@ -685,27 +615,17 @@ function addLineGuide(
     points.join(" ")
   );
 
-  line.setAttribute("fill","none");
+  line.setAttribute("fill", "none");
 
   line.setAttribute(
     "stroke",
     COLORS[stage.color]
   );
 
-  line.setAttribute(
-    "stroke-width",
-    ".075"
-  );
+  line.setAttribute("stroke-width", ".09");
 
-  line.setAttribute(
-    "stroke-linecap",
-    "square"
-  );
-
-  line.setAttribute(
-    "stroke-linejoin",
-    "miter"
-  );
+  line.setAttribute("stroke-linecap", "round");
+  line.setAttribute("stroke-linejoin", "round");
 
   svg.append(line);
 
@@ -714,8 +634,193 @@ function addLineGuide(
 }
 
 
+/* محاسبه فاصله نقطه از یک پاره‌خط */
 
-/* رسم با کشیدن انگشت روی جدول */
+function distanceToSegment(p, a, b) {
+
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+
+  const lengthSquared = dx * dx + dy * dy;
+
+  if(lengthSquared === 0) {
+
+    return Math.hypot(
+      p.x - a.x,
+      p.y - a.y
+    );
+
+  }
+
+  let t =
+    ((p.x - a.x) * dx +
+    (p.y - a.y) * dy) /
+    lengthSquared;
+
+  t = Math.max(0, Math.min(1, t));
+
+  const nearestX = a.x + t * dx;
+  const nearestY = a.y + t * dy;
+
+  return Math.hypot(
+    p.x - nearestX,
+    p.y - nearestY
+  );
+
+}
+
+
+/* محاسبه خانه‌های پوشش داده شده توسط خط */
+
+function calculateBins(segments, drawWidth, xOffset) {
+
+  const bins = new Set();
+
+  const totalBins = Math.ceil(drawWidth * 4);
+
+  segments.forEach(segment => {
+
+    const a = segment.a;
+    const b = segment.b;
+
+    const localA = a.x - xOffset;
+    const localB = b.x - xOffset;
+
+    const low = Math.min(localA, localB);
+    const high = Math.max(localA, localB);
+
+    for(let i = 0; i < totalBins; i++) {
+
+      const center = (i + .5) / 4;
+
+      if(center >= low && center <= high) {
+        bins.add(i);
+      }
+
+    }
+
+  });
+
+  return [...bins];
+
+}
+
+
+/* رسم قسمت‌های ذخیره‌شده */
+
+function drawSavedSegments(svg, segments) {
+
+  segments.forEach(segment => {
+
+    const line = svgElement("line");
+
+    line.setAttribute("x1", segment.a.x);
+    line.setAttribute("y1", segment.a.y);
+
+    line.setAttribute("x2", segment.b.x);
+    line.setAttribute("y2", segment.b.y);
+
+    line.setAttribute("stroke", COLORS[segment.color]);
+
+    line.setAttribute("stroke-width", ".19");
+
+    line.setAttribute("stroke-linecap", "round");
+
+    line.setAttribute("pointer-events", "none");
+
+    svg.append(line);
+
+  });
+
+}
+
+
+/* پاک کردن نزدیک‌ترین قسمت خط */
+
+function eraseNearestSegment(
+  boardName,
+  p,
+  board
+) {
+
+  const answerKey = key(boardName, "line");
+
+  const answer = answers[answerKey];
+
+  if(!answer || !answer.segments.length) {
+    return false;
+  }
+
+  const totalCols =
+    boardName === "copy"
+      ? STAGES[stageIndex].copyCols
+      : STAGES[stageIndex].cols;
+
+  const rect = board.getBoundingClientRect();
+
+  const threshold = Math.max(
+    .22,
+    totalCols * 0.018
+  );
+
+  let nearestIndex = -1;
+  let nearestDistance = Infinity;
+
+  answer.segments.forEach((segment, index) => {
+
+    const distance = distanceToSegment(
+      p,
+      segment.a,
+      segment.b
+    );
+
+    if(distance < nearestDistance) {
+
+      nearestDistance = distance;
+      nearestIndex = index;
+
+    }
+
+  });
+
+
+  if(
+    nearestIndex >= 0 &&
+    nearestDistance <= threshold
+  ) {
+
+    answer.segments.splice(nearestIndex, 1);
+
+    answer.bins = calculateBins(
+      answer.segments,
+      boardName === "copy"
+        ? STAGES[stageIndex].copyCols
+        : STAGES[stageIndex].cols,
+      0
+    );
+
+    answer.complete = false;
+
+    saveStage();
+
+    sound(260, .06);
+
+    renderCurrentBoards();
+
+    feedback("قسمت انتخاب‌شده پاک شد.");
+
+    return true;
+
+  }
+
+  feedback("برای پاک کردن، روی خط نزدیک‌تر لمس کن.");
+
+  return false;
+
+}
+
+
+/* رسم خط با انگشت یا ماوس */
 
 function setupLineDrawing(
   board,
@@ -726,6 +831,10 @@ function setupLineDrawing(
   isCopy
 ) {
 
+  const totalCols = isCopy
+    ? stage.copyCols
+    : stage.cols;
+
   const svg = svgElement("svg");
 
   svg.classList.add(
@@ -735,10 +844,7 @@ function setupLineDrawing(
 
   svg.setAttribute(
     "viewBox",
-    "0 0 " +
-    (isCopy ? stage.copyCols : stage.cols) +
-    " " +
-    stage.rows
+    "0 0 " + totalCols + " " + stage.rows
   );
 
   svg.setAttribute(
@@ -749,33 +855,36 @@ function setupLineDrawing(
   board.append(svg);
 
 
+  const answerKey = key(boardName, "line");
+
+  let answer = answers[answerKey] || {
+    segments: [],
+    bins: [],
+    complete: false
+  };
+
+  if(!Array.isArray(answer.segments)) {
+    answer.segments = [];
+  }
+
+  drawSavedSegments(svg, answer.segments);
+
+
   let drawing = false;
-
-  let path = null;
-
-  let strokeColor = selectedColor;
-
-  const previous = answers[key(boardName,"line")];
-
-  let visited = new Set(
-    previous?.bins || []
-  );
+  let currentPoint = null;
+  let currentColor = selectedColor;
 
 
   function point(event) {
 
     const rect = board.getBoundingClientRect();
 
-    const total = isCopy
-      ? stage.copyCols
-      : stage.cols;
-
     return {
 
       x:
         (event.clientX - rect.left) /
         rect.width *
-        total,
+        totalCols,
 
       y:
         (event.clientY - rect.top) /
@@ -787,160 +896,140 @@ function setupLineDrawing(
   }
 
 
-  let previousLocalX = null;
+  function allowedPoint(p) {
 
+    const start = isCopy ? 0 : xOffset;
+    const end = start + drawWidth;
 
-  function markCoverage(x) {
-
-    const local = Math.max(
-      0,
-      Math.min(
-        drawWidth - .001,
-        x - (isCopy ? 0 : xOffset)
-      )
+    return (
+      p.x >= start &&
+      p.x <= end &&
+      p.y >= 0 &&
+      p.y <= stage.rows
     );
-
-    const currentBin = Math.floor(local * 4);
-
-    if(previousLocalX === null) {
-
-      visited.add(currentBin);
-
-    } else {
-
-      const previousBin =
-        Math.floor(previousLocalX * 4);
-
-      const low = Math.min(
-        previousBin,
-        currentBin
-      );
-
-      const high = Math.max(
-        previousBin,
-        currentBin
-      );
-
-      for(let bin = low; bin <= high; bin++) {
-
-        visited.add(bin);
-
-      }
-
-    }
-
-    previousLocalX = local;
 
   }
 
 
+  function addSegment(a, b) {
 
-  svg.addEventListener("pointerdown",event => {
+    const segment = {
 
-    if(activeTool === "eraser") return;
+      a: {
+        x: a.x,
+        y: a.y
+      },
+
+      b: {
+        x: b.x,
+        y: b.y
+      },
+
+      color: currentColor
+
+    };
+
+    answer.segments.push(segment);
+
+    const line = svgElement("line");
+
+    line.setAttribute("x1", a.x);
+    line.setAttribute("y1", a.y);
+
+    line.setAttribute("x2", b.x);
+    line.setAttribute("y2", b.y);
+
+    line.setAttribute(
+      "stroke",
+      COLORS[currentColor]
+    );
+
+    line.setAttribute("stroke-width", ".19");
+
+    line.setAttribute("stroke-linecap", "round");
+
+    line.setAttribute("pointer-events", "none");
+
+    svg.append(line);
+
+  }
+
+
+  svg.addEventListener("pointerdown", event => {
 
     event.preventDefault();
+
+    const p = point(event);
+
+    if(activeTool === "eraser") {
+
+      eraseNearestSegment(
+        boardName,
+        p,
+        board
+      );
+
+      return;
+
+    }
+
+    if(!allowedPoint(p)) return;
 
     drawing = true;
 
-    strokeColor = selectedColor;
+    currentPoint = p;
+
+    currentColor = selectedColor;
 
     svg.setPointerCapture(event.pointerId);
-
-    const p = point(event);
-
-    path = svgElement("polyline");
-
-    path.setAttribute("fill","none");
-
-    path.setAttribute(
-      "stroke",
-      COLORS[strokeColor]
-    );
-
-    path.setAttribute(
-      "stroke-width",
-      ".19"
-    );
-
-    path.setAttribute(
-      "stroke-linecap",
-      "round"
-    );
-
-    path.setAttribute(
-      "stroke-linejoin",
-      "round"
-    );
-
-    path.setAttribute(
-      "points",
-      p.x + "," + p.y
-    );
-
-    svg.append(path);
-
-    markCoverage(p.x);
 
   });
 
 
+  svg.addEventListener("pointermove", event => {
 
-  svg.addEventListener("pointermove",event => {
-
-    if(!drawing || !path) return;
+    if(!drawing || !currentPoint) return;
 
     event.preventDefault();
 
     const p = point(event);
 
-    path.setAttribute(
-      "points",
-      path.getAttribute("points") +
-      " " +
-      p.x +
-      "," +
-      p.y
-    );
+    if(!allowedPoint(p)) return;
 
-    markCoverage(p.x);
+    if(
+      Math.hypot(
+        p.x - currentPoint.x,
+        p.y - currentPoint.y
+      ) < .025
+    ) {
+      return;
+    }
+
+    addSegment(currentPoint, p);
+
+    currentPoint = p;
 
   });
 
 
-
-  function stop() {
+  function stopDrawing() {
 
     if(!drawing) return;
 
     drawing = false;
 
-    path = null;
+    currentPoint = null;
 
-    const required = Math.ceil(
-      drawWidth * 4
+    answer.bins = calculateBins(
+      answer.segments,
+      drawWidth,
+      xOffset
     );
 
-    const all = visited.size >= required;
+    answer.complete =
+      answer.bins.length >= Math.ceil(drawWidth * 4);
 
-    const answerKey = key(
-      boardName,
-      "line"
-    );
-
-    answers[answerKey] = {
-
-      color: strokeColor,
-
-      bins: [...visited],
-
-      covered: visited.size,
-
-      required: required,
-
-      complete: all
-
-    };
+    answers[answerKey] = answer;
 
     saveStage();
 
@@ -949,25 +1038,105 @@ function setupLineDrawing(
   }
 
 
-  svg.addEventListener("pointerup",stop);
-
-  svg.addEventListener("pointercancel",stop);
+  svg.addEventListener("pointerup", stopDrawing);
+  svg.addEventListener("pointercancel", stopDrawing);
 
 
   board._lineState = {
 
     get complete() {
-      return !!answers[key(boardName,"line")]?.complete;
+      return !!answers[answerKey]?.complete;
     },
 
     get color() {
-      return answers[key(boardName,"line")]?.color || null;
+
+      const segments =
+        answers[answerKey]?.segments || [];
+
+      if(!segments.length) return null;
+
+      return segments.every(
+        segment => segment.color === stage.color
+      ) ? stage.color : "mixed";
+
     }
 
   };
 
 }
 
+
+/* نمایش مرحله خطی */
+
+function renderLineStage(stage) {
+
+  const main = makeBoard(
+    "mainBoard",
+    stage.cols,
+    stage.rows,
+    false,
+    true
+  );
+
+  const copy = makeBoard(
+    "copyBoard",
+    stage.copyCols,
+    stage.rows,
+    true,
+    true
+  );
+
+
+  addGridCells(
+    main,
+    stage.cols,
+    stage.rows,
+    stage.fixed
+  );
+
+  addGridCells(
+    copy,
+    stage.copyCols,
+    stage.rows,
+    0
+  );
+
+
+  /* بخش آغازین الگو در جدول بالا */
+
+  addLineGuide(
+    main,
+    stage,
+    0,
+    stage.fixed,
+    stage.cols
+  );
+
+
+  /* ادامه خط در جدول اصلی */
+
+  setupLineDrawing(
+    main,
+    "main",
+    stage,
+    stage.fixed,
+    stage.cols - stage.fixed,
+    false
+  );
+
+
+  /* جدول پایین کاملاً خالی است */
+
+  setupLineDrawing(
+    copy,
+    "copy",
+    stage,
+    0,
+    stage.copyCols,
+    true
+  );
+
+}
 
 
 /* نمایش جدول مناسب هر مرحله */
@@ -989,7 +1158,6 @@ function renderCurrentBoards() {
 }
 
 
-
 /* نمایش مرحله */
 
 function renderStage() {
@@ -997,7 +1165,6 @@ function renderStage() {
   loadStage();
 
   selectedColor = "red";
-
   activeTool = "pencil";
 
   const stage = STAGES[stageIndex];
@@ -1021,9 +1188,9 @@ function renderStage() {
   $("questionText").textContent =
     stage.kind === "line"
 
-    ? "مداد هم‌رنگ الگو را انتخاب کن و خط را روی خطوط خانه‌ها ادامه بده. سپس همین الگو را یک بار در جدول خالی پایین بکش."
+    ? "الگو را با مداد هم‌رنگ ادامه بده و یک بار همان خط را در جدول خالی پایین رسم کن."
 
-    : "با مدادهای رنگی، الگوی اصلی را کامل کن و یک بار همان الگو را در جدول خالی پایین بساز.";
+    : "الگوی اصلی را کامل کن و یک بار همان الگو را در جدول خالی پایین بساز.";
 
 
   $("boardLabel").textContent =
@@ -1031,7 +1198,7 @@ function renderStage() {
 
 
   $("copyLabel").textContent =
-    "یک بار الگوی تکرارشونده را در جدول خالی تکرار کن";
+    "یک بار الگوی اصلی را در جدول خالی تکرار کن";
 
 
   $("prevButton").disabled =
@@ -1056,12 +1223,14 @@ function renderStage() {
 }
 
 
-
-/* بررسی پاسخ جدول‌های رنگی */
+/* بررسی جدول‌های رنگی */
 
 function checkCellStage(stage) {
 
   const motif = motifMap(stage);
+
+
+  /* بررسی ادامه جدول بالا */
 
   for(let r = 0; r < stage.rows; r++) {
 
@@ -1076,19 +1245,19 @@ function checkCellStage(stage) {
           r + ":" + (c % stage.repeatCols)
         ) || null;
 
-      if(
-        getAnswer(
-          "main",
-          r * stage.cols + c
-        ) !== expected
-      ) {
+      const actual = getAnswer(
+        "main",
+        r * stage.cols + c
+      );
 
+      if(actual !== expected) {
         return false;
-
       }
 
     }
 
+
+    /* بررسی جدول پایین */
 
     for(
       let c = 0;
@@ -1099,15 +1268,13 @@ function checkCellStage(stage) {
       const expected =
         motif.get(r + ":" + c) || null;
 
-      if(
-        getAnswer(
-          "copy",
-          r * stage.repeatCols + c
-        ) !== expected
-      ) {
+      const actual = getAnswer(
+        "copy",
+        r * stage.repeatCols + c
+      );
 
+      if(actual !== expected) {
         return false;
-
       }
 
     }
@@ -1119,31 +1286,65 @@ function checkCellStage(stage) {
 }
 
 
-
-/* بررسی پاسخ جدول‌های خطی */
+/* بررسی خط‌ها */
 
 function checkLineStage(stage) {
 
-  const main = answers[
-    key("main","line")
-  ];
+  const main = answers[key("main", "line")];
 
-  const copy = answers[
-    key("copy","line")
-  ];
+  const copy = answers[key("copy", "line")];
+
+  if(!main || !copy) return false;
+
+  if(!main.segments || !copy.segments) return false;
+
+  if(main.segments.length === 0) return false;
+
+  if(copy.segments.length === 0) return false;
+
+
+  const mainBins = calculateBins(
+    main.segments,
+    stage.cols - stage.fixed,
+    stage.fixed
+  );
+
+  const copyBins = calculateBins(
+    copy.segments,
+    stage.copyCols,
+    0
+  );
+
+
+  const mainRequired =
+    Math.ceil((stage.cols - stage.fixed) * 4);
+
+  const copyRequired =
+    Math.ceil(stage.copyCols * 4);
+
+
+  const mainColorsCorrect =
+    main.segments.every(
+      segment => segment.color === stage.color
+    );
+
+  const copyColorsCorrect =
+    copy.segments.every(
+      segment => segment.color === stage.color
+    );
+
 
   return (
-    !!main?.complete &&
-    !!copy?.complete &&
-    main.color === stage.color &&
-    copy.color === stage.color
+    mainBins.length >= mainRequired &&
+    copyBins.length >= copyRequired &&
+    mainColorsCorrect &&
+    copyColorsCorrect
   );
 
 }
 
 
-
-/* بررسی نهایی پاسخ */
+/* بررسی پاسخ */
 
 function checkAnswers() {
 
@@ -1160,11 +1361,11 @@ function checkAnswers() {
     sound(660);
 
     setTimeout(() => {
-      sound(880,.12);
-    },110);
+      sound(880, .12);
+    }, 110);
 
     feedback(
-      "آفرین! عالی بود! الگو را درست کامل کردی. 🌟",
+      "آفرین! الگو را درست کامل کردی. 🌟",
       "correct"
     );
 
@@ -1192,13 +1393,13 @@ function checkAnswers() {
           studentName +
           "، همهٔ الگوها را با موفقیت کامل کردی!";
 
-      },2600);
+      }, 2600);
 
     }
 
   } else {
 
-    sound(230,.14);
+    sound(230, .14);
 
     feedback(
       "هنوز بخشی از الگو کامل نشده یا رنگی درست انتخاب نشده است. دوباره بررسی کن.",
@@ -1208,25 +1409,6 @@ function checkAnswers() {
   }
 
 }
-
-
-
-/* پاک کردن پاسخ‌ها */
-
-function clearAnswers() {
-
-  answers = {};
-
-  saveStage();
-
-  renderCurrentBoards();
-
-  feedback(
-    "پاسخ‌های این صفحه پاک شدند."
-  );
-
-}
-
 
 
 /* فعال کردن پاک‌کن */
@@ -1242,15 +1424,14 @@ function toggleEraser() {
 
   feedback(
     activeTool === "eraser"
-      ? "پاک‌کن انتخاب شد."
+      ? "پاک‌کن انتخاب شد. روی خانه یا قسمت اشتباه خط لمس کن."
       : "مداد رنگی انتخاب شد."
   );
 
 }
 
 
-
-/* رفتن به مرحله بعد */
+/* مرحله بعد */
 
 function nextStage() {
 
@@ -1267,8 +1448,7 @@ function nextStage() {
 }
 
 
-
-/* برگشت به مرحله قبل */
+/* مرحله قبل */
 
 function previousStage() {
 
@@ -1283,7 +1463,6 @@ function previousStage() {
   }
 
 }
-
 
 
 /* شروع بازی */
@@ -1316,8 +1495,7 @@ function startGame() {
 }
 
 
-
-/* خروج از بازی */
+/* خروج */
 
 function exitGame() {
 
@@ -1332,8 +1510,7 @@ function exitGame() {
 }
 
 
-
-/* فشفشه‌های تشویقی */
+/* فشفشه‌ها */
 
 function showFireworks() {
 
@@ -1344,7 +1521,6 @@ function showFireworks() {
   const dpr = window.devicePixelRatio || 1;
 
   canvas.width = innerWidth * dpr;
-
   canvas.height = innerHeight * dpr;
 
   canvas.style.display = "block";
@@ -1391,7 +1567,7 @@ function showFireworks() {
   ];
 
 
-  bursts.forEach((burst,burstIndex) => {
+  bursts.forEach((burst, burstIndex) => {
 
     for(let i = 0; i < 42; i++) {
 
@@ -1405,11 +1581,9 @@ function showFireworks() {
       particles.push({
 
         x: burst.x,
-
         y: burst.y,
 
         vx: Math.cos(angle) * speed,
-
         vy: Math.sin(angle) * speed,
 
         gravity: .035 + Math.random() * .025,
@@ -1451,7 +1625,6 @@ function showFireworks() {
       if(p.life <= 0) return;
 
       p.x += p.vx;
-
       p.y += p.vy;
 
       p.vy += p.gravity;
@@ -1464,9 +1637,9 @@ function showFireworks() {
       ctx.save();
 
       ctx.globalAlpha =
-        Math.min(1,p.life / 22);
+        Math.min(1, p.life / 22);
 
-      ctx.translate(p.x,p.y);
+      ctx.translate(p.x, p.y);
 
       ctx.rotate(p.rotation);
 
@@ -1515,7 +1688,6 @@ function showFireworks() {
 }
 
 
-
 /* شروع دوباره */
 
 function restartGame() {
@@ -1524,7 +1696,11 @@ function restartGame() {
 
     cancelAnimationFrame(fireworksFrame);
 
+    fireworksFrame = null;
+
   }
+
+  $("fireworksCanvas").style.display = "none";
 
   celebratedStages.clear();
 
@@ -1537,7 +1713,6 @@ function restartGame() {
 }
 
 
-
 /* اتصال دکمه‌ها */
 
 $("startButton").addEventListener(
@@ -1547,10 +1722,12 @@ $("startButton").addEventListener(
 
 $("studentName").addEventListener(
   "keydown",
-  e => {
-    if(e.key === "Enter") {
+  event => {
+
+    if(event.key === "Enter") {
       startGame();
     }
+
   }
 );
 
@@ -1569,11 +1746,6 @@ $("checkButton").addEventListener(
   checkAnswers
 );
 
-$("clearButton").addEventListener(
-  "click",
-  clearAnswers
-);
-
 $("eraserButton").addEventListener(
   "click",
   toggleEraser
@@ -1589,6 +1761,8 @@ $("restartButton").addEventListener(
   restartGame
 );
 
+
+/* وضعیت اولیه */
 
 $("welcome").classList.remove("hidden");
 
