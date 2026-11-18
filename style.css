@@ -5,464 +5,440 @@
 
 :root {
     font-family: Tahoma, Arial, sans-serif;
-    color: #3f4653;
-    background: #fbfaf6;
+    --primary: #7851b8;
+    --primary-dark: #5d3b96;
+    --background: #f5f0ff;
+    --card: #ffffff;
+    --text: #302747;
+    --muted: #786f88;
+    --border: #ded5ef;
+    --red: #e53935;
+    --blue: #159ed0;
+    --green: #55ad48;
+    --yellow: #f4c62f;
+    --orange: #e9782c;
+    --black: #242424;
+    --pencil: #e53935;
 }
 
-html,
-body {
-    margin: 0;
+html {
     width: 100%;
     min-height: 100%;
-    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    scroll-behavior: smooth;
 }
 
 body {
-    background:
-        radial-gradient(circle at 8% 8%, #f7eddf 0, transparent 27%),
-        radial-gradient(circle at 92% 12%, #e8f2ed 0, transparent 25%),
-        linear-gradient(135deg, #fbfaf6, #f3f2f8);
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 16px;
+    background: var(--background);
+    color: var(--text);
+    font-family: Tahoma, Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 button,
 input {
-    font: inherit;
+    font-family: inherit;
 }
 
 button {
-    touch-action: manipulation;
     cursor: pointer;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-.hidden {
-    display: none !important;
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
 }
 
-.screen {
-    min-height: 100vh;
-    min-height: 100dvh;
-    width: 100%;
-}
-
-
-/* صفحه شروع */
+/* صفحات اصلی */
 
 .welcome,
-.finish-screen {
+.finish {
+    width: min(100%, 760px);
+    min-height: 80vh;
+    margin: 20px auto;
+    padding: 28px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 26px;
+    box-shadow: 0 8px 28px rgba(65, 40, 105, 0.10);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px;
-}
-
-.welcome-card,
-.finish-card {
-    width: min(600px, 96vw);
-    padding: 24px 18px;
-    background: #fff;
-    border: 3px solid #e7e2d8;
-    border-radius: 28px;
-    box-shadow: 0 14px 42px #6e6a7b16;
     text-align: center;
 }
 
+.welcome img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .teacher-photo {
-    width: 125px;
-    height: 125px;
-    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    margin: 10px auto 18px;
     border-radius: 50%;
-    border: 5px solid #f1ddff;
+    object-fit: cover;
+    border: 5px solid #e8dcff;
 }
 
-.welcome-title {
-    font-size: clamp(32px, 7vw, 50px);
-    font-weight: 900;
-    color: #756b9b;
-    margin: 10px;
+.welcome h1,
+.finish h1 {
+    color: var(--primary-dark);
+    font-size: clamp(23px, 4vw, 34px);
+    line-height: 1.7;
+    margin: 12px 0;
 }
 
-.welcome-subtitle {
-    font-size: 22px;
-    font-weight: bold;
-    color: #779b8d;
-}
-
-.welcome-message {
-    font-size: 18px;
+.welcome p,
+.finish p {
+    font-size: clamp(15px, 2vw, 19px);
     line-height: 2;
 }
 
 .orientation-note {
-    width: min(440px, 100%);
-    margin: 12px auto 16px;
-    padding: 11px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    background: #f1edf9;
-    border: 2px solid #e3d9f2;
-    border-radius: 15px;
-    color: #756b9b;
+    width: 100%;
+    margin: 12px 0;
+    padding: 12px;
+    background: #fff4d6;
+    border: 1px solid #f0d58b;
+    border-radius: 12px;
+    color: #765600;
     font-size: 14px;
-    font-weight: bold;
     line-height: 1.8;
 }
 
-.orientation-icon {
-    font-size: 25px;
-    flex-shrink: 0;
+.name-input {
+    width: min(100%, 380px);
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    font-size: 17px;
+    text-align: center;
+    background: #fff;
 }
 
-label {
-    display: block;
-    text-align: right;
-    color: #756b9b;
-    font-weight: bold;
-    margin: 12px auto 6px;
-    max-width: 420px;
+.name-input:focus {
+    border-color: var(--primary);
 }
 
-input {
-    display: block;
-    width: min(420px, 100%);
-    margin: auto;
-    padding: 13px;
-    border: 2px solid #e5d3f7;
-    border-radius: 14px;
-    text-align: right;
-    font-size: 18px;
-}
-
-
-/* دکمه‌ها */
-
-.primary-button,
-.nav-button,
-.tool-button {
-    border: 0;
-    border-radius: 13px;
-    padding: 10px 16px;
-    font-weight: 900;
-}
-
-.primary-button {
-    background: linear-gradient(135deg, #8d83b5, #a79bc7);
-    color: #fff;
-    box-shadow: 0 4px 0 #71678f;
-}
-
-.primary-button:active,
-.nav-button:active,
-.tool-button:active {
-    transform: translateY(2px);
-}
-
-#welcome .primary-button {
+.start-button,
+.restart-button {
+    min-width: 180px;
+    min-height: 48px;
     margin-top: 18px;
-    font-size: 19px;
+    padding: 10px 24px;
+    border-radius: 14px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(120, 81, 184, 0.22);
 }
 
+.start-button:active,
+.restart-button:active {
+    transform: scale(0.97);
+}
 
-/* سربرگ */
+/* صفحه بازی */
 
-.game-screen {
+#game {
     width: 100%;
     max-width: 1500px;
-    margin: auto;
-    padding: 10px 14px;
+    margin: 0 auto;
 }
 
 .game-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 3px 12px rgba(65, 40, 105, 0.06);
 }
 
-.game-brand {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    color: #756b9b;
-    font-size: 20px;
-}
-
-.game-brand small {
-    display: block;
-    font-size: 12px;
-    color: #725f7c;
-    margin-top: 3px;
-}
-
-.brand-icon {
-    font-size: 30px;
+.student-greeting {
+    font-size: clamp(16px, 2vw, 21px);
+    font-weight: bold;
+    color: var(--primary-dark);
+    line-height: 1.8;
 }
 
 .stage-counter {
-    background: #fff;
-    border: 2px solid #e2e1e8;
-    border-radius: 14px;
-    padding: 7px 13px;
-    font-weight: bold;
-    white-space: nowrap;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 14px;
 }
 
-
-/* نوار پیشرفت */
-
-.progress-track {
-    height: 8px;
-    background: #e9e8e5;
-    border-radius: 20px;
-    margin: 9px 0;
+.progress-container {
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
     overflow: hidden;
+    background: #eee8f8;
+    border-radius: 20px;
 }
 
-#progressBar {
-    height: 100%;
+.progress-bar {
     width: 0;
-    background: linear-gradient(90deg, #a9c7b8, #aaa1c9);
-    transition: width .25s;
+    height: 100%;
+    background: linear-gradient(90deg, #a77be5, #7851b8);
+    border-radius: 20px;
+    transition: width 0.3s ease;
 }
 
-
-/* عنوان سؤال */
+/* بخش سؤال */
 
 .question-area {
+    width: 100%;
+    margin: 12px 0;
+    padding: 14px 18px;
     text-align: center;
     background: #fff;
-    border: 2px solid #f0d8e8;
-    border-radius: 15px;
-    padding: 7px 10px;
-    margin: 8px auto;
-    max-width: 1100px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
 }
 
-.question-area h1 {
-    font-size: clamp(18px, 3vw, 25px);
-    color: #756b9b;
-    margin: 3px;
+.question-area h2 {
+    margin: 0 0 6px;
+    color: var(--primary-dark);
+    font-size: clamp(19px, 2.5vw, 25px);
+    line-height: 1.8;
 }
 
 .question-area p {
-    font-size: clamp(13px, 2vw, 16px);
-    line-height: 1.6;
-    margin: 4px;
+    margin: 0;
+    font-size: clamp(14px, 1.8vw, 18px);
+    line-height: 1.8;
 }
 
-
-/* مدادهای رنگی */
+/* پالت رنگ */
 
 .palette-panel {
-    max-width: 1050px;
-    margin: 8px auto;
+    width: 100%;
+    margin: 12px 0;
+    padding: 12px;
     background: #fff;
-    border: 2px solid #e5e5df;
-    border-radius: 15px;
-    padding: 7px 10px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
 }
 
-.palette-caption {
-    margin: 0 0 5px;
+.palette-title {
+    margin-bottom: 10px;
     text-align: center;
-    color: #74518c;
-    font-size: 13px;
-    font-weight: bold;
+    color: var(--muted);
+    font-size: 14px;
 }
 
 .palette {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 9px;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
 .pencil-choice {
-    width: 58px;
-    height: 45px;
-    background: #fff;
-    border: 2px solid #eee2f5;
-    border-radius: 11px;
+    width: 52px;
+    height: 52px;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    background: #f6f2fc;
+    transition: 0.15s ease;
 }
 
-.pencil-choice.selected {
-    outline: 3px solid #7543b4;
-    outline-offset: 1px;
-    background: #fbf5ff;
+.pencil-choice.active {
+    border-color: var(--primary);
+    background: #eee4ff;
+    transform: scale(1.08);
 }
 
 .pencil {
-    position: relative;
     display: block;
-    width: 43px;
-    height: 15px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     background: var(--pencil);
-    border-radius: 5px 2px 2px 5px;
-    transform: rotate(-27deg);
-    box-shadow:
-        inset 0 3px #ffffff55,
-        inset 0 -3px #00000018;
+    border: 2px solid rgba(0, 0, 0, 0.08);
 }
 
-.pencil:before {
-    content: "";
-    position: absolute;
-    right: -11px;
-    top: 0;
-    border-top: 7.5px solid transparent;
-    border-bottom: 7.5px solid transparent;
-    border-left: 11px solid #e8c89d;
-}
-
-.pencil:after {
-    content: "";
-    position: absolute;
-    right: -11px;
-    top: 4px;
-    border-top: 3.5px solid transparent;
-    border-bottom: 3.5px solid transparent;
-    border-left: 5px solid #333;
-}
-
-.pencil i {
-    position: absolute;
-    left: 7px;
-    top: 0;
-    height: 15px;
-    width: 3px;
-    background: #ffffff75;
-}
-
-
-/* ابزار پاک‌کن */
+/* ابزارها */
 
 .tool-buttons {
     display: flex;
     justify-content: center;
-    margin-top: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
 }
 
-.tool-button {
-    background: #eef2ef;
-    color: #687f75;
-    border: 2px solid #dce7df;
-    padding: 7px 20px;
+.eraser-button {
+    min-height: 42px;
+    padding: 8px 18px;
+    border-radius: 12px;
+    color: #51465f;
+    background: #eeeaf3;
+    border: 2px solid #d9d0e4;
+    font-size: 15px;
+    font-weight: bold;
 }
 
-.tool-button.active {
-    background: #7543b4;
-    color: white;
-    border-color: #7543b4;
+.eraser-button.active {
+    color: #fff;
+    background: #76628f;
+    border-color: #76628f;
 }
 
-
-/* بخش جدول‌ها */
+/* ناحیه جدول‌ها */
 
 .board-area {
     width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: 12px;
+    gap: 16px;
     align-items: start;
-    margin: 9px auto;
+    margin: 14px 0;
 }
 
 .board-card {
     min-width: 0;
-    background: #ffffff;
-    border: 2px solid #e9e1ed;
-    border-radius: 13px;
-    padding: 7px;
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 18px;
     overflow: hidden;
 }
 
-.board-label {
-    font-size: clamp(14px, 2vw, 19px);
-    font-weight: 900;
-    color: #756b9b;
+.board-label,
+.copy-label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
     text-align: center;
-    margin: 2px 0 7px;
-    min-height: 25px;
+    color: var(--primary-dark);
+    font-weight: bold;
+    font-size: clamp(14px, 1.7vw, 18px);
+    line-height: 1.8;
 }
 
 .board-wrap {
+    position: relative;
     width: 100%;
+    min-width: 0;
     overflow: hidden;
-    direction: ltr;
-    padding: 1px;
+    border: 2px solid #b9a8d7;
+    border-radius: 10px;
+    background: #fff;
 }
+
+/* جدول اصلی */
 
 .board {
-    --cols: 12;
-    --rows: 3;
+    --cols: 14;
+    --rows: 4;
 
-    display: grid;
-
-    grid-template-columns:
-        repeat(var(--cols), minmax(0, 1fr));
-
-    grid-template-rows:
-        repeat(var(--rows), clamp(25px, 4.2vw, 45px));
-
-    gap: 0;
-    width: 100%;
-    min-width: 0;
-    margin: 0 auto;
-    border: 3px solid #d99a70;
-    background: #fff;
     position: relative;
-    direction: ltr;
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), minmax(28px, 1fr));
+    aspect-ratio: var(--cols) / var(--rows);
+    overflow: hidden;
+    background: #fff;
+    isolation: isolate;
 }
+
+/* جدول کوچک */
 
 .small-board {
+    --cols: 8;
+    --rows: 4;
+
+    position: relative;
+    display: grid;
     width: 100%;
-    min-width: 0;
+    max-width: 100%;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), minmax(28px, 1fr));
+    aspect-ratio: var(--cols) / var(--rows);
+    overflow: hidden;
+    background: #fff;
+    isolation: isolate;
 }
+
+/* خانه‌های جدول */
 
 .grid-cell {
+    position: relative;
     min-width: 0;
     min-height: 0;
-    border: 0;
-    border-right: 1px solid #a9d7e8;
-    border-bottom: 1px solid #a9d7e8;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d7d0e1;
     background: #fff;
-    padding: 0;
-    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
 }
 
-.grid-cell.answer-cell {
-    cursor: pointer;
+.grid-cell:nth-child(even) {
+    background: #fdfcff;
 }
 
-.grid-cell.locked {
-    cursor: default;
-}
-
-.grid-cell .paint-fill {
+.paint-fill {
     position: absolute;
     inset: 1px;
-    background: var(--fill);
+    width: auto;
+    height: auto;
+    border-radius: 2px;
+    background: var(--fill, transparent);
+    pointer-events: none;
+    z-index: 1;
 }
 
-
-/* رسم خط */
+/* خطوط الگو */
 
 .line-board {
-    touch-action: none;
+    position: relative;
     overflow: hidden;
+    touch-action: none;
+    isolation: isolate;
 }
 
 .line-svg {
     position: absolute;
     inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
-    overflow: visible;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 5;
 }
 
 .line-guide {
@@ -475,358 +451,322 @@ input {
     cursor: crosshair;
 }
 
-.line-path {
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-
-/* پیام پاسخ */
+/* بازخورد */
 
 .feedback {
-    min-height: 24px;
+    width: 100%;
+    min-height: 42px;
+    margin: 12px auto;
+    padding: 8px 12px;
     text-align: center;
+    border-radius: 12px;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 14px;
-    color: #756b9b;
-    margin: 5px;
+    line-height: 1.8;
 }
 
-.feedback.wrong {
-    color: #d83f5c;
+.feedback:empty {
+    display: none;
 }
 
-.feedback.correct {
-    color: #25934a;
-}
-
-
-/* دکمه‌های مرحله */
+/* دکمه‌های حرکت */
 
 .nav-buttons {
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin: 7px auto;
+    gap: 10px;
+    margin: 14px 0;
 }
 
-.nav-button {
-    background: #fff;
-    color: #756b9b;
-    border: 2px solid #e2e1e8;
-    padding: 9px 13px;
+.nav-buttons button {
+    min-width: 115px;
+    min-height: 46px;
+    padding: 9px 17px;
+    border-radius: 12px;
+    color: #fff;
+    background: var(--primary);
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.15s ease;
 }
 
-.nav-button:disabled {
-    opacity: .4;
-    cursor: not-allowed;
+.nav-buttons button:active {
+    transform: scale(0.96);
 }
 
-.exit-button {
-    color: #bd4165;
+.nav-buttons .check-button {
+    background: #279b5b;
 }
 
+.nav-buttons .exit-button {
+    background: #77717e;
+}
 
 /* امضای آموزگار */
 
 .game-footer {
-    text-align: center;
-    color: #7a6686;
-    font-size: 12px;
-    margin: 7px auto 3px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
 }
 
 .signature {
     display: block;
-    width: min(190px, 42vw);
-    height: auto;
-    max-height: 85px;
+    width: min(190px, 45%);
+    max-height: 90px;
     object-fit: contain;
-    margin: 0 auto 4px;
+    margin: 0 auto;
 }
-
 
 /* صفحه پایان */
 
-.finish-star {
-    font-size: 65px;
+.finish {
+    min-height: 65vh;
 }
 
-.finish-card h1 {
-    color: #756b9b;
+.finish-message {
+    color: var(--primary-dark);
+    font-size: clamp(19px, 3vw, 27px);
+    line-height: 2;
 }
 
-.finish-signature {
-    margin: 15px auto;
-}
-
-
-/* فشفشه‌ها */
+/* فشفشه */
 
 .fireworks-canvas {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
+    z-index: 9999;
     pointer-events: none;
-    z-index: 30;
-    display: none;
 }
 
-
-/* تبلت و صفحه‌های متوسط */
+/* نمایشگرهای متوسط */
 
 @media (max-width: 850px) {
-
-    .game-screen {
-        padding: 8px;
+    body {
+        padding: 10px;
     }
 
     .board-area {
-        gap: 7px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
     }
 
     .board-card {
-        padding: 5px;
+        padding: 10px;
     }
 
     .board {
-        grid-template-rows:
-            repeat(var(--rows), clamp(23px, 4vw, 36px));
+        grid-template-rows: repeat(var(--rows), minmax(32px, 1fr));
     }
 
-    .pencil-choice {
-        width: 51px;
-        height: 40px;
+    .small-board {
+        grid-template-rows: repeat(var(--rows), minmax(32px, 1fr));
     }
 
-    .pencil {
-        width: 38px;
+    .signature {
+        width: min(170px, 50%);
     }
-
 }
 
+/* گوشی‌های کوچک */
 
-/* گوشی افقی */
+@media (max-width: 480px) {
+    body {
+        padding: 7px;
+    }
 
-@media (max-height: 520px) and (orientation: landscape) {
+    .welcome,
+    .finish {
+        min-height: 75vh;
+        margin: 8px auto;
+        padding: 18px 12px;
+        border-radius: 18px;
+    }
 
-    .game-screen {
-        padding: 4px 8px;
+    .teacher-photo {
+        width: 115px;
+        height: 115px;
     }
 
     .game-header {
-        min-height: 29px;
-    }
-
-    .game-brand {
-        font-size: 16px;
-    }
-
-    .brand-icon {
-        font-size: 22px;
-    }
-
-    .game-brand small {
-        font-size: 10px;
-    }
-
-    .stage-counter {
-        padding: 4px 9px;
-        font-size: 12px;
-    }
-
-    .progress-track {
-        height: 5px;
-        margin: 4px 0;
+        padding: 9px 11px;
     }
 
     .question-area {
-        padding: 3px 7px;
-        margin: 4px auto;
-    }
-
-    .question-area h1 {
-        font-size: 17px;
-    }
-
-    .question-area p {
-        font-size: 11px;
-        line-height: 1.35;
-        margin: 2px;
-    }
-
-    .palette-panel {
-        padding: 4px 7px;
-        margin: 4px auto;
-    }
-
-    .palette-caption {
-        font-size: 10px;
-        margin-bottom: 3px;
+        padding: 10px;
     }
 
     .palette {
-        gap: 5px;
-    }
-
-    .pencil-choice {
-        width: 40px;
-        height: 29px;
-    }
-
-    .pencil {
-        width: 31px;
-        height: 11px;
-    }
-
-    .pencil:before {
-        right: -8px;
-        border-top-width: 5.5px;
-        border-bottom-width: 5.5px;
-        border-left-width: 8px;
-    }
-
-    .pencil:after {
-        right: -8px;
-        top: 3px;
-        border-top-width: 2.5px;
-        border-bottom-width: 2.5px;
-        border-left-width: 4px;
-    }
-
-    .pencil i {
-        height: 11px;
-    }
-
-    .tool-buttons {
-        margin-top: 3px;
-    }
-
-    .tool-button {
-        padding: 3px 13px;
-        font-size: 11px;
-    }
-
-    .board-area {
-        margin: 4px auto;
         gap: 7px;
     }
 
-    .board-card {
-        padding: 4px;
+    .pencil-choice {
+        width: 44px;
+        height: 44px;
     }
 
-    .board-label {
-        font-size: 12px;
-        margin: 1px 0 3px;
-        min-height: 18px;
+    .pencil {
+        width: 27px;
+        height: 27px;
+    }
+
+    .board-card {
+        padding: 7px;
     }
 
     .board {
-        grid-template-rows:
-            repeat(var(--rows), clamp(17px, 5.4vh, 29px));
-        border-width: 2px;
+        grid-template-rows: repeat(var(--rows), minmax(25px, 1fr));
     }
 
-    .feedback {
-        min-height: 16px;
-        font-size: 11px;
-        margin: 2px;
+    .small-board {
+        grid-template-rows: repeat(var(--rows), minmax(25px, 1fr));
     }
 
     .nav-buttons {
-        gap: 5px;
-        margin: 3px auto;
+        gap: 7px;
     }
 
-    .nav-button,
-    .nav-buttons .primary-button {
-        padding: 5px 10px;
-        font-size: 11px;
-        border-radius: 9px;
-    }
-
-    .game-footer {
-        font-size: 9px;
-        margin: 3px auto;
+    .nav-buttons button {
+        min-width: 95px;
+        min-height: 42px;
+        padding: 8px 10px;
+        font-size: 13px;
     }
 
     .signature {
-        width: 105px;
-        max-height: 35px;
-        margin-bottom: 2px;
+        width: min(145px, 55%);
     }
-
 }
 
+/* گوشی در حالت افقی */
 
-/* نمایشگرهای بزرگ و پروژکتور */
-
-@media (min-width: 1200px) {
-
-    .game-screen {
-        padding: 12px 24px;
+@media (max-height: 520px) and (orientation: landscape) {
+    body {
+        padding: 6px 10px;
     }
 
-    .board-area {
-        gap: 18px;
+    .welcome,
+    .finish {
+        min-height: auto;
+        margin: 5px auto;
+        padding: 12px;
     }
 
-    .board {
-        grid-template-rows:
-            repeat(var(--rows), 48px);
+    .teacher-photo {
+        width: 75px;
+        height: 75px;
+        margin: 4px auto;
     }
 
-}
-
-
-/* نمایش عمودی گوشی */
-
-@media (max-width: 600px) and (orientation: portrait) {
-
-    .board-area {
-        grid-template-columns: 1fr;
+    .game-header {
+        padding: 6px 12px;
+        margin-bottom: 6px;
     }
 
-    .game-screen {
+    .question-area {
+        margin: 6px 0;
+        padding: 6px 10px;
+    }
+
+    .palette-panel {
+        margin: 6px 0;
         padding: 6px;
     }
 
+    .pencil-choice {
+        width: 38px;
+        height: 38px;
+    }
+
+    .pencil {
+        width: 25px;
+        height: 25px;
+    }
+
+    .board-area {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        gap: 8px;
+        margin: 7px 0;
+    }
+
     .board-card {
-        padding: 5px;
+        padding: 6px;
     }
 
     .board {
-        grid-template-rows:
-            repeat(var(--rows), clamp(22px, 6vw, 34px));
+        grid-template-rows: repeat(var(--rows), minmax(18px, 1fr));
     }
 
-    .game-brand {
-        font-size: 16px;
+    .small-board {
+        grid-template-rows: repeat(var(--rows), minmax(18px, 1fr));
     }
 
-    .stage-counter {
-        font-size: 12px;
-        padding: 5px 8px;
+    .nav-buttons {
+        margin: 6px 0;
+    }
+
+    .nav-buttons button {
+        min-height: 36px;
+        padding: 5px 12px;
+    }
+
+    .game-footer {
+        padding: 4px;
     }
 
     .signature {
-        width: 130px;
+        width: 100px;
+        max-height: 45px;
     }
-
 }
 
+/* لپ‌تاپ و پروژکتور */
 
-/* جلوگیری از انتخاب ناخواسته هنگام رسم */
+@media (min-width: 1200px) {
+    body {
+        padding: 20px;
+    }
 
-.line-board,
-.line-svg,
-.grid-cell {
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
+    #game {
+        max-width: 1550px;
+    }
+
+    .board-area {
+        gap: 22px;
+    }
+
+    .board-card {
+        padding: 16px;
+    }
+
+    .board {
+        grid-template-rows: repeat(var(--rows), minmax(45px, 1fr));
+    }
+
+    .small-board {
+        grid-template-rows: repeat(var(--rows), minmax(45px, 1fr));
+    }
+
+    .nav-buttons button {
+        min-width: 140px;
+        min-height: 52px;
+        font-size: 17px;
+    }
+}
+
+/* جلوگیری از بزرگ شدن غیرعادی جدول در نمایشگرهای خیلی عریض */
+
+@media (min-width: 1600px) {
+    .board-area {
+        max-width: 1450px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
