@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
     <meta name="theme-color" content="#fbfaf6">
-    <meta name="description" content="بازی آموزشی الگوی منظم، ریاضی پایه اول دبستان، طراحی‌شده توسط آموزگار مرضیه محمدی">
+
+    <meta
+        name="description"
+        content="بازی آموزشی الگوی منظم، ریاضی پایه اول دبستان، طراحی‌شده توسط آموزگار مرضیه محمدی"
+    >
+
     <title>الگوی منظم | ریاضی پایه اول</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <!-- صفحه شروع -->
+
     <section id="welcome" class="screen welcome">
 
         <div class="welcome-card">
@@ -36,12 +49,15 @@
 
             <div class="orientation-note">
                 <span class="orientation-icon">📱</span>
+
                 <span>
                     برای دیدن همه قسمت‌های بازی، گوشی را افقی بگیر.
                 </span>
             </div>
 
-            <label for="studentName">نام دانش‌آموز:</label>
+            <label for="studentName">
+                نام دانش‌آموز:
+            </label>
 
             <input
                 type="text"
@@ -51,30 +67,38 @@
                 placeholder="نامت را بنویس"
             >
 
-            <button id="startButton" class="primary-button">
+            <button
+                id="startButton"
+                class="primary-button"
+                type="button"
+            >
                 شروع بازی
             </button>
 
         </div>
+
     </section>
 
 
     <!-- صفحه بازی -->
+
     <section id="game" class="screen game-screen hidden">
 
         <header class="game-header">
 
             <div class="game-brand">
+
                 <span class="brand-icon">🧩</span>
 
                 <div>
                     <strong>الگوی منظم</strong>
                     <small>ریاضی پایه اول</small>
                 </div>
+
             </div>
 
             <div class="stage-counter">
-                مرحله <span id="stageCounter">۱ از ۸</span>
+                <span id="stageCounter">مرحله ۱ از ۸</span>
             </div>
 
         </header>
@@ -86,10 +110,11 @@
 
 
         <!-- سؤال -->
+
         <section class="question-area">
 
             <h1 id="questionTitle">
-                نام دانش‌آموز: الگو را ادامه بده
+                الگو را ادامه بده
             </h1>
 
             <p id="questionText">
@@ -100,6 +125,7 @@
 
 
         <!-- پالت رنگ -->
+
         <section class="palette-panel">
 
             <p class="palette-caption">
@@ -124,7 +150,10 @@
 
 
         <!-- جدول‌ها -->
+
         <section class="board-area">
+
+            <!-- جدول اصلی -->
 
             <div class="board-card">
 
@@ -138,6 +167,8 @@
 
             </div>
 
+
+            <!-- جدول پاسخ -->
 
             <div class="board-card">
 
@@ -154,25 +185,46 @@
         </section>
 
 
-        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div
+            id="feedback"
+            class="feedback"
+            aria-live="polite"
+        ></div>
 
 
         <!-- دکمه‌ها -->
+
         <div class="nav-buttons">
 
-            <button id="prevButton" class="nav-button" type="button">
+            <button
+                id="prevButton"
+                class="nav-button"
+                type="button"
+            >
                 مرحله قبل
             </button>
 
-            <button id="checkButton" class="primary-button" type="button">
+            <button
+                id="checkButton"
+                class="primary-button"
+                type="button"
+            >
                 بررسی پاسخ
             </button>
 
-            <button id="nextButton" class="nav-button" type="button">
+            <button
+                id="nextButton"
+                class="nav-button"
+                type="button"
+            >
                 مرحله بعدی
             </button>
 
-            <button id="exitButton" class="nav-button exit-button" type="button">
+            <button
+                id="exitButton"
+                class="nav-button exit-button"
+                type="button"
+            >
                 خروج
             </button>
 
@@ -180,6 +232,7 @@
 
 
         <!-- امضای آموزگار -->
+
         <footer class="game-footer">
 
             <img
@@ -189,6 +242,7 @@
             >
 
             <div>آموزگار: مرضیه محمدی</div>
+
             <div>مدرسه دخترانه شریعتی</div>
 
         </footer>
@@ -197,6 +251,7 @@
 
 
     <!-- صفحه پایان -->
+
     <section id="finish" class="screen finish-screen hidden">
 
         <div class="finish-card">
@@ -215,7 +270,11 @@
                 class="signature finish-signature"
             >
 
-            <button id="restartButton" class="primary-button">
+            <button
+                id="restartButton"
+                class="primary-button"
+                type="button"
+            >
                 شروع دوباره
             </button>
 
@@ -225,7 +284,11 @@
 
 
     <!-- بوم فشفشه -->
-    <canvas id="fireworksCanvas" class="fireworks-canvas"></canvas>
+
+    <canvas
+        id="fireworksCanvas"
+        class="fireworks-canvas"
+    ></canvas>
 
 
     <script src="script.js"></script>
