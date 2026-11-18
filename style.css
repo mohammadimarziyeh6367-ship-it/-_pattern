@@ -1,138 +1,138 @@
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    }
+}
 
 :root {
-font-family: Tahoma, Arial, sans-serif;
-color: #3f4653;
-background: #fbfaf6;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #3f4653;
+    background: #fbfaf6;
 }
 
 html,
 body {
-margin: 0;
-width: 100%;
-min-height: 100%;
-overflow-x: hidden;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
-background:
-radial-gradient(circle at 8% 8%, #f7eddf 0, transparent 27%),
-radial-gradient(circle at 92% 12%, #e8f2ed 0, transparent 25%),
-linear-gradient(135deg, #fbfaf6, #f3f2f8);
+    background:
+        radial-gradient(circle at 8% 8%, #f7eddf 0, transparent 27%),
+        radial-gradient(circle at 92% 12%, #e8f2ed 0, transparent 25%),
+        linear-gradient(135deg, #fbfaf6, #f3f2f8);
 }
 
 button,
 input {
-font: inherit;
+    font: inherit;
 }
 
 button {
-touch-action: manipulation;
-cursor: pointer;
+    touch-action: manipulation;
+    cursor: pointer;
 }
 
 .hidden {
-display: none !important;
+    display: none !important;
 }
 
 .screen {
-min-height: 100vh;
-min-height: 100dvh;
-width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
 }
 
 /* صفحه شروع */
 
 .welcome,
 .finish-screen {
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 
 .welcome-card,
 .finish-card {
-width: min(600px, 96vw);
-padding: 24px 18px;
-background: #fff;
-border: 3px solid #e7e2d8;
-border-radius: 28px;
-box-shadow: 0 14px 42px #6e6a7b16;
-text-align: center;
+    width: min(600px, 96vw);
+    padding: 24px 18px;
+    background: #fff;
+    border: 3px solid #e7e2d8;
+    border-radius: 28px;
+    box-shadow: 0 14px 42px #6e6a7b16;
+    text-align: center;
 }
 
 .teacher-photo {
-width: 125px;
-height: 125px;
-object-fit: cover;
-border-radius: 50%;
-border: 5px solid #f1ddff;
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #f1ddff;
 }
 
 .welcome-title {
-font-size: clamp(32px, 7vw, 50px);
-font-weight: 900;
-color: #756b9b;
-margin: 10px;
+    font-size: clamp(32px, 7vw, 50px);
+    font-weight: 900;
+    color: #756b9b;
+    margin: 10px;
 }
 
 .welcome-subtitle {
-font-size: 22px;
-font-weight: bold;
-color: #779b8d;
+    font-size: 22px;
+    font-weight: bold;
+    color: #779b8d;
 }
 
 .welcome-message {
-font-size: 18px;
-line-height: 2;
+    font-size: 18px;
+    line-height: 2;
 }
 
-/* راهنمای افقی کردن گوشی در صفحه شروع */
+/* راهنمای افقی کردن گوشی */
 
 .orientation-note {
-width: min(440px, 100%);
-margin: 12px auto 16px;
-padding: 11px 14px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 9px;
-background: #f1edf9;
-border: 2px solid #e3d9f2;
-border-radius: 15px;
-color: #756b9b;
-font-size: 14px;
-font-weight: bold;
-line-height: 1.8;
+    width: min(440px, 100%);
+    margin: 12px auto 16px;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    background: #f1edf9;
+    border: 2px solid #e3d9f2;
+    border-radius: 15px;
+    color: #756b9b;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.8;
 }
 
 .orientation-icon {
-font-size: 25px;
-flex-shrink: 0;
+    font-size: 25px;
+    flex-shrink: 0;
 }
 
 label {
-display: block;
-text-align: right;
-color: #756b9b;
-font-weight: bold;
-margin: 12px auto 6px;
-max-width: 420px;
+    display: block;
+    text-align: right;
+    color: #756b9b;
+    font-weight: bold;
+    margin: 12px auto 6px;
+    max-width: 420px;
 }
 
 input {
-display: block;
-width: min(420px, 100%);
-margin: auto;
-padding: 13px;
-border: 2px solid #e5d3f7;
-border-radius: 14px;
-text-align: right;
-font-size: 18px;
+    display: block;
+    width: min(420px, 100%);
+    margin: auto;
+    padding: 13px;
+    border: 2px solid #e5d3f7;
+    border-radius: 14px;
+    text-align: right;
+    font-size: 18px;
 }
 
 /* دکمه‌ها */
@@ -140,630 +140,685 @@ font-size: 18px;
 .primary-button,
 .nav-button,
 .tool-button {
-border: 0;
-border-radius: 13px;
-padding: 10px 16px;
-font-weight: 900;
+    border: 0;
+    border-radius: 13px;
+    padding: 10px 16px;
+    font-weight: 900;
 }
 
 .primary-button {
-background: linear-gradient(135deg, #8d83b5, #a79bc7);
-color: #fff;
-box-shadow: 0 4px 0 #71678f;
+    background: linear-gradient(135deg, #8d83b5, #a79bc7);
+    color: #fff;
+    box-shadow: 0 4px 0 #71678f;
 }
 
 .primary-button:active,
 .nav-button:active,
 .tool-button:active {
-transform: translateY(2px);
+    transform: translateY(2px);
 }
 
 #welcome .primary-button {
-margin-top: 18px;
-font-size: 19px;
+    margin-top: 18px;
+    font-size: 19px;
 }
 
 /* سربرگ */
 
 .game-screen {
-width: 100%;
-max-width: 1500px;
-margin: auto;
-padding: 10px 14px;
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+    padding: 10px 14px;
 }
 
 .game-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .game-brand {
-display: flex;
-align-items: center;
-gap: 9px;
-color: #756b9b;
-font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #756b9b;
+    font-size: 20px;
 }
 
 .game-brand small {
-display: block;
-font-size: 12px;
-color: #725f7c;
-margin-top: 3px;
+    display: block;
+    font-size: 12px;
+    color: #725f7c;
+    margin-top: 3px;
 }
 
 .brand-icon {
-font-size: 30px;
+    font-size: 30px;
 }
 
 .stage-counter {
-background: #fff;
-border: 2px solid #e2e1e8;
-border-radius: 14px;
-padding: 7px 13px;
-font-weight: bold;
-white-space: nowrap;
+    background: #fff;
+    border: 2px solid #e2e1e8;
+    border-radius: 14px;
+    padding: 7px 13px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 /* نوار پیشرفت */
 
 .progress-track {
-height: 8px;
-background: #e9e8e5;
-border-radius: 20px;
-margin: 9px 0;
-overflow: hidden;
+    height: 8px;
+    background: #e9e8e5;
+    border-radius: 20px;
+    margin: 9px 0;
+    overflow: hidden;
 }
 
 #progressBar {
-height: 100%;
-width: 0;
-background: linear-gradient(90deg, #a9c7b8, #aaa1c9);
-transition: width .25s;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #a9c7b8, #aaa1c9);
+    transition: width .25s;
 }
 
 /* عنوان سؤال */
 
 .question-area {
-text-align: center;
-background: #fff;
-border: 2px solid #f0d8e8;
-border-radius: 15px;
-padding: 7px 10px;
-margin: 8px auto;
-max-width: 1100px;
+    text-align: center;
+    background: #fff;
+    border: 2px solid #f0d8e8;
+    border-radius: 15px;
+    padding: 7px 10px;
+    margin: 8px auto;
+    max-width: 1100px;
 }
 
 .question-area h1 {
-font-size: clamp(18px, 3vw, 25px);
-color: #756b9b;
-margin: 3px;
+    font-size: clamp(18px, 3vw, 25px);
+    color: #756b9b;
+    margin: 3px;
 }
 
 .question-area p {
-font-size: clamp(13px, 2vw, 16px);
-line-height: 1.6;
-margin: 4px;
+    font-size: clamp(13px, 2vw, 16px);
+    line-height: 1.6;
+    margin: 4px;
 }
 
-/* مدادهای رنگی */
+/* پالت رنگ */
 
 .palette-panel {
-max-width: 1050px;
-margin: 8px auto;
-background: #fff;
-border: 2px solid #e5e5df;
-border-radius: 15px;
-padding: 7px 10px;
+    max-width: 1050px;
+    margin: 8px auto;
+    background: #fff;
+    border: 2px solid #e5e5df;
+    border-radius: 15px;
+    padding: 7px 10px;
 }
 
 .palette-caption {
-margin: 0 0 5px;
-text-align: center;
-color: #74518c;
-font-size: 13px;
-font-weight: bold;
+    margin: 0 0 5px;
+    text-align: center;
+    color: #74518c;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .palette {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 9px;
-flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
 }
 
 .pencil-choice {
-width: 58px;
-height: 45px;
-background: #fff;
-border: 2px solid #eee2f5;
-border-radius: 11px;
-display: flex;
-align-items: center;
-justify-content: center;
+    width: 58px;
+    height: 45px;
+    background: #fff;
+    border: 2px solid #eee2f5;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .pencil-choice.selected {
-outline: 3px solid #7543b4;
-outline-offset: 1px;
-background: #fbf5ff;
+    outline: 3px solid #7543b4;
+    outline-offset: 1px;
+    background: #fbf5ff;
 }
 
 .pencil {
-position: relative;
-display: block;
-width: 43px;
-height: 15px;
-background: var(–pencil);
-border-radius: 5px 2px 2px 5px;
-transform: rotate(-27deg);
-box-shadow:
-inset 0 3px #ffffff55,
-inset 0 -3px #00000018;
+    position: relative;
+    display: block;
+    width: 43px;
+    height: 15px;
+    background: var(--pencil);
+    border-radius: 5px 2px 2px 5px;
+    transform: rotate(-27deg);
+    box-shadow:
+        inset 0 3px #ffffff55,
+        inset 0 -3px #00000018;
 }
 
 .pencil:before {
-content: “”;
-position: absolute;
-right: -11px;
-top: 0;
-border-top: 7.5px solid transparent;
-border-bottom: 7.5px solid transparent;
-border-left: 11px solid #e8c89d;
+    content: "";
+    position: absolute;
+    right: -11px;
+    top: 0;
+    border-top: 7.5px solid transparent;
+    border-bottom: 7.5px solid transparent;
+    border-left: 11px solid #e8c89d;
 }
 
 .pencil:after {
-content: “”;
-position: absolute;
-right: -11px;
-top: 4px;
-border-top: 3.5px solid transparent;
-border-bottom: 3.5px solid transparent;
-border-left: 5px solid #333;
+    content: "";
+    position: absolute;
+    right: -11px;
+    top: 4px;
+    border-top: 3.5px solid transparent;
+    border-bottom: 3.5px solid transparent;
+    border-left: 5px solid #333;
 }
 
 .pencil i {
-position: absolute;
-left: 7px;
-top: 0;
-height: 15px;
-width: 3px;
-background: #ffffff75;
+    position: absolute;
+    left: 7px;
+    top: 0;
+    height: 15px;
+    width: 3px;
+    background: #ffffff75;
 }
 
-/* ابزار پاک‌کن */
+/* پاک‌کن */
 
 .tool-buttons {
-display: flex;
-justify-content: center;
-margin-top: 6px;
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
 }
 
 .tool-button {
-background: #eef2ef;
-color: #687f75;
-border: 2px solid #dce7df;
-padding: 7px 20px;
+    background: #eef2ef;
+    color: #687f75;
+    border: 2px solid #dce7df;
+    padding: 7px 20px;
 }
 
 .tool-button.active {
-background: #7543b4;
-color: white;
-border-color: #7543b4;
+    background: #7543b4;
+    color: white;
+    border-color: #7543b4;
 }
 
-/* بخش جدول‌ها */
+/* جدول‌ها */
 
 .board-area {
-width: 100%;
-display: grid;
-grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-gap: 12px;
-align-items: start;
-margin: 9px auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    margin: 9px auto;
 }
 
 .board-card {
-min-width: 0;
-background: #ffffff;
-border: 2px solid #e9e1ed;
-border-radius: 13px;
-padding: 7px;
-overflow: hidden;
+    min-width: 0;
+    background: #fff;
+    border: 2px solid #e9e1ed;
+    border-radius: 13px;
+    padding: 7px;
+    overflow: hidden;
 }
 
 .board-label {
-font-size: clamp(14px, 2vw, 19px);
-font-weight: 900;
-color: #756b9b;
-text-align: center;
-margin: 2px 0 7px;
-min-height: 25px;
+    font-size: clamp(14px, 2vw, 19px);
+    font-weight: 900;
+    color: #756b9b;
+    text-align: center;
+    margin: 2px 0 7px;
+    min-height: 25px;
 }
 
 .board-wrap {
-width: 100%;
-overflow: hidden;
-direction: ltr;
-padding: 1px;
+    width: 100%;
+    overflow: hidden;
+    direction: ltr;
+    padding: 1px;
 }
 
 .board {
-–cols: 12;
-–rows: 3;
+    --cols: 12;
+    --rows: 3;
 
-display: grid;
+    display: grid;
 
-grid-template-columns:
-repeat(var(–cols), minmax(0, 1fr));
+    grid-template-columns:
+        repeat(var(--cols), minmax(0, 1fr));
 
-grid-template-rows:
-repeat(var(–rows), clamp(25px, 4.2vw, 45px));
+    grid-template-rows:
+        repeat(var(--rows), clamp(25px, 4.2vw, 45px));
 
-gap: 0;
+    gap: 0;
 
-width: 100%;
-min-width: 0;
+    width: 100%;
+    min-width: 0;
 
-margin: 0 auto;
+    margin: 0 auto;
 
-border: 3px solid #d99a70;
-background: #fff;
+    border: 3px solid #d99a70;
+    background: #fff;
 
-position: relative;
-direction: ltr;
+    position: relative;
+    direction: ltr;
+    touch-action: none;
 }
 
 .small-board {
-width: 100%;
-min-width: 0;
+    width: 100%;
+    min-width: 0;
 }
 
 .grid-cell {
-min-width: 0;
-min-height: 0;
+    min-width: 0;
+    min-height: 0;
 
-border: 0;
-border-right: 1px solid #a9d7e8;
-border-bottom: 1px solid #a9d7e8;
+    border: 0;
+    border-right: 1px solid #a9d7e8;
+    border-bottom: 1px solid #a9d7e8;
 
-background: #fff;
-padding: 0;
-position: relative;
+    background: #fff;
+    padding: 0;
+    position: relative;
 }
 
 .grid-cell.answer-cell {
-cursor: pointer;
+    cursor: pointer;
 }
 
 .grid-cell.locked {
-cursor: default;
+    cursor: default;
 }
 
 .grid-cell .paint-fill {
-position: absolute;
-inset: 1px;
-background: var(–fill);
+    position: absolute;
+    inset: 1px;
+    background: var(--fill);
 }
 
-/* رسم خط */
+/* جدول رسم خط */
 
 .line-board {
-touch-action: none;
-overflow: hidden;
+    touch-action: none;
+    overflow: hidden;
 }
 
 .line-svg {
-position: absolute;
-inset: 0;
-width: 100%;
-height: 100%;
-overflow: hidden;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
 .line-guide {
-pointer-events: none;
+    pointer-events: none;
 }
 
 .line-draw {
-pointer-events: auto;
-touch-action: none;
-cursor: crosshair;
+    pointer-events: auto;
+    touch-action: none;
+    cursor: crosshair;
 }
 
-/* پیام پاسخ */
+/* پیام */
 
 .feedback {
-min-height: 24px;
-text-align: center;
-font-weight: bold;
-font-size: 14px;
-color: #756b9b;
-margin: 5px;
+    min-height: 24px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #756b9b;
+    margin: 5px;
 }
 
 .feedback.wrong {
-color: #d83f5c;
+    color: #d83f5c;
 }
 
 .feedback.correct {
-color: #25934a;
+    color: #25934a;
 }
 
 /* دکمه‌های مرحله */
 
 .nav-buttons {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 8px;
-flex-wrap: wrap;
-margin: 7px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 7px auto;
 }
 
 .nav-button {
-background: #fff;
-color: #756b9b;
-border: 2px solid #e2e1e8;
-padding: 9px 13px;
+    background: #fff;
+    color: #756b9b;
+    border: 2px solid #e2e1e8;
+    padding: 9px 13px;
 }
 
 .nav-button:disabled {
-opacity: .4;
-cursor: not-allowed;
+    opacity: .4;
+    cursor: not-allowed;
 }
 
 .exit-button {
-color: #bd4165;
+    color: #bd4165;
 }
 
 /* امضای آموزگار */
 
 .game-footer {
-text-align: center;
-color: #7a6686;
-font-size: 12px;
-margin: 7px auto 3px;
+    text-align: center;
+    color: #7a6686;
+    font-size: 12px;
+    margin: 7px auto 3px;
 }
 
 .signature {
-display: block;
-width: min(190px, 42vw);
-height: auto;
-max-height: 85px;
-object-fit: contain;
-margin: 0 auto 4px;
+    display: block;
+    width: min(190px, 42vw);
+    height: auto;
+    max-height: 85px;
+    object-fit: contain;
+    margin: 0 auto 4px;
 }
 
 /* صفحه پایان */
 
 .finish-star {
-font-size: 65px;
+    font-size: 65px;
 }
 
 .finish-card h1 {
-color: #756b9b;
+    color: #756b9b;
 }
 
 .finish-signature {
-margin: 15px auto;
+    margin: 15px auto;
 }
 
 /* فشفشه‌ها */
 
 .fireworks-canvas {
-position: fixed;
-inset: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
-z-index: 30;
-display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 30;
+    display: none;
 }
 
-/* تبلت و صفحه‌های متوسط */
+/* تبلت */
 
 @media (max-width: 850px) {
 
-.game-screen {
-padding: 8px;
-}
+    .game-screen {
+        padding: 8px;
+    }
 
-.board-area {
-gap: 7px;
-}
+    .board-area {
+        gap: 7px;
+    }
 
-.board-card {
-padding: 5px;
-}
+    .board-card {
+        padding: 5px;
+    }
 
-.board {
-grid-template-rows:
-repeat(var(–rows), clamp(23px, 4vw, 36px));
-}
+    .board {
+        grid-template-rows:
+            repeat(var(--rows), clamp(23px, 4vw, 36px));
+    }
 
-.pencil-choice {
-width: 51px;
-height: 40px;
-}
+    .pencil-choice {
+        width: 51px;
+        height: 40px;
+    }
 
-.pencil {
-width: 38px;
-}
-
+    .pencil {
+        width: 38px;
+    }
 }
 
 /* گوشی افقی */
 
 @media (max-height: 520px) and (orientation: landscape) {
 
-.game-screen {
-padding: 4px 8px;
+    .game-screen {
+        padding: 4px 8px;
+    }
+
+    .game-header {
+        min-height: 29px;
+    }
+
+    .game-brand {
+        font-size: 16px;
+    }
+
+    .brand-icon {
+        font-size: 22px;
+    }
+
+    .game-brand small {
+        font-size: 10px;
+    }
+
+    .stage-counter {
+        padding: 4px 9px;
+        font-size: 12px;
+    }
+
+    .progress-track {
+        height: 5px;
+        margin: 4px 0;
+    }
+
+    .question-area {
+        padding: 3px 7px;
+        margin: 4px auto;
+    }
+
+    .question-area h1 {
+        font-size: 17px;
+    }
+
+    .question-area p {
+        font-size: 11px;
+        line-height: 1.35;
+        margin: 2px;
+    }
+
+    .palette-panel {
+        padding: 4px 7px;
+        margin: 4px auto;
+    }
+
+    .palette-caption {
+        font-size: 10px;
+        margin-bottom: 3px;
+    }
+
+    .palette {
+        gap: 5px;
+    }
+
+    .pencil-choice {
+        width: 40px;
+        height: 29px;
+    }
+
+    .pencil {
+        width: 31px;
+        height: 11px;
+    }
+
+    .pencil:before {
+        right: -8px;
+        border-top-width: 5.5px;
+        border-bottom-width: 5.5px;
+        border-left-width: 8px;
+    }
+
+    .pencil:after {
+        right: -8px;
+        top: 3px;
+        border-top-width: 2.5px;
+        border-bottom-width: 2.5px;
+        border-left-width: 4px;
+    }
+
+    .pencil i {
+        height: 11px;
+    }
+
+    .tool-buttons {
+        margin-top: 3px;
+    }
+
+    .tool-button {
+        padding: 3px 13px;
+        font-size: 11px;
+    }
+
+    .board-area {
+        margin: 4px auto;
+        gap: 7px;
+    }
+
+    .board-card {
+        padding: 4px;
+    }
+
+    .board-label {
+        font-size: 12px;
+        margin: 1px 0 3px;
+        min-height: 18px;
+    }
+
+    .board {
+        grid-template-rows:
+            repeat(var(--rows), clamp(17px, 5.4vh, 29px));
+        border-width: 2px;
+    }
+
+    .feedback {
+        min-height: 16px;
+        font-size: 11px;
+        margin: 2px;
+    }
+
+    .nav-buttons {
+        gap: 5px;
+        margin: 3px auto;
+    }
+
+    .nav-button,
+    .nav-buttons .primary-button {
+        padding: 5px 10px;
+        font-size: 11px;
+        border-radius: 9px;
+    }
+
+    .game-footer {
+        font-size: 9px;
+        margin: 3px auto;
+    }
+
+    .signature {
+        width: 105px;
+        max-height: 35px;
+        margin-bottom: 2px;
+    }
 }
 
-.game-header {
-min-height: 29px;
-}
-
-.game-brand {
-font-size: 16px;
-}
-
-.brand-icon {
-font-size: 22px;
-}
-
-.game-brand small {
-font-size: 10px;
-}
-
-.stage-counter {
-padding: 4px 9px;
-font-size: 12px;
-}
-
-.progress-track {
-height: 5px;
-margin: 4px 0;
-}
-
-.question-area {
-padding: 3px 7px;
-margin: 4px auto;
-}
-
-.question-area h1 {
-font-size: 17px;
-}
-
-.question-area p {
-font-size: 11px;
-line-height: 1.35;
-margin: 2px;
-}
-
-.palette-panel {
-padding: 4px 7px;
-margin: 4px auto;
-}
-
-.palette-caption {
-font-size: 10px;
-margin-bottom: 3px;
-}
-
-.palette {
-gap: 5px;
-}
-
-.pencil-choice {
-width: 40px;
-height: 29px;
-}
-
-.pencil {
-width: 31px;
-height: 11px;
-}
-
-.pencil:before {
-right: -8px;
-border-top-width: 5.5px;
-border-bottom-width: 5.5px;
-border-left-width: 8px;
-}
-
-.pencil:after {
-right: -8px;
-top: 3px;
-border-top-width: 2.5px;
-border-bottom-width: 2.5px;
-border-left-width: 4px;
-}
-
-.pencil i {
-height: 11px;
-}
-
-.tool-buttons {
-margin-top: 3px;
-}
-
-.tool-button {
-padding: 3px 13px;
-font-size: 11px;
-}
-
-.board-area {
-margin: 4px auto;
-gap: 7px;
-}
-
-.board-card {
-padding: 4px;
-}
-
-.board-label {
-font-size: 12px;
-margin: 1px 0 3px;
-min-height: 18px;
-}
-
-.board {
-grid-template-rows:
-repeat(var(–rows), clamp(17px, 5.4vh, 29px));
-border-width: 2px;
-}
-
-.feedback {
-min-height: 16px;
-font-size: 11px;
-margin: 2px;
-}
-
-.nav-buttons {
-gap: 5px;
-margin: 3px auto;
-}
-
-.nav-button,
-.nav-buttons .primary-button {
-padding: 5px 10px;
-font-size: 11px;
-border-radius: 9px;
-}
-
-.game-footer {
-font-size: 9px;
-margin: 3px auto;
-}
-
-.signature {
-width: 105px;
-max-height: 35px;
-margin-bottom: 2px;
-}
-
-}
-
-/* نمایشگرهای بزرگ */
+/* نمایشگرهای بزرگ و پروژکتور */
 
 @media (min-width: 1200px) {
 
-.game-screen {
-padding: 12px 24px;
+    .game-screen {
+        padding: 12px 24px;
+    }
+
+    .board-area {
+        gap: 18px;
+    }
+
+    .board {
+        grid-template-rows:
+            repeat(var(--rows), 48px);
+    }
+
+    .question-area {
+        padding: 12px;
+    }
+
+    .board-label {
+        font-size: 20px;
+    }
 }
 
-.board-area {
-gap: 18px;
-}
+/* گوشی عمودی */
 
-.board {
-grid-template-rows:
-repeat(var(–rows), 48px);
-}
+@media (max-width: 600px) and (orientation: portrait) {
 
+    .game-screen {
+        padding: 6px;
+    }
+
+    .board-area {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .board {
+        grid-template-rows:
+            repeat(var(--rows), clamp(24px, 7vw, 34px));
+    }
+
+    .board-card {
+        padding: 6px;
+    }
+
+    .game-brand {
+        font-size: 16px;
+    }
+
+    .brand-icon {
+        font-size: 24px;
+    }
+
+    .stage-counter {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .pencil-choice {
+        width: 45px;
+        height: 37px;
+    }
+
+    .pencil {
+        width: 34px;
+    }
+
+    .signature {
+        width: 130px;
+    }
 }
