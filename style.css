@@ -1,769 +1,906 @@
+/* =========================================
+   تنظیمات پایه
+========================================= */
 * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    }
-
+}
 :root {
-font-family: Tahoma, Arial, sans-serif;
-color: #3f4653;
-background: #fbfaf6;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #303044;
+    background: #fbfaf6;
+    --purple: #7851b8;
+    --purple-dark: #62409b;
+    --pink: #f4a8c5;
+    --blue: #159ed0;
+    --green: #55ad48;
+    --red: #e53935;
+    --yellow: #f4c62f;
+    --orange: #e9782c;
+    --black: #242424;
+    --border: #e8e3ef;
+    --shadow: 0 5px 18px rgba(70, 55, 100, 0.09);
 }
-
-html,
+html {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
-margin: 0;
-width: 100%;
-min-height: 100%;
-overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #fbfaf6;
+    font-family: Tahoma, Arial, sans-serif;
 }
-
-body {
-background:
-radial-gradient(circle at 8% 8%, #f7eddf 0, transparent 27%),
-radial-gradient(circle at 92% 12%, #e8f2ed 0, transparent 25%),
-linear-gradient(135deg, #fbfaf6, #f3f2f8);
-}
-
 button,
 input {
-font: inherit;
+    font-family: inherit;
 }
-
 button {
-touch-action: manipulation;
-cursor: pointer;
+    cursor: pointer;
 }
-
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
 .hidden {
-display: none !important;
+    display: none !important;
 }
-
+/* =========================================
+   ساختار صفحه‌ها
+========================================= */
 .screen {
-min-height: 100vh;
-min-height: 100dvh;
-width: 100%;
+    width: 100%;
+    min-height: 100vh;
 }
-
-/* صفحه شروع */
-
 .welcome,
 .finish-screen {
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
-
-.welcome-card,
-.finish-card {
-width: min(600px, 96vw);
-padding: 24px 18px;
-background: #fff;
-border: 3px solid #e7e2d8;
-border-radius: 28px;
-box-shadow: 0 14px 42px #6e6a7b16;
-text-align: center;
+/* =========================================
+   صفحه شروع
+========================================= */
+.welcome {
+    background:
+        radial-gradient(circle at 15% 15%, #fce4ef 0, transparent 28%),
+        radial-gradient(circle at 85% 85%, #e8e2fb 0, transparent 30%),
+        #fbfaf6;
 }
-
+.welcome-card {
+    width: min(100%, 430px);
+    padding: 30px 28px;
+    background: #ffffff;
+    border: 1px solid #eee8f5;
+    border-radius: 26px;
+    box-shadow: 0 12px 35px rgba(65, 48, 100, 0.12);
+    text-align: center;
+}
 .teacher-photo {
-width: 125px;
-height: 125px;
-object-fit: cover;
-border-radius: 50%;
-border: 5px solid #f1ddff;
+    display: block;
+    width: 118px;
+    height: 118px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #f1e8fb;
+    box-shadow: 0 4px 12px rgba(80, 50, 120, 0.12);
 }
-
 .welcome-title {
-font-size: clamp(32px, 7vw, 50px);
-font-weight: 900;
-color: #756b9b;
-margin: 10px;
+    margin: 8px 0;
+    color: var(--purple);
+    font-size: clamp(26px, 4vw, 34px);
+    font-weight: 900;
 }
-
 .welcome-subtitle {
-font-size: 22px;
-font-weight: bold;
-color: #779b8d;
+    color: #777087;
+    font-size: 17px;
+    font-weight: bold;
 }
-
 .welcome-message {
-font-size: 18px;
-line-height: 2;
+    margin: 22px 0;
+    color: #514b60;
+    font-size: 17px;
+    line-height: 2;
 }
-
-/* راهنمای افقی کردن گوشی در صفحه شروع */
-
 .orientation-note {
-width: min(440px, 100%);
-margin: 12px auto 16px;
-padding: 11px 14px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 9px;
-background: #f1edf9;
-border: 2px solid #e3d9f2;
-border-radius: 15px;
-color: #756b9b;
-font-size: 14px;
-font-weight: bold;
-line-height: 1.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 18px 0;
+    padding: 12px;
+    border-radius: 13px;
+    background: #f1edfb;
+    color: #604a8c;
+    font-size: 13px;
+    line-height: 1.8;
 }
-
 .orientation-icon {
-font-size: 25px;
-flex-shrink: 0;
+    font-size: 22px;
+    flex-shrink: 0;
 }
-
-label {
-display: block;
-text-align: right;
-color: #756b9b;
-font-weight: bold;
-margin: 12px auto 6px;
-max-width: 420px;
+.welcome-card label {
+    display: block;
+    margin: 18px 0 8px;
+    text-align: right;
+    color: #514b60;
+    font-weight: bold;
+    font-size: 15px;
 }
-
-input {
-display: block;
-width: min(420px, 100%);
-margin: auto;
-padding: 13px;
-border: 2px solid #e5d3f7;
-border-radius: 14px;
-text-align: right;
-font-size: 18px;
+.welcome-card input {
+    display: block;
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 2px solid #e8e1f2;
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+    text-align: right;
 }
-
-/* دکمه‌ها */
-
-.primary-button,
-.nav-button,
-.tool-button {
-border: 0;
-border-radius: 13px;
-padding: 10px 16px;
-font-weight: 900;
+.welcome-card input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(120, 81, 184, 0.1);
 }
-
+/* =========================================
+   دکمه اصلی
+========================================= */
 .primary-button {
-background: linear-gradient(135deg, #8d83b5, #a79bc7);
-color: #fff;
-box-shadow: 0 4px 0 #71678f;
+    min-height: 46px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 13px;
+    background: var(--purple);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(120, 81, 184, 0.2);
+    transition: background 0.2s, transform 0.2s;
 }
-
-.primary-button:active,
-.nav-button:active,
-.tool-button:active {
-transform: translateY(2px);
+.primary-button:hover:not(:disabled) {
+    background: var(--purple-dark);
 }
-
-#welcome .primary-button {
-margin-top: 18px;
-font-size: 19px;
+.primary-button:active:not(:disabled) {
+    transform: scale(0.97);
 }
-
-/* سربرگ */
-
+.welcome-card .primary-button {
+    width: 100%;
+    margin-top: 18px;
+}
+/* =========================================
+   صفحه بازی
+========================================= */
 .game-screen {
-width: 100%;
-max-width: 1500px;
-margin: auto;
-padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px clamp(12px, 2.5vw, 30px) 8px;
+    background: #fbfaf6;
 }
-
 .game-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
 }
-
 .game-brand {
-display: flex;
-align-items: center;
-gap: 9px;
-color: #756b9b;
-font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
-
-.game-brand small {
-display: block;
-font-size: 12px;
-color: #725f7c;
-margin-top: 3px;
-}
-
 .brand-icon {
-font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #eee7fa;
+    font-size: 24px;
 }
-
+.game-brand strong {
+    display: block;
+    color: var(--purple);
+    font-size: 17px;
+}
+.game-brand small {
+    display: block;
+    margin-top: 3px;
+    color: #817b8c;
+    font-size: 11px;
+}
 .stage-counter {
-background: #fff;
-border: 2px solid #e2e1e8;
-border-radius: 14px;
-padding: 7px 13px;
-font-weight: bold;
-white-space: nowrap;
+    padding: 9px 15px;
+    border-radius: 12px;
+    background: #eee8f8;
+    color: var(--purple-dark);
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
 }
-
-/* نوار پیشرفت */
-
+/* =========================================
+   نوار پیشرفت
+========================================= */
 .progress-track {
-height: 8px;
-background: #e9e8e5;
-border-radius: 20px;
-margin: 9px 0;
-overflow: hidden;
+    width: 100%;
+    height: 7px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e9e4ef;
 }
-
 #progressBar {
-height: 100%;
-width: 0;
-background: linear-gradient(90deg, #a9c7b8, #aaa1c9);
-transition: width .25s;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #a47bd7, #7851b8);
+    transition: width 0.3s ease;
 }
-
-/* عنوان سؤال */
-
+/* =========================================
+   بخش سؤال
+========================================= */
 .question-area {
-text-align: center;
-background: #fff;
-border: 2px solid #f0d8e8;
-border-radius: 15px;
-padding: 7px 10px;
-margin: 8px auto;
-max-width: 1100px;
+    width: 100%;
+    padding: 8px 12px;
+    text-align: center;
 }
-
 .question-area h1 {
-font-size: clamp(18px, 3vw, 25px);
-color: #756b9b;
-margin: 3px;
+    margin: 2px 0 6px;
+    color: #51416e;
+    font-size: clamp(17px, 2.2vw, 23px);
+    font-weight: 900;
 }
-
 .question-area p {
-font-size: clamp(13px, 2vw, 16px);
-line-height: 1.6;
-margin: 4px;
+    margin: 0;
+    color: #777183;
+    font-size: clamp(12px, 1.5vw, 15px);
+    line-height: 1.8;
 }
-
-/* مدادهای رنگی */
-
+/* =========================================
+   پالت رنگ
+========================================= */
 .palette-panel {
-max-width: 1050px;
-margin: 8px auto;
-background: #fff;
-border: 2px solid #e5e5df;
-border-radius: 15px;
-padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    padding: 7px 12px;
+    border: 1px solid #eee8f4;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: var(--shadow);
 }
-
 .palette-caption {
-margin: 0 0 5px;
-text-align: center;
-color: #74518c;
-font-size: 13px;
-font-weight: bold;
+    margin: 0;
+    color: #625a70;
+    font-size: 13px;
+    font-weight: bold;
 }
-
 .palette {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 9px;
-flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
-
 .pencil-choice {
-width: 58px;
-height: 45px;
-background: #fff;
-border: 2px solid #eee2f5;
-border-radius: 11px;
-display: flex;
-align-items: center;
-justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    padding: 4px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: #f7f5fa;
+    transition: transform 0.15s, border-color 0.15s;
 }
-
 .pencil-choice.selected {
-outline: 3px solid #7543b4;
-outline-offset: 1px;
-background: #fbf5ff;
+    border-color: var(--purple);
+    background: #eee8f8;
+    transform: translateY(-2px);
 }
-
 .pencil {
-position: relative;
-display: block;
-width: 43px;
-height: 15px;
-background: var(–pencil);
-border-radius: 5px 2px 2px 5px;
-transform: rotate(-27deg);
-box-shadow:
-inset 0 3px #ffffff55,
-inset 0 -3px #00000018;
+    position: relative;
+    display: block;
+    width: 13px;
+    height: 30px;
+    border-radius: 5px 5px 3px 3px;
+    background: var(--pencil);
+    transform: rotate(0deg);
+    box-shadow: inset -2px 0 2px rgba(0, 0, 0, 0.12);
 }
-
-.pencil:before {
-content: “”;
-position: absolute;
-right: -11px;
-top: 0;
-border-top: 7.5px solid transparent;
-border-bottom: 7.5px solid transparent;
-border-left: 11px solid #e8c89d;
+.pencil::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 6.5px solid transparent;
+    border-right: 6.5px solid transparent;
+    border-bottom: 8px solid var(--pencil);
 }
-
-.pencil:after {
-content: “”;
-position: absolute;
-right: -11px;
-top: 4px;
-border-top: 3.5px solid transparent;
-border-bottom: 3.5px solid transparent;
-border-left: 5px solid #333;
+.pencil::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 3px;
+    width: 7px;
+    height: 6px;
+    background: #e3c49c;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
-
 .pencil i {
-position: absolute;
-left: 7px;
-top: 0;
-height: 15px;
-width: 3px;
-background: #ffffff75;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    width: 2px;
+    height: 17px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.45);
 }
-
-/* ابزار پاک‌کن */
-
+/* =========================================
+   دکمه پاک‌کن
+========================================= */
 .tool-buttons {
-display: flex;
-justify-content: center;
-margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 .tool-button {
-background: #eef2ef;
-color: #687f75;
-border: 2px solid #dce7df;
-padding: 7px 20px;
+    min-width: 76px;
+    min-height: 38px;
+    padding: 7px 13px;
+    border: 1px solid #e4ddeb;
+    border-radius: 10px;
+    background: #f7f4fa;
+    color: #5f526e;
+    font-size: 13px;
+    font-weight: bold;
 }
-
 .tool-button.active {
-background: #7543b4;
-color: white;
-border-color: #7543b4;
+    border-color: #e39a9a;
+    background: #ffeded;
+    color: #c62828;
 }
-
-/* بخش جدول‌ها */
-
+/* =========================================
+   بخش جدول‌ها
+========================================= */
 .board-area {
-width: 100%;
-display: grid;
-grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-gap: 12px;
-align-items: start;
-margin: 9px auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(10px, 2vw, 20px);
+    width: 100%;
+    min-width: 0;
 }
-
 .board-card {
-min-width: 0;
-background: #ffffff;
-border: 2px solid #e9e1ed;
-border-radius: 13px;
-padding: 7px;
-overflow: hidden;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #e9e3f0;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: var(--shadow);
 }
-
 .board-label {
-font-size: clamp(14px, 2vw, 19px);
-font-weight: 900;
-color: #756b9b;
-text-align: center;
-margin: 2px 0 7px;
-min-height: 25px;
+    min-height: 27px;
+    margin-bottom: 8px;
+    color: #625276;
+    font-size: clamp(12px, 1.5vw, 15px);
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.7;
 }
-
 .board-wrap {
-width: 100%;
-overflow: hidden;
-direction: ltr;
-padding: 1px;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #fff;
 }
-
+/* =========================================
+   شبکه اصلی و جدول پاسخ
+========================================= */
 .board {
-–cols: 12;
-–rows: 3;
-
-display: grid;
-
-grid-template-columns:
-repeat(var(–cols), minmax(0, 1fr));
-
-grid-template-rows:
-repeat(var(–rows), clamp(25px, 4.2vw, 45px));
-
-gap: 0;
-
-width: 100%;
-min-width: 0;
-
-margin: 0 auto;
-
-border: 3px solid #d99a70;
-background: #fff;
-
-position: relative;
-direction: ltr;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-template-rows: repeat(var(--rows), minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: var(--cols) / var(--rows);
+    overflow: hidden;
+    isolation: isolate;
+    border-top: 1px solid #c9c5ce;
+    border-right: 1px solid #c9c5ce;
+    background: #fff;
+    direction: ltr;
 }
-
 .small-board {
-width: 100%;
-min-width: 0;
+    width: 100%;
+    max-width: 100%;
 }
-
+/* =========================================
+   خانه‌های جدول
+========================================= */
 .grid-cell {
-min-width: 0;
-min-height: 0;
-
-border: 0;
-border-right: 1px solid #a9d7e8;
-border-bottom: 1px solid #a9d7e8;
-
-background: #fff;
-padding: 0;
-position: relative;
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border: none;
+    border-left: 1px solid #c9c5ce;
+    border-bottom: 1px solid #c9c5ce;
+    background-color: #fff;
+    padding: 0;
 }
-
-.grid-cell.answer-cell {
-cursor: pointer;
-}
-
 .grid-cell.locked {
-cursor: default;
+    cursor: default;
 }
-
-.grid-cell .paint-fill {
-position: absolute;
-inset: 1px;
-background: var(–fill);
+.grid-cell.answer-cell {
+    cursor: pointer;
 }
-
-/* رسم خط */
-
+.grid-cell.answer-cell:active {
+    background-color: #f5f0fc;
+}
+/* =========================================
+   جدول‌های خطی و SVG
+========================================= */
 .line-board {
-touch-action: none;
-overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
 }
-
+.line-board .grid-cell {
+    pointer-events: none;
+}
 .line-svg {
-position: absolute;
-inset: 0;
-width: 100%;
-height: 100%;
-overflow: hidden;
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
 }
-
+.line-path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
 .line-guide {
-pointer-events: none;
+    pointer-events: none;
+    opacity: 0.95;
 }
-
 .line-draw {
-pointer-events: auto;
-touch-action: none;
-cursor: crosshair;
+    fill: none;
+    stroke: transparent;
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: stroke;
+    touch-action: none;
+    cursor: crosshair;
 }
-
-/* پیام پاسخ */
-
+/* =========================================
+   پیام بازخورد
+========================================= */
 .feedback {
-min-height: 24px;
-text-align: center;
-font-weight: bold;
-font-size: 14px;
-color: #756b9b;
-margin: 5px;
+    width: 100%;
+    min-height: 23px;
+    margin: 0;
+    color: #555;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
 }
-
 .feedback.wrong {
-color: #d83f5c;
+    color: #d63b3b;
 }
-
-.feedback.correct {
-color: #25934a;
-}
-
-/* دکمه‌های مرحله */
-
+/* =========================================
+   دکمه‌های جابه‌جایی
+========================================= */
 .nav-buttons {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 8px;
-flex-wrap: wrap;
-margin: 7px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    width: 100%;
 }
-
 .nav-button {
-background: #fff;
-color: #756b9b;
-border: 2px solid #e2e1e8;
-padding: 9px 13px;
+    min-width: 105px;
+    min-height: 40px;
+    padding: 8px 15px;
+    border: 1px solid #ded5eb;
+    border-radius: 11px;
+    background: #fff;
+    color: #625276;
+    font-size: 13px;
+    font-weight: bold;
 }
-
-.nav-button:disabled {
-opacity: .4;
-cursor: not-allowed;
+.nav-button:not(:disabled):hover {
+    background: #f1ebfa;
 }
-
+.nav-button:active:not(:disabled) {
+    transform: scale(0.97);
+}
 .exit-button {
-color: #bd4165;
+    border-color: #f0d6d6;
+    color: #b83c3c;
+    background: #fff8f8;
 }
-
-/* امضای آموزگار */
-
+/* =========================================
+   امضای آموزگار
+========================================= */
 .game-footer {
-text-align: center;
-color: #7a6686;
-font-size: 12px;
-margin: 7px auto 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px 13px;
+    width: 100%;
+    padding: 5px 8px 2px;
+    color: #81798b;
+    font-size: 11px;
+    text-align: center;
 }
-
 .signature {
-display: block;
-width: min(190px, 42vw);
-height: auto;
-max-height: 85px;
-object-fit: contain;
-margin: 0 auto 4px;
+    display: block;
+    width: 115px;
+    max-width: 30vw;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
 }
-
-/* صفحه پایان */
-
+/* =========================================
+   صفحه پایان
+========================================= */
+.finish-screen {
+    background:
+        radial-gradient(circle at 20% 20%, #fce4ef 0, transparent 30%),
+        radial-gradient(circle at 80% 80%, #e8e2fb 0, transparent 30%),
+        #fbfaf6;
+}
+.finish-card {
+    width: min(100%, 430px);
+    padding: 32px 25px;
+    border: 1px solid #eee6f4;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 12px 35px rgba(65, 48, 100, 0.12);
+    text-align: center;
+}
 .finish-star {
-font-size: 65px;
+    margin-bottom: 8px;
+    font-size: 65px;
 }
-
 .finish-card h1 {
-color: #756b9b;
+    margin: 8px 0;
+    color: var(--purple);
+    font-size: 32px;
 }
-
+.finish-card p {
+    margin: 16px 0;
+    color: #61596e;
+    font-size: 16px;
+    line-height: 2;
+}
 .finish-signature {
-margin: 15px auto;
+    width: 145px;
+    margin: 18px auto;
 }
-
-/* فشفشه‌ها */
-
+.finish-card .primary-button {
+    width: 100%;
+    margin-top: 10px;
+}
+/* =========================================
+   بوم فشفشه
+========================================= */
 .fireworks-canvas {
-position: fixed;
-inset: 0;
-width: 100%;
-height: 100%;
-pointer-events: none;
-z-index: 30;
-display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
-
-/* تبلت و صفحه‌های متوسط */
-
-@media (max-width: 850px) {
-
-.game-screen {
-padding: 8px;
+/* =========================================
+   تبلت و نمایشگر متوسط
+========================================= */
+@media (max-width: 900px) {
+    .game-screen {
+        padding: 10px 12px 7px;
+        gap: 8px;
+    }
+    .board-area {
+        gap: 10px;
+    }
+    .board-card {
+        padding: 8px;
+    }
+    .palette-panel {
+        gap: 8px;
+    }
+    .pencil-choice {
+        width: 39px;
+        height: 39px;
+    }
+    .pencil {
+        height: 27px;
+    }
 }
-
-.board-area {
-gap: 7px;
+/* =========================================
+   گوشی در حالت افقی
+========================================= */
+@media (max-width: 700px) and (orientation: landscape) {
+    .screen {
+        min-height: 100svh;
+    }
+    .game-screen {
+        min-height: 100svh;
+        padding: 6px 9px;
+        gap: 5px;
+    }
+    .game-header {
+        min-height: 35px;
+    }
+    .brand-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 19px;
+    }
+    .game-brand strong {
+        font-size: 14px;
+    }
+    .game-brand small {
+        font-size: 9px;
+    }
+    .stage-counter {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    .progress-track {
+        height: 5px;
+    }
+    .question-area {
+        padding: 2px 5px;
+    }
+    .question-area h1 {
+        margin: 0 0 3px;
+        font-size: 16px;
+    }
+    .question-area p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+    .palette-panel {
+        min-height: 44px;
+        padding: 4px 7px;
+        gap: 7px;
+    }
+    .palette-caption {
+        font-size: 11px;
+    }
+    .palette {
+        gap: 5px;
+    }
+    .pencil-choice {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+    }
+    .pencil {
+        width: 10px;
+        height: 22px;
+    }
+    .pencil::before {
+        top: -6px;
+        border-left-width: 5px;
+        border-right-width: 5px;
+        border-bottom-width: 7px;
+    }
+    .pencil::after {
+        left: 2px;
+        width: 6px;
+        height: 5px;
+    }
+    .pencil i {
+        top: 4px;
+        left: 2px;
+        height: 12px;
+    }
+    .tool-button {
+        min-height: 32px;
+        min-width: 62px;
+        padding: 5px 9px;
+        font-size: 11px;
+    }
+    .board-area {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        gap: 8px;
+    }
+    .board-card {
+        padding: 6px;
+        border-radius: 10px;
+    }
+    .board-label {
+        min-height: 19px;
+        margin-bottom: 4px;
+        font-size: 11px;
+    }
+    .feedback {
+        min-height: 16px;
+        font-size: 10px;
+    }
+    .nav-buttons {
+        gap: 6px;
+    }
+    .nav-button,
+    .nav-buttons .primary-button {
+        min-width: 80px;
+        min-height: 32px;
+        padding: 5px 9px;
+        border-radius: 8px;
+        font-size: 11px;
+    }
+    .game-footer {
+        gap: 3px 8px;
+        padding: 1px;
+        font-size: 9px;
+    }
+    .game-footer .signature {
+        width: 75px;
+    }
 }
-
-.board-card {
-padding: 5px;
+/* =========================================
+   گوشی در حالت عمودی
+========================================= */
+@media (max-width: 600px) and (orientation: portrait) {
+    .welcome,
+    .finish-screen {
+        padding: 15px;
+    }
+    .welcome-card,
+    .finish-card {
+        padding: 24px 19px;
+    }
+    .game-screen {
+        padding: 10px 8px;
+    }
+    .board-area {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+    .board-card {
+        width: 100%;
+    }
+    .board-label {
+        font-size: 13px;
+    }
+    .nav-buttons {
+        gap: 6px;
+    }
+    .nav-button {
+        min-width: 75px;
+        padding: 8px 10px;
+        font-size: 11px;
+    }
 }
-
-.board {
-grid-template-rows:
-repeat(var(–rows), clamp(23px, 4vw, 36px));
-}
-
-.pencil-choice {
-width: 51px;
-height: 40px;
-}
-
-.pencil {
-width: 38px;
-}
-
-}
-
-/* گوشی افقی */
-
-@media (max-height: 520px) and (orientation: landscape) {
-
-.game-screen {
-padding: 4px 8px;
-}
-
-.game-header {
-min-height: 29px;
-}
-
-.game-brand {
-font-size: 16px;
-}
-
-.brand-icon {
-font-size: 22px;
-}
-
-.game-brand small {
-font-size: 10px;
-}
-
-.stage-counter {
-padding: 4px 9px;
-font-size: 12px;
-}
-
-.progress-track {
-height: 5px;
-margin: 4px 0;
-}
-
-.question-area {
-padding: 3px 7px;
-margin: 4px auto;
-}
-
-.question-area h1 {
-font-size: 17px;
-}
-
-.question-area p {
-font-size: 11px;
-line-height: 1.35;
-margin: 2px;
-}
-
-.palette-panel {
-padding: 4px 7px;
-margin: 4px auto;
-}
-
-.palette-caption {
-font-size: 10px;
-margin-bottom: 3px;
-}
-
-.palette {
-gap: 5px;
-}
-
-.pencil-choice {
-width: 40px;
-height: 29px;
-}
-
-.pencil {
-width: 31px;
-height: 11px;
-}
-
-.pencil:before {
-right: -8px;
-border-top-width: 5.5px;
-border-bottom-width: 5.5px;
-border-left-width: 8px;
-}
-
-.pencil:after {
-right: -8px;
-top: 3px;
-border-top-width: 2.5px;
-border-bottom-width: 2.5px;
-border-left-width: 4px;
-}
-
-.pencil i {
-height: 11px;
-}
-
-.tool-buttons {
-margin-top: 3px;
-}
-
-.tool-button {
-padding: 3px 13px;
-font-size: 11px;
-}
-
-.board-area {
-margin: 4px auto;
-gap: 7px;
-}
-
-.board-card {
-padding: 4px;
-}
-
-.board-label {
-font-size: 12px;
-margin: 1px 0 3px;
-min-height: 18px;
-}
-
-.board {
-grid-template-rows:
-repeat(var(–rows), clamp(17px, 5.4vh, 29px));
-border-width: 2px;
-}
-
-.feedback {
-min-height: 16px;
-font-size: 11px;
-margin: 2px;
-}
-
-.nav-buttons {
-gap: 5px;
-margin: 3px auto;
-}
-
-.nav-button,
-.nav-buttons .primary-button {
-padding: 5px 10px;
-font-size: 11px;
-border-radius: 9px;
-}
-
-.game-footer {
-font-size: 9px;
-margin: 3px auto;
-}
-
-.signature {
-width: 105px;
-max-height: 35px;
-margin-bottom: 2px;
-}
-
-}
-
-/* نمایشگرهای بزرگ */
-
+/* =========================================
+   نمایشگرهای بزرگ و پروژکتور
+========================================= */
 @media (min-width: 1200px) {
-
-.game-screen {
-padding: 12px 24px;
+    .game-screen {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 16px 35px 10px;
+        gap: 12px;
+    }
+    .game-header {
+        min-height: 48px;
+    }
+    .question-area h1 {
+        font-size: 25px;
+    }
+    .question-area p {
+        font-size: 16px;
+    }
+    .board-area {
+        gap: 24px;
+    }
+    .board-card {
+        padding: 14px;
+    }
+    .board-label {
+        font-size: 16px;
+    }
+    .palette-panel {
+        padding: 10px;
+    }
+    .pencil-choice {
+        width: 48px;
+        height: 48px;
+    }
+    .nav-button,
+    .nav-buttons .primary-button {
+        min-height: 45px;
+        min-width: 120px;
+        font-size: 14px;
+    }
+    .game-footer {
+        font-size: 12px;
+    }
 }
-
-.board-area {
-gap: 18px;
-}
-
-.board {
-grid-template-rows:
-repeat(var(–rows), 48px);
-}
-
+/* =========================================
+   نمایشگرهای کوتاه در حالت افقی
+========================================= */
+@media (max-height: 520px) and (orientation: landscape) {
+    .game-screen {
+        min-height: 100vh;
+        gap: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .question-area {
+        padding: 1px 5px;
+    }
+    .question-area h1 {
+        font-size: 14px;
+    }
+    .question-area p {
+        font-size: 10px;
+    }
+    .palette-panel {
+        min-height: 36px;
+        padding: 2px 6px;
+    }
+    .pencil-choice {
+        width: 28px;
+        height: 28px;
+    }
+    .pencil {
+        height: 19px;
+    }
+    .tool-button {
+        min-height: 27px;
+    }
+    .board-card {
+        padding: 4px;
+    }
+    .board-label {
+        min-height: 16px;
+        margin-bottom: 3px;
+        font-size: 10px;
+    }
+    .nav-button,
+    .nav-buttons .primary-button {
+        min-height: 28px;
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    .game-footer {
+        font-size: 8px;
+    }
+    .game-footer .signature {
+        width: 60px;
+    }
 }
