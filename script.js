@@ -1841,3 +1841,116 @@ function showFireworks() {
                 -p.size / 2,
                 p.size,
                 p.size * 1.45
+            );
+
+            ctx.restore();
+
+        });
+
+        frame++;
+
+        if (frame < 100) {
+
+            fireworksFrame =
+                requestAnimationFrame(draw);
+
+        } else {
+
+            ctx.clearRect(
+                0,
+                0,
+                innerWidth,
+                innerHeight
+            );
+
+            canvas.style.display = "none";
+
+            fireworksFrame = null;
+
+        }
+
+    }
+
+    draw();
+
+}
+
+/* شروع دوباره */
+
+function restartGame() {
+
+    if (fireworksFrame) {
+
+        cancelAnimationFrame(fireworksFrame);
+
+        fireworksFrame = null;
+
+    }
+
+    $("fireworksCanvas").style.display = "none";
+
+    celebratedStages.clear();
+
+    $("finish").classList.add("hidden");
+
+    $("welcome").classList.remove("hidden");
+
+    $("studentName").value = "";
+
+}
+
+/* اتصال دکمه‌ها */
+
+$("startButton").addEventListener(
+    "click",
+    startGame
+);
+
+$("studentName").addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Enter") {
+            startGame();
+        }
+
+    }
+);
+
+$("prevButton").addEventListener(
+    "click",
+    previousStage
+);
+
+$("nextButton").addEventListener(
+    "click",
+    nextStage
+);
+
+$("checkButton").addEventListener(
+    "click",
+    checkAnswers
+);
+
+$("eraserButton").addEventListener(
+    "click",
+    toggleEraser
+);
+
+$("exitButton").addEventListener(
+    "click",
+    exitGame
+);
+
+$("restartButton").addEventListener(
+    "click",
+    restartGame
+);
+
+/* وضعیت اولیه */
+
+$("welcome").classList.remove("hidden");
+
+$("game").classList.add("hidden");
+
+$("finish").classList.add("hidden");
